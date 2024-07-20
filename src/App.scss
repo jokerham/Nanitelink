@@ -1,0 +1,108 @@
+html body { 
+  margin: 0;
+  padding: 0;
+  background-color: #F1F1F1;
+}
+
+// NANITE LINK CSS
+.NL_ {
+  /********************************************************************************
+  COMPONENTS
+  ********************************************************************************/
+  // Container
+  &container {
+    display: flex;
+    max-width: 1140px;         /* Fixed width */
+    margin: 0 auto;       /* Centers horizontally */
+    width: 100%;
+  }
+
+  // ButtonLink
+  &buttonLink {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  &icon {
+    padding-top: 1px;
+    padding-right: 5px;
+  }
+
+  /********************************************************************************
+  INDIVIDUAL
+  ********************************************************************************/
+  // Navigation
+  &nav {
+    display: flex;
+    align-items: center;     /* Vertical center */
+    background-color: #222222;;
+    height: 50px;
+    border-style: inset;
+    border-width: 0 0 2px 0;
+    border-color: #D9534F;
+    margin: 0 0 10px 0;
+
+    &_logo {
+      display: flex;
+      align-items: center;     /* Vertical center */
+      color: white;
+      font-size: 18px;
+      font-family: 'Nanum Gothic';
+      font-weight: bold;
+    }
+
+    &_menu {
+      list-style: none;    /* Removes bullet points from the list */
+      height: 100%;
+      display: flex;
+      margin-right: auto;
+      padding-inline-start: 30px;
+      gap: 0px;           /* Space between menu items */
+
+      &_item {
+        & a {
+          display: flex;
+          align-items: center;     /* Vertical center */
+          padding: 0 15px 0 15px;
+          text-decoration: none;
+          color: #fff;
+          font-size: 14px;
+          font-family: 'Nanum Gothic';
+          font-weight: bold;
+          height: 50px;
+
+          &.active {
+            background-color: #D9534F; /* Change text color for active state */
+          }
+        }
+      }
+    }
+
+    &_signin {
+      display: flex;
+      align-items: center;     /* Vertical center */
+      margin-left: auto;
+
+      &_link {
+        display: flex;
+        align-items: center;     /* Vertical center */
+        color: white;
+        font-size: 14px;
+        font-family: 'Nanum Gothic';
+        font-weight: bold;
+      }
+    }
+  }
+
+  // Main content
+  &main {
+    display: flex;
+    background-color: white;
+    padding: 10px;
+    border: solid;
+    border-color: #E7E7E7;
+    border-width: 1px;
+  }
+}
