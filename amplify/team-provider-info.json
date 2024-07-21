@@ -10,6 +10,18 @@
       "StackName": "amplify-nanitelink-dev-8f35e",
       "StackId": "arn:aws:cloudformation:ap-northeast-2:785455635280:stack/amplify-nanitelink-dev-8f35e/03bb4710-46fd-11ef-bea5-060c824a9db3",
       "AmplifyAppId": "d2l1y8pgzchk2r"
+    },
+    "categories": {
+      "hosting": {
+        "amplifyhosting": {
+          "appId": "d2l1y8pgzchk2r",
+          "type": "manual"
+        }
+      },
+      "auth": {
+        "nanitelink978b2875": {},
+        "nanitelinke874e11c": {}
+      }
     }
   }
 }
