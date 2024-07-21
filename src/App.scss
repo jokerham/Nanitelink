@@ -26,8 +26,8 @@ html body {
   }
 
   &icon {
-    padding-top: 1px;
-    padding-right: 5px;
+    margin-top: 1px;
+    margin-right: 5px;
   }
 
   /********************************************************************************
@@ -42,7 +42,6 @@ html body {
     border-style: inset;
     border-width: 0 0 2px 0;
     border-color: #D9534F;
-    margin: 0 0 10px 0;
 
     &_logo {
       display: flex;
@@ -104,5 +103,12 @@ html body {
     border: solid;
     border-color: #E7E7E7;
     border-width: 1px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  &footer {
+    background-color: #FBFBFB;
+    height: 50px;
   }
 }

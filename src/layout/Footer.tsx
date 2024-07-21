@@ -4,7 +4,11 @@ import React from 'react';
 const Footer: React.FC = () => {
   return (
     <footer>
-      <p>&copy; 2024 My Company</p>
+      <div className="NL_footer">
+        <div className="NL_container">
+          <p>&copy; 2024 Nanitelink</p>
+        </div>
+      </div>
     </footer>
   );
 };
