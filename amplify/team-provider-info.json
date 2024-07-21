@@ -1,0 +1,15 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-nanitelink-dev-8f35e-authRole",
+      "UnauthRoleArn": "arn:aws:iam::785455635280:role/amplify-nanitelink-dev-8f35e-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::785455635280:role/amplify-nanitelink-dev-8f35e-authRole",
+      "Region": "ap-northeast-2",
+      "DeploymentBucketName": "amplify-nanitelink-dev-8f35e-deployment",
+      "UnauthRoleName": "amplify-nanitelink-dev-8f35e-unauthRole",
+      "StackName": "amplify-nanitelink-dev-8f35e",
+      "StackId": "arn:aws:cloudformation:ap-northeast-2:785455635280:stack/amplify-nanitelink-dev-8f35e/03bb4710-46fd-11ef-bea5-060c824a9db3",
+      "AmplifyAppId": "d2l1y8pgzchk2r"
+    }
+  }
+}
