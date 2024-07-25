@@ -1,0 +1,11 @@
+{
+  "AppSyncApiName": "nanitelink",
+  "DynamoDBBillingMode": "PAY_PER_REQUEST",
+  "DynamoDBEnableServerSideEncryption": false,
+  "AuthCognitoUserPoolId": {
+    "Fn::GetAtt": [
+      "authnanitelinke874e11c",
+      "Outputs.UserPoolId"
+    ]
+  }
+}
