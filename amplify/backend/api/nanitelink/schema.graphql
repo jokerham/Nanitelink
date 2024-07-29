@@ -19,5 +19,7 @@ type User @model
   userBlogPage: String,
   userBirthday: AWSDate,
   profileImageUrl: String,
-  additional: String
+  additional: String,
+  acceptMail: String,
+  acceptMemo: String
 }
