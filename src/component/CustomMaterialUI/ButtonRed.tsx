@@ -9,4 +9,8 @@ const ButtonRed = styled(Button)(() => ({
     }
 }));
 
-export default ButtonRed;
+const ButtonRedContained = ({...props}) => {
+    return <ButtonRed variant='contained' {...props} />;
+};
+
+export default ButtonRedContained;

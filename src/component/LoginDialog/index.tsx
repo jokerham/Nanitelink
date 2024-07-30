@@ -75,7 +75,6 @@ export default function LoginDialog(props: {open: boolean, handleClose: () => vo
                     <Grid item xs={12}>
                         <ButtonRed
                             fullWidth
-                            variant="contained"
                             sx={{
                                 marginTop: '5px'
                             }}>
