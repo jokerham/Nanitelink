@@ -15,13 +15,12 @@ import {
     ButtonRed,
     DialogWidth300,
     TextFieldFocusRedBorder
-} from '../CustomMaterialUI';
+} from 'component/CustomMaterialUI';
 import { Formik, Form, Field, FieldProps, FormikHelpers } from 'formik';
-import * as Yup from 'yup';
 import { toast } from 'react-toastify';
 import { signIn } from 'aws-amplify/auth';
-import '../../amplifyconfigure';
-import ConfirmSignUpDialog from './ConfirmSignUpDialog';
+import 'amplifyconfigure';
+import ConfirmSignUpDialog from 'component/dialog/ConfirmSignUpDialog';
 import { useState } from 'react';
 
 type TSignInFormData = {

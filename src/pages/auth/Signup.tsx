@@ -19,7 +19,7 @@ import {
     ButtonRed,
     DatePickerFocusRedBorder,
     TextFieldFocusRedBorderSmall
-} from '../../component/CustomMaterialUI';
+} from 'component/CustomMaterialUI';
 import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -30,8 +30,8 @@ import { FaPencilAlt } from 'react-icons/fa';
 import * as Yup from 'yup';
 import uuid from 'react-native-uuid';
 import dayjs, { Dayjs } from 'dayjs';
-import '../../amplifyconfigure';
-import ConfirmSignUpDialog from '../../component/dialog/ConfirmSignUpDialog';
+import ConfirmSignUpDialog from 'component/dialog/ConfirmSignUpDialog';
+import 'amplifyconfigure';
 
 type TSignUpFormData = {
     userid: string;

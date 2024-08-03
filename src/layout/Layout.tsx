@@ -1,9 +1,9 @@
 // src/layout/Layout.tsx
 import React from 'react';
 import { Outlet } from 'react-router-dom';
-import Header from './Header';
-import Footer from './Footer';
 import { ToastContainer } from 'react-toastify';
+import Header from 'layout/Header';
+import Footer from 'layout/Footer';
 import 'react-toastify/dist/ReactToastify.css';
 
 const Layout: React.FC = () => {

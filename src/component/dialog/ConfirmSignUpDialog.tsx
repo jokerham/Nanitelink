@@ -13,12 +13,11 @@ import {
     ButtonRed,
     DialogWidth300,
     TextFieldFocusRedBorder
-} from '../CustomMaterialUI';
+} from 'component/CustomMaterialUI';
 import { Formik, Form, Field, FieldProps, FormikHelpers } from 'formik';
-import * as Yup from 'yup';
 import { confirmSignUp } from 'aws-amplify/auth';
 import { toast } from 'react-toastify';
-import '../../amplifyconfigure';
+import 'amplifyconfigure';
 
 type TSignUpVerificationFormData = {
     verification_code: string;

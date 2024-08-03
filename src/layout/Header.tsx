@@ -3,15 +3,15 @@ import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Box, Popover } from '@mui/material';
 import { FaSearch, FaSignInAlt } from 'react-icons/fa';
-import useNavigateWithParams from '../function/useNavigateWithParams';
-import LoginDialog from '../component/dialog/LoginDialog';
-import logo from '../logo.svg';
-import { AvatarShadow, TextFieldFocusRedBorder } from '../component/CustomMaterialUI';
+import useNavigateWithParams from 'function/useNavigateWithParams';
+import LoginDialog from 'component/dialog/LoginDialog';
+import logo from 'logo.svg';
+import { AvatarShadow, TextFieldFocusRedBorder } from 'component/CustomMaterialUI';
 import { fetchUserAttributes, FetchUserAttributesOutput } from 'aws-amplify/auth';
-import '../amplifyconfigure';
+import 'amplifyconfigure';
 import { getUrl } from 'aws-amplify/storage';
 import { Hub } from 'aws-amplify/utils';
-import ProfileMenu from './ProfileMenu';
+import ProfileMenu from 'layout/ProfileMenu';
 
 const Header: React.FC = () => {
     const navigateWithParams = useNavigateWithParams();

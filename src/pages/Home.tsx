@@ -1,5 +1,5 @@
 // src/pages/Home.tsx
-import logo from '../logo.svg';
+import logo from 'logo.svg';
 
 function Home() {
     return (

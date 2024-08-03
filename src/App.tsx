@@ -4,11 +4,11 @@ import {
     Route,
     Routes
 } from 'react-router-dom';
-import Layout from './layout/Layout';
-import Home from './pages/Home';
-import './App.scss';
-import Signup from './pages/auth/Signup';
-import PageNotFound from './layout/PageNotFound';
+import Layout from 'layout/Layout';
+import Home from 'pages/Home';
+import Signup from 'pages/auth/Signup';
+import PageNotFound from 'layout/PageNotFound';
+import 'App.scss';
 
 function App() {
     return (
