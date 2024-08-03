@@ -37,7 +37,7 @@ html body {
   &nav {
     display: flex;
     align-items: center;     /* Vertical center */
-    background-color: #222222;;
+    background-color: #222222;
     height: 50px;
     border-style: inset;
     border-width: 0 0 2px 0;
@@ -198,5 +198,16 @@ html body {
   &footer {
     background-color: #FBFBFB;
     height: 50px;
+  }
+
+  /********************************************************************************
+  ADMIN
+  ********************************************************************************/
+  @admin_ {
+    @nav {
+      display: flex;
+      align-items: center;     /* Vertical center */
+      height: 70px;
+    }
   }
 }

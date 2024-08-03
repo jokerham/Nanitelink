@@ -5,9 +5,11 @@ import {
   Routes
 } from 'react-router-dom';
 import Layout from 'layout/Layout';
+import AdminLayout from 'layout/admin/AdminLayout';
 import Home from 'pages/Home';
 import Signup from 'pages/auth/Signup';
 import PageNotFound from 'layout/PageNotFound';
+import Dashboard from 'pages/admin/Dashboard';
 import 'App.scss';
 
 function App() {
@@ -17,8 +19,11 @@ function App() {
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="signup" element={<Signup />} />
-          <Route path="*" element={<PageNotFound />} />
         </Route>
+        <Route path="admin/" element={<AdminLayout />}>
+          <Route index element={<Dashboard />} />
+        </Route>
+        <Route path="*" element={<PageNotFound />} />
       </Routes>
     </Router>
   );

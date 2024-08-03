@@ -1,15 +1,15 @@
 // src/layout/Layout.tsx
 import { Outlet } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
-import Header from './Header';
+import Header from './AdminHeader';
 import Footer from 'layout/Footer';
 import 'react-toastify/dist/ReactToastify.css';
 
-const Layout = () => {
+const AdminLayout = () => {
   return (
     <div>
       <Header />
-      <main className="NL_container NL_main">
+      <main className="NL_container NL_admin_main">
         <Outlet />
       </main>
       <ToastContainer
@@ -28,4 +28,4 @@ const Layout = () => {
   );
 };
 
-export default Layout;
+export default AdminLayout;
