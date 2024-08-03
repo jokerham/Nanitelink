@@ -93,6 +93,13 @@ html body {
         font-weight: bold;
       }
     }
+
+    &_profile {
+      &_menu {
+        color: white;
+        text-decoration: none;
+      }
+    }
   }
 
   // Main content
@@ -106,7 +113,8 @@ html body {
     margin-top: 10px;
     margin-bottom: 10px;
   }
-
+  
+  
   &footer {
     background-color: #FBFBFB;
     height: 50px;

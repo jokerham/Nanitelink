@@ -1,5 +1,6 @@
 // src/pages/auth/Singup.tsx
 import { useState } from 'react';
+import { useNavigate  } from 'react-router-dom';
 import { signUp } from 'aws-amplify/auth';
 import { uploadData } from 'aws-amplify/storage';
 import { 
@@ -27,9 +28,10 @@ import { Formik, Form, Field, FormikHelpers, FieldProps } from 'formik';
 import { toast } from 'react-toastify';
 import { FaPencilAlt } from 'react-icons/fa';
 import * as Yup from 'yup';
-import dayjs, { Dayjs } from 'dayjs';
 import uuid from 'react-native-uuid';
+import dayjs, { Dayjs } from 'dayjs';
 import '../../amplifyconfigure';
+import ConfirmSignUpDialog from '../../component/dialog/ConfirmSignUpDialog';
 
 type TSignUpFormData = {
     userid: string;
@@ -60,8 +62,11 @@ declare module 'yup' {
 }
 
 export default function Signup() {
+    const navigate = useNavigate();
     const [file, setFile] = useState<File|undefined>();
     const [avatarImage, setAvatarImage] = useState<string|null>(null);
+    const [openConfirmSignUpDialog, setOpenConfirmSignUpDialog] = useState(false);
+    const [username, setUsername] = useState('');
     const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];
         if (file) {
@@ -76,7 +81,7 @@ export default function Signup() {
 
     const gridsize = [5, 7, 6, 6];
 
-    Yup.addMethod(Yup.object, 'dayjs', function method(message) {
+    Yup.addMethod(Yup.object, 'dayjs', function method(message: string) {
         return this.test('dayjs', message, function validate(value){
             if (!value) {
                 return true;
@@ -87,21 +92,6 @@ export default function Signup() {
                 return false;
             }
         });
-    });
-
-    const validationSchema = Yup.object({
-        userid: Yup.string().required().label('User ID'),
-        password: Yup.string().required().min(8).label('Password'),
-        retype_password: Yup.string().required()
-            .oneOf([Yup.ref('password'),''], 'Passwords must match'),
-        email: Yup.string().required().email().label('Email'),
-        username: Yup.string().required().label('User Name'),
-        nickname: Yup.string().required().label('Nickname'),
-        homepage: Yup.string().url().notRequired().label('Homepage'),
-        blogpage: Yup.string().url().notRequired().label('Blog page'),
-        birthday: Yup.object().dayjs('Birthday is invalid').notRequired(),
-        mailing: Yup.string().notRequired().label('Subscribe Mailing'),
-        memo: Yup.string().notRequired().label('Receive Memo')
     });
 
     const initialValues: TSignUpFormData = {
@@ -119,6 +109,21 @@ export default function Signup() {
         profileimage: null
     };
 
+    const validationSchema = Yup.object({
+        userid: Yup.string().required().label('User ID'),
+        password: Yup.string().required().min(8).label('Password'),
+        retype_password: Yup.string().required()
+            .oneOf([Yup.ref('password'),''], 'Passwords must match'),
+        email: Yup.string().required().email().label('Email'),
+        username: Yup.string().required().label('User Name'),
+        nickname: Yup.string().required().label('Nickname'),
+        homepage: Yup.string().url().notRequired().label('Homepage'),
+        blogpage: Yup.string().url().notRequired().label('Blog page'),
+        birthday: Yup.object().dayjs('Birthday is invalid').notRequired(),
+        mailing: Yup.string().notRequired().label('Subscribe Mailing'),
+        memo: Yup.string().notRequired().label('Receive Memo')
+    });
+
     const handleSubmit = async (
         values: TSignUpFormData,
         { setSubmitting }: FormikHelpers<TSignUpFormData>
@@ -128,14 +133,17 @@ export default function Signup() {
             .then(async () => {
                 const result = await step01();
                 const { isSignUpComplete, userId, nextStep } = await step02(values, result?.path);
-                // console.log(isSignUpComplete, userId, nextStep);
-                // // if (userId) {
-                // //     await step02(userId, data);
-                // //     await step03();
-                // // }
-                // setSubmitting(false);
+                
+                if (isSignUpComplete) {
+                    navigate('/home');
+                } else if(userId) {
+                    setUsername(userId);
+                    if (nextStep.signUpStep === 'CONFIRM_SIGN_UP') {
+                        setOpenConfirmSignUpDialog(true);
+                    }
+                }
             })
-            .catch((err) => {
+            .catch((err: { inner: Yup.ValidationError[]; message: string; }) => {
                 if (err.inner) {
                     err.inner.forEach((error: Yup.ValidationError) => {
                         if (error.path) {
@@ -176,6 +184,11 @@ export default function Signup() {
                 }
             }
         });
+    };
+
+    const handleClose = () => {
+        setOpenConfirmSignUpDialog(false);
+        navigate('/home');
     };
 
     return (
@@ -310,12 +323,12 @@ export default function Signup() {
                                     <Grid2 xs={gridsize[2]}>
                                         <RadioGroup row>
                                             <Field name='birthday' >
-                                                {({field}: FieldProps<TSignUpFormData>) => (
+                                                {() => (
                                                     <FormControlLabel name='mailing' value='Yes' control={<Radio />} label='Yes' checked/>
                                                 )}
                                             </Field>
                                             <Field name='birthday' >
-                                                {({field}: FieldProps<TSignUpFormData>) => (
+                                                {() => (
                                                     <FormControlLabel name='mailing' value='No' control={<Radio />} label='No' />
                                                 )}
                                             </Field>
@@ -373,7 +386,11 @@ export default function Signup() {
                         <ButtonRed type="submit" disabled={isSubmitting}>Sign In</ButtonRed>
                     </Form>
                 )}
-            </Formik>                
+            </Formik>
+            <ConfirmSignUpDialog
+                open={openConfirmSignUpDialog}
+                handleClose={handleClose}
+                username={username} />
         </Box>
     );
 }

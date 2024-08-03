@@ -8,6 +8,7 @@ import Layout from './layout/Layout';
 import Home from './pages/Home';
 import './App.scss';
 import Signup from './pages/auth/Signup';
+import PageNotFound from './layout/PageNotFound';
 
 function App() {
     return (
@@ -16,6 +17,7 @@ function App() {
                 <Route path="/" element={<Layout />}>
                     <Route index element={<Home />} />
                     <Route path="signup" element={<Signup />} />
+                    <Route path="*" element={<PageNotFound />} />
                 </Route>
             </Routes>
         </Router>
