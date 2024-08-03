@@ -1,4 +1,4 @@
-import { Box, Button, Divider, MenuItem } from '@mui/material';
+import { Box, Divider, MenuItem } from '@mui/material';
 import { signOut } from 'aws-amplify/auth';
 import { NavLink } from 'react-router-dom';
 
