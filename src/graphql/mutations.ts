@@ -8,84 +8,57 @@ type GeneratedMutation<InputType, OutputType> = string & {
   __generatedMutationOutput: OutputType;
 };
 
-export const createUser = /* GraphQL */ `mutation CreateUser(
-  $input: CreateUserInput!
-  $condition: ModelUserConditionInput
+export const createMemberRole = /* GraphQL */ `mutation CreateMemberRole(
+  $input: CreateMemberRoleInput!
+  $condition: ModelMemberRoleConditionInput
 ) {
-  createUser(input: $input, condition: $condition) {
+  createMemberRole(input: $input, condition: $condition) {
     id
-    cognitoId
-    userId
-    userEmail
-    userName
-    userNickname
-    passwordRecoveryQuestion
-    userHomepage
-    userBlogPage
-    userBirthday
-    profileImageUrl
-    additional
+    roleName
+    description
+    picture
     createdAt
     updatedAt
-    owner
     __typename
   }
 }
 ` as GeneratedMutation<
-  APITypes.CreateUserMutationVariables,
-  APITypes.CreateUserMutation
+  APITypes.CreateMemberRoleMutationVariables,
+  APITypes.CreateMemberRoleMutation
 >;
-export const updateUser = /* GraphQL */ `mutation UpdateUser(
-  $input: UpdateUserInput!
-  $condition: ModelUserConditionInput
+export const updateMemberRole = /* GraphQL */ `mutation UpdateMemberRole(
+  $input: UpdateMemberRoleInput!
+  $condition: ModelMemberRoleConditionInput
 ) {
-  updateUser(input: $input, condition: $condition) {
+  updateMemberRole(input: $input, condition: $condition) {
     id
-    cognitoId
-    userId
-    userEmail
-    userName
-    userNickname
-    passwordRecoveryQuestion
-    userHomepage
-    userBlogPage
-    userBirthday
-    profileImageUrl
-    additional
+    roleName
+    description
+    picture
     createdAt
     updatedAt
-    owner
     __typename
   }
 }
 ` as GeneratedMutation<
-  APITypes.UpdateUserMutationVariables,
-  APITypes.UpdateUserMutation
+  APITypes.UpdateMemberRoleMutationVariables,
+  APITypes.UpdateMemberRoleMutation
 >;
-export const deleteUser = /* GraphQL */ `mutation DeleteUser(
-  $input: DeleteUserInput!
-  $condition: ModelUserConditionInput
+export const deleteMemberRole = /* GraphQL */ `mutation DeleteMemberRole(
+  $input: DeleteMemberRoleInput!
+  $condition: ModelMemberRoleConditionInput
 ) {
-  deleteUser(input: $input, condition: $condition) {
+  deleteMemberRole(input: $input, condition: $condition) {
     id
-    cognitoId
-    userId
-    userEmail
-    userName
-    userNickname
-    passwordRecoveryQuestion
-    userHomepage
-    userBlogPage
-    userBirthday
-    profileImageUrl
-    additional
+    roleName
+    description
+    picture
     createdAt
     updatedAt
-    owner
     __typename
   }
 }
 ` as GeneratedMutation<
-  APITypes.DeleteUserMutationVariables,
-  APITypes.DeleteUserMutation
+  APITypes.DeleteMemberRoleMutationVariables,
+  APITypes.DeleteMemberRoleMutation
 >;

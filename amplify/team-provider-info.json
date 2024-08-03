@@ -24,6 +24,9 @@
       },
       "storage": {
         "profileImages": {}
+      },
+      "api": {
+        "nanitelink": {}
       }
     }
   }

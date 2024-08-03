@@ -2,39 +2,22 @@
 /* eslint-disable */
 //  This file was automatically generated and should not be edited.
 
-export type CreateUserInput = {
+export type CreateMemberRoleInput = {
   id?: string | null,
-  cognitoId: string,
-  userId: string,
-  userEmail: string,
-  userName: string,
-  userNickname: string,
-  passwordRecoveryQuestion?: string | null,
-  userHomepage?: string | null,
-  userBlogPage?: string | null,
-  userBirthday?: string | null,
-  profileImageUrl?: string | null,
-  additional?: string | null,
+  roleName: string,
+  description?: string | null,
+  picture?: string | null,
 };
 
-export type ModelUserConditionInput = {
-  cognitoId?: ModelStringInput | null,
-  userId?: ModelStringInput | null,
-  userEmail?: ModelStringInput | null,
-  userName?: ModelStringInput | null,
-  userNickname?: ModelStringInput | null,
-  passwordRecoveryQuestion?: ModelStringInput | null,
-  userHomepage?: ModelStringInput | null,
-  userBlogPage?: ModelStringInput | null,
-  userBirthday?: ModelStringInput | null,
-  profileImageUrl?: ModelStringInput | null,
-  additional?: ModelStringInput | null,
-  and?: Array< ModelUserConditionInput | null > | null,
-  or?: Array< ModelUserConditionInput | null > | null,
-  not?: ModelUserConditionInput | null,
+export type ModelMemberRoleConditionInput = {
+  roleName?: ModelStringInput | null,
+  description?: ModelStringInput | null,
+  picture?: ModelStringInput | null,
+  and?: Array< ModelMemberRoleConditionInput | null > | null,
+  or?: Array< ModelMemberRoleConditionInput | null > | null,
+  not?: ModelMemberRoleConditionInput | null,
   createdAt?: ModelStringInput | null,
   updatedAt?: ModelStringInput | null,
-  owner?: ModelStringInput | null,
 };
 
 export type ModelStringInput = {
@@ -77,63 +60,37 @@ export type ModelSizeInput = {
   between?: Array< number | null > | null,
 };
 
-export type User = {
-  __typename: "User",
+export type MemberRole = {
+  __typename: "MemberRole",
   id: string,
-  cognitoId: string,
-  userId: string,
-  userEmail: string,
-  userName: string,
-  userNickname: string,
-  passwordRecoveryQuestion?: string | null,
-  userHomepage?: string | null,
-  userBlogPage?: string | null,
-  userBirthday?: string | null,
-  profileImageUrl?: string | null,
-  additional?: string | null,
+  roleName: string,
+  description?: string | null,
+  picture?: string | null,
   createdAt: string,
   updatedAt: string,
-  owner?: string | null,
 };
 
-export type UpdateUserInput = {
+export type UpdateMemberRoleInput = {
   id: string,
-  cognitoId?: string | null,
-  userId?: string | null,
-  userEmail?: string | null,
-  userName?: string | null,
-  userNickname?: string | null,
-  passwordRecoveryQuestion?: string | null,
-  userHomepage?: string | null,
-  userBlogPage?: string | null,
-  userBirthday?: string | null,
-  profileImageUrl?: string | null,
-  additional?: string | null,
+  roleName?: string | null,
+  description?: string | null,
+  picture?: string | null,
 };
 
-export type DeleteUserInput = {
+export type DeleteMemberRoleInput = {
   id: string,
 };
 
-export type ModelUserFilterInput = {
+export type ModelMemberRoleFilterInput = {
   id?: ModelIDInput | null,
-  cognitoId?: ModelStringInput | null,
-  userId?: ModelStringInput | null,
-  userEmail?: ModelStringInput | null,
-  userName?: ModelStringInput | null,
-  userNickname?: ModelStringInput | null,
-  passwordRecoveryQuestion?: ModelStringInput | null,
-  userHomepage?: ModelStringInput | null,
-  userBlogPage?: ModelStringInput | null,
-  userBirthday?: ModelStringInput | null,
-  profileImageUrl?: ModelStringInput | null,
-  additional?: ModelStringInput | null,
+  roleName?: ModelStringInput | null,
+  description?: ModelStringInput | null,
+  picture?: ModelStringInput | null,
   createdAt?: ModelStringInput | null,
   updatedAt?: ModelStringInput | null,
-  and?: Array< ModelUserFilterInput | null > | null,
-  or?: Array< ModelUserFilterInput | null > | null,
-  not?: ModelUserFilterInput | null,
-  owner?: ModelStringInput | null,
+  and?: Array< ModelMemberRoleFilterInput | null > | null,
+  or?: Array< ModelMemberRoleFilterInput | null > | null,
+  not?: ModelMemberRoleFilterInput | null,
 };
 
 export type ModelIDInput = {
@@ -152,30 +109,21 @@ export type ModelIDInput = {
   size?: ModelSizeInput | null,
 };
 
-export type ModelUserConnection = {
-  __typename: "ModelUserConnection",
-  items:  Array<User | null >,
+export type ModelMemberRoleConnection = {
+  __typename: "ModelMemberRoleConnection",
+  items:  Array<MemberRole | null >,
   nextToken?: string | null,
 };
 
-export type ModelSubscriptionUserFilterInput = {
+export type ModelSubscriptionMemberRoleFilterInput = {
   id?: ModelSubscriptionIDInput | null,
-  cognitoId?: ModelSubscriptionStringInput | null,
-  userId?: ModelSubscriptionStringInput | null,
-  userEmail?: ModelSubscriptionStringInput | null,
-  userName?: ModelSubscriptionStringInput | null,
-  userNickname?: ModelSubscriptionStringInput | null,
-  passwordRecoveryQuestion?: ModelSubscriptionStringInput | null,
-  userHomepage?: ModelSubscriptionStringInput | null,
-  userBlogPage?: ModelSubscriptionStringInput | null,
-  userBirthday?: ModelSubscriptionStringInput | null,
-  profileImageUrl?: ModelSubscriptionStringInput | null,
-  additional?: ModelSubscriptionStringInput | null,
+  roleName?: ModelSubscriptionStringInput | null,
+  description?: ModelSubscriptionStringInput | null,
+  picture?: ModelSubscriptionStringInput | null,
   createdAt?: ModelSubscriptionStringInput | null,
   updatedAt?: ModelSubscriptionStringInput | null,
-  and?: Array< ModelSubscriptionUserFilterInput | null > | null,
-  or?: Array< ModelSubscriptionUserFilterInput | null > | null,
-  owner?: ModelStringInput | null,
+  and?: Array< ModelSubscriptionMemberRoleFilterInput | null > | null,
+  or?: Array< ModelSubscriptionMemberRoleFilterInput | null > | null,
 };
 
 export type ModelSubscriptionIDInput = {
@@ -208,214 +156,139 @@ export type ModelSubscriptionStringInput = {
   notIn?: Array< string | null > | null,
 };
 
-export type CreateUserMutationVariables = {
-  input: CreateUserInput,
-  condition?: ModelUserConditionInput | null,
+export type CreateMemberRoleMutationVariables = {
+  input: CreateMemberRoleInput,
+  condition?: ModelMemberRoleConditionInput | null,
 };
 
-export type CreateUserMutation = {
-  createUser?:  {
-    __typename: "User",
+export type CreateMemberRoleMutation = {
+  createMemberRole?:  {
+    __typename: "MemberRole",
     id: string,
-    cognitoId: string,
-    userId: string,
-    userEmail: string,
-    userName: string,
-    userNickname: string,
-    passwordRecoveryQuestion?: string | null,
-    userHomepage?: string | null,
-    userBlogPage?: string | null,
-    userBirthday?: string | null,
-    profileImageUrl?: string | null,
-    additional?: string | null,
+    roleName: string,
+    description?: string | null,
+    picture?: string | null,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
-export type UpdateUserMutationVariables = {
-  input: UpdateUserInput,
-  condition?: ModelUserConditionInput | null,
+export type UpdateMemberRoleMutationVariables = {
+  input: UpdateMemberRoleInput,
+  condition?: ModelMemberRoleConditionInput | null,
 };
 
-export type UpdateUserMutation = {
-  updateUser?:  {
-    __typename: "User",
+export type UpdateMemberRoleMutation = {
+  updateMemberRole?:  {
+    __typename: "MemberRole",
     id: string,
-    cognitoId: string,
-    userId: string,
-    userEmail: string,
-    userName: string,
-    userNickname: string,
-    passwordRecoveryQuestion?: string | null,
-    userHomepage?: string | null,
-    userBlogPage?: string | null,
-    userBirthday?: string | null,
-    profileImageUrl?: string | null,
-    additional?: string | null,
+    roleName: string,
+    description?: string | null,
+    picture?: string | null,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
-export type DeleteUserMutationVariables = {
-  input: DeleteUserInput,
-  condition?: ModelUserConditionInput | null,
+export type DeleteMemberRoleMutationVariables = {
+  input: DeleteMemberRoleInput,
+  condition?: ModelMemberRoleConditionInput | null,
 };
 
-export type DeleteUserMutation = {
-  deleteUser?:  {
-    __typename: "User",
+export type DeleteMemberRoleMutation = {
+  deleteMemberRole?:  {
+    __typename: "MemberRole",
     id: string,
-    cognitoId: string,
-    userId: string,
-    userEmail: string,
-    userName: string,
-    userNickname: string,
-    passwordRecoveryQuestion?: string | null,
-    userHomepage?: string | null,
-    userBlogPage?: string | null,
-    userBirthday?: string | null,
-    profileImageUrl?: string | null,
-    additional?: string | null,
+    roleName: string,
+    description?: string | null,
+    picture?: string | null,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
-export type GetUserQueryVariables = {
+export type GetMemberRoleQueryVariables = {
   id: string,
 };
 
-export type GetUserQuery = {
-  getUser?:  {
-    __typename: "User",
+export type GetMemberRoleQuery = {
+  getMemberRole?:  {
+    __typename: "MemberRole",
     id: string,
-    cognitoId: string,
-    userId: string,
-    userEmail: string,
-    userName: string,
-    userNickname: string,
-    passwordRecoveryQuestion?: string | null,
-    userHomepage?: string | null,
-    userBlogPage?: string | null,
-    userBirthday?: string | null,
-    profileImageUrl?: string | null,
-    additional?: string | null,
+    roleName: string,
+    description?: string | null,
+    picture?: string | null,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
-export type ListUsersQueryVariables = {
-  filter?: ModelUserFilterInput | null,
+export type ListMemberRolesQueryVariables = {
+  filter?: ModelMemberRoleFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
 };
 
-export type ListUsersQuery = {
-  listUsers?:  {
-    __typename: "ModelUserConnection",
+export type ListMemberRolesQuery = {
+  listMemberRoles?:  {
+    __typename: "ModelMemberRoleConnection",
     items:  Array< {
-      __typename: "User",
+      __typename: "MemberRole",
       id: string,
-      cognitoId: string,
-      userId: string,
-      userEmail: string,
-      userName: string,
-      userNickname: string,
-      passwordRecoveryQuestion?: string | null,
-      userHomepage?: string | null,
-      userBlogPage?: string | null,
-      userBirthday?: string | null,
-      profileImageUrl?: string | null,
-      additional?: string | null,
+      roleName: string,
+      description?: string | null,
+      picture?: string | null,
       createdAt: string,
       updatedAt: string,
-      owner?: string | null,
     } | null >,
     nextToken?: string | null,
   } | null,
 };
 
-export type OnCreateUserSubscriptionVariables = {
-  filter?: ModelSubscriptionUserFilterInput | null,
-  owner?: string | null,
+export type OnCreateMemberRoleSubscriptionVariables = {
+  filter?: ModelSubscriptionMemberRoleFilterInput | null,
 };
 
-export type OnCreateUserSubscription = {
-  onCreateUser?:  {
-    __typename: "User",
+export type OnCreateMemberRoleSubscription = {
+  onCreateMemberRole?:  {
+    __typename: "MemberRole",
     id: string,
-    cognitoId: string,
-    userId: string,
-    userEmail: string,
-    userName: string,
-    userNickname: string,
-    passwordRecoveryQuestion?: string | null,
-    userHomepage?: string | null,
-    userBlogPage?: string | null,
-    userBirthday?: string | null,
-    profileImageUrl?: string | null,
-    additional?: string | null,
+    roleName: string,
+    description?: string | null,
+    picture?: string | null,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
-export type OnUpdateUserSubscriptionVariables = {
-  filter?: ModelSubscriptionUserFilterInput | null,
-  owner?: string | null,
+export type OnUpdateMemberRoleSubscriptionVariables = {
+  filter?: ModelSubscriptionMemberRoleFilterInput | null,
 };
 
-export type OnUpdateUserSubscription = {
-  onUpdateUser?:  {
-    __typename: "User",
+export type OnUpdateMemberRoleSubscription = {
+  onUpdateMemberRole?:  {
+    __typename: "MemberRole",
     id: string,
-    cognitoId: string,
-    userId: string,
-    userEmail: string,
-    userName: string,
-    userNickname: string,
-    passwordRecoveryQuestion?: string | null,
-    userHomepage?: string | null,
-    userBlogPage?: string | null,
-    userBirthday?: string | null,
-    profileImageUrl?: string | null,
-    additional?: string | null,
+    roleName: string,
+    description?: string | null,
+    picture?: string | null,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
-export type OnDeleteUserSubscriptionVariables = {
-  filter?: ModelSubscriptionUserFilterInput | null,
-  owner?: string | null,
+export type OnDeleteMemberRoleSubscriptionVariables = {
+  filter?: ModelSubscriptionMemberRoleFilterInput | null,
 };
 
-export type OnDeleteUserSubscription = {
-  onDeleteUser?:  {
-    __typename: "User",
+export type OnDeleteMemberRoleSubscription = {
+  onDeleteMemberRole?:  {
+    __typename: "MemberRole",
     id: string,
-    cognitoId: string,
-    userId: string,
-    userEmail: string,
-    userName: string,
-    userNickname: string,
-    passwordRecoveryQuestion?: string | null,
-    userHomepage?: string | null,
-    userBlogPage?: string | null,
-    userBirthday?: string | null,
-    profileImageUrl?: string | null,
-    additional?: string | null,
+    roleName: string,
+    description?: string | null,
+    picture?: string | null,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };

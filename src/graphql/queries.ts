@@ -8,53 +8,41 @@ type GeneratedQuery<InputType, OutputType> = string & {
   __generatedQueryOutput: OutputType;
 };
 
-export const getUser = /* GraphQL */ `query GetUser($id: ID!) {
-  getUser(id: $id) {
+export const getMemberRole = /* GraphQL */ `query GetMemberRole($id: ID!) {
+  getMemberRole(id: $id) {
     id
-    cognitoId
-    userId
-    userEmail
-    userName
-    userNickname
-    passwordRecoveryQuestion
-    userHomepage
-    userBlogPage
-    userBirthday
-    profileImageUrl
-    additional
+    roleName
+    description
+    picture
     createdAt
     updatedAt
-    owner
     __typename
   }
 }
-` as GeneratedQuery<APITypes.GetUserQueryVariables, APITypes.GetUserQuery>;
-export const listUsers = /* GraphQL */ `query ListUsers(
-  $filter: ModelUserFilterInput
+` as GeneratedQuery<
+  APITypes.GetMemberRoleQueryVariables,
+  APITypes.GetMemberRoleQuery
+>;
+export const listMemberRoles = /* GraphQL */ `query ListMemberRoles(
+  $filter: ModelMemberRoleFilterInput
   $limit: Int
   $nextToken: String
 ) {
-  listUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
+  listMemberRoles(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
       id
-      cognitoId
-      userId
-      userEmail
-      userName
-      userNickname
-      passwordRecoveryQuestion
-      userHomepage
-      userBlogPage
-      userBirthday
-      profileImageUrl
-      additional
+      roleName
+      description
+      picture
       createdAt
       updatedAt
-      owner
       __typename
     }
     nextToken
     __typename
   }
 }
-` as GeneratedQuery<APITypes.ListUsersQueryVariables, APITypes.ListUsersQuery>;
+` as GeneratedQuery<
+  APITypes.ListMemberRolesQueryVariables,
+  APITypes.ListMemberRolesQuery
+>;

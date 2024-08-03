@@ -8,84 +8,54 @@ type GeneratedSubscription<InputType, OutputType> = string & {
   __generatedSubscriptionOutput: OutputType;
 };
 
-export const onCreateUser = /* GraphQL */ `subscription OnCreateUser(
-  $filter: ModelSubscriptionUserFilterInput
-  $owner: String
+export const onCreateMemberRole = /* GraphQL */ `subscription OnCreateMemberRole(
+  $filter: ModelSubscriptionMemberRoleFilterInput
 ) {
-  onCreateUser(filter: $filter, owner: $owner) {
+  onCreateMemberRole(filter: $filter) {
     id
-    cognitoId
-    userId
-    userEmail
-    userName
-    userNickname
-    passwordRecoveryQuestion
-    userHomepage
-    userBlogPage
-    userBirthday
-    profileImageUrl
-    additional
+    roleName
+    description
+    picture
     createdAt
     updatedAt
-    owner
     __typename
   }
 }
 ` as GeneratedSubscription<
-  APITypes.OnCreateUserSubscriptionVariables,
-  APITypes.OnCreateUserSubscription
+  APITypes.OnCreateMemberRoleSubscriptionVariables,
+  APITypes.OnCreateMemberRoleSubscription
 >;
-export const onUpdateUser = /* GraphQL */ `subscription OnUpdateUser(
-  $filter: ModelSubscriptionUserFilterInput
-  $owner: String
+export const onUpdateMemberRole = /* GraphQL */ `subscription OnUpdateMemberRole(
+  $filter: ModelSubscriptionMemberRoleFilterInput
 ) {
-  onUpdateUser(filter: $filter, owner: $owner) {
+  onUpdateMemberRole(filter: $filter) {
     id
-    cognitoId
-    userId
-    userEmail
-    userName
-    userNickname
-    passwordRecoveryQuestion
-    userHomepage
-    userBlogPage
-    userBirthday
-    profileImageUrl
-    additional
+    roleName
+    description
+    picture
     createdAt
     updatedAt
-    owner
     __typename
   }
 }
 ` as GeneratedSubscription<
-  APITypes.OnUpdateUserSubscriptionVariables,
-  APITypes.OnUpdateUserSubscription
+  APITypes.OnUpdateMemberRoleSubscriptionVariables,
+  APITypes.OnUpdateMemberRoleSubscription
 >;
-export const onDeleteUser = /* GraphQL */ `subscription OnDeleteUser(
-  $filter: ModelSubscriptionUserFilterInput
-  $owner: String
+export const onDeleteMemberRole = /* GraphQL */ `subscription OnDeleteMemberRole(
+  $filter: ModelSubscriptionMemberRoleFilterInput
 ) {
-  onDeleteUser(filter: $filter, owner: $owner) {
+  onDeleteMemberRole(filter: $filter) {
     id
-    cognitoId
-    userId
-    userEmail
-    userName
-    userNickname
-    passwordRecoveryQuestion
-    userHomepage
-    userBlogPage
-    userBirthday
-    profileImageUrl
-    additional
+    roleName
+    description
+    picture
     createdAt
     updatedAt
-    owner
     __typename
   }
 }
 ` as GeneratedSubscription<
-  APITypes.OnDeleteUserSubscriptionVariables,
-  APITypes.OnDeleteUserSubscription
+  APITypes.OnDeleteMemberRoleSubscriptionVariables,
+  APITypes.OnDeleteMemberRoleSubscription
 >;
