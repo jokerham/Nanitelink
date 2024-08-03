@@ -1,8 +1,8 @@
 export default function PageNotFound() {
     return (
-        <div id="NL_notfound">
-            <div className="NL_notfound">
-                <div className="NL_notfound-404">
+        <div className="NL_notfound">
+            <div className="NL_notfound_container">
+                <div className="NL_notfound_404">
                     <h1>404</h1>
                 </div>
                 <h2>We are sorry, Page not found!</h2>

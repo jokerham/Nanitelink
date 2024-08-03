@@ -114,7 +114,87 @@ html body {
     margin-bottom: 10px;
   }
   
-  
+  &notfound {
+    box-sizing: border-box;
+    width: 100%;
+    
+    &_container {
+      box-sizing: border-box;
+      position: relative;
+      line-height: 1.4;
+      text-align: center;
+      height: 80vh;
+      width: 100%;
+      left: 50%;
+      top: 50%;
+      padding-left: 15px;
+      padding-right: 15px;
+      transform: translate(-50%, -12%);
+    }
+
+    &_404 {
+      box-sizing: border-box;
+      position: absolute;
+      height: 100px;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: -1;
+
+      & h1 {
+        font-family: 'Maven Pro', sans-serif;
+        color: #ececec;
+        font-weight: 900;
+        font-size: 276px;
+        margin: 0px;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+      }
+    }
+
+    & h2 {
+      font-family: 'Maven Pro', sans-serif;
+      font-size: 46px;
+      color: #000;
+      font-weight: 900;
+      text-transform: uppercase;
+      margin: 0px;
+    }
+
+    & p {
+      font-family: 'Maven Pro', sans-serif;
+      font-size: 15px;
+      color: #000;
+      font-weight: 400;
+      text-transform: uppercase;
+      margin-top: 15px;
+    }
+
+    & a {
+      font-family: 'Maven Pro', sans-serif;
+      font-size: 14px;
+      text-decoration: none;
+      text-transform: uppercase;
+      background: #189cf0;
+      display: inline-block;
+      padding: 16px 38px;
+      border: 2px solid transparent;
+      border-radius: 40px;
+      color: #fff;
+      font-weight: 400;
+      -webkit-transition: 0.2s all;
+      transition: 0.2s all;
+
+      &:hover {
+        background-color: #fff;
+        border-color: #189cf0;
+        color: #189cf0;
+      }
+    }
+  }
+
   &footer {
     background-color: #FBFBFB;
     height: 50px;
