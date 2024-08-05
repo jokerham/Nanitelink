@@ -19,11 +19,12 @@ function App() {
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="signup" element={<Signup />} />
+          <Route path="*" element={<PageNotFound />} />
         </Route>
         <Route path="admin/" element={<AdminLayout />}>
           <Route index element={<Dashboard />} />
+          <Route path="*" element={<PageNotFound />} />
         </Route>
-        <Route path="*" element={<PageNotFound />} />
       </Routes>
     </Router>
   );

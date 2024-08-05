@@ -392,11 +392,14 @@ html body {
           margin: 0 0 10px 0 !important;
           padding: 0 !important;
           border-radius: 5px;
+          cursor: pointer;
           
           &_item {
             height: 28px;
             background-color: #ebebeb;
             border-bottom: 1px solid #dddddd;
+            padding-left: 0px !important;
+            padding-right: 0px !important;
             
             &:first-child {
               border-top-left-radius: 5px;
@@ -408,9 +411,12 @@ html body {
               border-bottom-right-radius: 5px;
             }
 
-            & div {
-              margin-left: 13px;
-              transition: display step-end .3s; 
+            & button {
+              & div {
+                color: black;
+                margin-left: 22px;
+                text-align: left;
+              }
             }
           }
         }
