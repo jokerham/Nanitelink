@@ -203,11 +203,218 @@ html body {
   /********************************************************************************
   ADMIN
   ********************************************************************************/
-  @admin_ {
-    @nav {
+  &admin {
+    background-color: white;
+
+    &_nav {
       display: flex;
-      align-items: center;     /* Vertical center */
+      align-items: center;
       height: 70px;
+
+      &_logo {
+        display: flex;
+        align-items: center;
+        font-size: 24px;
+        font-family: 'Nanum Gothic';
+        font-weight: 600;
+      }
+
+      &_right {
+        display: flex;
+        align-items: center;
+        font-size: 14px;
+        margin-left: auto;
+      }
+
+      &_link {
+        display: flex;
+        align-items: center;
+        font-size: 14px;
+        font-family: 'Nanum Gothic';
+        border-inline-start-width: 1px;
+        border-inline-start-style:solid;
+        border-inline-start-color: #F3F3F3;
+        border-inline-end-width: 1px;
+        border-inline-end-style: solid;
+        border-inline-end-color: #DEDEDE;
+        margin-top: 0;
+        margin-bottom: 0;
+        padding-top: 0;
+        padding-bottom: 0;
+
+        &:first-child {
+          border-inline-start-width: 0px;
+        }
+
+        &:last-child {
+          border-inline-end-width: 0px;
+        }
+      }
+    }
+
+    &_divider {
+      width: 100%;
+      height: 1px;
+      background-color: #DEDEDE;
+      margin-bottom: 10px;
+      box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+    }
+
+    &_main {
+    }
+
+    &_drawer {
+      &_container {
+        display: flex;
+        flex-direction: row;
+        align-items: stretch;
+        transition: all 0.3s ease; 
+        
+        &.open {
+          width: 200px;
+        }
+
+        &.close {
+          width: 70px;
+        }
+      }
+
+      &_menu {
+        border: 1px solid #EBEBEB;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+
+        padding: 2px;
+        &.open {
+          width: 175px;
+        }
+
+        &.close {
+          width: 50px;
+        }
+      }
+
+      &_toggle {
+        display: flex;
+        width: 25px;
+        align-items: center;
+        justify-content: center;
+        margin: 0;
+        padding: 0;
+        
+        &_icon {
+          display: flex;
+          background-color: white;
+          height: 40px;
+          width: 14px;
+          margin-right: 11px;
+          align-items: center;
+          justify-content: center;
+          border-top: 1px solid #EBEBEB;
+          border-right: 1px solid #EBEBEB;
+          border-bottom: 1px solid #EBEBEB;
+          border-left: 0;
+          border-top-right-radius: 8px;
+          border-bottom-right-radius: 8px;
+          box-shadow: 
+            0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+      }
+
+      &_accordion {
+        background-color: #EFEFEF !important;
+        margin: 0 0 1px 0 !important;
+        
+        &::before {
+          background-color: white !important;
+        }
+
+        &:first-child {
+          box-shadow: none;
+        }
+        
+        &:last-child {
+          box-shadow: none;
+        }
+
+        &.active {
+          color: #FFFFFF;
+          font-weight: 700;
+          background: none;
+          background-color: black !important;
+          
+          & svg {
+            color: white;
+          }
+        }
+
+        &.Mui-expanded {
+          background: linear-gradient(to bottom, #6EBBEA, #3886D0);
+          color: #FFFFFF;
+          font-weight: 700;
+          margin: 0 0 1px 0 !important;
+
+          &.active {
+            background: none;
+            background-color: black !important;
+            
+            & svg {
+              color: white;
+            }
+          }
+        }
+
+        &_summary {
+          height: 36px;
+          border-bottom: 1px solid #dddddd;
+          background-color: #ebebeb;
+          color: inherit;
+          min-height: 36px !important;
+          
+          &.css-1f773le-MuiButtonBase-root-MuiAccordionSummary-root > div.MuiAccordionSummary-expandIconWrapper.css-yw020d-MuiAccordionSummary-expandIconWrapper {
+            transform-origin: 9px 10px
+          }
+
+          & svg {
+            height: 18px;
+            width: 18px;
+            margin: 1px 0px 1px 0;
+          }
+        }
+
+        &_detail {
+          color: black;
+          font-weight: 400;          
+          padding: 0 10px 0 10px !important;
+          margin: 0 !important;
+        }
+
+        &_list {
+          margin: 0 0 10px 0 !important;
+          padding: 0 !important;
+          border-radius: 5px;
+          
+          &_item {
+            height: 28px;
+            background-color: #ebebeb;
+            border-bottom: 1px solid #dddddd;
+            
+            &:first-child {
+              border-top-left-radius: 5px;
+              border-top-right-radius: 5px;
+            }
+
+            &:last-child {
+              border-bottom-left-radius: 5px;
+              border-bottom-right-radius: 5px;
+            }
+
+            & div {
+              margin-left: 13px;
+              transition: display step-end .3s; 
+            }
+          }
+        }
+      }
     }
   }
 }
