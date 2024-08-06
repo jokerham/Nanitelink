@@ -18,11 +18,19 @@ html body {
   }
 
   // ButtonLink
-  &buttonLink {
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    text-decoration: none;
+  &button {
+    &Text {
+      color: black;
+      border: none;
+      text-decoration: none;
+    }
+
+    &Link {
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+    }
   }
 
   &icon {
@@ -260,7 +268,8 @@ html body {
       box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
     }
 
-    &_main {
+    &_outlet {
+      flex: 1;
     }
 
     &_drawer {

@@ -6,7 +6,6 @@ import Footer from 'layout/Footer';
 import AdminMenu from './AdminMenu';
 import 'react-toastify/dist/ReactToastify.css';
 import { Box } from '@mui/material';
-import { useState } from 'react';
 
 const AdminLayout = () => {
   return (
@@ -14,7 +13,9 @@ const AdminLayout = () => {
       <Header />
       <main className="NL_container NL_admin_main">
         <AdminMenu />
-        <Outlet />
+        <Box className="NL_admin_outlet">
+          <Outlet />
+        </Box>
       </main>
       <ToastContainer
         position="top-right"
