@@ -3,18 +3,32 @@ import { useState, useEffect, Key } from 'react';
 import * as Auth from 'aws-amplify/auth';
 import * as API from 'aws-amplify/api';
 import 'amplifyconfigure';
+import { toast } from 'react-toastify';
+import { Amplify } from 'aws-amplify';
+
+interface IAttribute {
+  Name: string
+  Value: string
+}
 
 interface IMember {
-  Attributes: any[]
+  Attributes: IAttribute[]
+}
+
+interface IResult {
+  users: IMember[],
+  totalPages: number
 }
 
 const Members = () => {
-  const [members, setMembers] = useState<IMember | undefined>();
+  const [totalPages, setTotalPages] = useState(0);
+  const [members, setMembers] = useState<IMember[] | undefined>();
   const [filter, setFilter] = useState<string | null>('all');
 
   useEffect(() => {
     const fetchMembers = async () => {
       try {
+        const userPoolId = Amplify.getConfig().Auth?.Cognito.userPoolId ?? '';
         const session = await Auth.fetchAuthSession();
         const token = session.tokens?.idToken;
         if (token) {
@@ -24,16 +38,19 @@ const Members = () => {
             options: {
               headers: {
                 Authorization: token.toString()
+              },
+              queryParams: {
+                UserPoolId: userPoolId
               }
             },
+            //queryStringParameters: queryParameters,
           }).response;
-          const data = await response.body.json();
-          console.log('Cognito Users:', data);
-          //setMembers(data);
+          const data = await response.body.json() as unknown as IResult;
+          setMembers(data.users);
+          setTotalPages(data.totalPages);
         }
       } catch (error) {
-        console.error('Error listing users:', error);
-        throw error;
+        toast.error('Error listing users:' + error);
       }
     };
 
@@ -43,6 +60,12 @@ const Members = () => {
   const onChangeFilterHandler = (_event: React.MouseEvent<HTMLElement>, value: string | null) => {
     setFilter(value);
   };
+
+  // const columns: GridColDef[] = [
+  //   { field: 'id', headerName: '', width: 70 },
+  //   { field: 'firstName', headerName: 'First name', width: 130 },
+  //   { field: 'lastName', headerName: 'Last name', width: 130 },
+  // ];
 
   return (
     <Box>
@@ -70,7 +93,7 @@ const Members = () => {
               <TableCell>Email</TableCell>
             </TableRow>
           </TableHead>
-          {/* <TableBody>
+          <TableBody>
             {members?.map((member: IMember, index: Key | null | undefined) => (
               <TableRow key={index}>
                 <TableCell>{member.Attributes?.find(attr => attr.Name === 'name')?.Value}</TableCell>
@@ -78,7 +101,7 @@ const Members = () => {
                 <TableCell>{member.Attributes?.find(attr => attr.Name === 'email')?.Value}</TableCell>
               </TableRow>
             ))}
-          </TableBody> */}
+          </TableBody>
         </Table>
       </TableContainer>
     </Box >

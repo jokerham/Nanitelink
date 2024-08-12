@@ -29,7 +29,7 @@
       "function": {
         "listUsersFunction": {
           "deploymentBucketName": "amplify-nanitelink-dev-8f35e-deployment",
-          "s3Key": "amplify-builds/listUsersFunction-725766633242692b6d7a-build.zip"
+          "s3Key": "amplify-builds/listUsersFunction-794e3666564c74506144-build.zip"
         }
       },
       "api": {
