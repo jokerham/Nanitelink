@@ -1,5 +1,20 @@
 {
-  "api": {},
+  "api": {
+    "users": {
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "listUsersFunction"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "API Gateway"
+    }
+  },
   "auth": {
     "nanitelinke874e11c": {
       "customAuth": false,
@@ -28,6 +43,22 @@
       "service": "Cognito"
     }
   },
+  "function": {
+    "listUsersFunction": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "UserPoolId"
+          ],
+          "category": "auth",
+          "resourceName": "nanitelinke874e11c"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    }
+  },
   "hosting": {
     "amplifyhosting": {
       "providerPlugin": "awscloudformation",
@@ -36,6 +67,22 @@
     }
   },
   "parameters": {
+    "AMPLIFY_function_listUsersFunction_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "listUsersFunction"
+        }
+      ]
+    },
+    "AMPLIFY_function_listUsersFunction_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "listUsersFunction"
+        }
+      ]
+    },
     "AMPLIFY_hosting_amplifyhosting_appId": {
       "usedBy": [
         {

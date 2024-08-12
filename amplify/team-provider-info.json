@@ -9,7 +9,8 @@
       "UnauthRoleName": "amplify-nanitelink-dev-8f35e-unauthRole",
       "StackName": "amplify-nanitelink-dev-8f35e",
       "StackId": "arn:aws:cloudformation:ap-northeast-2:785455635280:stack/amplify-nanitelink-dev-8f35e/03bb4710-46fd-11ef-bea5-060c824a9db3",
-      "AmplifyAppId": "d2l1y8pgzchk2r"
+      "AmplifyAppId": "d2l1y8pgzchk2r",
+      "APIGatewayAuthURL": "https://s3.amazonaws.com/amplify-nanitelink-dev-8f35e-deployment/amplify-cfn-templates/api/APIGatewayAuthStack.json"
     },
     "categories": {
       "hosting": {
@@ -24,6 +25,15 @@
       },
       "storage": {
         "profileImages": {}
+      },
+      "function": {
+        "listUsersFunction": {
+          "deploymentBucketName": "amplify-nanitelink-dev-8f35e-deployment",
+          "s3Key": "amplify-builds/listUsersFunction-725766633242692b6d7a-build.zip"
+        }
+      },
+      "api": {
+        "users": {}
       }
     }
   }

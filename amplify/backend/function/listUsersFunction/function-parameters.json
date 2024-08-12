@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "auth": {
+      "nanitelinke874e11c": [
+        "read"
+      ]
+    }
+  },
+  "lambdaLayers": []
+}
