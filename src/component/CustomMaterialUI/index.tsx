@@ -1,4 +1,5 @@
 export { default as AvatarShadow } from './AvatarShadow';
+export { default as ButtonBlackSmall} from './ButtonBlackSmall';
 export { default as ButtonGray } from './ButtonGray';
 export { default as ButtonGraySmall } from './ButtonGraySmall';
 export { default as ButtonGroupGray } from './ButtonGroupGray';

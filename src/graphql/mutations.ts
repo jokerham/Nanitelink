@@ -8,57 +8,66 @@ type GeneratedMutation<InputType, OutputType> = string & {
   __generatedMutationOutput: OutputType;
 };
 
-export const createMemberRole = /* GraphQL */ `mutation CreateMemberRole(
-  $input: CreateMemberRoleInput!
-  $condition: ModelMemberRoleConditionInput
+export const createMenu = /* GraphQL */ `mutation CreateMenu(
+  $input: CreateMenuInput!
+  $condition: ModelMenuConditionInput
 ) {
-  createMemberRole(input: $input, condition: $condition) {
+  createMenu(input: $input, condition: $condition) {
     id
-    roleName
-    description
-    picture
+    name
+    parent
+    menuType
+    module
+    parameters
+    url
     createdAt
     updatedAt
     __typename
   }
 }
 ` as GeneratedMutation<
-  APITypes.CreateMemberRoleMutationVariables,
-  APITypes.CreateMemberRoleMutation
+  APITypes.CreateMenuMutationVariables,
+  APITypes.CreateMenuMutation
 >;
-export const updateMemberRole = /* GraphQL */ `mutation UpdateMemberRole(
-  $input: UpdateMemberRoleInput!
-  $condition: ModelMemberRoleConditionInput
+export const updateMenu = /* GraphQL */ `mutation UpdateMenu(
+  $input: UpdateMenuInput!
+  $condition: ModelMenuConditionInput
 ) {
-  updateMemberRole(input: $input, condition: $condition) {
+  updateMenu(input: $input, condition: $condition) {
     id
-    roleName
-    description
-    picture
+    name
+    parent
+    menuType
+    module
+    parameters
+    url
     createdAt
     updatedAt
     __typename
   }
 }
 ` as GeneratedMutation<
-  APITypes.UpdateMemberRoleMutationVariables,
-  APITypes.UpdateMemberRoleMutation
+  APITypes.UpdateMenuMutationVariables,
+  APITypes.UpdateMenuMutation
 >;
-export const deleteMemberRole = /* GraphQL */ `mutation DeleteMemberRole(
-  $input: DeleteMemberRoleInput!
-  $condition: ModelMemberRoleConditionInput
+export const deleteMenu = /* GraphQL */ `mutation DeleteMenu(
+  $input: DeleteMenuInput!
+  $condition: ModelMenuConditionInput
 ) {
-  deleteMemberRole(input: $input, condition: $condition) {
+  deleteMenu(input: $input, condition: $condition) {
     id
-    roleName
-    description
-    picture
+    name
+    parent
+    menuType
+    module
+    parameters
+    url
     createdAt
     updatedAt
     __typename
   }
 }
 ` as GeneratedMutation<
-  APITypes.DeleteMemberRoleMutationVariables,
-  APITypes.DeleteMemberRoleMutation
+  APITypes.DeleteMenuMutationVariables,
+  APITypes.DeleteMenuMutation
 >;

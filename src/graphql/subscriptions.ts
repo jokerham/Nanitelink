@@ -8,54 +8,57 @@ type GeneratedSubscription<InputType, OutputType> = string & {
   __generatedSubscriptionOutput: OutputType;
 };
 
-export const onCreateMemberRole = /* GraphQL */ `subscription OnCreateMemberRole(
-  $filter: ModelSubscriptionMemberRoleFilterInput
-) {
-  onCreateMemberRole(filter: $filter) {
+export const onCreateMenu = /* GraphQL */ `subscription OnCreateMenu($filter: ModelSubscriptionMenuFilterInput) {
+  onCreateMenu(filter: $filter) {
     id
-    roleName
-    description
-    picture
+    name
+    parent
+    menuType
+    module
+    parameters
+    url
     createdAt
     updatedAt
     __typename
   }
 }
 ` as GeneratedSubscription<
-  APITypes.OnCreateMemberRoleSubscriptionVariables,
-  APITypes.OnCreateMemberRoleSubscription
+  APITypes.OnCreateMenuSubscriptionVariables,
+  APITypes.OnCreateMenuSubscription
 >;
-export const onUpdateMemberRole = /* GraphQL */ `subscription OnUpdateMemberRole(
-  $filter: ModelSubscriptionMemberRoleFilterInput
-) {
-  onUpdateMemberRole(filter: $filter) {
+export const onUpdateMenu = /* GraphQL */ `subscription OnUpdateMenu($filter: ModelSubscriptionMenuFilterInput) {
+  onUpdateMenu(filter: $filter) {
     id
-    roleName
-    description
-    picture
+    name
+    parent
+    menuType
+    module
+    parameters
+    url
     createdAt
     updatedAt
     __typename
   }
 }
 ` as GeneratedSubscription<
-  APITypes.OnUpdateMemberRoleSubscriptionVariables,
-  APITypes.OnUpdateMemberRoleSubscription
+  APITypes.OnUpdateMenuSubscriptionVariables,
+  APITypes.OnUpdateMenuSubscription
 >;
-export const onDeleteMemberRole = /* GraphQL */ `subscription OnDeleteMemberRole(
-  $filter: ModelSubscriptionMemberRoleFilterInput
-) {
-  onDeleteMemberRole(filter: $filter) {
+export const onDeleteMenu = /* GraphQL */ `subscription OnDeleteMenu($filter: ModelSubscriptionMenuFilterInput) {
+  onDeleteMenu(filter: $filter) {
     id
-    roleName
-    description
-    picture
+    name
+    parent
+    menuType
+    module
+    parameters
+    url
     createdAt
     updatedAt
     __typename
   }
 }
 ` as GeneratedSubscription<
-  APITypes.OnDeleteMemberRoleSubscriptionVariables,
-  APITypes.OnDeleteMemberRoleSubscription
+  APITypes.OnDeleteMenuSubscriptionVariables,
+  APITypes.OnDeleteMenuSubscription
 >;

@@ -2,20 +2,32 @@
 /* eslint-disable */
 //  This file was automatically generated and should not be edited.
 
-export type CreateMemberRoleInput = {
+export type CreateMenuInput = {
   id?: string | null,
-  roleName: string,
-  description?: string | null,
-  picture?: string | null,
+  name: string,
+  parent?: string | null,
+  menuType: MenuType,
+  module?: string | null,
+  parameters?: string | null,
+  url?: string | null,
 };
 
-export type ModelMemberRoleConditionInput = {
-  roleName?: ModelStringInput | null,
-  description?: ModelStringInput | null,
-  picture?: ModelStringInput | null,
-  and?: Array< ModelMemberRoleConditionInput | null > | null,
-  or?: Array< ModelMemberRoleConditionInput | null > | null,
-  not?: ModelMemberRoleConditionInput | null,
+export enum MenuType {
+  Internal = "Internal",
+  External = "External",
+}
+
+
+export type ModelMenuConditionInput = {
+  name?: ModelStringInput | null,
+  parent?: ModelStringInput | null,
+  menuType?: ModelMenuTypeInput | null,
+  module?: ModelStringInput | null,
+  parameters?: ModelStringInput | null,
+  url?: ModelStringInput | null,
+  and?: Array< ModelMenuConditionInput | null > | null,
+  or?: Array< ModelMenuConditionInput | null > | null,
+  not?: ModelMenuConditionInput | null,
   createdAt?: ModelStringInput | null,
   updatedAt?: ModelStringInput | null,
 };
@@ -60,37 +72,51 @@ export type ModelSizeInput = {
   between?: Array< number | null > | null,
 };
 
-export type MemberRole = {
-  __typename: "MemberRole",
+export type ModelMenuTypeInput = {
+  eq?: MenuType | null,
+  ne?: MenuType | null,
+};
+
+export type Menu = {
+  __typename: "Menu",
   id: string,
-  roleName: string,
-  description?: string | null,
-  picture?: string | null,
+  name: string,
+  parent?: string | null,
+  menuType: MenuType,
+  module?: string | null,
+  parameters?: string | null,
+  url?: string | null,
   createdAt: string,
   updatedAt: string,
 };
 
-export type UpdateMemberRoleInput = {
+export type UpdateMenuInput = {
   id: string,
-  roleName?: string | null,
-  description?: string | null,
-  picture?: string | null,
+  name?: string | null,
+  parent?: string | null,
+  menuType?: MenuType | null,
+  module?: string | null,
+  parameters?: string | null,
+  url?: string | null,
 };
 
-export type DeleteMemberRoleInput = {
+export type DeleteMenuInput = {
   id: string,
 };
 
-export type ModelMemberRoleFilterInput = {
+export type ModelMenuFilterInput = {
   id?: ModelIDInput | null,
-  roleName?: ModelStringInput | null,
-  description?: ModelStringInput | null,
-  picture?: ModelStringInput | null,
+  name?: ModelStringInput | null,
+  parent?: ModelStringInput | null,
+  menuType?: ModelMenuTypeInput | null,
+  module?: ModelStringInput | null,
+  parameters?: ModelStringInput | null,
+  url?: ModelStringInput | null,
   createdAt?: ModelStringInput | null,
   updatedAt?: ModelStringInput | null,
-  and?: Array< ModelMemberRoleFilterInput | null > | null,
-  or?: Array< ModelMemberRoleFilterInput | null > | null,
-  not?: ModelMemberRoleFilterInput | null,
+  and?: Array< ModelMenuFilterInput | null > | null,
+  or?: Array< ModelMenuFilterInput | null > | null,
+  not?: ModelMenuFilterInput | null,
 };
 
 export type ModelIDInput = {
@@ -109,21 +135,24 @@ export type ModelIDInput = {
   size?: ModelSizeInput | null,
 };
 
-export type ModelMemberRoleConnection = {
-  __typename: "ModelMemberRoleConnection",
-  items:  Array<MemberRole | null >,
+export type ModelMenuConnection = {
+  __typename: "ModelMenuConnection",
+  items:  Array<Menu | null >,
   nextToken?: string | null,
 };
 
-export type ModelSubscriptionMemberRoleFilterInput = {
+export type ModelSubscriptionMenuFilterInput = {
   id?: ModelSubscriptionIDInput | null,
-  roleName?: ModelSubscriptionStringInput | null,
-  description?: ModelSubscriptionStringInput | null,
-  picture?: ModelSubscriptionStringInput | null,
+  name?: ModelSubscriptionStringInput | null,
+  parent?: ModelSubscriptionStringInput | null,
+  menuType?: ModelSubscriptionStringInput | null,
+  module?: ModelSubscriptionStringInput | null,
+  parameters?: ModelSubscriptionStringInput | null,
+  url?: ModelSubscriptionStringInput | null,
   createdAt?: ModelSubscriptionStringInput | null,
   updatedAt?: ModelSubscriptionStringInput | null,
-  and?: Array< ModelSubscriptionMemberRoleFilterInput | null > | null,
-  or?: Array< ModelSubscriptionMemberRoleFilterInput | null > | null,
+  and?: Array< ModelSubscriptionMenuFilterInput | null > | null,
+  or?: Array< ModelSubscriptionMenuFilterInput | null > | null,
 };
 
 export type ModelSubscriptionIDInput = {
@@ -156,88 +185,103 @@ export type ModelSubscriptionStringInput = {
   notIn?: Array< string | null > | null,
 };
 
-export type CreateMemberRoleMutationVariables = {
-  input: CreateMemberRoleInput,
-  condition?: ModelMemberRoleConditionInput | null,
+export type CreateMenuMutationVariables = {
+  input: CreateMenuInput,
+  condition?: ModelMenuConditionInput | null,
 };
 
-export type CreateMemberRoleMutation = {
-  createMemberRole?:  {
-    __typename: "MemberRole",
+export type CreateMenuMutation = {
+  createMenu?:  {
+    __typename: "Menu",
     id: string,
-    roleName: string,
-    description?: string | null,
-    picture?: string | null,
+    name: string,
+    parent?: string | null,
+    menuType: MenuType,
+    module?: string | null,
+    parameters?: string | null,
+    url?: string | null,
     createdAt: string,
     updatedAt: string,
   } | null,
 };
 
-export type UpdateMemberRoleMutationVariables = {
-  input: UpdateMemberRoleInput,
-  condition?: ModelMemberRoleConditionInput | null,
+export type UpdateMenuMutationVariables = {
+  input: UpdateMenuInput,
+  condition?: ModelMenuConditionInput | null,
 };
 
-export type UpdateMemberRoleMutation = {
-  updateMemberRole?:  {
-    __typename: "MemberRole",
+export type UpdateMenuMutation = {
+  updateMenu?:  {
+    __typename: "Menu",
     id: string,
-    roleName: string,
-    description?: string | null,
-    picture?: string | null,
+    name: string,
+    parent?: string | null,
+    menuType: MenuType,
+    module?: string | null,
+    parameters?: string | null,
+    url?: string | null,
     createdAt: string,
     updatedAt: string,
   } | null,
 };
 
-export type DeleteMemberRoleMutationVariables = {
-  input: DeleteMemberRoleInput,
-  condition?: ModelMemberRoleConditionInput | null,
+export type DeleteMenuMutationVariables = {
+  input: DeleteMenuInput,
+  condition?: ModelMenuConditionInput | null,
 };
 
-export type DeleteMemberRoleMutation = {
-  deleteMemberRole?:  {
-    __typename: "MemberRole",
+export type DeleteMenuMutation = {
+  deleteMenu?:  {
+    __typename: "Menu",
     id: string,
-    roleName: string,
-    description?: string | null,
-    picture?: string | null,
+    name: string,
+    parent?: string | null,
+    menuType: MenuType,
+    module?: string | null,
+    parameters?: string | null,
+    url?: string | null,
     createdAt: string,
     updatedAt: string,
   } | null,
 };
 
-export type GetMemberRoleQueryVariables = {
+export type GetMenuQueryVariables = {
   id: string,
 };
 
-export type GetMemberRoleQuery = {
-  getMemberRole?:  {
-    __typename: "MemberRole",
+export type GetMenuQuery = {
+  getMenu?:  {
+    __typename: "Menu",
     id: string,
-    roleName: string,
-    description?: string | null,
-    picture?: string | null,
+    name: string,
+    parent?: string | null,
+    menuType: MenuType,
+    module?: string | null,
+    parameters?: string | null,
+    url?: string | null,
     createdAt: string,
     updatedAt: string,
   } | null,
 };
 
-export type ListMemberRolesQueryVariables = {
-  filter?: ModelMemberRoleFilterInput | null,
+export type ListMenusQueryVariables = {
+  filter?: ModelMenuFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
 };
 
-export type ListMemberRolesQuery = {
-  listMemberRoles?:  {
-    __typename: "ModelMemberRoleConnection",
+export type ListMenusQuery = {
+  listMenus?:  {
+    __typename: "ModelMenuConnection",
     items:  Array< {
-      __typename: "MemberRole",
+      __typename: "Menu",
       id: string,
-      roleName: string,
-      description?: string | null,
-      picture?: string | null,
+      name: string,
+      parent?: string | null,
+      menuType: MenuType,
+      module?: string | null,
+      parameters?: string | null,
+      url?: string | null,
       createdAt: string,
       updatedAt: string,
     } | null >,
@@ -245,49 +289,58 @@ export type ListMemberRolesQuery = {
   } | null,
 };
 
-export type OnCreateMemberRoleSubscriptionVariables = {
-  filter?: ModelSubscriptionMemberRoleFilterInput | null,
+export type OnCreateMenuSubscriptionVariables = {
+  filter?: ModelSubscriptionMenuFilterInput | null,
 };
 
-export type OnCreateMemberRoleSubscription = {
-  onCreateMemberRole?:  {
-    __typename: "MemberRole",
+export type OnCreateMenuSubscription = {
+  onCreateMenu?:  {
+    __typename: "Menu",
     id: string,
-    roleName: string,
-    description?: string | null,
-    picture?: string | null,
+    name: string,
+    parent?: string | null,
+    menuType: MenuType,
+    module?: string | null,
+    parameters?: string | null,
+    url?: string | null,
     createdAt: string,
     updatedAt: string,
   } | null,
 };
 
-export type OnUpdateMemberRoleSubscriptionVariables = {
-  filter?: ModelSubscriptionMemberRoleFilterInput | null,
+export type OnUpdateMenuSubscriptionVariables = {
+  filter?: ModelSubscriptionMenuFilterInput | null,
 };
 
-export type OnUpdateMemberRoleSubscription = {
-  onUpdateMemberRole?:  {
-    __typename: "MemberRole",
+export type OnUpdateMenuSubscription = {
+  onUpdateMenu?:  {
+    __typename: "Menu",
     id: string,
-    roleName: string,
-    description?: string | null,
-    picture?: string | null,
+    name: string,
+    parent?: string | null,
+    menuType: MenuType,
+    module?: string | null,
+    parameters?: string | null,
+    url?: string | null,
     createdAt: string,
     updatedAt: string,
   } | null,
 };
 
-export type OnDeleteMemberRoleSubscriptionVariables = {
-  filter?: ModelSubscriptionMemberRoleFilterInput | null,
+export type OnDeleteMenuSubscriptionVariables = {
+  filter?: ModelSubscriptionMenuFilterInput | null,
 };
 
-export type OnDeleteMemberRoleSubscription = {
-  onDeleteMemberRole?:  {
-    __typename: "MemberRole",
+export type OnDeleteMenuSubscription = {
+  onDeleteMenu?:  {
+    __typename: "Menu",
     id: string,
-    roleName: string,
-    description?: string | null,
-    picture?: string | null,
+    name: string,
+    parent?: string | null,
+    menuType: MenuType,
+    module?: string | null,
+    parameters?: string | null,
+    url?: string | null,
     createdAt: string,
     updatedAt: string,
   } | null,

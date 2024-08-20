@@ -12,6 +12,7 @@ import PageNotFound from 'layout/PageNotFound';
 import Dashboard from 'pages/admin/Dashboard';
 import Members from 'pages/admin/Members';
 import 'App.scss';
+import Menu from 'pages/admin/Menu';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           <Route path="members/">
             <Route index element={<Members />} />
           </Route>
+          <Route path="menu/" element={<Menu />} />
           <Route path="*" element={<PageNotFound />} />
         </Route>
       </Routes>

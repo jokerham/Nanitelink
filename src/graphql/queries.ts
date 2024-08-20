@@ -8,32 +8,35 @@ type GeneratedQuery<InputType, OutputType> = string & {
   __generatedQueryOutput: OutputType;
 };
 
-export const getMemberRole = /* GraphQL */ `query GetMemberRole($id: ID!) {
-  getMemberRole(id: $id) {
+export const getMenu = /* GraphQL */ `query GetMenu($id: ID!) {
+  getMenu(id: $id) {
     id
-    roleName
-    description
-    picture
+    name
+    parent
+    menuType
+    module
+    parameters
+    url
     createdAt
     updatedAt
     __typename
   }
 }
-` as GeneratedQuery<
-  APITypes.GetMemberRoleQueryVariables,
-  APITypes.GetMemberRoleQuery
->;
-export const listMemberRoles = /* GraphQL */ `query ListMemberRoles(
-  $filter: ModelMemberRoleFilterInput
+` as GeneratedQuery<APITypes.GetMenuQueryVariables, APITypes.GetMenuQuery>;
+export const listMenus = /* GraphQL */ `query ListMenus(
+  $filter: ModelMenuFilterInput
   $limit: Int
   $nextToken: String
 ) {
-  listMemberRoles(filter: $filter, limit: $limit, nextToken: $nextToken) {
+  listMenus(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
       id
-      roleName
-      description
-      picture
+      name
+      parent
+      menuType
+      module
+      parameters
+      url
       createdAt
       updatedAt
       __typename
@@ -42,7 +45,4 @@ export const listMemberRoles = /* GraphQL */ `query ListMemberRoles(
     __typename
   }
 }
-` as GeneratedQuery<
-  APITypes.ListMemberRolesQueryVariables,
-  APITypes.ListMemberRolesQuery
->;
+` as GeneratedQuery<APITypes.ListMenusQueryVariables, APITypes.ListMenusQuery>;

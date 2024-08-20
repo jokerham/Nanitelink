@@ -4,6 +4,14 @@ html body {
   background-color: #F1F1F1;
 }
 
+.icon {
+  margin-right: 5px;
+  
+  & svg {
+    vertical-align: middle;
+  }
+}
+
 // NANITE LINK CSS
 .NL_ {
   /********************************************************************************
@@ -206,6 +214,7 @@ html body {
   &footer {
     background-color: #FBFBFB;
     height: 50px;
+    margin-top: 10px;
   }
 
   /********************************************************************************
@@ -429,6 +438,59 @@ html body {
               }
             }
           }
+        }
+      }
+    }
+
+    &_menu {
+      &_tab {
+        background-image: -webkit-linear-gradient(top, #eee, #ddd 18px, #ccc 18px, #ddd 33px);
+        background-color: #ddd;
+        border-radius: 5px;
+        box-shadow: 1px 1px 1px #999;
+        width: 350px;
+        overflow: hidden;
+        vertical-align: top;
+        position: relative;
+
+        & h1 {
+          font-size: 16px;
+          margin: -10px -10px 0 -10px;
+          line-height: 32px !important;
+          color: black;
+          padding: 0 8px;
+          text-overflow: ellipsis;
+        }
+      }
+
+      &_tree {
+        background-color: white;
+        border: 1px solid #999;
+        border-radius: 5px;
+        margin-top: 5px;
+        margin-bottom: 5px;
+        padding: 0 10px;
+      }
+
+      &_action {
+        display: flex;
+        justify-content: end;
+      }
+
+      &_node {
+        border-radius: 5px;
+        padding: 1px 4px 4px 4px;
+        transition: background-color 0.5s ease;
+        cursor: pointer;
+
+        &:hover {
+          background-color: #444;
+          color: white;
+        }
+
+        &.active {
+          background-color: black;
+          color: white;
         }
       }
     }

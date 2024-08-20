@@ -33,7 +33,8 @@
         }
       },
       "api": {
-        "users": {}
+        "users": {},
+        "nanitelink": {}
       }
     }
   }
