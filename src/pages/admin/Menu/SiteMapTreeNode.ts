@@ -3,4 +3,5 @@ export interface SiteMapTreeNode {
   name: string;
   children?: SiteMapTreeNode[];
   active?: boolean
+  parent: string;
 }
