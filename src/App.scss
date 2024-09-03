@@ -457,12 +457,21 @@ html body {
     }
 
     &_menu {
+      &_container {
+        display: flex;
+        align-items: flex-start; /* Align items to the top */
+        gap: 20px; /* Optional: Adds space between the views */
+        height: 100%;
+      }
+
       &_tab {
+        align-items: stretch;
         background-image: -webkit-linear-gradient(top, #eee, #ddd 18px, #ccc 18px, #ddd 33px);
         background-color: #ddd;
         border-radius: 5px;
         box-shadow: 1px 1px 1px #999;
-        width: 350px;
+        min-width: 250px;
+        height: 100%;
         overflow: hidden;
         vertical-align: top;
         position: relative;
@@ -478,12 +487,17 @@ html body {
         }
       }
 
-      &_tree {
+      &_content {
+        max-height: 100%;
+      }
+
+      &_section {
         background-color: white;
         border: 1px solid #999;
         border-radius: 5px;
         margin-top: 5px;
         margin-bottom: 5px;
+        height: 100%;
         padding: 0 10px;
       }
 

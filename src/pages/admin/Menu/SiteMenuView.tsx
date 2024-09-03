@@ -6,17 +6,32 @@ import { useEffect, useState } from 'react';
 import { SiteMapTreeNode } from './SiteMapTreeNode';
 import { generateClient } from 'aws-amplify/api';
 import { listMenus } from 'graphql/queries';
+import TabView from 'component/TabView';
 
-interface NodeProps {
+interface NodeAdditionalProps {
   onNodeClick: (node: SiteMapTreeNode) => void
 }
+
+type NodeProps =
+  NodeRendererProps<SiteMapTreeNode> &
+  NodeAdditionalProps
+;
 
 interface SiteMenuViewProps {
   onMenuItemClicked: (node: SiteMapTreeNode) => void;
 }
 
-//const Node: React.FC<NodeRendererProps<SiteMapTreeNode>> = ({node, style, dragHandle}) => {
-const Node = (props: NodeRendererProps<SiteMapTreeNode> & NodeProps) => {
+const Header = () => {
+  return (
+    <form id="menu_find">
+      <TextFieldFocusRedBorderSmall name="keyword" />
+      <ButtonBlackSmall sx={{ml:1}}>찾기</ButtonBlackSmall>
+      {/* <button className="" type="button">다음</button> */}
+    </form>
+  );
+};
+
+const Node = (props: NodeProps) => {
   const { node, style, dragHandle, onNodeClick } = props;
   const hasParent = (node.data?.parent ?? '') != '';
   const hasChildren = node.children?.length ?? 0 > 0;
@@ -43,7 +58,7 @@ const SiteMenuView = (props: SiteMenuViewProps) => {
   const [treeData, setTreeData] = useState<SiteMapTreeNode[]>([]);
 
   const calculateHeight = () => {
-    return window.innerHeight - 220;  
+    return window.innerHeight - 320;
   };
 
   const [height, setHeight] = useState(calculateHeight());
@@ -61,6 +76,7 @@ const SiteMenuView = (props: SiteMenuViewProps) => {
         name: item.name,
         active: false,
         parent: nodeId,
+        module: item.module ?? '',
         children: []
       }));
     } else {
@@ -115,41 +131,31 @@ const SiteMenuView = (props: SiteMenuViewProps) => {
 
 
   return (
-    <div className="NL_admin_menu_tab">
-      <h1>
-        사이트 메뉴 편집
-        {/* <a className="" href="" target="_blank">도움말</a> */}
-      </h1>
-      <form id="menu_find">
-        <TextFieldFocusRedBorderSmall name="keyword" />
-        <ButtonBlackSmall sx={{ml:1}}>찾기</ButtonBlackSmall>
-        {/* <button className="" type="button">다음</button> */}
-      </form>
-      <div className="NL_admin_menu_content">
-        <section className="NL_admin_menu_tree">
-          <Tree<SiteMapTreeNode> 
-            data={treeData}
-            width={320}
-            height={height}
-            indent={20}
-            padding={5}
-            rowHeight={22}
-          >
-            {nodeProps => (
-              <Node 
-                {...nodeProps} 
-                onNodeClick={props.onMenuItemClicked} // Pass the handler here
-              />
-            )}
-          </Tree>
-        </section>
-        <div className="NL_admin_menu_action">
-          <button type="button">
-            <FaPlusCircle/>사이트맵 추가
-          </button>
-        </div>
+    <TabView 
+      title="사이트 메뉴 편집"
+      header={<Header />}      >
+      <section className="NL_admin_menu_section">
+        <Tree<SiteMapTreeNode> 
+          data={treeData}
+          width={320}
+          height={height}
+          indent={20}
+          padding={5}
+          rowHeight={22}>
+          {(nodeProps: NodeRendererProps<SiteMapTreeNode>) => (
+            <Node 
+              {...nodeProps} 
+              onNodeClick={props.onMenuItemClicked} // Pass the handler here
+            />
+          )}
+        </Tree>
+      </section>
+      <div className="NL_admin_menu_action">
+        <button type="button">
+          <FaPlusCircle/>사이트맵 추가
+        </button>
       </div>
-    </div>
+    </TabView>
   );
 };
 
