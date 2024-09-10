@@ -44,7 +44,7 @@ const SiteMenuSettingView = (props: SiteMenuSettingViewProps) => {
   return (
     <TabView title={menuNode.name} closeable onClose={onClose}>
       <section className="NL_admin_menu_section">
-        <Box sx={{mt: 0.5}}>
+        <Box>
           <b>Menu Type</b> : {menuNode.module}
         </Box>
         <List>

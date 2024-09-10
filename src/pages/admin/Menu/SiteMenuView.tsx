@@ -19,6 +19,7 @@ type NodeProps =
 ;
 
 interface SiteMenuViewProps {
+  onAddMenuClick: () => void,
   onMenuItemClicked: (node: SiteMenuTreeNode) => void;
 }
 
@@ -119,7 +120,7 @@ const SiteMenuView = (props: SiteMenuViewProps) => {
         <Tree<SiteMenuTreeNode> 
           data={treeData}
           indent={20}
-          padding={5}
+          padding={0}
           width={width}
           height={height}
           rowHeight={22}>
@@ -132,8 +133,8 @@ const SiteMenuView = (props: SiteMenuViewProps) => {
         </Tree>
       </section>
       <div className="NL_admin_menu_action">
-        <button type="button">
-          <FaPlusCircle/>사이트맵 추가
+        <button type="button" onClick={props.onAddMenuClick}>
+          <FaPlusCircle/>Add Menu
         </button>
       </div>
     </TabView>

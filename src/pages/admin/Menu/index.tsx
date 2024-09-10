@@ -15,7 +15,7 @@ const Menu = () => {
   const handleCloseMenuSettingViewClicked = () => { handleClicked('menuItem', menuNode, false); };
   const handleMenuItemEditClicked = (node: SiteMenuTreeNode) => { handleClicked('menuItemEdit', node, true); };
   const handleCloseMenuItemEditViewClicked = () => { handleClicked('menuItemEdit', menuNode, false); };
-  const handleMenuItemAddClicked = (node: SiteMenuTreeNode) => { handleClicked('menuItemAdd', node, true); };
+  const handleMenuItemAddClicked = (node?: SiteMenuTreeNode) => { handleClicked('menuItemAdd', node, true); };
   const handleCloseMenuItemAddViewClicked = () => { handleClicked('menuItemAdd', menuNode, false); };
 
   const handleClicked = (action: string, node: SiteMenuTreeNode | undefined, open: boolean) => {
@@ -55,7 +55,9 @@ const Menu = () => {
 
   return (
     <div className='NL_admin_menu_container'>
-      <SiteMenuView onMenuItemClicked={handleMenuItemClicked}/>
+      <SiteMenuView  
+        onAddMenuClick={handleMenuItemAddClicked}
+        onMenuItemClicked={handleMenuItemClicked}/>
       { openMenuSettingView && menuNode && 
         (
           <SiteMenuSettingView 
@@ -74,7 +76,7 @@ const Menu = () => {
           />
         )
       }
-      { openMenuAddView && menuNode &&
+      { openMenuAddView &&
         (
           <SiteMenuAddView 
             menuNode={menuNode} 
