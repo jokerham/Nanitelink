@@ -2,32 +2,18 @@
 /* eslint-disable */
 //  This file was automatically generated and should not be edited.
 
-export type CreateMenuInput = {
+export type CreateModuleInput = {
   id?: string | null,
   name: string,
-  parent?: string | null,
-  menuType: MenuType,
-  module?: string | null,
   parameters?: string | null,
-  url?: string | null,
 };
 
-export enum MenuType {
-  Internal = "Internal",
-  External = "External",
-}
-
-
-export type ModelMenuConditionInput = {
+export type ModelModuleConditionInput = {
   name?: ModelStringInput | null,
-  parent?: ModelStringInput | null,
-  menuType?: ModelMenuTypeInput | null,
-  module?: ModelStringInput | null,
   parameters?: ModelStringInput | null,
-  url?: ModelStringInput | null,
-  and?: Array< ModelMenuConditionInput | null > | null,
-  or?: Array< ModelMenuConditionInput | null > | null,
-  not?: ModelMenuConditionInput | null,
+  and?: Array< ModelModuleConditionInput | null > | null,
+  or?: Array< ModelModuleConditionInput | null > | null,
+  not?: ModelModuleConditionInput | null,
   createdAt?: ModelStringInput | null,
   updatedAt?: ModelStringInput | null,
 };
@@ -72,9 +58,20 @@ export type ModelSizeInput = {
   between?: Array< number | null > | null,
 };
 
-export type ModelMenuTypeInput = {
-  eq?: MenuType | null,
-  ne?: MenuType | null,
+export type Module = {
+  __typename: "Module",
+  id: string,
+  name: string,
+  parameters?: string | null,
+  menus?: ModelMenuConnection | null,
+  createdAt: string,
+  updatedAt: string,
+};
+
+export type ModelMenuConnection = {
+  __typename: "ModelMenuConnection",
+  items:  Array<Menu | null >,
+  nextToken?: string | null,
 };
 
 export type Menu = {
@@ -83,40 +80,57 @@ export type Menu = {
   name: string,
   parent?: string | null,
   menuType: MenuType,
-  module?: string | null,
-  parameters?: string | null,
+  module: Module,
+  parameterSettings?: string | null,
   url?: string | null,
   createdAt: string,
   updatedAt: string,
+  moduleMenusId?: string | null,
 };
 
-export type UpdateMenuInput = {
+export enum MenuType {
+  Internal = "Internal",
+  External = "External",
+}
+
+
+export type UpdateModuleInput = {
   id: string,
   name?: string | null,
-  parent?: string | null,
-  menuType?: MenuType | null,
-  module?: string | null,
   parameters?: string | null,
-  url?: string | null,
 };
 
-export type DeleteMenuInput = {
+export type DeleteModuleInput = {
   id: string,
 };
 
-export type ModelMenuFilterInput = {
-  id?: ModelIDInput | null,
+export type CreateMenuInput = {
+  id?: string | null,
+  name: string,
+  parent?: string | null,
+  menuType: MenuType,
+  parameterSettings?: string | null,
+  url?: string | null,
+  moduleMenusId?: string | null,
+};
+
+export type ModelMenuConditionInput = {
   name?: ModelStringInput | null,
   parent?: ModelStringInput | null,
   menuType?: ModelMenuTypeInput | null,
-  module?: ModelStringInput | null,
-  parameters?: ModelStringInput | null,
+  parameterSettings?: ModelStringInput | null,
   url?: ModelStringInput | null,
+  and?: Array< ModelMenuConditionInput | null > | null,
+  or?: Array< ModelMenuConditionInput | null > | null,
+  not?: ModelMenuConditionInput | null,
   createdAt?: ModelStringInput | null,
   updatedAt?: ModelStringInput | null,
-  and?: Array< ModelMenuFilterInput | null > | null,
-  or?: Array< ModelMenuFilterInput | null > | null,
-  not?: ModelMenuFilterInput | null,
+  moduleMenusId?: ModelIDInput | null,
+};
+
+export type ModelMenuTypeInput = {
+  eq?: MenuType | null,
+  ne?: MenuType | null,
 };
 
 export type ModelIDInput = {
@@ -135,24 +149,61 @@ export type ModelIDInput = {
   size?: ModelSizeInput | null,
 };
 
-export type ModelMenuConnection = {
-  __typename: "ModelMenuConnection",
-  items:  Array<Menu | null >,
+export type UpdateMenuInput = {
+  id: string,
+  name?: string | null,
+  parent?: string | null,
+  menuType?: MenuType | null,
+  parameterSettings?: string | null,
+  url?: string | null,
+  moduleMenusId?: string | null,
+};
+
+export type DeleteMenuInput = {
+  id: string,
+};
+
+export type ModelModuleFilterInput = {
+  id?: ModelIDInput | null,
+  name?: ModelStringInput | null,
+  parameters?: ModelStringInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
+  and?: Array< ModelModuleFilterInput | null > | null,
+  or?: Array< ModelModuleFilterInput | null > | null,
+  not?: ModelModuleFilterInput | null,
+};
+
+export type ModelModuleConnection = {
+  __typename: "ModelModuleConnection",
+  items:  Array<Module | null >,
   nextToken?: string | null,
 };
 
-export type ModelSubscriptionMenuFilterInput = {
+export type ModelMenuFilterInput = {
+  id?: ModelIDInput | null,
+  name?: ModelStringInput | null,
+  parent?: ModelStringInput | null,
+  menuType?: ModelMenuTypeInput | null,
+  parameterSettings?: ModelStringInput | null,
+  url?: ModelStringInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
+  and?: Array< ModelMenuFilterInput | null > | null,
+  or?: Array< ModelMenuFilterInput | null > | null,
+  not?: ModelMenuFilterInput | null,
+  moduleMenusId?: ModelIDInput | null,
+};
+
+export type ModelSubscriptionModuleFilterInput = {
   id?: ModelSubscriptionIDInput | null,
   name?: ModelSubscriptionStringInput | null,
-  parent?: ModelSubscriptionStringInput | null,
-  menuType?: ModelSubscriptionStringInput | null,
-  module?: ModelSubscriptionStringInput | null,
   parameters?: ModelSubscriptionStringInput | null,
-  url?: ModelSubscriptionStringInput | null,
   createdAt?: ModelSubscriptionStringInput | null,
   updatedAt?: ModelSubscriptionStringInput | null,
-  and?: Array< ModelSubscriptionMenuFilterInput | null > | null,
-  or?: Array< ModelSubscriptionMenuFilterInput | null > | null,
+  and?: Array< ModelSubscriptionModuleFilterInput | null > | null,
+  or?: Array< ModelSubscriptionModuleFilterInput | null > | null,
+  moduleMenusId?: ModelSubscriptionIDInput | null,
 };
 
 export type ModelSubscriptionIDInput = {
@@ -185,6 +236,115 @@ export type ModelSubscriptionStringInput = {
   notIn?: Array< string | null > | null,
 };
 
+export type ModelSubscriptionMenuFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  name?: ModelSubscriptionStringInput | null,
+  parent?: ModelSubscriptionStringInput | null,
+  menuType?: ModelSubscriptionStringInput | null,
+  parameterSettings?: ModelSubscriptionStringInput | null,
+  url?: ModelSubscriptionStringInput | null,
+  createdAt?: ModelSubscriptionStringInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionMenuFilterInput | null > | null,
+  or?: Array< ModelSubscriptionMenuFilterInput | null > | null,
+};
+
+export type CreateModuleMutationVariables = {
+  input: CreateModuleInput,
+  condition?: ModelModuleConditionInput | null,
+};
+
+export type CreateModuleMutation = {
+  createModule?:  {
+    __typename: "Module",
+    id: string,
+    name: string,
+    parameters?: string | null,
+    menus?:  {
+      __typename: "ModelMenuConnection",
+      items:  Array< {
+        __typename: "Menu",
+        id: string,
+        name: string,
+        parent?: string | null,
+        menuType: MenuType,
+        parameterSettings?: string | null,
+        url?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        moduleMenusId?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type UpdateModuleMutationVariables = {
+  input: UpdateModuleInput,
+  condition?: ModelModuleConditionInput | null,
+};
+
+export type UpdateModuleMutation = {
+  updateModule?:  {
+    __typename: "Module",
+    id: string,
+    name: string,
+    parameters?: string | null,
+    menus?:  {
+      __typename: "ModelMenuConnection",
+      items:  Array< {
+        __typename: "Menu",
+        id: string,
+        name: string,
+        parent?: string | null,
+        menuType: MenuType,
+        parameterSettings?: string | null,
+        url?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        moduleMenusId?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type DeleteModuleMutationVariables = {
+  input: DeleteModuleInput,
+  condition?: ModelModuleConditionInput | null,
+};
+
+export type DeleteModuleMutation = {
+  deleteModule?:  {
+    __typename: "Module",
+    id: string,
+    name: string,
+    parameters?: string | null,
+    menus?:  {
+      __typename: "ModelMenuConnection",
+      items:  Array< {
+        __typename: "Menu",
+        id: string,
+        name: string,
+        parent?: string | null,
+        menuType: MenuType,
+        parameterSettings?: string | null,
+        url?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        moduleMenusId?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
 export type CreateMenuMutationVariables = {
   input: CreateMenuInput,
   condition?: ModelMenuConditionInput | null,
@@ -197,11 +357,23 @@ export type CreateMenuMutation = {
     name: string,
     parent?: string | null,
     menuType: MenuType,
-    module?: string | null,
-    parameters?: string | null,
+    module:  {
+      __typename: "Module",
+      id: string,
+      name: string,
+      parameters?: string | null,
+      menus?:  {
+        __typename: "ModelMenuConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    },
+    parameterSettings?: string | null,
     url?: string | null,
     createdAt: string,
     updatedAt: string,
+    moduleMenusId?: string | null,
   } | null,
 };
 
@@ -217,11 +389,23 @@ export type UpdateMenuMutation = {
     name: string,
     parent?: string | null,
     menuType: MenuType,
-    module?: string | null,
-    parameters?: string | null,
+    module:  {
+      __typename: "Module",
+      id: string,
+      name: string,
+      parameters?: string | null,
+      menus?:  {
+        __typename: "ModelMenuConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    },
+    parameterSettings?: string | null,
     url?: string | null,
     createdAt: string,
     updatedAt: string,
+    moduleMenusId?: string | null,
   } | null,
 };
 
@@ -237,11 +421,79 @@ export type DeleteMenuMutation = {
     name: string,
     parent?: string | null,
     menuType: MenuType,
-    module?: string | null,
-    parameters?: string | null,
+    module:  {
+      __typename: "Module",
+      id: string,
+      name: string,
+      parameters?: string | null,
+      menus?:  {
+        __typename: "ModelMenuConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    },
+    parameterSettings?: string | null,
     url?: string | null,
     createdAt: string,
     updatedAt: string,
+    moduleMenusId?: string | null,
+  } | null,
+};
+
+export type GetModuleQueryVariables = {
+  id: string,
+};
+
+export type GetModuleQuery = {
+  getModule?:  {
+    __typename: "Module",
+    id: string,
+    name: string,
+    parameters?: string | null,
+    menus?:  {
+      __typename: "ModelMenuConnection",
+      items:  Array< {
+        __typename: "Menu",
+        id: string,
+        name: string,
+        parent?: string | null,
+        menuType: MenuType,
+        parameterSettings?: string | null,
+        url?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        moduleMenusId?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type ListModulesQueryVariables = {
+  filter?: ModelModuleFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListModulesQuery = {
+  listModules?:  {
+    __typename: "ModelModuleConnection",
+    items:  Array< {
+      __typename: "Module",
+      id: string,
+      name: string,
+      parameters?: string | null,
+      menus?:  {
+        __typename: "ModelMenuConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
   } | null,
 };
 
@@ -256,11 +508,23 @@ export type GetMenuQuery = {
     name: string,
     parent?: string | null,
     menuType: MenuType,
-    module?: string | null,
-    parameters?: string | null,
+    module:  {
+      __typename: "Module",
+      id: string,
+      name: string,
+      parameters?: string | null,
+      menus?:  {
+        __typename: "ModelMenuConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    },
+    parameterSettings?: string | null,
     url?: string | null,
     createdAt: string,
     updatedAt: string,
+    moduleMenusId?: string | null,
   } | null,
 };
 
@@ -279,13 +543,114 @@ export type ListMenusQuery = {
       name: string,
       parent?: string | null,
       menuType: MenuType,
-      module?: string | null,
-      parameters?: string | null,
+      module:  {
+        __typename: "Module",
+        id: string,
+        name: string,
+        parameters?: string | null,
+        createdAt: string,
+        updatedAt: string,
+      },
+      parameterSettings?: string | null,
       url?: string | null,
       createdAt: string,
       updatedAt: string,
+      moduleMenusId?: string | null,
     } | null >,
     nextToken?: string | null,
+  } | null,
+};
+
+export type OnCreateModuleSubscriptionVariables = {
+  filter?: ModelSubscriptionModuleFilterInput | null,
+};
+
+export type OnCreateModuleSubscription = {
+  onCreateModule?:  {
+    __typename: "Module",
+    id: string,
+    name: string,
+    parameters?: string | null,
+    menus?:  {
+      __typename: "ModelMenuConnection",
+      items:  Array< {
+        __typename: "Menu",
+        id: string,
+        name: string,
+        parent?: string | null,
+        menuType: MenuType,
+        parameterSettings?: string | null,
+        url?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        moduleMenusId?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnUpdateModuleSubscriptionVariables = {
+  filter?: ModelSubscriptionModuleFilterInput | null,
+};
+
+export type OnUpdateModuleSubscription = {
+  onUpdateModule?:  {
+    __typename: "Module",
+    id: string,
+    name: string,
+    parameters?: string | null,
+    menus?:  {
+      __typename: "ModelMenuConnection",
+      items:  Array< {
+        __typename: "Menu",
+        id: string,
+        name: string,
+        parent?: string | null,
+        menuType: MenuType,
+        parameterSettings?: string | null,
+        url?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        moduleMenusId?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnDeleteModuleSubscriptionVariables = {
+  filter?: ModelSubscriptionModuleFilterInput | null,
+};
+
+export type OnDeleteModuleSubscription = {
+  onDeleteModule?:  {
+    __typename: "Module",
+    id: string,
+    name: string,
+    parameters?: string | null,
+    menus?:  {
+      __typename: "ModelMenuConnection",
+      items:  Array< {
+        __typename: "Menu",
+        id: string,
+        name: string,
+        parent?: string | null,
+        menuType: MenuType,
+        parameterSettings?: string | null,
+        url?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        moduleMenusId?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
   } | null,
 };
 
@@ -300,11 +665,23 @@ export type OnCreateMenuSubscription = {
     name: string,
     parent?: string | null,
     menuType: MenuType,
-    module?: string | null,
-    parameters?: string | null,
+    module:  {
+      __typename: "Module",
+      id: string,
+      name: string,
+      parameters?: string | null,
+      menus?:  {
+        __typename: "ModelMenuConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    },
+    parameterSettings?: string | null,
     url?: string | null,
     createdAt: string,
     updatedAt: string,
+    moduleMenusId?: string | null,
   } | null,
 };
 
@@ -319,11 +696,23 @@ export type OnUpdateMenuSubscription = {
     name: string,
     parent?: string | null,
     menuType: MenuType,
-    module?: string | null,
-    parameters?: string | null,
+    module:  {
+      __typename: "Module",
+      id: string,
+      name: string,
+      parameters?: string | null,
+      menus?:  {
+        __typename: "ModelMenuConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    },
+    parameterSettings?: string | null,
     url?: string | null,
     createdAt: string,
     updatedAt: string,
+    moduleMenusId?: string | null,
   } | null,
 };
 
@@ -338,10 +727,22 @@ export type OnDeleteMenuSubscription = {
     name: string,
     parent?: string | null,
     menuType: MenuType,
-    module?: string | null,
-    parameters?: string | null,
+    module:  {
+      __typename: "Module",
+      id: string,
+      name: string,
+      parameters?: string | null,
+      menus?:  {
+        __typename: "ModelMenuConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    },
+    parameterSettings?: string | null,
     url?: string | null,
     createdAt: string,
     updatedAt: string,
+    moduleMenusId?: string | null,
   } | null,
 };

@@ -1,36 +1,56 @@
 import TabView from 'component/TabView';
-import { SiteMapTreeNode } from './SiteMapTreeNode';
+import { SiteMenuTreeNode } from './SiteMenuTreeNode';
 import { Box, Divider, List, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
 import { FaEdit } from 'react-icons/fa';
 import { RiAddBoxLine, RiDeleteBin6Line, RiUserSettingsLine } from 'react-icons/ri';
 
 interface SiteMenuSettingViewProps {
-  menuNode: SiteMapTreeNode;
+  menuNode: SiteMenuTreeNode;
+  onEdit: (menuNode: SiteMenuTreeNode) => void;
+  onAdd: (menuNode: SiteMenuTreeNode) => void;
+  onClose: () => void;
 }
 
 const SiteMenuSettingView = (props: SiteMenuSettingViewProps) => {
-  const { menuNode } = props;
+  const { menuNode, onEdit, onAdd, onClose } = props;
+
+  const onEditClickHandler = () => { onClickHandler('edit'); };
+  const onAddClickHandler = () => { onClickHandler('add'); };
+  const onDeleteClickHandler = () => { onClickHandler('delete'); };
+  const onPermissionClickHandler = () => { onClickHandler('permission'); };
+
   const listItems = [
-    { title: '메뉴수정', icon: <FaEdit />, onClick: onClickHandler},
-    { title: '메뉴추가', icon: <RiAddBoxLine />, onClick: onClickHandler },
-    { title: '메뉴삭제', icon: <RiDeleteBin6Line />, onClick: onClickHandler },
-    { title: '권한설정', icon: <RiUserSettingsLine />, onClick: onClickHandler },
+    { title: 'Edit Menu', icon: <FaEdit />, onClick: onEditClickHandler},
+    { title: 'Add Menu', icon: <RiAddBoxLine />, onClick: onAddClickHandler },
+    { title: 'Delete Menu', icon: <RiDeleteBin6Line />, onClick: onDeleteClickHandler },
+    { title: 'Permissions', icon: <RiUserSettingsLine />, onClick: onPermissionClickHandler },
   ];
   
-  function onClickHandler() {
-    console.log('TEST');
+  function onClickHandler(action: string) {
+    switch (action) {
+    case 'edit':
+      onEdit(menuNode);
+      break;
+    case 'add':
+      onAdd(menuNode);
+      break;
+    case 'delete':
+      break;
+    case 'permission':
+      break;
+    }
   }
 
   return (
-    <TabView title={menuNode.name}>
+    <TabView title={menuNode.name} closeable onClose={onClose}>
       <section className="NL_admin_menu_section">
         <Box sx={{mt: 0.5}}>
-          <b>메뉴타입</b> : {menuNode.module}
+          <b>Menu Type</b> : {menuNode.module}
         </Box>
         <List>
           {listItems.map((item, index) => (
             <Box key={item.title}>
-              <ListItem disablePadding>
+              <ListItem disablePadding onClick={item.onClick}>
                 <ListItemButton sx={{ py: 0, maxHeight: 32 }}>
                   <ListItemIcon sx={{ minWidth: 'auto', pl: 0, mr: 0.5 }}>
                     {item.icon}

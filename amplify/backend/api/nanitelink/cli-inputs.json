@@ -6,8 +6,8 @@
     "defaultAuthType": {
       "mode": "API_KEY",
       "expirationTime": 365,
-      "apiKeyExpirationDate": "2025-08-20T22:59:52.515Z",
-      "keyDescription": "Nanitelink"
+      "apiKeyExpirationDate": "2025-09-10T20:41:43.873Z",
+      "keyDescription": "WebAccessApiKey"
     },
     "additionalAuthTypes": [
       {

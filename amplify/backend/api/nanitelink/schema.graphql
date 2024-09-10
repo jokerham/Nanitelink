@@ -21,6 +21,16 @@
 #   content: String!
 # }
 
+type Module @model @auth(rules: [
+  { allow: groups, groups: ["Admin"], operations: [read, create, update, delete] },
+  { allow: public, operations: [read] }
+]) {
+  id: ID!
+  name: String!
+  parameters: AWSJSON
+  menus: [Menu] @hasMany
+}
+
 enum MenuType {
   Internal
   External
@@ -34,7 +44,7 @@ type Menu @model @auth(rules: [
   name: String!
   parent: String
   menuType: MenuType!
-  module: String
-  parameters: AWSJSON
+  module: Module! @belongsTo
+  parameterSettings: AWSJSON
   url: String
 }

@@ -8,6 +8,105 @@ type GeneratedMutation<InputType, OutputType> = string & {
   __generatedMutationOutput: OutputType;
 };
 
+export const createModule = /* GraphQL */ `mutation CreateModule(
+  $input: CreateModuleInput!
+  $condition: ModelModuleConditionInput
+) {
+  createModule(input: $input, condition: $condition) {
+    id
+    name
+    parameters
+    menus {
+      items {
+        id
+        name
+        parent
+        menuType
+        parameterSettings
+        url
+        createdAt
+        updatedAt
+        moduleMenusId
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.CreateModuleMutationVariables,
+  APITypes.CreateModuleMutation
+>;
+export const updateModule = /* GraphQL */ `mutation UpdateModule(
+  $input: UpdateModuleInput!
+  $condition: ModelModuleConditionInput
+) {
+  updateModule(input: $input, condition: $condition) {
+    id
+    name
+    parameters
+    menus {
+      items {
+        id
+        name
+        parent
+        menuType
+        parameterSettings
+        url
+        createdAt
+        updatedAt
+        moduleMenusId
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.UpdateModuleMutationVariables,
+  APITypes.UpdateModuleMutation
+>;
+export const deleteModule = /* GraphQL */ `mutation DeleteModule(
+  $input: DeleteModuleInput!
+  $condition: ModelModuleConditionInput
+) {
+  deleteModule(input: $input, condition: $condition) {
+    id
+    name
+    parameters
+    menus {
+      items {
+        id
+        name
+        parent
+        menuType
+        parameterSettings
+        url
+        createdAt
+        updatedAt
+        moduleMenusId
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.DeleteModuleMutationVariables,
+  APITypes.DeleteModuleMutation
+>;
 export const createMenu = /* GraphQL */ `mutation CreateMenu(
   $input: CreateMenuInput!
   $condition: ModelMenuConditionInput
@@ -17,11 +116,23 @@ export const createMenu = /* GraphQL */ `mutation CreateMenu(
     name
     parent
     menuType
-    module
-    parameters
+    module {
+      id
+      name
+      parameters
+      menus {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    parameterSettings
     url
     createdAt
     updatedAt
+    moduleMenusId
     __typename
   }
 }
@@ -38,11 +149,23 @@ export const updateMenu = /* GraphQL */ `mutation UpdateMenu(
     name
     parent
     menuType
-    module
-    parameters
+    module {
+      id
+      name
+      parameters
+      menus {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    parameterSettings
     url
     createdAt
     updatedAt
+    moduleMenusId
     __typename
   }
 }
@@ -59,11 +182,23 @@ export const deleteMenu = /* GraphQL */ `mutation DeleteMenu(
     name
     parent
     menuType
-    module
-    parameters
+    module {
+      id
+      name
+      parameters
+      menus {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    parameterSettings
     url
     createdAt
     updatedAt
+    moduleMenusId
     __typename
   }
 }

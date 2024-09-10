@@ -3,22 +3,23 @@ import { FaFolder, FaFolderOpen, FaHome, FaPlusCircle } from 'react-icons/fa';
 import { CgMenuBoxed } from 'react-icons/cg';
 import { ButtonBlackSmall, TextFieldFocusRedBorderSmall } from 'component/CustomMaterialUI';
 import { useEffect, useState } from 'react';
-import { SiteMapTreeNode } from './SiteMapTreeNode';
+import useResizeObserver from 'use-resize-observer';
+import { SiteMenuTreeNode } from './SiteMenuTreeNode';
 import { generateClient } from 'aws-amplify/api';
 import { listMenus } from 'graphql/queries';
 import TabView from 'component/TabView';
 
 interface NodeAdditionalProps {
-  onNodeClick: (node: SiteMapTreeNode) => void
+  onNodeClick: (node: SiteMenuTreeNode) => void
 }
 
 type NodeProps =
-  NodeRendererProps<SiteMapTreeNode> &
+  NodeRendererProps<SiteMenuTreeNode> &
   NodeAdditionalProps
 ;
 
 interface SiteMenuViewProps {
-  onMenuItemClicked: (node: SiteMapTreeNode) => void;
+  onMenuItemClicked: (node: SiteMenuTreeNode) => void;
 }
 
 const Header = () => {
@@ -55,15 +56,10 @@ const Node = (props: NodeProps) => {
 };
 
 const SiteMenuView = (props: SiteMenuViewProps) => {
-  const [treeData, setTreeData] = useState<SiteMapTreeNode[]>([]);
+  const [treeData, setTreeData] = useState<SiteMenuTreeNode[]>([]);
+  const { ref, width, height } = useResizeObserver();
 
-  const calculateHeight = () => {
-    return window.innerHeight - 320;
-  };
-
-  const [height, setHeight] = useState(calculateHeight());
-
-  const fetchNodeChildren = async (nodeId: string): Promise<SiteMapTreeNode[]> => {
+  const fetchNodeChildren = async (nodeId: string): Promise<SiteMenuTreeNode[]> => {
     const client = generateClient();
     const result = await client.graphql({
       query: listMenus,
@@ -76,7 +72,7 @@ const SiteMenuView = (props: SiteMenuViewProps) => {
         name: item.name,
         active: false,
         parent: nodeId,
-        module: item.module ?? '',
+        module: item.module?.name ?? '',
         children: []
       }));
     } else {
@@ -84,10 +80,10 @@ const SiteMenuView = (props: SiteMenuViewProps) => {
     }
   };
 
-  const handleExpand = async (node: SiteMapTreeNode) => {
+  const handleExpand = async (node: SiteMenuTreeNode) => {
     if (!node.children || node.children.length === 0) {
       const children = await fetchNodeChildren(node.id);
-      const updateTreeData = (data: SiteMapTreeNode[]): SiteMapTreeNode[] => {
+      const updateTreeData = (data: SiteMenuTreeNode[]): SiteMenuTreeNode[] => {
         return data.map(item => {
           if (item.id === node.id) {
             return { ...item, children };
@@ -100,20 +96,6 @@ const SiteMenuView = (props: SiteMenuViewProps) => {
       setTreeData(prevTreeData => updateTreeData(prevTreeData));
     }
   };
-
-  // UseEffect for resizing the window based on windows height
-  useEffect(() => {
-    const handleResize = () => {
-      setHeight(calculateHeight());
-    };
-
-    window.addEventListener('resize', handleResize);
-
-    // Cleanup event listener on component unmount
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
 
   // UseEffect to fetch the root menu and its sub menu
   useEffect(() => {
@@ -129,20 +111,19 @@ const SiteMenuView = (props: SiteMenuViewProps) => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-
   return (
     <TabView 
-      title="사이트 메뉴 편집"
-      header={<Header />}      >
-      <section className="NL_admin_menu_section">
-        <Tree<SiteMapTreeNode> 
+      title='Edit Site Menu'
+      header={<Header />}>
+      <section className="NL_admin_menu_section" ref={ref}>
+        <Tree<SiteMenuTreeNode> 
           data={treeData}
-          width={320}
-          height={height}
           indent={20}
           padding={5}
+          width={width}
+          height={height}
           rowHeight={22}>
-          {(nodeProps: NodeRendererProps<SiteMapTreeNode>) => (
+          {(nodeProps: NodeRendererProps<SiteMenuTreeNode>) => (
             <Node 
               {...nodeProps} 
               onNodeClick={props.onMenuItemClicked} // Pass the handler here
@@ -160,3 +141,8 @@ const SiteMenuView = (props: SiteMenuViewProps) => {
 };
 
 export default SiteMenuView;
+
+/*
+[REFERENCE]
+https://www.jameskerr.blog/posts/responsive-sizing-for-react-arborist-tree-component/
+*/

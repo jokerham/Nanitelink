@@ -9,11 +9,11 @@ import { Box } from '@mui/material';
 
 const AdminLayout = () => {
   return (
-    <Box className="NL_admin">
+    <Box className="NL_admin NL_flex_column">
       <Header />
-      <main className="NL_container NL_admin_main">
+      <main className="NL_container NL_admin_main NL_flex_row">
         <AdminMenu />
-        <Box className="NL_admin_outlet">
+        <Box className="NL_admin_outlet NL_flex_column">
           <Outlet />
         </Box>
       </main>

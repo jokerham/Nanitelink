@@ -8,17 +8,82 @@ type GeneratedQuery<InputType, OutputType> = string & {
   __generatedQueryOutput: OutputType;
 };
 
+export const getModule = /* GraphQL */ `query GetModule($id: ID!) {
+  getModule(id: $id) {
+    id
+    name
+    parameters
+    menus {
+      items {
+        id
+        name
+        parent
+        menuType
+        parameterSettings
+        url
+        createdAt
+        updatedAt
+        moduleMenusId
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedQuery<APITypes.GetModuleQueryVariables, APITypes.GetModuleQuery>;
+export const listModules = /* GraphQL */ `query ListModules(
+  $filter: ModelModuleFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listModules(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      name
+      parameters
+      menus {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListModulesQueryVariables,
+  APITypes.ListModulesQuery
+>;
 export const getMenu = /* GraphQL */ `query GetMenu($id: ID!) {
   getMenu(id: $id) {
     id
     name
     parent
     menuType
-    module
-    parameters
+    module {
+      id
+      name
+      parameters
+      menus {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    parameterSettings
     url
     createdAt
     updatedAt
+    moduleMenusId
     __typename
   }
 }
@@ -34,11 +99,19 @@ export const listMenus = /* GraphQL */ `query ListMenus(
       name
       parent
       menuType
-      module
-      parameters
+      module {
+        id
+        name
+        parameters
+        createdAt
+        updatedAt
+        __typename
+      }
+      parameterSettings
       url
       createdAt
       updatedAt
+      moduleMenusId
       __typename
     }
     nextToken

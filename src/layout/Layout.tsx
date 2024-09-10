@@ -5,16 +5,17 @@ import { ToastContainer } from 'react-toastify';
 import Header from './Header';
 import Footer from './Footer';
 import 'react-toastify/dist/ReactToastify.css';
+import { Box } from '@mui/material';
 
 const Layout: React.FC = () => {
   return (
-    <div>
+    <Box className="NL_flex_column">
       <Header />
-      <main className="NL_container NL_main">
+      <main className="NL_container NL_main NL_flex_column">
         <Outlet />
       </main>
-      <ToastContainer
-        position="top-right"
+      <Footer />
+      <ToastContainer position="top-right"
         autoClose={3000}
         hideProgressBar={false}
         newestOnTop={false}
@@ -22,10 +23,8 @@ const Layout: React.FC = () => {
         pauseOnFocusLoss={false}
         draggable
         pauseOnHover
-        theme="light"
-      />
-      <Footer />
-    </div>
+        theme="light"/>
+    </Box>
   );
 };
 

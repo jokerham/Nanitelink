@@ -1,6 +1,18 @@
-html body { 
+html body {
   margin: 0;
   padding: 0;
+  width: 100vh;
+  height: 100vh;
+}
+
+#root {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
   background-color: #F1F1F1;
 }
 
@@ -17,6 +29,21 @@ html body {
   /********************************************************************************
   COMPONENTS
   ********************************************************************************/
+  // Flex
+  &flex {
+    &_row {
+      display: flex;
+      flex-direction: row;
+      flex-grow: 1;
+    }
+
+    &_column {
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+  }
+
   // Container
   &container {
     display: flex;
@@ -459,13 +486,17 @@ html body {
     &_menu {
       &_container {
         display: flex;
+        flex-direction: row;
         align-items: flex-start; /* Align items to the top */
         gap: 20px; /* Optional: Adds space between the views */
         height: 100%;
       }
 
       &_tab {
+        display: flex;
+        flex-direction: column;
         align-items: stretch;
+        gap: 5px;
         background-image: -webkit-linear-gradient(top, #eee, #ddd 18px, #ccc 18px, #ddd 33px);
         background-color: #ddd;
         border-radius: 5px;
@@ -477,27 +508,39 @@ html body {
         position: relative;
         padding: 10px 10px 5px 10px;
 
-        & h1 {
-          font-size: 16px;
-          margin: -10px -10px 0 -10px;
-          line-height: 32px !important;
-          color: black;
-          padding: 0 8px;
-          text-overflow: ellipsis;
+        &_header {
+          display: flex;
+          flex-direction: row;
+          align-items: stretch;
+          align-content: space-between;
+
+          & h1 {
+            display: flex;
+            flex-grow: 1;
+            font-size: 16px;
+            margin: -10px -10px 0 -10px;
+            line-height: 32px !important;
+            color: black;
+            padding: 0 8px;
+            text-overflow: ellipsis;
+          }
         }
       }
 
       &_content {
-        max-height: 100%;
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        gap: 5px;
       }
 
       &_section {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
         background-color: white;
         border: 1px solid #999;
         border-radius: 5px;
-        margin-top: 5px;
-        margin-bottom: 5px;
-        height: 100%;
         padding: 0 10px;
       }
 
