@@ -21,19 +21,48 @@
 #   content: String!
 # }
 
+type TOptionValue {
+  value: String
+  label: String
+}
+
+enum InputType {
+  select
+  text
+  readio
+  checkbox
+  textarea
+  date
+  datetime
+  time
+}
+
+type TParameter {
+  id: String!
+  inputType: InputType!
+  label: String!
+  defaultValue: String
+  optionValues: [TOptionValue]
+}
+
 type Module @model @auth(rules: [
   { allow: groups, groups: ["Admin"], operations: [read, create, update, delete] },
   { allow: public, operations: [read] }
 ]) {
   id: ID!
   name: String!
-  parameters: AWSJSON
+  parameters: [TParameter]
   menus: [Menu] @hasMany
 }
 
 enum MenuType {
   Internal
   External
+}
+
+type TParameterValue {
+  id: String!
+  value: String
 }
 
 type Menu @model @auth(rules: [
@@ -45,6 +74,6 @@ type Menu @model @auth(rules: [
   parent: String
   menuType: MenuType!
   module: Module! @belongsTo
-  parameterSettings: AWSJSON
+  parameterSettings: [TParameterValue]
   url: String
 }

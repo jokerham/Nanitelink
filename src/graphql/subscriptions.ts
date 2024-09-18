@@ -12,13 +12,31 @@ export const onCreateModule = /* GraphQL */ `subscription OnCreateModule($filter
   onCreateModule(filter: $filter) {
     id
     name
-    parameters
+    parameters {
+      id
+      inputType
+      label
+      defaultValue
+      optionValues {
+        value
+        label
+        __typename
+      }
+      __typename
+    }
     menus {
       items {
         id
         name
         parent
         menuType
+        module {
+          id
+          name
+          createdAt
+          updatedAt
+          __typename
+        }
         parameterSettings
         url
         createdAt
@@ -42,13 +60,31 @@ export const onUpdateModule = /* GraphQL */ `subscription OnUpdateModule($filter
   onUpdateModule(filter: $filter) {
     id
     name
-    parameters
+    parameters {
+      id
+      inputType
+      label
+      defaultValue
+      optionValues {
+        value
+        label
+        __typename
+      }
+      __typename
+    }
     menus {
       items {
         id
         name
         parent
         menuType
+        module {
+          id
+          name
+          createdAt
+          updatedAt
+          __typename
+        }
         parameterSettings
         url
         createdAt
@@ -72,13 +108,31 @@ export const onDeleteModule = /* GraphQL */ `subscription OnDeleteModule($filter
   onDeleteModule(filter: $filter) {
     id
     name
-    parameters
+    parameters {
+      id
+      inputType
+      label
+      defaultValue
+      optionValues {
+        value
+        label
+        __typename
+      }
+      __typename
+    }
     menus {
       items {
         id
         name
         parent
         menuType
+        module {
+          id
+          name
+          createdAt
+          updatedAt
+          __typename
+        }
         parameterSettings
         url
         createdAt
@@ -107,8 +161,31 @@ export const onCreateMenu = /* GraphQL */ `subscription OnCreateMenu($filter: Mo
     module {
       id
       name
-      parameters
+      parameters {
+        id
+        inputType
+        label
+        defaultValue
+        optionValues {
+          value
+          label
+          __typename
+        }
+        __typename
+      }
       menus {
+        items {
+          id
+          name
+          parent
+          menuType
+          parameterSettings
+          url
+          createdAt
+          updatedAt
+          moduleMenusId
+          __typename
+        }
         nextToken
         __typename
       }
@@ -137,8 +214,31 @@ export const onUpdateMenu = /* GraphQL */ `subscription OnUpdateMenu($filter: Mo
     module {
       id
       name
-      parameters
+      parameters {
+        id
+        inputType
+        label
+        defaultValue
+        optionValues {
+          value
+          label
+          __typename
+        }
+        __typename
+      }
       menus {
+        items {
+          id
+          name
+          parent
+          menuType
+          parameterSettings
+          url
+          createdAt
+          updatedAt
+          moduleMenusId
+          __typename
+        }
         nextToken
         __typename
       }
@@ -167,8 +267,31 @@ export const onDeleteMenu = /* GraphQL */ `subscription OnDeleteMenu($filter: Mo
     module {
       id
       name
-      parameters
+      parameters {
+        id
+        inputType
+        label
+        defaultValue
+        optionValues {
+          value
+          label
+          __typename
+        }
+        __typename
+      }
       menus {
+        items {
+          id
+          name
+          parent
+          menuType
+          parameterSettings
+          url
+          createdAt
+          updatedAt
+          moduleMenusId
+          __typename
+        }
         nextToken
         __typename
       }

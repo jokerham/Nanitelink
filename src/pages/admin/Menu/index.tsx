@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { SiteMenuTreeNode } from './SiteMenuTreeNode';
+import { useEffect, useState } from 'react';
+import { SiteMenuTreeNode, isSiteMenuTreeNode } from './SiteMenuTreeNode';
 import SiteMenuView from './SiteMenuView';
 import SiteMenuSettingView from './SiteMenuSettingView';
 import SiteMenuDetailView from './SiteMenuDetailView';
@@ -7,18 +7,20 @@ import SiteMenuAddView from './SiteMenuAddView';
 
 const Menu = () => {
   const [menuNode, setMenuNode] = useState<SiteMenuTreeNode | undefined>();
+  const [menuReloadKey, setMenuReloadkey] = useState(1);
   const [openMenuSettingView, setOpenMenuSettingView] = useState(false);
   const [openMenuDetailView, setOpenMenuDetailView] = useState(false);
   const [openMenuAddView, setOpenMenuAddView] = useState(false);
   
   const handleMenuItemClicked = (node: SiteMenuTreeNode) => { handleClicked('menuItem', node, true); };
-  const handleCloseMenuSettingViewClicked = () => { handleClicked('menuItem', menuNode, false); };
+  const handleCloseMenuSettingViewClicked = (reload: boolean) => { handleClicked('menuItem', menuNode, false, reload); };
   const handleMenuItemEditClicked = (node: SiteMenuTreeNode) => { handleClicked('menuItemEdit', node, true); };
   const handleCloseMenuItemEditViewClicked = () => { handleClicked('menuItemEdit', menuNode, false); };
   const handleMenuItemAddClicked = (node?: SiteMenuTreeNode) => { handleClicked('menuItemAdd', node, true); };
-  const handleCloseMenuItemAddViewClicked = () => { handleClicked('menuItemAdd', menuNode, false); };
+  const handleCloseMenuItemAddViewClicked = (reload: boolean) => { handleClicked('menuItemAdd', menuNode, false, reload); };
 
-  const handleClicked = (action: string, node: SiteMenuTreeNode | undefined, open: boolean) => {
+  const handleClicked = (action: string, node: SiteMenuTreeNode | undefined, open: boolean, reload?: boolean) => {
+    if (reload) setMenuReloadkey(prev => prev + 1);
     switch (action) {
     case 'menuItem':
       if (open) {
@@ -26,9 +28,9 @@ const Menu = () => {
         setOpenMenuSettingView(true);
       } else {
         setOpenMenuSettingView(false);
-        setOpenMenuDetailView(false);
-        setOpenMenuAddView(false);
       }
+      setOpenMenuDetailView(false);
+      setOpenMenuAddView(false);
       break;
     case 'menuItemEdit':
       if (open) {
@@ -41,11 +43,16 @@ const Menu = () => {
       break;
     case 'menuItemAdd':
       if (open) {
-        setMenuNode(node);
+        if (node && isSiteMenuTreeNode(node)) {
+          setMenuNode(node);
+        } else {
+          setOpenMenuSettingView(false);
+        }
         setOpenMenuDetailView(false);
         setOpenMenuAddView(true);
       } else {
         setOpenMenuAddView(false);
+        setOpenMenuSettingView(false);
       }
       break;
     default:
@@ -53,9 +60,16 @@ const Menu = () => {
     }
   };
 
+  useEffect(() => {
+    setOpenMenuSettingView(false);
+    setOpenMenuDetailView(false);
+    setOpenMenuAddView(false);
+  }, [menuReloadKey]);
+
   return (
     <div className='NL_admin_menu_container'>
-      <SiteMenuView  
+      <SiteMenuView 
+        key={menuReloadKey}
         onAddMenuClick={handleMenuItemAddClicked}
         onMenuItemClicked={handleMenuItemClicked}/>
       { openMenuSettingView && menuNode && 

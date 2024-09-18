@@ -15,13 +15,31 @@ export const createModule = /* GraphQL */ `mutation CreateModule(
   createModule(input: $input, condition: $condition) {
     id
     name
-    parameters
+    parameters {
+      id
+      inputType
+      label
+      defaultValue
+      optionValues {
+        value
+        label
+        __typename
+      }
+      __typename
+    }
     menus {
       items {
         id
         name
         parent
         menuType
+        module {
+          id
+          name
+          createdAt
+          updatedAt
+          __typename
+        }
         parameterSettings
         url
         createdAt
@@ -48,13 +66,31 @@ export const updateModule = /* GraphQL */ `mutation UpdateModule(
   updateModule(input: $input, condition: $condition) {
     id
     name
-    parameters
+    parameters {
+      id
+      inputType
+      label
+      defaultValue
+      optionValues {
+        value
+        label
+        __typename
+      }
+      __typename
+    }
     menus {
       items {
         id
         name
         parent
         menuType
+        module {
+          id
+          name
+          createdAt
+          updatedAt
+          __typename
+        }
         parameterSettings
         url
         createdAt
@@ -81,13 +117,31 @@ export const deleteModule = /* GraphQL */ `mutation DeleteModule(
   deleteModule(input: $input, condition: $condition) {
     id
     name
-    parameters
+    parameters {
+      id
+      inputType
+      label
+      defaultValue
+      optionValues {
+        value
+        label
+        __typename
+      }
+      __typename
+    }
     menus {
       items {
         id
         name
         parent
         menuType
+        module {
+          id
+          name
+          createdAt
+          updatedAt
+          __typename
+        }
         parameterSettings
         url
         createdAt
@@ -119,8 +173,31 @@ export const createMenu = /* GraphQL */ `mutation CreateMenu(
     module {
       id
       name
-      parameters
+      parameters {
+        id
+        inputType
+        label
+        defaultValue
+        optionValues {
+          value
+          label
+          __typename
+        }
+        __typename
+      }
       menus {
+        items {
+          id
+          name
+          parent
+          menuType
+          parameterSettings
+          url
+          createdAt
+          updatedAt
+          moduleMenusId
+          __typename
+        }
         nextToken
         __typename
       }
@@ -152,8 +229,31 @@ export const updateMenu = /* GraphQL */ `mutation UpdateMenu(
     module {
       id
       name
-      parameters
+      parameters {
+        id
+        inputType
+        label
+        defaultValue
+        optionValues {
+          value
+          label
+          __typename
+        }
+        __typename
+      }
       menus {
+        items {
+          id
+          name
+          parent
+          menuType
+          parameterSettings
+          url
+          createdAt
+          updatedAt
+          moduleMenusId
+          __typename
+        }
         nextToken
         __typename
       }
@@ -185,8 +285,31 @@ export const deleteMenu = /* GraphQL */ `mutation DeleteMenu(
     module {
       id
       name
-      parameters
+      parameters {
+        id
+        inputType
+        label
+        defaultValue
+        optionValues {
+          value
+          label
+          __typename
+        }
+        __typename
+      }
       menus {
+        items {
+          id
+          name
+          parent
+          menuType
+          parameterSettings
+          url
+          createdAt
+          updatedAt
+          moduleMenusId
+          __typename
+        }
         nextToken
         __typename
       }

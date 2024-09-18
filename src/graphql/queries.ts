@@ -12,13 +12,31 @@ export const getModule = /* GraphQL */ `query GetModule($id: ID!) {
   getModule(id: $id) {
     id
     name
-    parameters
+    parameters {
+      id
+      inputType
+      label
+      defaultValue
+      optionValues {
+        value
+        label
+        __typename
+      }
+      __typename
+    }
     menus {
       items {
         id
         name
         parent
         menuType
+        module {
+          id
+          name
+          createdAt
+          updatedAt
+          __typename
+        }
         parameterSettings
         url
         createdAt
@@ -44,8 +62,31 @@ export const listModules = /* GraphQL */ `query ListModules(
     items {
       id
       name
-      parameters
+      parameters {
+        id
+        inputType
+        label
+        defaultValue
+        optionValues {
+          value
+          label
+          __typename
+        }
+        __typename
+      }
       menus {
+        items {
+          id
+          name
+          parent
+          menuType
+          parameterSettings
+          url
+          createdAt
+          updatedAt
+          moduleMenusId
+          __typename
+        }
         nextToken
         __typename
       }
@@ -70,8 +111,31 @@ export const getMenu = /* GraphQL */ `query GetMenu($id: ID!) {
     module {
       id
       name
-      parameters
+      parameters {
+        id
+        inputType
+        label
+        defaultValue
+        optionValues {
+          value
+          label
+          __typename
+        }
+        __typename
+      }
       menus {
+        items {
+          id
+          name
+          parent
+          menuType
+          parameterSettings
+          url
+          createdAt
+          updatedAt
+          moduleMenusId
+          __typename
+        }
         nextToken
         __typename
       }
@@ -102,7 +166,17 @@ export const listMenus = /* GraphQL */ `query ListMenus(
       module {
         id
         name
-        parameters
+        parameters {
+          id
+          inputType
+          label
+          defaultValue
+          __typename
+        }
+        menus {
+          nextToken
+          __typename
+        }
         createdAt
         updatedAt
         __typename

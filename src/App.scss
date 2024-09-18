@@ -35,12 +35,14 @@ html body {
       display: flex;
       flex-direction: row;
       flex-grow: 1;
+      gap: 5px;
     }
 
     &_column {
       display: flex;
       flex-direction: column;
       flex-grow: 1;
+      gap: 5px;
     }
   }
 
@@ -546,6 +548,8 @@ html body {
 
       &_action {
         display: flex;
+        flex-direction: row;
+        align-content: center;
         justify-content: end;
       }
 

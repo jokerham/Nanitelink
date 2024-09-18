@@ -1,18 +1,24 @@
+import { useState } from 'react';
 import TabView from 'component/TabView';
 import { SiteMenuTreeNode } from './SiteMenuTreeNode';
 import { Box, Divider, List, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
+import GeneralMessagePopup, {MessageBoxType} from 'component/dialog/GeneralMessagePopup';
 import { FaEdit } from 'react-icons/fa';
 import { RiAddBoxLine, RiDeleteBin6Line, RiUserSettingsLine } from 'react-icons/ri';
+import { generateClient } from 'aws-amplify/api';
+import { deleteMenu } from 'graphql/mutations';
+import 'amplifyconfigure';
 
 interface SiteMenuSettingViewProps {
   menuNode: SiteMenuTreeNode;
   onEdit: (menuNode: SiteMenuTreeNode) => void;
   onAdd: (menuNode: SiteMenuTreeNode) => void;
-  onClose: () => void;
+  onClose: (reload: boolean) => void;
 }
 
 const SiteMenuSettingView = (props: SiteMenuSettingViewProps) => {
   const { menuNode, onEdit, onAdd, onClose } = props;
+  const [openMessagePopup, setOpenMessagePopup] = useState(false);
 
   const onEditClickHandler = () => { onClickHandler('edit'); };
   const onAddClickHandler = () => { onClickHandler('add'); };
@@ -34,15 +40,47 @@ const SiteMenuSettingView = (props: SiteMenuSettingViewProps) => {
     case 'add':
       onAdd(menuNode);
       break;
-    case 'delete':
+    case 'delete': {
+      setOpenMessagePopup(true);
       break;
+    }
     case 'permission':
       break;
     }
   }
 
+  const amplifyDeleteMenu = async (id: string) => {
+    const client = generateClient();
+    try {
+      const result = await client.graphql({
+        query: deleteMenu,
+        variables: {
+          input:  {
+            id: id
+          }
+        },
+        authMode: 'userPool'
+      });
+      console.log(result);
+      onClose(true);
+    } catch (error) {
+      console.error('Error deleting menu:', error);
+    }
+  };
+
+  const handleOnClose = () => {
+    onClose(false);
+  };
+
+  const handleCloseMessgePopup = (response: string) => { 
+    setOpenMessagePopup(false);
+    if (response === 'OK') {
+      amplifyDeleteMenu(menuNode.id);
+    }
+  };
+
   return (
-    <TabView title={menuNode.name} closeable onClose={onClose}>
+    <TabView title={menuNode.name} closeable onClose={handleOnClose}>
       <section className="NL_admin_menu_section">
         <Box>
           <b>Menu Type</b> : {menuNode.module}
@@ -63,6 +101,13 @@ const SiteMenuSettingView = (props: SiteMenuSettingViewProps) => {
           ))}
         </List>
       </section>
+      <GeneralMessagePopup
+        open={openMessagePopup}
+        onClose={handleCloseMessgePopup}
+        title="Confirmation"
+        message='Sub menues will also be deleted. Do you want to proceed ?'
+        type={MessageBoxType.OKCancel}
+      />
     </TabView>
   );
 };

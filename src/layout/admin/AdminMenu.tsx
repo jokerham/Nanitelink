@@ -17,7 +17,8 @@ interface ISubMenu {
 
 const AdminMenu = () => {
   const [open, setOpen] = useState(true);
-  const [activeMenu, setActiveMenu] = useState(0);
+  const [expandedIndices, setExpandedIndices] = useState<number[]>([]); // Manage expanded indices
+  const [activeMenu, setActiveMenu] = useState<number | null>(null); // Track active menu
   const navigate = useNavigate();
 
   const menuNavigate = (clickedMenu: number, href?: string) => {
@@ -26,23 +27,35 @@ const AdminMenu = () => {
     if (href) navigate(href);
   };
 
+  const handleAccordionChange = (index: number) => (event: React.ChangeEvent<unknown>, isExpanded: boolean) => {
+    setExpandedIndices(prevIndices =>
+      isExpanded
+        ? [...prevIndices, index]
+        : prevIndices.filter(i => i !== index)
+    );
+  };
+
+  const handleSubMenuClick = (index: number, subMenuIndex: number, href?: string) => () => {
+    menuNavigate(index, href);
+  };
+
   const menus: IMenu[] = [
     {
       icon: <MdSpaceDashboard />, title: 'Dashboard', onClick: () => { menuNavigate(0, '/admin'); }
     }, {
       icon: <IoMdHome />, title: 'Edit Site', subMenus: [
         {
-          title: 'Edit Menu', onClick: () => { menuNavigate(1, '/admin/menu'); }
+          title: 'Edit Menu', onClick: handleSubMenuClick(1, 0, '/admin/menu')
         }
       ], onClick: () => { menuNavigate(1); }
     }, {
       icon: <ImUser />, title: 'Members', subMenus: [
         {
-          title: 'Member List', onClick: () => { menuNavigate(2, '/admin/members'); }
+          title: 'Member List', onClick: handleSubMenuClick(2, 0, '/admin/members')
         }, {
-          title: 'Group List', onClick: () => { menuNavigate(2, '/admin/groups'); }
+          title: 'Group List', onClick: handleSubMenuClick(2, 1, '/admin/groups')
         }, {
-          title: 'Member Setting', onClick: () => { menuNavigate(2, '/admin/member/setting'); }
+          title: 'Member Setting', onClick: handleSubMenuClick(2, 2, '/admin/member/setting')
         }
       ], onClick: () => { menuNavigate(2); }
     }
@@ -52,7 +65,12 @@ const AdminMenu = () => {
     <Box className={'NL_admin_drawer_container ' + (open ? 'open' : 'close')}>
       <Box className={'NL_admin_drawer_menu ' + (open ? 'open' : 'close')}>
         {menus.map((menu, index) => (
-          <Accordion key={index} defaultExpanded={index === activeMenu} className={`NL_admin_drawer_accordion ${index === activeMenu ? ' active' : ''}`}>
+          <Accordion
+            key={index}
+            expanded={expandedIndices.includes(index)}
+            onChange={handleAccordionChange(index)}
+            className={`NL_admin_drawer_accordion ${index === activeMenu ? ' active' : ''}`}
+          >
             <AccordionSummary
               expandIcon={open && (menu.subMenus?.length ?? 0) > 0 ? <FaCaretDown /> : <></>}
               className='NL_admin_drawer_accordion_summary'
@@ -63,8 +81,8 @@ const AdminMenu = () => {
             {menu.subMenus && (menu.subMenus?.length ?? 0) > 0 && (
               <AccordionDetails className='NL_admin_drawer_accordion_detail' sx={{ display: open ? 'block' : 'none' }}>
                 <List className='NL_admin_drawer_accordion_list'>
-                  {menu.subMenus.map((subMenu, index) => (
-                    <ListItem key={index}
+                  {menu.subMenus.map((subMenu, subMenuIndex) => (
+                    <ListItem key={subMenuIndex}
                       className='NL_admin_drawer_accordion_list_item'
                       onClick={subMenu.onClick}
                     >

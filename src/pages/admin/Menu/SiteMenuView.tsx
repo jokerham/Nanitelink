@@ -125,16 +125,13 @@ const SiteMenuView = (props: SiteMenuViewProps) => {
           height={height}
           rowHeight={22}>
           {(nodeProps: NodeRendererProps<SiteMenuTreeNode>) => (
-            <Node 
-              {...nodeProps} 
-              onNodeClick={props.onMenuItemClicked} // Pass the handler here
-            />
+            <Node {...nodeProps} onNodeClick={props.onMenuItemClicked} />
           )}
         </Tree>
       </section>
       <div className="NL_admin_menu_action">
         <button type="button" onClick={props.onAddMenuClick}>
-          <FaPlusCircle/>Add Menu
+          <FaPlusCircle className='NL_icon'/>Add Menu
         </button>
       </div>
     </TabView>
