@@ -1,25 +1,46 @@
 // src/layout/Header.tsx
 import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { Box, Popover } from '@mui/material';
+import { Box, Popover, MenuItem, Collapse } from '@mui/material';
 import { FaSearch, FaSignInAlt } from 'react-icons/fa';
 import useNavigateWithParams from 'function/useNavigateWithParams';
 import LoginDialog from 'component/dialog/LoginDialog';
 import logo from 'logo.svg';
 import { AvatarShadow, TextFieldFocusRedBorder } from 'component/CustomMaterialUI';
 import { fetchUserAttributes, FetchUserAttributesOutput } from 'aws-amplify/auth';
-import 'amplifyconfigure';
 import { getUrl } from 'aws-amplify/storage';
 import { Hub } from 'aws-amplify/utils';
 import ProfileMenu from './ProfileMenu';
+import { GraphqlQueryListMenu } from 'function/amplify/graphqlQueries';
+import { MenuType } from 'API'; // Import the MenuType enum
+import 'amplifyconfigure';
+import MenuPopper from 'component/MenuPopper';
+
+interface IMenu {
+  __typename: 'Menu';
+  id: string;
+  name: string;
+  parent?: string | null;
+  menuType: MenuType;
+  sortOrder?: number | null;
+  url?: string | null;
+  module: {
+    __typename: 'Module';
+    id: string;
+    name: string;
+  };
+  subMenus?: IMenu[]; // Add subMenus property to store submenus
+}
 
 const Header: React.FC = () => {
   const navigateWithParams = useNavigateWithParams();
   const [openSignIn, setOpenSignIn] = useState(false);
   const [openPopup, setOpenPopup] = useState(false);
   const [openProfileMenu, setOpenProfileMenu] = useState(false);
+  const [openSubMenu, setOpenSubMenu] = useState<string | null>(null);
   const [user, setUser] = useState<FetchUserAttributesOutput|undefined>(undefined);
   const [profileImageUrl, setProfileImageUrl] = useState('');
+  const [routes, setRoutes] = useState<IMenu[]>([]); // State to hold fetched menu items
 
   const getUser = async() => {
     const attributetmp = await fetchUserAttributes();
@@ -54,6 +75,36 @@ const Header: React.FC = () => {
     fetchProfileImageUrl();
   }, [user]);
 
+  // Fetch all menus and submenus on component mount
+  useEffect(() => {
+    const fetchAllMenus = async () => {
+      try {
+        // Fetch the top-level menus
+        const topLevelMenus = await GraphqlQueryListMenu({ id: '' });
+
+        // Recursively fetch submenus for each top-level menu
+        const fetchSubMenus = async (menu: IMenu): Promise<IMenu> => {
+          const subMenus = await GraphqlQueryListMenu({ id: menu.id });
+          const subMenusWithChildren = await Promise.all(
+            subMenus.map((subMenu) => fetchSubMenus(subMenu)) // Fetch submenus for each submenu
+          );
+          return { ...menu, subMenus: subMenusWithChildren }; // Attach submenus to the parent menu
+        };
+
+        // Fetch all submenus for the top-level menus
+        const menusWithSubMenus = await Promise.all(
+          topLevelMenus.map((menu) => fetchSubMenus(menu))
+        );
+
+        setRoutes(menusWithSubMenus); // Store the complete menu structure in state
+      } catch (error) {
+        console.error('Error fetching menus:', error);
+      }
+    };
+
+    fetchAllMenus(); // Trigger the fetching process on mount
+  }, []);
+
   const handleClickSignIn = () => { setOpenSignIn(true); };
   const handleCloseSignIn = () => { setOpenSignIn(false); };
   const handleClickProfileMenu = (event: React.MouseEvent<HTMLButtonElement>) => {     
@@ -72,6 +123,21 @@ const Header: React.FC = () => {
     setAnchorEl(null);
     setOpenPopup(false);
   };
+  // Handle popover open/close logic
+  const handleSubmenuPopoverOpen = (event: React.MouseEvent<HTMLElement>, routeId: string) => {
+    if (event.currentTarget) {
+      setAnchorEl(event.currentTarget as HTMLButtonElement);
+      setOpenSubMenu(routeId);
+    }
+  };
+  const handleSubmenuPopoverClose = () => {
+    setOpenSubMenu(null);
+    setAnchorEl(null);
+  };
+  const handleSubMenuClick = () => {
+    // Close submenu popover when a submenu link is clicked
+    setOpenSubMenu(null);
+  };
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
 
   const handleSearch = (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -80,7 +146,6 @@ const Header: React.FC = () => {
       navigateWithParams('/search', { q: inputElement.value });
     }
   };
-
   const stringToColor = (string: string) => {
     let hash = 0;
     let i;
@@ -100,7 +165,6 @@ const Header: React.FC = () => {
       
     return color;
   };
-
   const stringAvatar = (name: string) => {
     return {
       sx: {
@@ -120,15 +184,50 @@ const Header: React.FC = () => {
         <div className="NL_container">
           <span className="NL_nav_logo">
             <img src={logo} className="App-logo NL_icon" alt="logo" width="23" height="30" />
-                        Nanitelink
+              Nanitelink
           </span>
+          {/* Dynamic navigation menu */}
           <div className="NL_nav_menu">
-            <div className="NL_nav_menu_item">
-              <NavLink to="/">Home</NavLink>
-            </div>
-            <div className="NL_nav_menu_item">
-              <NavLink to="/board">Board</NavLink>
-            </div>
+            {routes.map((route) => (
+              <div key={`${route.id}`}>
+                <div 
+                  className="NL_nav_menu_item"
+                  onMouseEnter={(event) => handleSubmenuPopoverOpen(event, route.id)}
+                //  onMouseLeave={handleSubmenuPopoverClose}
+                >
+                  <NavLink to={`/${route.url}`} >{route.name}</NavLink>
+                </div>
+                { anchorEl && route.subMenus && route.subMenus?.length &&
+                  <MenuPopper
+                    targetRef={anchorEl}
+                    open={openSubMenu !== null && openSubMenu === route.id}
+                    onClose={handleSubmenuPopoverClose}
+                  >
+                    <Box sx={{
+                      backgroundColor: '#222222',
+                      // borderTopLeftRadius: 0,
+                      // borderTopRightRadius: 0,
+                      borderRadius: 0,
+                      padding: '5px',
+                      width: '170px',
+                      zIndex: '9999'}}>
+                      {
+                        route.subMenus && route.subMenus?.length && route.subMenus.map((submenu) => (
+                          <MenuItem key={submenu.id}>
+                            <NavLink 
+                              className='NL_nav_profile_menu' 
+                              to={`/${submenu.url}`}
+                              onClick={handleSubMenuClick}>
+                              {submenu.name}
+                            </NavLink>
+                          </MenuItem>
+                        ))
+                      }
+                    </Box>
+                  </MenuPopper>
+                }
+              </div>
+            ))};
           </div>
           <div className="NL_nav_signin">
             <button className="NL_buttonLink NL_nav_signin_link" onClick={handleOnSearchClick}>

@@ -10,6 +10,13 @@
           "read"
         ]
       }
+    },
+    "/user/{AccessToken}": {
+      "name": "/user/{AccessToken}",
+      "lambdaFunction": "getUserFunction",
+      "permissions": {
+        "setting": "open"
+      }
     }
   }
 }

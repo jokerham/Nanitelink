@@ -37,12 +37,26 @@ enum InputType {
   time
 }
 
-type TParameter {
-  id: String!
+type Parameter @model @auth(rules: [
+  { allow: groups, groups: ["Admin"], operations: [read, create, update, delete] },
+  { allow: public, operations: [read] }
+]) {
+  id: ID!
   inputType: InputType!
   label: String!
   defaultValue: String
   optionValues: [TOptionValue]
+  module: Module! @belongsTo
+}
+
+type Action @model @auth(rules: [
+  { allow: groups, groups: ["Admin"], operations: [read, create, update, delete] },
+  { allow: public, operations: [read] }
+]) {
+  id: ID!
+  name: String!
+  isIndex: Boolean!
+  module: Module! @belongsTo
 }
 
 type Module @model @auth(rules: [
@@ -51,8 +65,9 @@ type Module @model @auth(rules: [
 ]) {
   id: ID!
   name: String!
-  parameters: [TParameter]
+  parameters: [Parameter] @hasMany
   menus: [Menu] @hasMany
+  actions: [Action]! @hasMany
 }
 
 enum MenuType {
@@ -74,6 +89,20 @@ type Menu @model @auth(rules: [
   parent: String
   menuType: MenuType!
   module: Module! @belongsTo
+  moduleId: String!
   parameterSettings: [TParameterValue]
-  url: String
+  url: String!
+  sortOrder: Int
+}
+
+type Document @model @auth(rules: [
+  { allow: groups, groups: ["Admin"], operations: [read, create, update, delete] },
+  { allow: private, operations: [read, create] },
+  { allow: owner, operations: [update, delete], ownerField: "author" },
+  { allow: public, operations: [read] }
+]) {
+  id: ID!
+  title: String
+  content: String
+  author: String
 }

@@ -7,6 +7,9 @@ import { listModules } from 'graphql/queries';
 import { TfiSave } from 'react-icons/tfi';
 import * as Yup from 'yup';
 import { Formik, Field, Form } from 'formik';
+import { fetchUserAttributes } from 'aws-amplify/auth';
+import { GraphqlQueryCreateMenu, GraphqlQueryCreateDocument } from 'function/amplify/graphqlQueries';
+import { showToast } from 'function/showToast';
 
 interface SiteMenuAddViewProps {
   menuNode?: SiteMenuTreeNode;
@@ -39,6 +42,7 @@ type TParameterValue = {
 
 interface IFormValues {
   module: string;
+  moduleId: string;
   menuName: string;
   menuUrl: string;
   parameters: TParameterValue[];
@@ -58,24 +62,30 @@ const SiteMenuAddView = (props: SiteMenuAddViewProps) => {
       });
       if (result.data?.listModules?.items ) {
         const modules = result.data.listModules.items.map(item => {
+          //return {
+          //   id: item.id,
+          //   name: item.name,
+          //   parameters: 
+          //     (item.parameters ? item.parameters.map(parameter => {
+          //     return {
+          //       id: parameter?.id,
+          //       inputType: parameter?.inputType,
+          //       label: parameter?.label,
+          //       defaultValue: parameter?.defaultValue,
+          //       optionValues: (parameter?.optionValues ? parameter?.optionValues.map(option => {
+          //         return {
+          //           value: option?.value,
+          //           label: option?.label
+          //         } as TOptionValue;
+          //       }) : []) as TOptionValue[]
+          //     } as TParameter;
+          //   }) : []) as TParameter[]
+          //};
           return {
             id: item.id,
             name: item.name,
-            parameters: (item.parameters ? item.parameters.map(parameter => {
-              return {
-                id: parameter?.id,
-                inputType: parameter?.inputType,
-                label: parameter?.label,
-                defaultValue: parameter?.defaultValue,
-                optionValues: (parameter?.optionValues ? parameter?.optionValues.map(option => {
-                  return {
-                    value: option?.value,
-                    label: option?.label
-                  } as TOptionValue;
-                }) : []) as TOptionValue[]
-              } as TParameter;
-            }) : []) as TParameter[]
-          };
+            parameters: []
+          } as TModule;
         });
         setModuleList(modules);
       }
@@ -98,6 +108,7 @@ const SiteMenuAddView = (props: SiteMenuAddViewProps) => {
 
   const initialValues: IFormValues = {
     module: '',
+    moduleId: '',
     menuName: '',
     menuUrl: '',
     parameters: moduleParameters.map(param => ({
@@ -113,7 +124,30 @@ const SiteMenuAddView = (props: SiteMenuAddViewProps) => {
   });
 
   const handleOnSubmit = (values: IFormValues) => {
-    console.log(values);
+    const amplifyAddMenu = async (values: IFormValues) => {
+      try {
+        const moduleId = await GraphqlQueryCreateDocument({
+          id: values.moduleId,
+          author: (await fetchUserAttributes()).id ?? '',
+          title: '',
+          content: ''
+        });
+
+        await GraphqlQueryCreateMenu({
+          menuName: values.menuName,
+          menuUrl: values.menuUrl,
+          module: values.module,
+          moduleId: moduleId,
+          parent: menuNode?.id
+        });
+        onClose(true);
+        showToast('Menu added successfully', 'success');
+      } catch (e) {
+        console.log(e);
+      }
+    };
+
+    amplifyAddMenu(values);
   };
   
   return (
@@ -145,6 +179,17 @@ const SiteMenuAddView = (props: SiteMenuAddViewProps) => {
                     })
                   }
                 </Field>
+              </FormControl>
+              <FormControl size='small' required variant='outlined' margin={'dense'}>
+                <Field
+                  as={TextField}
+                  id="moduleId"
+                  name="moduleId"
+                  label="Module ID"
+                  value={values.moduleId}
+                  onChange={(e: SelectChangeEvent) => setFieldValue('moduleId', e.target.value)}
+                  size="small"
+                />
               </FormControl>
               <FormControl size='small' required variant='outlined' margin={'dense'}>
                 <Field

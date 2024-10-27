@@ -42,6 +42,14 @@
           ],
           "category": "function",
           "resourceName": "listUsersFunction"
+        },
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "getUserFunction"
         }
       ],
       "providerPlugin": "awscloudformation",
@@ -77,6 +85,11 @@
     }
   },
   "function": {
+    "getUserFunction": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
     "listUsersFunction": {
       "build": true,
       "dependsOn": [
@@ -100,6 +113,22 @@
     }
   },
   "parameters": {
+    "AMPLIFY_function_getUserFunction_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "getUserFunction"
+        }
+      ]
+    },
+    "AMPLIFY_function_getUserFunction_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "getUserFunction"
+        }
+      ]
+    },
     "AMPLIFY_function_listUsersFunction_deploymentBucketName": {
       "usedBy": [
         {

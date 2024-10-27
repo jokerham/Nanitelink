@@ -8,11 +8,116 @@ type GeneratedQuery<InputType, OutputType> = string & {
   __generatedQueryOutput: OutputType;
 };
 
-export const getModule = /* GraphQL */ `query GetModule($id: ID!) {
-  getModule(id: $id) {
+export const getParameter = /* GraphQL */ `query GetParameter($id: ID!) {
+  getParameter(id: $id) {
     id
-    name
-    parameters {
+    inputType
+    label
+    defaultValue
+    optionValues {
+      value
+      label
+      __typename
+    }
+    module {
+      id
+      name
+      parameters {
+        items {
+          id
+          inputType
+          label
+          defaultValue
+          optionValues {
+            value
+            label
+            __typename
+          }
+          module {
+            id
+            name
+            createdAt
+            updatedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          moduleParametersId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      menus {
+        items {
+          id
+          name
+          parent
+          menuType
+          module {
+            id
+            name
+            createdAt
+            updatedAt
+            __typename
+          }
+          moduleId
+          parameterSettings {
+            id
+            value
+            __typename
+          }
+          url
+          sortOrder
+          createdAt
+          updatedAt
+          moduleMenusId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      actions {
+        items {
+          id
+          name
+          isIndex
+          module {
+            id
+            name
+            createdAt
+            updatedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          moduleActionsId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    createdAt
+    updatedAt
+    moduleParametersId
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.GetParameterQueryVariables,
+  APITypes.GetParameterQuery
+>;
+export const listParameters = /* GraphQL */ `query ListParameters(
+  $filter: ModelParameterFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listParameters(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
       id
       inputType
       label
@@ -22,6 +127,278 @@ export const getModule = /* GraphQL */ `query GetModule($id: ID!) {
         label
         __typename
       }
+      module {
+        id
+        name
+        parameters {
+          items {
+            id
+            inputType
+            label
+            defaultValue
+            createdAt
+            updatedAt
+            moduleParametersId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        menus {
+          items {
+            id
+            name
+            parent
+            menuType
+            moduleId
+            url
+            sortOrder
+            createdAt
+            updatedAt
+            moduleMenusId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        actions {
+          items {
+            id
+            name
+            isIndex
+            createdAt
+            updatedAt
+            moduleActionsId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      createdAt
+      updatedAt
+      moduleParametersId
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListParametersQueryVariables,
+  APITypes.ListParametersQuery
+>;
+export const getAction = /* GraphQL */ `query GetAction($id: ID!) {
+  getAction(id: $id) {
+    id
+    name
+    isIndex
+    module {
+      id
+      name
+      parameters {
+        items {
+          id
+          inputType
+          label
+          defaultValue
+          optionValues {
+            value
+            label
+            __typename
+          }
+          module {
+            id
+            name
+            createdAt
+            updatedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          moduleParametersId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      menus {
+        items {
+          id
+          name
+          parent
+          menuType
+          module {
+            id
+            name
+            createdAt
+            updatedAt
+            __typename
+          }
+          moduleId
+          parameterSettings {
+            id
+            value
+            __typename
+          }
+          url
+          sortOrder
+          createdAt
+          updatedAt
+          moduleMenusId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      actions {
+        items {
+          id
+          name
+          isIndex
+          module {
+            id
+            name
+            createdAt
+            updatedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          moduleActionsId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    createdAt
+    updatedAt
+    moduleActionsId
+    __typename
+  }
+}
+` as GeneratedQuery<APITypes.GetActionQueryVariables, APITypes.GetActionQuery>;
+export const listActions = /* GraphQL */ `query ListActions(
+  $filter: ModelActionFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listActions(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      name
+      isIndex
+      module {
+        id
+        name
+        parameters {
+          items {
+            id
+            inputType
+            label
+            defaultValue
+            createdAt
+            updatedAt
+            moduleParametersId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        menus {
+          items {
+            id
+            name
+            parent
+            menuType
+            moduleId
+            url
+            sortOrder
+            createdAt
+            updatedAt
+            moduleMenusId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        actions {
+          items {
+            id
+            name
+            isIndex
+            createdAt
+            updatedAt
+            moduleActionsId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      createdAt
+      updatedAt
+      moduleActionsId
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListActionsQueryVariables,
+  APITypes.ListActionsQuery
+>;
+export const getModule = /* GraphQL */ `query GetModule($id: ID!) {
+  getModule(id: $id) {
+    id
+    name
+    parameters {
+      items {
+        id
+        inputType
+        label
+        defaultValue
+        optionValues {
+          value
+          label
+          __typename
+        }
+        module {
+          id
+          name
+          parameters {
+            nextToken
+            __typename
+          }
+          menus {
+            nextToken
+            __typename
+          }
+          actions {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        createdAt
+        updatedAt
+        moduleParametersId
+        __typename
+      }
+      nextToken
       __typename
     }
     menus {
@@ -33,15 +410,65 @@ export const getModule = /* GraphQL */ `query GetModule($id: ID!) {
         module {
           id
           name
+          parameters {
+            nextToken
+            __typename
+          }
+          menus {
+            nextToken
+            __typename
+          }
+          actions {
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
         }
-        parameterSettings
+        moduleId
+        parameterSettings {
+          id
+          value
+          __typename
+        }
         url
+        sortOrder
         createdAt
         updatedAt
         moduleMenusId
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    actions {
+      items {
+        id
+        name
+        isIndex
+        module {
+          id
+          name
+          parameters {
+            nextToken
+            __typename
+          }
+          menus {
+            nextToken
+            __typename
+          }
+          actions {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        createdAt
+        updatedAt
+        moduleActionsId
         __typename
       }
       nextToken
@@ -63,15 +490,29 @@ export const listModules = /* GraphQL */ `query ListModules(
       id
       name
       parameters {
-        id
-        inputType
-        label
-        defaultValue
-        optionValues {
-          value
+        items {
+          id
+          inputType
           label
+          defaultValue
+          optionValues {
+            value
+            label
+            __typename
+          }
+          module {
+            id
+            name
+            createdAt
+            updatedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          moduleParametersId
           __typename
         }
+        nextToken
         __typename
       }
       menus {
@@ -80,11 +521,44 @@ export const listModules = /* GraphQL */ `query ListModules(
           name
           parent
           menuType
-          parameterSettings
+          module {
+            id
+            name
+            createdAt
+            updatedAt
+            __typename
+          }
+          moduleId
+          parameterSettings {
+            id
+            value
+            __typename
+          }
           url
+          sortOrder
           createdAt
           updatedAt
           moduleMenusId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      actions {
+        items {
+          id
+          name
+          isIndex
+          module {
+            id
+            name
+            createdAt
+            updatedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          moduleActionsId
           __typename
         }
         nextToken
@@ -112,15 +586,29 @@ export const getMenu = /* GraphQL */ `query GetMenu($id: ID!) {
       id
       name
       parameters {
-        id
-        inputType
-        label
-        defaultValue
-        optionValues {
-          value
+        items {
+          id
+          inputType
           label
+          defaultValue
+          optionValues {
+            value
+            label
+            __typename
+          }
+          module {
+            id
+            name
+            createdAt
+            updatedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          moduleParametersId
           __typename
         }
+        nextToken
         __typename
       }
       menus {
@@ -129,11 +617,44 @@ export const getMenu = /* GraphQL */ `query GetMenu($id: ID!) {
           name
           parent
           menuType
-          parameterSettings
+          module {
+            id
+            name
+            createdAt
+            updatedAt
+            __typename
+          }
+          moduleId
+          parameterSettings {
+            id
+            value
+            __typename
+          }
           url
+          sortOrder
           createdAt
           updatedAt
           moduleMenusId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      actions {
+        items {
+          id
+          name
+          isIndex
+          module {
+            id
+            name
+            createdAt
+            updatedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          moduleActionsId
           __typename
         }
         nextToken
@@ -143,8 +664,14 @@ export const getMenu = /* GraphQL */ `query GetMenu($id: ID!) {
       updatedAt
       __typename
     }
-    parameterSettings
+    moduleId
+    parameterSettings {
+      id
+      value
+      __typename
+    }
     url
+    sortOrder
     createdAt
     updatedAt
     moduleMenusId
@@ -167,13 +694,46 @@ export const listMenus = /* GraphQL */ `query ListMenus(
         id
         name
         parameters {
-          id
-          inputType
-          label
-          defaultValue
+          items {
+            id
+            inputType
+            label
+            defaultValue
+            createdAt
+            updatedAt
+            moduleParametersId
+            __typename
+          }
+          nextToken
           __typename
         }
         menus {
+          items {
+            id
+            name
+            parent
+            menuType
+            moduleId
+            url
+            sortOrder
+            createdAt
+            updatedAt
+            moduleMenusId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        actions {
+          items {
+            id
+            name
+            isIndex
+            createdAt
+            updatedAt
+            moduleActionsId
+            __typename
+          }
           nextToken
           __typename
         }
@@ -181,8 +741,14 @@ export const listMenus = /* GraphQL */ `query ListMenus(
         updatedAt
         __typename
       }
-      parameterSettings
+      moduleId
+      parameterSettings {
+        id
+        value
+        __typename
+      }
       url
+      sortOrder
       createdAt
       updatedAt
       moduleMenusId
@@ -193,3 +759,41 @@ export const listMenus = /* GraphQL */ `query ListMenus(
   }
 }
 ` as GeneratedQuery<APITypes.ListMenusQueryVariables, APITypes.ListMenusQuery>;
+export const getDocument = /* GraphQL */ `query GetDocument($id: ID!) {
+  getDocument(id: $id) {
+    id
+    title
+    content
+    author
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.GetDocumentQueryVariables,
+  APITypes.GetDocumentQuery
+>;
+export const listDocuments = /* GraphQL */ `query ListDocuments(
+  $filter: ModelDocumentFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listDocuments(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      title
+      content
+      author
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListDocumentsQueryVariables,
+  APITypes.ListDocumentsQuery
+>;

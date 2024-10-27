@@ -5,8 +5,7 @@ import { ButtonBlackSmall, TextFieldFocusRedBorderSmall } from 'component/Custom
 import { useEffect, useState } from 'react';
 import useResizeObserver from 'use-resize-observer';
 import { SiteMenuTreeNode } from './SiteMenuTreeNode';
-import { generateClient } from 'aws-amplify/api';
-import { listMenus } from 'graphql/queries';
+import { GraphqlQueryListMenu } from 'function/amplify/graphqlQueries';
 import TabView from 'component/TabView';
 
 interface NodeAdditionalProps {
@@ -61,21 +60,20 @@ const SiteMenuView = (props: SiteMenuViewProps) => {
   const { ref, width, height } = useResizeObserver();
 
   const fetchNodeChildren = async (nodeId: string): Promise<SiteMenuTreeNode[]> => {
-    const client = generateClient();
-    const result = await client.graphql({
-      query: listMenus,
-      variables: { filter: { parent: { eq: nodeId } } }
-    });
+    const items = await GraphqlQueryListMenu({id: nodeId});
 
-    if (result.data?.listMenus?.items) {
-      return result.data.listMenus.items.map(item => ({
+    if (items) {
+      return items.map(item => ({
         id: item.id,
         name: item.name,
         active: false,
         parent: nodeId,
-        module: item.module?.name ?? '',
-        children: []
-      }));
+        module: item.module?.name ?? '', 
+        children: [],
+        moduleId: item.moduleId ?? '',
+        url: item.url ?? '',
+        parameters: item.parameterSettings ?? []
+      } as SiteMenuTreeNode));
     } else {
       return [];
     }

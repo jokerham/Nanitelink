@@ -49,15 +49,21 @@ const AdminMenu = () => {
         }
       ], onClick: () => { menuNavigate(1); }
     }, {
-      icon: <ImUser />, title: 'Members', subMenus: [
+      icon: <IoMdHome />, title: 'Edit Modules', subMenus: [
         {
-          title: 'Member List', onClick: handleSubMenuClick(2, 0, '/admin/members')
-        }, {
-          title: 'Group List', onClick: handleSubMenuClick(2, 1, '/admin/groups')
-        }, {
-          title: 'Member Setting', onClick: handleSubMenuClick(2, 2, '/admin/member/setting')
+          title: 'Modules', onClick: handleSubMenuClick(2, 0, '/admin/module')
         }
       ], onClick: () => { menuNavigate(2); }
+    }, {
+      icon: <ImUser />, title: 'Members', subMenus: [
+        {
+          title: 'Member List', onClick: handleSubMenuClick(3, 0, '/admin/members')
+        }, {
+          title: 'Group List', onClick: handleSubMenuClick(3, 1, '/admin/groups')
+        }, {
+          title: 'Member Setting', onClick: handleSubMenuClick(3, 2, '/admin/member/setting')
+        }
+      ], onClick: () => { menuNavigate(3); }
     }
   ];
 

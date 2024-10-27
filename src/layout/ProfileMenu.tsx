@@ -1,17 +1,11 @@
 import { Box, Divider, MenuItem } from '@mui/material';
-import { fetchAuthSession, signOut } from 'aws-amplify/auth';
+import { signOut } from 'aws-amplify/auth';
+import { isAdminUser } from 'function/amplify/auth';
 import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
 export default function ProfileMenu(props: {closeHandler: () => void}) {
   const [isAdmin, setIsAdmin] = useState(false);
-
-  const isAdminUser = async() => {
-    const session = await fetchAuthSession();
-    const groups = (await session).tokens?.idToken?.payload['cognito:groups'] as string[];
-    const isAdmin = groups?.includes('Admin');
-    setIsAdmin(isAdmin);
-  };
 
   const onClickSignOut = async () => {
     await signOut();
@@ -19,7 +13,7 @@ export default function ProfileMenu(props: {closeHandler: () => void}) {
   };
 
   useEffect(() => {
-    isAdminUser();
+    (async () => setIsAdmin(await isAdminUser()))();
   }, []);
 
   return (

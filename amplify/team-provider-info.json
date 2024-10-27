@@ -30,6 +30,10 @@
         "listUsersFunction": {
           "deploymentBucketName": "amplify-nanitelink-dev-8f35e-deployment",
           "s3Key": "amplify-builds/listUsersFunction-794e3666564c74506144-build.zip"
+        },
+        "getUserFunction": {
+          "deploymentBucketName": "amplify-nanitelink-dev-8f35e-deployment",
+          "s3Key": "amplify-builds/getUserFunction-446e5770563948526449-build.zip"
         }
       },
       "api": {
