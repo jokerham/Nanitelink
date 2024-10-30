@@ -10,7 +10,9 @@ import {
   getDocument, 
   getModule,
   listModules,
-  listDocuments} from 'graphql/queries';
+  listDocuments,
+  listRouteParameters,
+  listRoutes} from 'graphql/queries';
 import 'amplifyconfigure';
 
 export interface IGraphqlError {
@@ -202,6 +204,14 @@ const GraphqlQueryListAllModules = async () => {
   return result.data.listModules.items;
 };
 
+const GraphqlQueryListAllRoutes = async () => {
+  const client = generateClient();
+  const result = await client.graphql({
+    query: listRoutes
+  });
+  return result.data.listRoutes.items;
+};
+
 const GraphqlQueryListDocuments = async () => {
   const client = generateClient();
   const result = await client.graphql({
@@ -236,6 +246,7 @@ export {
   GraphqlQueryListMenu,
   GraphqlQueryListAllMenu,
   GraphqlQueryListAllModules,
+  GraphqlQueryListAllRoutes,
   GraphqlQueryListDocuments,
   // Get
   GraphqlQueryGetModule,

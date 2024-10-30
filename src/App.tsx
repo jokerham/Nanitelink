@@ -4,7 +4,7 @@ import Layout from 'layout/Layout';
 import AdminLayout from 'layout/admin/AdminLayout';
 import Signup from 'pages/auth/Signup';
 import PageNotFound from 'layout/PageNotFound';
-import { GraphqlQueryListAllMenu, GraphqlQueryListAllModules } from 'function/amplify/graphqlQueries';
+import { GraphqlQueryListAllRoutes } from 'function/amplify/graphqlQueries';
 import { IModuleProp, IRoute } from 'interfaces';
 import { Dashboard, Members, Menu } from 'pages/admin';
 import 'App.scss';
@@ -16,6 +16,7 @@ interface IAction {
   id: string;
   name: string;
   isIndex: boolean;
+  isAdmin: boolean;
 }
 
 interface IModule {
@@ -35,55 +36,28 @@ const App = () => {
   useEffect(() => {
     const getRoutes = async() => {
       try {
-        const menus = await GraphqlQueryListAllMenu();
-        
-        const getFirstIndexAction = (module: IModule): string => {
-          return module.actions?.items?.find((action: IAction) => action.isIndex)?.name ?? '';
-        };
-
-        // Map menus to routes
-        const menuRoutes: IRoute[] = menus.map((menu) => ({
-          path: menu.url,
-          module: {
-            id: menu.module.id,
-            name: menu.module.name,
-          },
-          moduleId: menu.moduleId,
-          action: getFirstIndexAction(menu.module as IModule)
-        }));
-
-        const modules = await GraphqlQueryListAllModules();
-
-        // // Map modules to routes
-        const moduleRoutes: IRoute[] = [];
-        for (const module of modules) {
-          for (const action of module.actions?.items ?? []) {
-            moduleRoutes.push({
-              path: 
-                (action?.isIndex ?? false) ?
-                  `${module.name.toLocaleLowerCase()}/:id` :
-                  `${module.name.toLocaleLowerCase()}/${action?.name}/:id`,
-              module: {
-                id: module.id,
-                name: module.name,
-              },
-              moduleId: '',
-              action: action?.name ?? ''
-            });
-          }
-        }
-        
-        const allRoutes = [...menuRoutes, ...moduleRoutes];
+        // Retrieve all routes from api
+        const tmpRoutes = await GraphqlQueryListAllRoutes();
+        const routes = tmpRoutes.map(route => {
+          const { path, module, action, parameters } = route;
+          const moduleId = parameters?.items.find((param: {name: string} | null) => param?.name === 'id')?.value;
+          return {
+            path,
+            module,
+            action,
+            moduleId: moduleId ?? ''
+          };
+        });
 
         // Import module elements
         const moduleMapping: TDynamicModules = {};
-        for (const route of allRoutes) {
+        for (const route of routes) {
           const moduleElement = await import(`pages/module/${route.module.name.toLowerCase()}`);
           moduleMapping[route.module.id] = moduleElement.default;
         }
 
         setModuleMapping(moduleMapping);
-        setRoutes(allRoutes);
+        setRoutes(routes);
         setLoading(false);
       } catch(error) {
         console.log(error);
@@ -103,7 +77,7 @@ const App = () => {
   }
   
   const RouteWrapper: React.FC<RouteProps> = ({ ModuleComponent, route }) => {
-    const { id: paramId } = useParams<{ id: string }>();
+    const { id: paramId, action } = useParams<{ id: string, action: string }>();
 
     // Use `paramId` if available; otherwise, fall back to `route.moduleId`
     const id = paramId || route.moduleId;
@@ -118,7 +92,7 @@ const App = () => {
     }
 
     return ModuleComponent ? (
-      <ModuleComponent id={id} action={route.action} />
+      <ModuleComponent id={id} action={action ?? route.action} />
     ) : (
       <PageNotFound />
     );

@@ -1,17 +1,15 @@
 import React from 'react';
 import BaseModule from 'component/BaseComponent/BaseModule';
-
-// Dedicated components specific to this module
-import view from './view';
-import edit from './edit';
 import { IModuleProp } from 'interfaces';
+import List from './list';
 
 const ModuleSpecificComponent: React.FC<IModuleProp> = (props) => {
   // Function to return the specific components map for this module
   const getComponentsMap = () => {
     return {
-      'view': view,
-      'edit': edit,
+      List
+      // view,
+      // edit,
       // Add more mappings as needed for this module
     };
   };

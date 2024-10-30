@@ -57,11 +57,10 @@ import { isAdminUser } from 'function/amplify/auth';
 import { GraphqlQueryGetDocument, GraphqlQueryUpdateDocument } from 'function/amplify/graphqlQueries';
 import { getUserById } from 'function/amplify/restApiQueries';
 import { useEffect, useState } from 'react';
-import { IDynamicModuleActionProp } from 'interfaces';
 import 'ckeditor5/ckeditor5.css';
 import { useNavigate } from 'react-router-dom';
 
-const Page = (props: IDynamicModuleActionProp) => {
+const Page = (props: {id?: string}) => {
   const { id } = props;
   const [title, setTitle] = useState('');
   const [content, setContent] = useState(' ');
@@ -92,7 +91,9 @@ const Page = (props: IDynamicModuleActionProp) => {
       } 
     };
 
-    retrieveData(id);
+    if (id) {
+      retrieveData(id);
+    }
   }, [id]);
 
   useEffect(() => {
@@ -293,12 +294,14 @@ const Page = (props: IDynamicModuleActionProp) => {
   };
 
   const submitHandler = async() => {
-    try {
-      await GraphqlQueryUpdateDocument({ id: id, content: content });
-      const path = '/page/' + id;
-      navigate(path);
-    } catch (error) {
-      console.log(error);
+    if (id) {
+      try {
+        await GraphqlQueryUpdateDocument({ id: id, content: content });
+        const path = '/page/' + id;
+        navigate(path);
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 

@@ -58,10 +58,9 @@ import { isAdminUser } from 'function/amplify/auth';
 import { GraphqlQueryGetDocument, GraphqlQueryUpdateDocument } from 'function/amplify/graphqlQueries';
 import { getUserById } from 'function/amplify/restApiQueries';
 import { useEffect, useState } from 'react';
-import { IDynamicModuleActionProp } from 'interfaces';
 import 'ckeditor5/ckeditor5.css';
 
-const Page = (props: IDynamicModuleActionProp) => {
+const Page = (props: {id?: string}) => {
   const { id } = props;
   const [title, setTitle] = useState('');
   const [content, setContent] = useState(' ');
@@ -93,7 +92,9 @@ const Page = (props: IDynamicModuleActionProp) => {
       } 
     };
 
-    retrieveData(id);
+    if (id) {
+      retrieveData(id);
+    }
   }, [id]);
 
   useEffect(() => {

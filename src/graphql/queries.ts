@@ -77,26 +77,6 @@ export const getParameter = /* GraphQL */ `query GetParameter($id: ID!) {
         nextToken
         __typename
       }
-      actions {
-        items {
-          id
-          name
-          isIndex
-          module {
-            id
-            name
-            createdAt
-            updatedAt
-            __typename
-          }
-          createdAt
-          updatedAt
-          moduleActionsId
-          __typename
-        }
-        nextToken
-        __typename
-      }
       createdAt
       updatedAt
       __typename
@@ -161,19 +141,6 @@ export const listParameters = /* GraphQL */ `query ListParameters(
           nextToken
           __typename
         }
-        actions {
-          items {
-            id
-            name
-            isIndex
-            createdAt
-            updatedAt
-            moduleActionsId
-            __typename
-          }
-          nextToken
-          __typename
-        }
         createdAt
         updatedAt
         __typename
@@ -190,174 +157,6 @@ export const listParameters = /* GraphQL */ `query ListParameters(
 ` as GeneratedQuery<
   APITypes.ListParametersQueryVariables,
   APITypes.ListParametersQuery
->;
-export const getAction = /* GraphQL */ `query GetAction($id: ID!) {
-  getAction(id: $id) {
-    id
-    name
-    isIndex
-    module {
-      id
-      name
-      parameters {
-        items {
-          id
-          inputType
-          label
-          defaultValue
-          optionValues {
-            value
-            label
-            __typename
-          }
-          module {
-            id
-            name
-            createdAt
-            updatedAt
-            __typename
-          }
-          createdAt
-          updatedAt
-          moduleParametersId
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      menus {
-        items {
-          id
-          name
-          parent
-          menuType
-          module {
-            id
-            name
-            createdAt
-            updatedAt
-            __typename
-          }
-          moduleId
-          parameterSettings {
-            id
-            value
-            __typename
-          }
-          url
-          sortOrder
-          createdAt
-          updatedAt
-          moduleMenusId
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      actions {
-        items {
-          id
-          name
-          isIndex
-          module {
-            id
-            name
-            createdAt
-            updatedAt
-            __typename
-          }
-          createdAt
-          updatedAt
-          moduleActionsId
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-    createdAt
-    updatedAt
-    moduleActionsId
-    __typename
-  }
-}
-` as GeneratedQuery<APITypes.GetActionQueryVariables, APITypes.GetActionQuery>;
-export const listActions = /* GraphQL */ `query ListActions(
-  $filter: ModelActionFilterInput
-  $limit: Int
-  $nextToken: String
-) {
-  listActions(filter: $filter, limit: $limit, nextToken: $nextToken) {
-    items {
-      id
-      name
-      isIndex
-      module {
-        id
-        name
-        parameters {
-          items {
-            id
-            inputType
-            label
-            defaultValue
-            createdAt
-            updatedAt
-            moduleParametersId
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        menus {
-          items {
-            id
-            name
-            parent
-            menuType
-            moduleId
-            url
-            sortOrder
-            createdAt
-            updatedAt
-            moduleMenusId
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        actions {
-          items {
-            id
-            name
-            isIndex
-            createdAt
-            updatedAt
-            moduleActionsId
-            __typename
-          }
-          nextToken
-          __typename
-        }
-        createdAt
-        updatedAt
-        __typename
-      }
-      createdAt
-      updatedAt
-      moduleActionsId
-      __typename
-    }
-    nextToken
-    __typename
-  }
-}
-` as GeneratedQuery<
-  APITypes.ListActionsQueryVariables,
-  APITypes.ListActionsQuery
 >;
 export const getModule = /* GraphQL */ `query GetModule($id: ID!) {
   getModule(id: $id) {
@@ -382,10 +181,6 @@ export const getModule = /* GraphQL */ `query GetModule($id: ID!) {
             __typename
           }
           menus {
-            nextToken
-            __typename
-          }
-          actions {
             nextToken
             __typename
           }
@@ -418,10 +213,6 @@ export const getModule = /* GraphQL */ `query GetModule($id: ID!) {
             nextToken
             __typename
           }
-          actions {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -437,38 +228,6 @@ export const getModule = /* GraphQL */ `query GetModule($id: ID!) {
         createdAt
         updatedAt
         moduleMenusId
-        __typename
-      }
-      nextToken
-      __typename
-    }
-    actions {
-      items {
-        id
-        name
-        isIndex
-        module {
-          id
-          name
-          parameters {
-            nextToken
-            __typename
-          }
-          menus {
-            nextToken
-            __typename
-          }
-          actions {
-            nextToken
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        createdAt
-        updatedAt
-        moduleActionsId
         __typename
       }
       nextToken
@@ -544,26 +303,6 @@ export const listModules = /* GraphQL */ `query ListModules(
         nextToken
         __typename
       }
-      actions {
-        items {
-          id
-          name
-          isIndex
-          module {
-            id
-            name
-            createdAt
-            updatedAt
-            __typename
-          }
-          createdAt
-          updatedAt
-          moduleActionsId
-          __typename
-        }
-        nextToken
-        __typename
-      }
       createdAt
       updatedAt
       __typename
@@ -575,6 +314,205 @@ export const listModules = /* GraphQL */ `query ListModules(
 ` as GeneratedQuery<
   APITypes.ListModulesQueryVariables,
   APITypes.ListModulesQuery
+>;
+export const getRouteParameter = /* GraphQL */ `query GetRouteParameter($id: ID!) {
+  getRouteParameter(id: $id) {
+    name
+    value
+    id
+    createdAt
+    updatedAt
+    routeParametersId
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.GetRouteParameterQueryVariables,
+  APITypes.GetRouteParameterQuery
+>;
+export const listRouteParameters = /* GraphQL */ `query ListRouteParameters(
+  $filter: ModelRouteParameterFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listRouteParameters(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      name
+      value
+      id
+      createdAt
+      updatedAt
+      routeParametersId
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListRouteParametersQueryVariables,
+  APITypes.ListRouteParametersQuery
+>;
+export const getRoute = /* GraphQL */ `query GetRoute($id: ID!) {
+  getRoute(id: $id) {
+    id
+    module {
+      id
+      name
+      parameters {
+        items {
+          id
+          inputType
+          label
+          defaultValue
+          optionValues {
+            value
+            label
+            __typename
+          }
+          module {
+            id
+            name
+            createdAt
+            updatedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          moduleParametersId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      menus {
+        items {
+          id
+          name
+          parent
+          menuType
+          module {
+            id
+            name
+            createdAt
+            updatedAt
+            __typename
+          }
+          moduleId
+          parameterSettings {
+            id
+            value
+            __typename
+          }
+          url
+          sortOrder
+          createdAt
+          updatedAt
+          moduleMenusId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    action
+    path
+    parameters {
+      items {
+        name
+        value
+        id
+        createdAt
+        updatedAt
+        routeParametersId
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    createdAt
+    updatedAt
+    routeModuleId
+    __typename
+  }
+}
+` as GeneratedQuery<APITypes.GetRouteQueryVariables, APITypes.GetRouteQuery>;
+export const listRoutes = /* GraphQL */ `query ListRoutes(
+  $filter: ModelRouteFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listRoutes(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      module {
+        id
+        name
+        parameters {
+          items {
+            id
+            inputType
+            label
+            defaultValue
+            createdAt
+            updatedAt
+            moduleParametersId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        menus {
+          items {
+            id
+            name
+            parent
+            menuType
+            moduleId
+            url
+            sortOrder
+            createdAt
+            updatedAt
+            moduleMenusId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      action
+      path
+      parameters {
+        items {
+          name
+          value
+          id
+          createdAt
+          updatedAt
+          routeParametersId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      routeModuleId
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListRoutesQueryVariables,
+  APITypes.ListRoutesQuery
 >;
 export const getMenu = /* GraphQL */ `query GetMenu($id: ID!) {
   getMenu(id: $id) {
@@ -635,26 +573,6 @@ export const getMenu = /* GraphQL */ `query GetMenu($id: ID!) {
           createdAt
           updatedAt
           moduleMenusId
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      actions {
-        items {
-          id
-          name
-          isIndex
-          module {
-            id
-            name
-            createdAt
-            updatedAt
-            __typename
-          }
-          createdAt
-          updatedAt
-          moduleActionsId
           __typename
         }
         nextToken
@@ -724,19 +642,6 @@ export const listMenus = /* GraphQL */ `query ListMenus(
           nextToken
           __typename
         }
-        actions {
-          items {
-            id
-            name
-            isIndex
-            createdAt
-            updatedAt
-            moduleActionsId
-            __typename
-          }
-          nextToken
-          __typename
-        }
         createdAt
         updatedAt
         __typename
@@ -796,4 +701,935 @@ export const listDocuments = /* GraphQL */ `query ListDocuments(
 ` as GeneratedQuery<
   APITypes.ListDocumentsQueryVariables,
   APITypes.ListDocumentsQuery
+>;
+export const getBoardCatgory = /* GraphQL */ `query GetBoardCatgory($id: ID!) {
+  getBoardCatgory(id: $id) {
+    id
+    name
+    parent {
+      id
+      name
+      parent {
+        id
+        name
+        parent {
+          id
+          name
+          parent {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          children {
+            nextToken
+            __typename
+          }
+          sortOrder
+          createdAt
+          updatedAt
+          boardCatgoryChildrenId
+          boardCategoryId
+          __typename
+        }
+        children {
+          items {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        sortOrder
+        createdAt
+        updatedAt
+        boardCatgoryChildrenId
+        boardCategoryId
+        __typename
+      }
+      children {
+        items {
+          id
+          name
+          parent {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          children {
+            nextToken
+            __typename
+          }
+          sortOrder
+          createdAt
+          updatedAt
+          boardCatgoryChildrenId
+          boardCategoryId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      sortOrder
+      createdAt
+      updatedAt
+      boardCatgoryChildrenId
+      boardCategoryId
+      __typename
+    }
+    children {
+      items {
+        id
+        name
+        parent {
+          id
+          name
+          parent {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          children {
+            nextToken
+            __typename
+          }
+          sortOrder
+          createdAt
+          updatedAt
+          boardCatgoryChildrenId
+          boardCategoryId
+          __typename
+        }
+        children {
+          items {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        sortOrder
+        createdAt
+        updatedAt
+        boardCatgoryChildrenId
+        boardCategoryId
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    sortOrder
+    createdAt
+    updatedAt
+    boardCatgoryChildrenId
+    boardCategoryId
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.GetBoardCatgoryQueryVariables,
+  APITypes.GetBoardCatgoryQuery
+>;
+export const listBoardCatgories = /* GraphQL */ `query ListBoardCatgories(
+  $filter: ModelBoardCatgoryFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listBoardCatgories(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      name
+      parent {
+        id
+        name
+        parent {
+          id
+          name
+          parent {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          children {
+            nextToken
+            __typename
+          }
+          sortOrder
+          createdAt
+          updatedAt
+          boardCatgoryChildrenId
+          boardCategoryId
+          __typename
+        }
+        children {
+          items {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        sortOrder
+        createdAt
+        updatedAt
+        boardCatgoryChildrenId
+        boardCategoryId
+        __typename
+      }
+      children {
+        items {
+          id
+          name
+          parent {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          children {
+            nextToken
+            __typename
+          }
+          sortOrder
+          createdAt
+          updatedAt
+          boardCatgoryChildrenId
+          boardCategoryId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      sortOrder
+      createdAt
+      updatedAt
+      boardCatgoryChildrenId
+      boardCategoryId
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListBoardCatgoriesQueryVariables,
+  APITypes.ListBoardCatgoriesQuery
+>;
+export const getBoard = /* GraphQL */ `query GetBoard($id: ID!) {
+  getBoard(id: $id) {
+    id
+    title
+    header
+    footer
+    listViewItems
+    listSort {
+      item
+      sort
+      __typename
+    }
+    excludeNoticeFlag
+    type
+    category {
+      items {
+        id
+        name
+        parent {
+          id
+          name
+          parent {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          children {
+            nextToken
+            __typename
+          }
+          sortOrder
+          createdAt
+          updatedAt
+          boardCatgoryChildrenId
+          boardCategoryId
+          __typename
+        }
+        children {
+          items {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        sortOrder
+        createdAt
+        updatedAt
+        boardCatgoryChildrenId
+        boardCategoryId
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedQuery<APITypes.GetBoardQueryVariables, APITypes.GetBoardQuery>;
+export const listBoards = /* GraphQL */ `query ListBoards(
+  $filter: ModelBoardFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listBoards(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      title
+      header
+      footer
+      listViewItems
+      listSort {
+        item
+        sort
+        __typename
+      }
+      excludeNoticeFlag
+      type
+      category {
+        items {
+          id
+          name
+          parent {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          children {
+            nextToken
+            __typename
+          }
+          sortOrder
+          createdAt
+          updatedAt
+          boardCatgoryChildrenId
+          boardCategoryId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListBoardsQueryVariables,
+  APITypes.ListBoardsQuery
+>;
+export const getAttachment = /* GraphQL */ `query GetAttachment($id: ID!) {
+  getAttachment(id: $id) {
+    id
+    filename
+    filetype
+    path
+    createdAt
+    updatedAt
+    boardItemAttachmentsId
+    author
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.GetAttachmentQueryVariables,
+  APITypes.GetAttachmentQuery
+>;
+export const listAttachments = /* GraphQL */ `query ListAttachments(
+  $filter: ModelAttachmentFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listAttachments(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      filename
+      filetype
+      path
+      createdAt
+      updatedAt
+      boardItemAttachmentsId
+      author
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListAttachmentsQueryVariables,
+  APITypes.ListAttachmentsQuery
+>;
+export const getBoardItem = /* GraphQL */ `query GetBoardItem($id: ID!) {
+  getBoardItem(id: $id) {
+    id
+    board {
+      id
+      title
+      header
+      footer
+      listViewItems
+      listSort {
+        item
+        sort
+        __typename
+      }
+      excludeNoticeFlag
+      type
+      category {
+        items {
+          id
+          name
+          parent {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          children {
+            nextToken
+            __typename
+          }
+          sortOrder
+          createdAt
+          updatedAt
+          boardCatgoryChildrenId
+          boardCategoryId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    category {
+      id
+      name
+      parent {
+        id
+        name
+        parent {
+          id
+          name
+          parent {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          children {
+            nextToken
+            __typename
+          }
+          sortOrder
+          createdAt
+          updatedAt
+          boardCatgoryChildrenId
+          boardCategoryId
+          __typename
+        }
+        children {
+          items {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        sortOrder
+        createdAt
+        updatedAt
+        boardCatgoryChildrenId
+        boardCategoryId
+        __typename
+      }
+      children {
+        items {
+          id
+          name
+          parent {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          children {
+            nextToken
+            __typename
+          }
+          sortOrder
+          createdAt
+          updatedAt
+          boardCatgoryChildrenId
+          boardCategoryId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      sortOrder
+      createdAt
+      updatedAt
+      boardCatgoryChildrenId
+      boardCategoryId
+      __typename
+    }
+    title
+    content
+    tag
+    author
+    attachments {
+      items {
+        id
+        filename
+        filetype
+        path
+        createdAt
+        updatedAt
+        boardItemAttachmentsId
+        author
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    isNotice
+    createdAt
+    updatedAt
+    boardItemBoardId
+    boardItemCategoryId
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.GetBoardItemQueryVariables,
+  APITypes.GetBoardItemQuery
+>;
+export const listBoardItems = /* GraphQL */ `query ListBoardItems(
+  $filter: ModelBoardItemFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listBoardItems(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      board {
+        id
+        title
+        header
+        footer
+        listViewItems
+        listSort {
+          item
+          sort
+          __typename
+        }
+        excludeNoticeFlag
+        type
+        category {
+          items {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      category {
+        id
+        name
+        parent {
+          id
+          name
+          parent {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          children {
+            nextToken
+            __typename
+          }
+          sortOrder
+          createdAt
+          updatedAt
+          boardCatgoryChildrenId
+          boardCategoryId
+          __typename
+        }
+        children {
+          items {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        sortOrder
+        createdAt
+        updatedAt
+        boardCatgoryChildrenId
+        boardCategoryId
+        __typename
+      }
+      title
+      content
+      tag
+      author
+      attachments {
+        items {
+          id
+          filename
+          filetype
+          path
+          createdAt
+          updatedAt
+          boardItemAttachmentsId
+          author
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      isNotice
+      createdAt
+      updatedAt
+      boardItemBoardId
+      boardItemCategoryId
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListBoardItemsQueryVariables,
+  APITypes.ListBoardItemsQuery
+>;
+export const getBoardItemComment = /* GraphQL */ `query GetBoardItemComment($id: ID!) {
+  getBoardItemComment(id: $id) {
+    id
+    boardItem {
+      id
+      board {
+        id
+        title
+        header
+        footer
+        listViewItems
+        listSort {
+          item
+          sort
+          __typename
+        }
+        excludeNoticeFlag
+        type
+        category {
+          items {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      category {
+        id
+        name
+        parent {
+          id
+          name
+          parent {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          children {
+            nextToken
+            __typename
+          }
+          sortOrder
+          createdAt
+          updatedAt
+          boardCatgoryChildrenId
+          boardCategoryId
+          __typename
+        }
+        children {
+          items {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        sortOrder
+        createdAt
+        updatedAt
+        boardCatgoryChildrenId
+        boardCategoryId
+        __typename
+      }
+      title
+      content
+      tag
+      author
+      attachments {
+        items {
+          id
+          filename
+          filetype
+          path
+          createdAt
+          updatedAt
+          boardItemAttachmentsId
+          author
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      isNotice
+      createdAt
+      updatedAt
+      boardItemBoardId
+      boardItemCategoryId
+      __typename
+    }
+    comment
+    author
+    createdAt
+    updatedAt
+    boardItemCommentBoardItemId
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.GetBoardItemCommentQueryVariables,
+  APITypes.GetBoardItemCommentQuery
+>;
+export const listBoardItemComments = /* GraphQL */ `query ListBoardItemComments(
+  $filter: ModelBoardItemCommentFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listBoardItemComments(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      boardItem {
+        id
+        board {
+          id
+          title
+          header
+          footer
+          listViewItems
+          listSort {
+            item
+            sort
+            __typename
+          }
+          excludeNoticeFlag
+          type
+          category {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        category {
+          id
+          name
+          parent {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          children {
+            nextToken
+            __typename
+          }
+          sortOrder
+          createdAt
+          updatedAt
+          boardCatgoryChildrenId
+          boardCategoryId
+          __typename
+        }
+        title
+        content
+        tag
+        author
+        attachments {
+          items {
+            id
+            filename
+            filetype
+            path
+            createdAt
+            updatedAt
+            boardItemAttachmentsId
+            author
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        isNotice
+        createdAt
+        updatedAt
+        boardItemBoardId
+        boardItemCategoryId
+        __typename
+      }
+      comment
+      author
+      createdAt
+      updatedAt
+      boardItemCommentBoardItemId
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListBoardItemCommentsQueryVariables,
+  APITypes.ListBoardItemCommentsQuery
 >;

@@ -126,7 +126,6 @@ export type Module = {
   name: string,
   parameters?: ModelParameterConnection | null,
   menus?: ModelMenuConnection | null,
-  actions?: ModelActionConnection | null,
   createdAt: string,
   updatedAt: string,
 };
@@ -171,23 +170,6 @@ export type TParameterValue = {
   value?: string | null,
 };
 
-export type ModelActionConnection = {
-  __typename: "ModelActionConnection",
-  items:  Array<Action | null >,
-  nextToken?: string | null,
-};
-
-export type Action = {
-  __typename: "Action",
-  id: string,
-  name: string,
-  isIndex: boolean,
-  module: Module,
-  createdAt: string,
-  updatedAt: string,
-  moduleActionsId: string,
-};
-
 export type UpdateParameterInput = {
   id: string,
   inputType?: InputType | null,
@@ -198,42 +180,6 @@ export type UpdateParameterInput = {
 };
 
 export type DeleteParameterInput = {
-  id: string,
-};
-
-export type CreateActionInput = {
-  id?: string | null,
-  name: string,
-  isIndex: boolean,
-  moduleActionsId: string,
-};
-
-export type ModelActionConditionInput = {
-  name?: ModelStringInput | null,
-  isIndex?: ModelBooleanInput | null,
-  and?: Array< ModelActionConditionInput | null > | null,
-  or?: Array< ModelActionConditionInput | null > | null,
-  not?: ModelActionConditionInput | null,
-  createdAt?: ModelStringInput | null,
-  updatedAt?: ModelStringInput | null,
-  moduleActionsId?: ModelIDInput | null,
-};
-
-export type ModelBooleanInput = {
-  ne?: boolean | null,
-  eq?: boolean | null,
-  attributeExists?: boolean | null,
-  attributeType?: ModelAttributeTypes | null,
-};
-
-export type UpdateActionInput = {
-  id: string,
-  name?: string | null,
-  isIndex?: boolean | null,
-  moduleActionsId?: string | null,
-};
-
-export type DeleteActionInput = {
   id: string,
 };
 
@@ -257,6 +203,92 @@ export type UpdateModuleInput = {
 };
 
 export type DeleteModuleInput = {
+  id: string,
+};
+
+export type CreateRouteParameterInput = {
+  name: string,
+  value: string,
+  id?: string | null,
+  routeParametersId?: string | null,
+};
+
+export type ModelRouteParameterConditionInput = {
+  name?: ModelStringInput | null,
+  value?: ModelStringInput | null,
+  and?: Array< ModelRouteParameterConditionInput | null > | null,
+  or?: Array< ModelRouteParameterConditionInput | null > | null,
+  not?: ModelRouteParameterConditionInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
+  routeParametersId?: ModelIDInput | null,
+};
+
+export type RouteParameter = {
+  __typename: "RouteParameter",
+  name: string,
+  value: string,
+  id: string,
+  createdAt: string,
+  updatedAt: string,
+  routeParametersId?: string | null,
+};
+
+export type UpdateRouteParameterInput = {
+  name?: string | null,
+  value?: string | null,
+  id: string,
+  routeParametersId?: string | null,
+};
+
+export type DeleteRouteParameterInput = {
+  id: string,
+};
+
+export type CreateRouteInput = {
+  id?: string | null,
+  action: string,
+  path: string,
+  routeModuleId: string,
+};
+
+export type ModelRouteConditionInput = {
+  action?: ModelStringInput | null,
+  path?: ModelStringInput | null,
+  and?: Array< ModelRouteConditionInput | null > | null,
+  or?: Array< ModelRouteConditionInput | null > | null,
+  not?: ModelRouteConditionInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
+  routeModuleId?: ModelIDInput | null,
+};
+
+export type Route = {
+  __typename: "Route",
+  id: string,
+  module: Module,
+  action: string,
+  path: string,
+  parameters?: ModelRouteParameterConnection | null,
+  createdAt: string,
+  updatedAt: string,
+  routeModuleId: string,
+};
+
+export type ModelRouteParameterConnection = {
+  __typename: "ModelRouteParameterConnection",
+  items:  Array<RouteParameter | null >,
+  nextToken?: string | null,
+};
+
+export type UpdateRouteInput = {
+  id: string,
+  action?: string | null,
+  path?: string | null,
+  routeModuleId?: string | null,
+};
+
+export type DeleteRouteInput = {
   id: string,
 };
 
@@ -364,6 +396,297 @@ export type DeleteDocumentInput = {
   id: string,
 };
 
+export type CreateBoardCatgoryInput = {
+  id?: string | null,
+  name: string,
+  sortOrder: number,
+  boardCatgoryChildrenId: string,
+  boardCategoryId: string,
+};
+
+export type ModelBoardCatgoryConditionInput = {
+  name?: ModelStringInput | null,
+  sortOrder?: ModelIntInput | null,
+  and?: Array< ModelBoardCatgoryConditionInput | null > | null,
+  or?: Array< ModelBoardCatgoryConditionInput | null > | null,
+  not?: ModelBoardCatgoryConditionInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
+  boardCatgoryChildrenId?: ModelIDInput | null,
+  boardCategoryId?: ModelIDInput | null,
+};
+
+export type BoardCatgory = {
+  __typename: "BoardCatgory",
+  id: string,
+  name: string,
+  parent?: BoardCatgory | null,
+  children?: ModelBoardCatgoryConnection | null,
+  sortOrder: number,
+  createdAt: string,
+  updatedAt: string,
+  boardCatgoryChildrenId: string,
+  boardCategoryId: string,
+};
+
+export type ModelBoardCatgoryConnection = {
+  __typename: "ModelBoardCatgoryConnection",
+  items:  Array<BoardCatgory | null >,
+  nextToken?: string | null,
+};
+
+export type UpdateBoardCatgoryInput = {
+  id: string,
+  name?: string | null,
+  sortOrder?: number | null,
+  boardCatgoryChildrenId?: string | null,
+  boardCategoryId?: string | null,
+};
+
+export type DeleteBoardCatgoryInput = {
+  id: string,
+};
+
+export type CreateBoardInput = {
+  id?: string | null,
+  title: string,
+  header?: string | null,
+  footer?: string | null,
+  listViewItems: Array< string | null >,
+  listSort: TSortItemInput,
+  excludeNoticeFlag: boolean,
+  type: BoardType,
+};
+
+export type TSortItemInput = {
+  item: string,
+  sort: SortOrder,
+};
+
+export enum SortOrder {
+  asc = "asc",
+  desc = "desc",
+}
+
+
+export enum BoardType {
+  default = "default",
+  anonymous = "anonymous",
+  consultation = "consultation",
+}
+
+
+export type ModelBoardConditionInput = {
+  title?: ModelStringInput | null,
+  header?: ModelStringInput | null,
+  footer?: ModelStringInput | null,
+  listViewItems?: ModelStringInput | null,
+  excludeNoticeFlag?: ModelBooleanInput | null,
+  type?: ModelBoardTypeInput | null,
+  and?: Array< ModelBoardConditionInput | null > | null,
+  or?: Array< ModelBoardConditionInput | null > | null,
+  not?: ModelBoardConditionInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
+};
+
+export type ModelBooleanInput = {
+  ne?: boolean | null,
+  eq?: boolean | null,
+  attributeExists?: boolean | null,
+  attributeType?: ModelAttributeTypes | null,
+};
+
+export type ModelBoardTypeInput = {
+  eq?: BoardType | null,
+  ne?: BoardType | null,
+};
+
+export type Board = {
+  __typename: "Board",
+  id: string,
+  title: string,
+  header?: string | null,
+  footer?: string | null,
+  listViewItems: Array< string | null >,
+  listSort: TSortItem,
+  excludeNoticeFlag: boolean,
+  type: BoardType,
+  category?: ModelBoardCatgoryConnection | null,
+  createdAt: string,
+  updatedAt: string,
+};
+
+export type TSortItem = {
+  __typename: "TSortItem",
+  item: string,
+  sort: SortOrder,
+};
+
+export type UpdateBoardInput = {
+  id: string,
+  title?: string | null,
+  header?: string | null,
+  footer?: string | null,
+  listViewItems?: Array< string | null > | null,
+  listSort?: TSortItemInput | null,
+  excludeNoticeFlag?: boolean | null,
+  type?: BoardType | null,
+};
+
+export type DeleteBoardInput = {
+  id: string,
+};
+
+export type CreateAttachmentInput = {
+  id?: string | null,
+  filename: string,
+  filetype: string,
+  path: string,
+  boardItemAttachmentsId?: string | null,
+};
+
+export type ModelAttachmentConditionInput = {
+  filename?: ModelStringInput | null,
+  filetype?: ModelStringInput | null,
+  path?: ModelStringInput | null,
+  and?: Array< ModelAttachmentConditionInput | null > | null,
+  or?: Array< ModelAttachmentConditionInput | null > | null,
+  not?: ModelAttachmentConditionInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
+  boardItemAttachmentsId?: ModelIDInput | null,
+  author?: ModelStringInput | null,
+};
+
+export type Attachment = {
+  __typename: "Attachment",
+  id: string,
+  filename: string,
+  filetype: string,
+  path: string,
+  createdAt: string,
+  updatedAt: string,
+  boardItemAttachmentsId?: string | null,
+  author?: string | null,
+};
+
+export type UpdateAttachmentInput = {
+  id: string,
+  filename?: string | null,
+  filetype?: string | null,
+  path?: string | null,
+  boardItemAttachmentsId?: string | null,
+};
+
+export type DeleteAttachmentInput = {
+  id: string,
+};
+
+export type CreateBoardItemInput = {
+  id?: string | null,
+  title: string,
+  content: string,
+  tag: string,
+  author: string,
+  isNotice?: boolean | null,
+  boardItemBoardId: string,
+  boardItemCategoryId?: string | null,
+};
+
+export type ModelBoardItemConditionInput = {
+  title?: ModelStringInput | null,
+  content?: ModelStringInput | null,
+  tag?: ModelStringInput | null,
+  author?: ModelStringInput | null,
+  isNotice?: ModelBooleanInput | null,
+  and?: Array< ModelBoardItemConditionInput | null > | null,
+  or?: Array< ModelBoardItemConditionInput | null > | null,
+  not?: ModelBoardItemConditionInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
+  boardItemBoardId?: ModelIDInput | null,
+  boardItemCategoryId?: ModelIDInput | null,
+};
+
+export type BoardItem = {
+  __typename: "BoardItem",
+  id: string,
+  board: Board,
+  category?: BoardCatgory | null,
+  title: string,
+  content: string,
+  tag: string,
+  author: string,
+  attachments?: ModelAttachmentConnection | null,
+  isNotice?: boolean | null,
+  createdAt: string,
+  updatedAt: string,
+  boardItemBoardId: string,
+  boardItemCategoryId?: string | null,
+};
+
+export type ModelAttachmentConnection = {
+  __typename: "ModelAttachmentConnection",
+  items:  Array<Attachment | null >,
+  nextToken?: string | null,
+};
+
+export type UpdateBoardItemInput = {
+  id: string,
+  title?: string | null,
+  content?: string | null,
+  tag?: string | null,
+  author?: string | null,
+  isNotice?: boolean | null,
+  boardItemBoardId?: string | null,
+  boardItemCategoryId?: string | null,
+};
+
+export type DeleteBoardItemInput = {
+  id: string,
+};
+
+export type CreateBoardItemCommentInput = {
+  id?: string | null,
+  comment: string,
+  author: string,
+  boardItemCommentBoardItemId: string,
+};
+
+export type ModelBoardItemCommentConditionInput = {
+  comment?: ModelStringInput | null,
+  author?: ModelStringInput | null,
+  and?: Array< ModelBoardItemCommentConditionInput | null > | null,
+  or?: Array< ModelBoardItemCommentConditionInput | null > | null,
+  not?: ModelBoardItemCommentConditionInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
+  boardItemCommentBoardItemId?: ModelIDInput | null,
+};
+
+export type BoardItemComment = {
+  __typename: "BoardItemComment",
+  id: string,
+  boardItem: BoardItem,
+  comment: string,
+  author: string,
+  createdAt: string,
+  updatedAt: string,
+  boardItemCommentBoardItemId: string,
+};
+
+export type UpdateBoardItemCommentInput = {
+  id: string,
+  comment?: string | null,
+  author?: string | null,
+  boardItemCommentBoardItemId?: string | null,
+};
+
+export type DeleteBoardItemCommentInput = {
+  id: string,
+};
+
 export type ModelParameterFilterInput = {
   id?: ModelIDInput | null,
   inputType?: ModelInputTypeInput | null,
@@ -375,18 +698,6 @@ export type ModelParameterFilterInput = {
   or?: Array< ModelParameterFilterInput | null > | null,
   not?: ModelParameterFilterInput | null,
   moduleParametersId?: ModelIDInput | null,
-};
-
-export type ModelActionFilterInput = {
-  id?: ModelIDInput | null,
-  name?: ModelStringInput | null,
-  isIndex?: ModelBooleanInput | null,
-  createdAt?: ModelStringInput | null,
-  updatedAt?: ModelStringInput | null,
-  and?: Array< ModelActionFilterInput | null > | null,
-  or?: Array< ModelActionFilterInput | null > | null,
-  not?: ModelActionFilterInput | null,
-  moduleActionsId?: ModelIDInput | null,
 };
 
 export type ModelModuleFilterInput = {
@@ -402,6 +713,36 @@ export type ModelModuleFilterInput = {
 export type ModelModuleConnection = {
   __typename: "ModelModuleConnection",
   items:  Array<Module | null >,
+  nextToken?: string | null,
+};
+
+export type ModelRouteParameterFilterInput = {
+  name?: ModelStringInput | null,
+  value?: ModelStringInput | null,
+  id?: ModelIDInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
+  and?: Array< ModelRouteParameterFilterInput | null > | null,
+  or?: Array< ModelRouteParameterFilterInput | null > | null,
+  not?: ModelRouteParameterFilterInput | null,
+  routeParametersId?: ModelIDInput | null,
+};
+
+export type ModelRouteFilterInput = {
+  id?: ModelIDInput | null,
+  action?: ModelStringInput | null,
+  path?: ModelStringInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
+  and?: Array< ModelRouteFilterInput | null > | null,
+  or?: Array< ModelRouteFilterInput | null > | null,
+  not?: ModelRouteFilterInput | null,
+  routeModuleId?: ModelIDInput | null,
+};
+
+export type ModelRouteConnection = {
+  __typename: "ModelRouteConnection",
+  items:  Array<Route | null >,
   nextToken?: string | null,
 };
 
@@ -436,6 +777,94 @@ export type ModelDocumentFilterInput = {
 export type ModelDocumentConnection = {
   __typename: "ModelDocumentConnection",
   items:  Array<Document | null >,
+  nextToken?: string | null,
+};
+
+export type ModelBoardCatgoryFilterInput = {
+  id?: ModelIDInput | null,
+  name?: ModelStringInput | null,
+  sortOrder?: ModelIntInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
+  and?: Array< ModelBoardCatgoryFilterInput | null > | null,
+  or?: Array< ModelBoardCatgoryFilterInput | null > | null,
+  not?: ModelBoardCatgoryFilterInput | null,
+  boardCatgoryChildrenId?: ModelIDInput | null,
+  boardCategoryId?: ModelIDInput | null,
+};
+
+export type ModelBoardFilterInput = {
+  id?: ModelIDInput | null,
+  title?: ModelStringInput | null,
+  header?: ModelStringInput | null,
+  footer?: ModelStringInput | null,
+  listViewItems?: ModelStringInput | null,
+  excludeNoticeFlag?: ModelBooleanInput | null,
+  type?: ModelBoardTypeInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
+  and?: Array< ModelBoardFilterInput | null > | null,
+  or?: Array< ModelBoardFilterInput | null > | null,
+  not?: ModelBoardFilterInput | null,
+};
+
+export type ModelBoardConnection = {
+  __typename: "ModelBoardConnection",
+  items:  Array<Board | null >,
+  nextToken?: string | null,
+};
+
+export type ModelAttachmentFilterInput = {
+  id?: ModelIDInput | null,
+  filename?: ModelStringInput | null,
+  filetype?: ModelStringInput | null,
+  path?: ModelStringInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
+  and?: Array< ModelAttachmentFilterInput | null > | null,
+  or?: Array< ModelAttachmentFilterInput | null > | null,
+  not?: ModelAttachmentFilterInput | null,
+  boardItemAttachmentsId?: ModelIDInput | null,
+  author?: ModelStringInput | null,
+};
+
+export type ModelBoardItemFilterInput = {
+  id?: ModelIDInput | null,
+  title?: ModelStringInput | null,
+  content?: ModelStringInput | null,
+  tag?: ModelStringInput | null,
+  author?: ModelStringInput | null,
+  isNotice?: ModelBooleanInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
+  and?: Array< ModelBoardItemFilterInput | null > | null,
+  or?: Array< ModelBoardItemFilterInput | null > | null,
+  not?: ModelBoardItemFilterInput | null,
+  boardItemBoardId?: ModelIDInput | null,
+  boardItemCategoryId?: ModelIDInput | null,
+};
+
+export type ModelBoardItemConnection = {
+  __typename: "ModelBoardItemConnection",
+  items:  Array<BoardItem | null >,
+  nextToken?: string | null,
+};
+
+export type ModelBoardItemCommentFilterInput = {
+  id?: ModelIDInput | null,
+  comment?: ModelStringInput | null,
+  author?: ModelStringInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
+  and?: Array< ModelBoardItemCommentFilterInput | null > | null,
+  or?: Array< ModelBoardItemCommentFilterInput | null > | null,
+  not?: ModelBoardItemCommentFilterInput | null,
+  boardItemCommentBoardItemId?: ModelIDInput | null,
+};
+
+export type ModelBoardItemCommentConnection = {
+  __typename: "ModelBoardItemCommentConnection",
+  items:  Array<BoardItemComment | null >,
   nextToken?: string | null,
 };
 
@@ -480,21 +909,6 @@ export type ModelSubscriptionStringInput = {
   notIn?: Array< string | null > | null,
 };
 
-export type ModelSubscriptionActionFilterInput = {
-  id?: ModelSubscriptionIDInput | null,
-  name?: ModelSubscriptionStringInput | null,
-  isIndex?: ModelSubscriptionBooleanInput | null,
-  createdAt?: ModelSubscriptionStringInput | null,
-  updatedAt?: ModelSubscriptionStringInput | null,
-  and?: Array< ModelSubscriptionActionFilterInput | null > | null,
-  or?: Array< ModelSubscriptionActionFilterInput | null > | null,
-};
-
-export type ModelSubscriptionBooleanInput = {
-  ne?: boolean | null,
-  eq?: boolean | null,
-};
-
 export type ModelSubscriptionModuleFilterInput = {
   id?: ModelSubscriptionIDInput | null,
   name?: ModelSubscriptionStringInput | null,
@@ -504,7 +918,28 @@ export type ModelSubscriptionModuleFilterInput = {
   or?: Array< ModelSubscriptionModuleFilterInput | null > | null,
   moduleParametersId?: ModelSubscriptionIDInput | null,
   moduleMenusId?: ModelSubscriptionIDInput | null,
-  moduleActionsId?: ModelSubscriptionIDInput | null,
+};
+
+export type ModelSubscriptionRouteParameterFilterInput = {
+  name?: ModelSubscriptionStringInput | null,
+  value?: ModelSubscriptionStringInput | null,
+  id?: ModelSubscriptionIDInput | null,
+  createdAt?: ModelSubscriptionStringInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionRouteParameterFilterInput | null > | null,
+  or?: Array< ModelSubscriptionRouteParameterFilterInput | null > | null,
+};
+
+export type ModelSubscriptionRouteFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  action?: ModelSubscriptionStringInput | null,
+  path?: ModelSubscriptionStringInput | null,
+  createdAt?: ModelSubscriptionStringInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionRouteFilterInput | null > | null,
+  or?: Array< ModelSubscriptionRouteFilterInput | null > | null,
+  routeParametersId?: ModelSubscriptionIDInput | null,
+  routeModuleId?: ModelSubscriptionIDInput | null,
 };
 
 export type ModelSubscriptionMenuFilterInput = {
@@ -541,6 +976,76 @@ export type ModelSubscriptionDocumentFilterInput = {
   updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionDocumentFilterInput | null > | null,
   or?: Array< ModelSubscriptionDocumentFilterInput | null > | null,
+  author?: ModelStringInput | null,
+};
+
+export type ModelSubscriptionBoardCatgoryFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  name?: ModelSubscriptionStringInput | null,
+  sortOrder?: ModelSubscriptionIntInput | null,
+  createdAt?: ModelSubscriptionStringInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionBoardCatgoryFilterInput | null > | null,
+  or?: Array< ModelSubscriptionBoardCatgoryFilterInput | null > | null,
+  boardCatgoryChildrenId?: ModelSubscriptionIDInput | null,
+};
+
+export type ModelSubscriptionBoardFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  title?: ModelSubscriptionStringInput | null,
+  header?: ModelSubscriptionStringInput | null,
+  footer?: ModelSubscriptionStringInput | null,
+  listViewItems?: ModelSubscriptionStringInput | null,
+  excludeNoticeFlag?: ModelSubscriptionBooleanInput | null,
+  type?: ModelSubscriptionStringInput | null,
+  createdAt?: ModelSubscriptionStringInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionBoardFilterInput | null > | null,
+  or?: Array< ModelSubscriptionBoardFilterInput | null > | null,
+  boardCategoryId?: ModelSubscriptionIDInput | null,
+};
+
+export type ModelSubscriptionBooleanInput = {
+  ne?: boolean | null,
+  eq?: boolean | null,
+};
+
+export type ModelSubscriptionAttachmentFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  filename?: ModelSubscriptionStringInput | null,
+  filetype?: ModelSubscriptionStringInput | null,
+  path?: ModelSubscriptionStringInput | null,
+  createdAt?: ModelSubscriptionStringInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionAttachmentFilterInput | null > | null,
+  or?: Array< ModelSubscriptionAttachmentFilterInput | null > | null,
+  author?: ModelStringInput | null,
+};
+
+export type ModelSubscriptionBoardItemFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  title?: ModelSubscriptionStringInput | null,
+  content?: ModelSubscriptionStringInput | null,
+  tag?: ModelSubscriptionStringInput | null,
+  isNotice?: ModelSubscriptionBooleanInput | null,
+  createdAt?: ModelSubscriptionStringInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionBoardItemFilterInput | null > | null,
+  or?: Array< ModelSubscriptionBoardItemFilterInput | null > | null,
+  boardItemAttachmentsId?: ModelSubscriptionIDInput | null,
+  boardItemBoardId?: ModelSubscriptionIDInput | null,
+  boardItemCategoryId?: ModelSubscriptionIDInput | null,
+  author?: ModelStringInput | null,
+};
+
+export type ModelSubscriptionBoardItemCommentFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  comment?: ModelSubscriptionStringInput | null,
+  createdAt?: ModelSubscriptionStringInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionBoardItemCommentFilterInput | null > | null,
+  or?: Array< ModelSubscriptionBoardItemCommentFilterInput | null > | null,
+  boardItemCommentBoardItemId?: ModelSubscriptionIDInput | null,
   author?: ModelStringInput | null,
 };
 
@@ -617,26 +1122,6 @@ export type CreateParameterMutation = {
           createdAt: string,
           updatedAt: string,
           moduleMenusId?: string | null,
-        } | null >,
-        nextToken?: string | null,
-      } | null,
-      actions?:  {
-        __typename: "ModelActionConnection",
-        items:  Array< {
-          __typename: "Action",
-          id: string,
-          name: string,
-          isIndex: boolean,
-          module:  {
-            __typename: "Module",
-            id: string,
-            name: string,
-            createdAt: string,
-            updatedAt: string,
-          },
-          createdAt: string,
-          updatedAt: string,
-          moduleActionsId: string,
         } | null >,
         nextToken?: string | null,
       } | null,
@@ -725,26 +1210,6 @@ export type UpdateParameterMutation = {
         } | null >,
         nextToken?: string | null,
       } | null,
-      actions?:  {
-        __typename: "ModelActionConnection",
-        items:  Array< {
-          __typename: "Action",
-          id: string,
-          name: string,
-          isIndex: boolean,
-          module:  {
-            __typename: "Module",
-            id: string,
-            name: string,
-            createdAt: string,
-            updatedAt: string,
-          },
-          createdAt: string,
-          updatedAt: string,
-          moduleActionsId: string,
-        } | null >,
-        nextToken?: string | null,
-      } | null,
       createdAt: string,
       updatedAt: string,
     },
@@ -830,329 +1295,12 @@ export type DeleteParameterMutation = {
         } | null >,
         nextToken?: string | null,
       } | null,
-      actions?:  {
-        __typename: "ModelActionConnection",
-        items:  Array< {
-          __typename: "Action",
-          id: string,
-          name: string,
-          isIndex: boolean,
-          module:  {
-            __typename: "Module",
-            id: string,
-            name: string,
-            createdAt: string,
-            updatedAt: string,
-          },
-          createdAt: string,
-          updatedAt: string,
-          moduleActionsId: string,
-        } | null >,
-        nextToken?: string | null,
-      } | null,
       createdAt: string,
       updatedAt: string,
     },
     createdAt: string,
     updatedAt: string,
     moduleParametersId?: string | null,
-  } | null,
-};
-
-export type CreateActionMutationVariables = {
-  input: CreateActionInput,
-  condition?: ModelActionConditionInput | null,
-};
-
-export type CreateActionMutation = {
-  createAction?:  {
-    __typename: "Action",
-    id: string,
-    name: string,
-    isIndex: boolean,
-    module:  {
-      __typename: "Module",
-      id: string,
-      name: string,
-      parameters?:  {
-        __typename: "ModelParameterConnection",
-        items:  Array< {
-          __typename: "Parameter",
-          id: string,
-          inputType: InputType,
-          label: string,
-          defaultValue?: string | null,
-          optionValues?:  Array< {
-            __typename: "TOptionValue",
-            value?: string | null,
-            label?: string | null,
-          } | null > | null,
-          module:  {
-            __typename: "Module",
-            id: string,
-            name: string,
-            createdAt: string,
-            updatedAt: string,
-          },
-          createdAt: string,
-          updatedAt: string,
-          moduleParametersId?: string | null,
-        } | null >,
-        nextToken?: string | null,
-      } | null,
-      menus?:  {
-        __typename: "ModelMenuConnection",
-        items:  Array< {
-          __typename: "Menu",
-          id: string,
-          name: string,
-          parent?: string | null,
-          menuType: MenuType,
-          module:  {
-            __typename: "Module",
-            id: string,
-            name: string,
-            createdAt: string,
-            updatedAt: string,
-          },
-          moduleId: string,
-          parameterSettings?:  Array< {
-            __typename: "TParameterValue",
-            id: string,
-            value?: string | null,
-          } | null > | null,
-          url: string,
-          sortOrder?: number | null,
-          createdAt: string,
-          updatedAt: string,
-          moduleMenusId?: string | null,
-        } | null >,
-        nextToken?: string | null,
-      } | null,
-      actions?:  {
-        __typename: "ModelActionConnection",
-        items:  Array< {
-          __typename: "Action",
-          id: string,
-          name: string,
-          isIndex: boolean,
-          module:  {
-            __typename: "Module",
-            id: string,
-            name: string,
-            createdAt: string,
-            updatedAt: string,
-          },
-          createdAt: string,
-          updatedAt: string,
-          moduleActionsId: string,
-        } | null >,
-        nextToken?: string | null,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-    },
-    createdAt: string,
-    updatedAt: string,
-    moduleActionsId: string,
-  } | null,
-};
-
-export type UpdateActionMutationVariables = {
-  input: UpdateActionInput,
-  condition?: ModelActionConditionInput | null,
-};
-
-export type UpdateActionMutation = {
-  updateAction?:  {
-    __typename: "Action",
-    id: string,
-    name: string,
-    isIndex: boolean,
-    module:  {
-      __typename: "Module",
-      id: string,
-      name: string,
-      parameters?:  {
-        __typename: "ModelParameterConnection",
-        items:  Array< {
-          __typename: "Parameter",
-          id: string,
-          inputType: InputType,
-          label: string,
-          defaultValue?: string | null,
-          optionValues?:  Array< {
-            __typename: "TOptionValue",
-            value?: string | null,
-            label?: string | null,
-          } | null > | null,
-          module:  {
-            __typename: "Module",
-            id: string,
-            name: string,
-            createdAt: string,
-            updatedAt: string,
-          },
-          createdAt: string,
-          updatedAt: string,
-          moduleParametersId?: string | null,
-        } | null >,
-        nextToken?: string | null,
-      } | null,
-      menus?:  {
-        __typename: "ModelMenuConnection",
-        items:  Array< {
-          __typename: "Menu",
-          id: string,
-          name: string,
-          parent?: string | null,
-          menuType: MenuType,
-          module:  {
-            __typename: "Module",
-            id: string,
-            name: string,
-            createdAt: string,
-            updatedAt: string,
-          },
-          moduleId: string,
-          parameterSettings?:  Array< {
-            __typename: "TParameterValue",
-            id: string,
-            value?: string | null,
-          } | null > | null,
-          url: string,
-          sortOrder?: number | null,
-          createdAt: string,
-          updatedAt: string,
-          moduleMenusId?: string | null,
-        } | null >,
-        nextToken?: string | null,
-      } | null,
-      actions?:  {
-        __typename: "ModelActionConnection",
-        items:  Array< {
-          __typename: "Action",
-          id: string,
-          name: string,
-          isIndex: boolean,
-          module:  {
-            __typename: "Module",
-            id: string,
-            name: string,
-            createdAt: string,
-            updatedAt: string,
-          },
-          createdAt: string,
-          updatedAt: string,
-          moduleActionsId: string,
-        } | null >,
-        nextToken?: string | null,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-    },
-    createdAt: string,
-    updatedAt: string,
-    moduleActionsId: string,
-  } | null,
-};
-
-export type DeleteActionMutationVariables = {
-  input: DeleteActionInput,
-  condition?: ModelActionConditionInput | null,
-};
-
-export type DeleteActionMutation = {
-  deleteAction?:  {
-    __typename: "Action",
-    id: string,
-    name: string,
-    isIndex: boolean,
-    module:  {
-      __typename: "Module",
-      id: string,
-      name: string,
-      parameters?:  {
-        __typename: "ModelParameterConnection",
-        items:  Array< {
-          __typename: "Parameter",
-          id: string,
-          inputType: InputType,
-          label: string,
-          defaultValue?: string | null,
-          optionValues?:  Array< {
-            __typename: "TOptionValue",
-            value?: string | null,
-            label?: string | null,
-          } | null > | null,
-          module:  {
-            __typename: "Module",
-            id: string,
-            name: string,
-            createdAt: string,
-            updatedAt: string,
-          },
-          createdAt: string,
-          updatedAt: string,
-          moduleParametersId?: string | null,
-        } | null >,
-        nextToken?: string | null,
-      } | null,
-      menus?:  {
-        __typename: "ModelMenuConnection",
-        items:  Array< {
-          __typename: "Menu",
-          id: string,
-          name: string,
-          parent?: string | null,
-          menuType: MenuType,
-          module:  {
-            __typename: "Module",
-            id: string,
-            name: string,
-            createdAt: string,
-            updatedAt: string,
-          },
-          moduleId: string,
-          parameterSettings?:  Array< {
-            __typename: "TParameterValue",
-            id: string,
-            value?: string | null,
-          } | null > | null,
-          url: string,
-          sortOrder?: number | null,
-          createdAt: string,
-          updatedAt: string,
-          moduleMenusId?: string | null,
-        } | null >,
-        nextToken?: string | null,
-      } | null,
-      actions?:  {
-        __typename: "ModelActionConnection",
-        items:  Array< {
-          __typename: "Action",
-          id: string,
-          name: string,
-          isIndex: boolean,
-          module:  {
-            __typename: "Module",
-            id: string,
-            name: string,
-            createdAt: string,
-            updatedAt: string,
-          },
-          createdAt: string,
-          updatedAt: string,
-          moduleActionsId: string,
-        } | null >,
-        nextToken?: string | null,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-    },
-    createdAt: string,
-    updatedAt: string,
-    moduleActionsId: string,
   } | null,
 };
 
@@ -1191,10 +1339,6 @@ export type CreateModuleMutation = {
             __typename: "ModelMenuConnection",
             nextToken?: string | null,
           } | null,
-          actions?:  {
-            __typename: "ModelActionConnection",
-            nextToken?: string | null,
-          } | null,
           createdAt: string,
           updatedAt: string,
         },
@@ -1224,10 +1368,6 @@ export type CreateModuleMutation = {
             __typename: "ModelMenuConnection",
             nextToken?: string | null,
           } | null,
-          actions?:  {
-            __typename: "ModelActionConnection",
-            nextToken?: string | null,
-          } | null,
           createdAt: string,
           updatedAt: string,
         },
@@ -1242,38 +1382,6 @@ export type CreateModuleMutation = {
         createdAt: string,
         updatedAt: string,
         moduleMenusId?: string | null,
-      } | null >,
-      nextToken?: string | null,
-    } | null,
-    actions?:  {
-      __typename: "ModelActionConnection",
-      items:  Array< {
-        __typename: "Action",
-        id: string,
-        name: string,
-        isIndex: boolean,
-        module:  {
-          __typename: "Module",
-          id: string,
-          name: string,
-          parameters?:  {
-            __typename: "ModelParameterConnection",
-            nextToken?: string | null,
-          } | null,
-          menus?:  {
-            __typename: "ModelMenuConnection",
-            nextToken?: string | null,
-          } | null,
-          actions?:  {
-            __typename: "ModelActionConnection",
-            nextToken?: string | null,
-          } | null,
-          createdAt: string,
-          updatedAt: string,
-        },
-        createdAt: string,
-        updatedAt: string,
-        moduleActionsId: string,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -1317,10 +1425,6 @@ export type UpdateModuleMutation = {
             __typename: "ModelMenuConnection",
             nextToken?: string | null,
           } | null,
-          actions?:  {
-            __typename: "ModelActionConnection",
-            nextToken?: string | null,
-          } | null,
           createdAt: string,
           updatedAt: string,
         },
@@ -1350,10 +1454,6 @@ export type UpdateModuleMutation = {
             __typename: "ModelMenuConnection",
             nextToken?: string | null,
           } | null,
-          actions?:  {
-            __typename: "ModelActionConnection",
-            nextToken?: string | null,
-          } | null,
           createdAt: string,
           updatedAt: string,
         },
@@ -1368,38 +1468,6 @@ export type UpdateModuleMutation = {
         createdAt: string,
         updatedAt: string,
         moduleMenusId?: string | null,
-      } | null >,
-      nextToken?: string | null,
-    } | null,
-    actions?:  {
-      __typename: "ModelActionConnection",
-      items:  Array< {
-        __typename: "Action",
-        id: string,
-        name: string,
-        isIndex: boolean,
-        module:  {
-          __typename: "Module",
-          id: string,
-          name: string,
-          parameters?:  {
-            __typename: "ModelParameterConnection",
-            nextToken?: string | null,
-          } | null,
-          menus?:  {
-            __typename: "ModelMenuConnection",
-            nextToken?: string | null,
-          } | null,
-          actions?:  {
-            __typename: "ModelActionConnection",
-            nextToken?: string | null,
-          } | null,
-          createdAt: string,
-          updatedAt: string,
-        },
-        createdAt: string,
-        updatedAt: string,
-        moduleActionsId: string,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -1443,10 +1511,6 @@ export type DeleteModuleMutation = {
             __typename: "ModelMenuConnection",
             nextToken?: string | null,
           } | null,
-          actions?:  {
-            __typename: "ModelActionConnection",
-            nextToken?: string | null,
-          } | null,
           createdAt: string,
           updatedAt: string,
         },
@@ -1476,10 +1540,6 @@ export type DeleteModuleMutation = {
             __typename: "ModelMenuConnection",
             nextToken?: string | null,
           } | null,
-          actions?:  {
-            __typename: "ModelActionConnection",
-            nextToken?: string | null,
-          } | null,
           createdAt: string,
           updatedAt: string,
         },
@@ -1497,40 +1557,335 @@ export type DeleteModuleMutation = {
       } | null >,
       nextToken?: string | null,
     } | null,
-    actions?:  {
-      __typename: "ModelActionConnection",
-      items:  Array< {
-        __typename: "Action",
-        id: string,
-        name: string,
-        isIndex: boolean,
-        module:  {
-          __typename: "Module",
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type CreateRouteParameterMutationVariables = {
+  input: CreateRouteParameterInput,
+  condition?: ModelRouteParameterConditionInput | null,
+};
+
+export type CreateRouteParameterMutation = {
+  createRouteParameter?:  {
+    __typename: "RouteParameter",
+    name: string,
+    value: string,
+    id: string,
+    createdAt: string,
+    updatedAt: string,
+    routeParametersId?: string | null,
+  } | null,
+};
+
+export type UpdateRouteParameterMutationVariables = {
+  input: UpdateRouteParameterInput,
+  condition?: ModelRouteParameterConditionInput | null,
+};
+
+export type UpdateRouteParameterMutation = {
+  updateRouteParameter?:  {
+    __typename: "RouteParameter",
+    name: string,
+    value: string,
+    id: string,
+    createdAt: string,
+    updatedAt: string,
+    routeParametersId?: string | null,
+  } | null,
+};
+
+export type DeleteRouteParameterMutationVariables = {
+  input: DeleteRouteParameterInput,
+  condition?: ModelRouteParameterConditionInput | null,
+};
+
+export type DeleteRouteParameterMutation = {
+  deleteRouteParameter?:  {
+    __typename: "RouteParameter",
+    name: string,
+    value: string,
+    id: string,
+    createdAt: string,
+    updatedAt: string,
+    routeParametersId?: string | null,
+  } | null,
+};
+
+export type CreateRouteMutationVariables = {
+  input: CreateRouteInput,
+  condition?: ModelRouteConditionInput | null,
+};
+
+export type CreateRouteMutation = {
+  createRoute?:  {
+    __typename: "Route",
+    id: string,
+    module:  {
+      __typename: "Module",
+      id: string,
+      name: string,
+      parameters?:  {
+        __typename: "ModelParameterConnection",
+        items:  Array< {
+          __typename: "Parameter",
           id: string,
-          name: string,
-          parameters?:  {
-            __typename: "ModelParameterConnection",
-            nextToken?: string | null,
-          } | null,
-          menus?:  {
-            __typename: "ModelMenuConnection",
-            nextToken?: string | null,
-          } | null,
-          actions?:  {
-            __typename: "ModelActionConnection",
-            nextToken?: string | null,
-          } | null,
+          inputType: InputType,
+          label: string,
+          defaultValue?: string | null,
+          optionValues?:  Array< {
+            __typename: "TOptionValue",
+            value?: string | null,
+            label?: string | null,
+          } | null > | null,
+          module:  {
+            __typename: "Module",
+            id: string,
+            name: string,
+            createdAt: string,
+            updatedAt: string,
+          },
           createdAt: string,
           updatedAt: string,
-        },
+          moduleParametersId?: string | null,
+        } | null >,
+        nextToken?: string | null,
+      } | null,
+      menus?:  {
+        __typename: "ModelMenuConnection",
+        items:  Array< {
+          __typename: "Menu",
+          id: string,
+          name: string,
+          parent?: string | null,
+          menuType: MenuType,
+          module:  {
+            __typename: "Module",
+            id: string,
+            name: string,
+            createdAt: string,
+            updatedAt: string,
+          },
+          moduleId: string,
+          parameterSettings?:  Array< {
+            __typename: "TParameterValue",
+            id: string,
+            value?: string | null,
+          } | null > | null,
+          url: string,
+          sortOrder?: number | null,
+          createdAt: string,
+          updatedAt: string,
+          moduleMenusId?: string | null,
+        } | null >,
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    },
+    action: string,
+    path: string,
+    parameters?:  {
+      __typename: "ModelRouteParameterConnection",
+      items:  Array< {
+        __typename: "RouteParameter",
+        name: string,
+        value: string,
+        id: string,
         createdAt: string,
         updatedAt: string,
-        moduleActionsId: string,
+        routeParametersId?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
+    routeModuleId: string,
+  } | null,
+};
+
+export type UpdateRouteMutationVariables = {
+  input: UpdateRouteInput,
+  condition?: ModelRouteConditionInput | null,
+};
+
+export type UpdateRouteMutation = {
+  updateRoute?:  {
+    __typename: "Route",
+    id: string,
+    module:  {
+      __typename: "Module",
+      id: string,
+      name: string,
+      parameters?:  {
+        __typename: "ModelParameterConnection",
+        items:  Array< {
+          __typename: "Parameter",
+          id: string,
+          inputType: InputType,
+          label: string,
+          defaultValue?: string | null,
+          optionValues?:  Array< {
+            __typename: "TOptionValue",
+            value?: string | null,
+            label?: string | null,
+          } | null > | null,
+          module:  {
+            __typename: "Module",
+            id: string,
+            name: string,
+            createdAt: string,
+            updatedAt: string,
+          },
+          createdAt: string,
+          updatedAt: string,
+          moduleParametersId?: string | null,
+        } | null >,
+        nextToken?: string | null,
+      } | null,
+      menus?:  {
+        __typename: "ModelMenuConnection",
+        items:  Array< {
+          __typename: "Menu",
+          id: string,
+          name: string,
+          parent?: string | null,
+          menuType: MenuType,
+          module:  {
+            __typename: "Module",
+            id: string,
+            name: string,
+            createdAt: string,
+            updatedAt: string,
+          },
+          moduleId: string,
+          parameterSettings?:  Array< {
+            __typename: "TParameterValue",
+            id: string,
+            value?: string | null,
+          } | null > | null,
+          url: string,
+          sortOrder?: number | null,
+          createdAt: string,
+          updatedAt: string,
+          moduleMenusId?: string | null,
+        } | null >,
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    },
+    action: string,
+    path: string,
+    parameters?:  {
+      __typename: "ModelRouteParameterConnection",
+      items:  Array< {
+        __typename: "RouteParameter",
+        name: string,
+        value: string,
+        id: string,
+        createdAt: string,
+        updatedAt: string,
+        routeParametersId?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    routeModuleId: string,
+  } | null,
+};
+
+export type DeleteRouteMutationVariables = {
+  input: DeleteRouteInput,
+  condition?: ModelRouteConditionInput | null,
+};
+
+export type DeleteRouteMutation = {
+  deleteRoute?:  {
+    __typename: "Route",
+    id: string,
+    module:  {
+      __typename: "Module",
+      id: string,
+      name: string,
+      parameters?:  {
+        __typename: "ModelParameterConnection",
+        items:  Array< {
+          __typename: "Parameter",
+          id: string,
+          inputType: InputType,
+          label: string,
+          defaultValue?: string | null,
+          optionValues?:  Array< {
+            __typename: "TOptionValue",
+            value?: string | null,
+            label?: string | null,
+          } | null > | null,
+          module:  {
+            __typename: "Module",
+            id: string,
+            name: string,
+            createdAt: string,
+            updatedAt: string,
+          },
+          createdAt: string,
+          updatedAt: string,
+          moduleParametersId?: string | null,
+        } | null >,
+        nextToken?: string | null,
+      } | null,
+      menus?:  {
+        __typename: "ModelMenuConnection",
+        items:  Array< {
+          __typename: "Menu",
+          id: string,
+          name: string,
+          parent?: string | null,
+          menuType: MenuType,
+          module:  {
+            __typename: "Module",
+            id: string,
+            name: string,
+            createdAt: string,
+            updatedAt: string,
+          },
+          moduleId: string,
+          parameterSettings?:  Array< {
+            __typename: "TParameterValue",
+            id: string,
+            value?: string | null,
+          } | null > | null,
+          url: string,
+          sortOrder?: number | null,
+          createdAt: string,
+          updatedAt: string,
+          moduleMenusId?: string | null,
+        } | null >,
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    },
+    action: string,
+    path: string,
+    parameters?:  {
+      __typename: "ModelRouteParameterConnection",
+      items:  Array< {
+        __typename: "RouteParameter",
+        name: string,
+        value: string,
+        id: string,
+        createdAt: string,
+        updatedAt: string,
+        routeParametersId?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    routeModuleId: string,
   } | null,
 };
 
@@ -1602,26 +1957,6 @@ export type CreateMenuMutation = {
           createdAt: string,
           updatedAt: string,
           moduleMenusId?: string | null,
-        } | null >,
-        nextToken?: string | null,
-      } | null,
-      actions?:  {
-        __typename: "ModelActionConnection",
-        items:  Array< {
-          __typename: "Action",
-          id: string,
-          name: string,
-          isIndex: boolean,
-          module:  {
-            __typename: "Module",
-            id: string,
-            name: string,
-            createdAt: string,
-            updatedAt: string,
-          },
-          createdAt: string,
-          updatedAt: string,
-          moduleActionsId: string,
         } | null >,
         nextToken?: string | null,
       } | null,
@@ -1713,26 +2048,6 @@ export type UpdateMenuMutation = {
         } | null >,
         nextToken?: string | null,
       } | null,
-      actions?:  {
-        __typename: "ModelActionConnection",
-        items:  Array< {
-          __typename: "Action",
-          id: string,
-          name: string,
-          isIndex: boolean,
-          module:  {
-            __typename: "Module",
-            id: string,
-            name: string,
-            createdAt: string,
-            updatedAt: string,
-          },
-          createdAt: string,
-          updatedAt: string,
-          moduleActionsId: string,
-        } | null >,
-        nextToken?: string | null,
-      } | null,
       createdAt: string,
       updatedAt: string,
     },
@@ -1821,26 +2136,6 @@ export type DeleteMenuMutation = {
         } | null >,
         nextToken?: string | null,
       } | null,
-      actions?:  {
-        __typename: "ModelActionConnection",
-        items:  Array< {
-          __typename: "Action",
-          id: string,
-          name: string,
-          isIndex: boolean,
-          module:  {
-            __typename: "Module",
-            id: string,
-            name: string,
-            createdAt: string,
-            updatedAt: string,
-          },
-          createdAt: string,
-          updatedAt: string,
-          moduleActionsId: string,
-        } | null >,
-        nextToken?: string | null,
-      } | null,
       createdAt: string,
       updatedAt: string,
     },
@@ -1906,6 +2201,1635 @@ export type DeleteDocumentMutation = {
     author?: string | null,
     createdAt: string,
     updatedAt: string,
+  } | null,
+};
+
+export type CreateBoardCatgoryMutationVariables = {
+  input: CreateBoardCatgoryInput,
+  condition?: ModelBoardCatgoryConditionInput | null,
+};
+
+export type CreateBoardCatgoryMutation = {
+  createBoardCatgory?:  {
+    __typename: "BoardCatgory",
+    id: string,
+    name: string,
+    parent?:  {
+      __typename: "BoardCatgory",
+      id: string,
+      name: string,
+      parent?:  {
+        __typename: "BoardCatgory",
+        id: string,
+        name: string,
+        parent?:  {
+          __typename: "BoardCatgory",
+          id: string,
+          name: string,
+          parent?:  {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null,
+          children?:  {
+            __typename: "ModelBoardCatgoryConnection",
+            nextToken?: string | null,
+          } | null,
+          sortOrder: number,
+          createdAt: string,
+          updatedAt: string,
+          boardCatgoryChildrenId: string,
+          boardCategoryId: string,
+        } | null,
+        children?:  {
+          __typename: "ModelBoardCatgoryConnection",
+          items:  Array< {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null >,
+          nextToken?: string | null,
+        } | null,
+        sortOrder: number,
+        createdAt: string,
+        updatedAt: string,
+        boardCatgoryChildrenId: string,
+        boardCategoryId: string,
+      } | null,
+      children?:  {
+        __typename: "ModelBoardCatgoryConnection",
+        items:  Array< {
+          __typename: "BoardCatgory",
+          id: string,
+          name: string,
+          parent?:  {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null,
+          children?:  {
+            __typename: "ModelBoardCatgoryConnection",
+            nextToken?: string | null,
+          } | null,
+          sortOrder: number,
+          createdAt: string,
+          updatedAt: string,
+          boardCatgoryChildrenId: string,
+          boardCategoryId: string,
+        } | null >,
+        nextToken?: string | null,
+      } | null,
+      sortOrder: number,
+      createdAt: string,
+      updatedAt: string,
+      boardCatgoryChildrenId: string,
+      boardCategoryId: string,
+    } | null,
+    children?:  {
+      __typename: "ModelBoardCatgoryConnection",
+      items:  Array< {
+        __typename: "BoardCatgory",
+        id: string,
+        name: string,
+        parent?:  {
+          __typename: "BoardCatgory",
+          id: string,
+          name: string,
+          parent?:  {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null,
+          children?:  {
+            __typename: "ModelBoardCatgoryConnection",
+            nextToken?: string | null,
+          } | null,
+          sortOrder: number,
+          createdAt: string,
+          updatedAt: string,
+          boardCatgoryChildrenId: string,
+          boardCategoryId: string,
+        } | null,
+        children?:  {
+          __typename: "ModelBoardCatgoryConnection",
+          items:  Array< {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null >,
+          nextToken?: string | null,
+        } | null,
+        sortOrder: number,
+        createdAt: string,
+        updatedAt: string,
+        boardCatgoryChildrenId: string,
+        boardCategoryId: string,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    sortOrder: number,
+    createdAt: string,
+    updatedAt: string,
+    boardCatgoryChildrenId: string,
+    boardCategoryId: string,
+  } | null,
+};
+
+export type UpdateBoardCatgoryMutationVariables = {
+  input: UpdateBoardCatgoryInput,
+  condition?: ModelBoardCatgoryConditionInput | null,
+};
+
+export type UpdateBoardCatgoryMutation = {
+  updateBoardCatgory?:  {
+    __typename: "BoardCatgory",
+    id: string,
+    name: string,
+    parent?:  {
+      __typename: "BoardCatgory",
+      id: string,
+      name: string,
+      parent?:  {
+        __typename: "BoardCatgory",
+        id: string,
+        name: string,
+        parent?:  {
+          __typename: "BoardCatgory",
+          id: string,
+          name: string,
+          parent?:  {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null,
+          children?:  {
+            __typename: "ModelBoardCatgoryConnection",
+            nextToken?: string | null,
+          } | null,
+          sortOrder: number,
+          createdAt: string,
+          updatedAt: string,
+          boardCatgoryChildrenId: string,
+          boardCategoryId: string,
+        } | null,
+        children?:  {
+          __typename: "ModelBoardCatgoryConnection",
+          items:  Array< {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null >,
+          nextToken?: string | null,
+        } | null,
+        sortOrder: number,
+        createdAt: string,
+        updatedAt: string,
+        boardCatgoryChildrenId: string,
+        boardCategoryId: string,
+      } | null,
+      children?:  {
+        __typename: "ModelBoardCatgoryConnection",
+        items:  Array< {
+          __typename: "BoardCatgory",
+          id: string,
+          name: string,
+          parent?:  {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null,
+          children?:  {
+            __typename: "ModelBoardCatgoryConnection",
+            nextToken?: string | null,
+          } | null,
+          sortOrder: number,
+          createdAt: string,
+          updatedAt: string,
+          boardCatgoryChildrenId: string,
+          boardCategoryId: string,
+        } | null >,
+        nextToken?: string | null,
+      } | null,
+      sortOrder: number,
+      createdAt: string,
+      updatedAt: string,
+      boardCatgoryChildrenId: string,
+      boardCategoryId: string,
+    } | null,
+    children?:  {
+      __typename: "ModelBoardCatgoryConnection",
+      items:  Array< {
+        __typename: "BoardCatgory",
+        id: string,
+        name: string,
+        parent?:  {
+          __typename: "BoardCatgory",
+          id: string,
+          name: string,
+          parent?:  {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null,
+          children?:  {
+            __typename: "ModelBoardCatgoryConnection",
+            nextToken?: string | null,
+          } | null,
+          sortOrder: number,
+          createdAt: string,
+          updatedAt: string,
+          boardCatgoryChildrenId: string,
+          boardCategoryId: string,
+        } | null,
+        children?:  {
+          __typename: "ModelBoardCatgoryConnection",
+          items:  Array< {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null >,
+          nextToken?: string | null,
+        } | null,
+        sortOrder: number,
+        createdAt: string,
+        updatedAt: string,
+        boardCatgoryChildrenId: string,
+        boardCategoryId: string,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    sortOrder: number,
+    createdAt: string,
+    updatedAt: string,
+    boardCatgoryChildrenId: string,
+    boardCategoryId: string,
+  } | null,
+};
+
+export type DeleteBoardCatgoryMutationVariables = {
+  input: DeleteBoardCatgoryInput,
+  condition?: ModelBoardCatgoryConditionInput | null,
+};
+
+export type DeleteBoardCatgoryMutation = {
+  deleteBoardCatgory?:  {
+    __typename: "BoardCatgory",
+    id: string,
+    name: string,
+    parent?:  {
+      __typename: "BoardCatgory",
+      id: string,
+      name: string,
+      parent?:  {
+        __typename: "BoardCatgory",
+        id: string,
+        name: string,
+        parent?:  {
+          __typename: "BoardCatgory",
+          id: string,
+          name: string,
+          parent?:  {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null,
+          children?:  {
+            __typename: "ModelBoardCatgoryConnection",
+            nextToken?: string | null,
+          } | null,
+          sortOrder: number,
+          createdAt: string,
+          updatedAt: string,
+          boardCatgoryChildrenId: string,
+          boardCategoryId: string,
+        } | null,
+        children?:  {
+          __typename: "ModelBoardCatgoryConnection",
+          items:  Array< {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null >,
+          nextToken?: string | null,
+        } | null,
+        sortOrder: number,
+        createdAt: string,
+        updatedAt: string,
+        boardCatgoryChildrenId: string,
+        boardCategoryId: string,
+      } | null,
+      children?:  {
+        __typename: "ModelBoardCatgoryConnection",
+        items:  Array< {
+          __typename: "BoardCatgory",
+          id: string,
+          name: string,
+          parent?:  {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null,
+          children?:  {
+            __typename: "ModelBoardCatgoryConnection",
+            nextToken?: string | null,
+          } | null,
+          sortOrder: number,
+          createdAt: string,
+          updatedAt: string,
+          boardCatgoryChildrenId: string,
+          boardCategoryId: string,
+        } | null >,
+        nextToken?: string | null,
+      } | null,
+      sortOrder: number,
+      createdAt: string,
+      updatedAt: string,
+      boardCatgoryChildrenId: string,
+      boardCategoryId: string,
+    } | null,
+    children?:  {
+      __typename: "ModelBoardCatgoryConnection",
+      items:  Array< {
+        __typename: "BoardCatgory",
+        id: string,
+        name: string,
+        parent?:  {
+          __typename: "BoardCatgory",
+          id: string,
+          name: string,
+          parent?:  {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null,
+          children?:  {
+            __typename: "ModelBoardCatgoryConnection",
+            nextToken?: string | null,
+          } | null,
+          sortOrder: number,
+          createdAt: string,
+          updatedAt: string,
+          boardCatgoryChildrenId: string,
+          boardCategoryId: string,
+        } | null,
+        children?:  {
+          __typename: "ModelBoardCatgoryConnection",
+          items:  Array< {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null >,
+          nextToken?: string | null,
+        } | null,
+        sortOrder: number,
+        createdAt: string,
+        updatedAt: string,
+        boardCatgoryChildrenId: string,
+        boardCategoryId: string,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    sortOrder: number,
+    createdAt: string,
+    updatedAt: string,
+    boardCatgoryChildrenId: string,
+    boardCategoryId: string,
+  } | null,
+};
+
+export type CreateBoardMutationVariables = {
+  input: CreateBoardInput,
+  condition?: ModelBoardConditionInput | null,
+};
+
+export type CreateBoardMutation = {
+  createBoard?:  {
+    __typename: "Board",
+    id: string,
+    title: string,
+    header?: string | null,
+    footer?: string | null,
+    listViewItems: Array< string | null >,
+    listSort:  {
+      __typename: "TSortItem",
+      item: string,
+      sort: SortOrder,
+    },
+    excludeNoticeFlag: boolean,
+    type: BoardType,
+    category?:  {
+      __typename: "ModelBoardCatgoryConnection",
+      items:  Array< {
+        __typename: "BoardCatgory",
+        id: string,
+        name: string,
+        parent?:  {
+          __typename: "BoardCatgory",
+          id: string,
+          name: string,
+          parent?:  {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null,
+          children?:  {
+            __typename: "ModelBoardCatgoryConnection",
+            nextToken?: string | null,
+          } | null,
+          sortOrder: number,
+          createdAt: string,
+          updatedAt: string,
+          boardCatgoryChildrenId: string,
+          boardCategoryId: string,
+        } | null,
+        children?:  {
+          __typename: "ModelBoardCatgoryConnection",
+          items:  Array< {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null >,
+          nextToken?: string | null,
+        } | null,
+        sortOrder: number,
+        createdAt: string,
+        updatedAt: string,
+        boardCatgoryChildrenId: string,
+        boardCategoryId: string,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type UpdateBoardMutationVariables = {
+  input: UpdateBoardInput,
+  condition?: ModelBoardConditionInput | null,
+};
+
+export type UpdateBoardMutation = {
+  updateBoard?:  {
+    __typename: "Board",
+    id: string,
+    title: string,
+    header?: string | null,
+    footer?: string | null,
+    listViewItems: Array< string | null >,
+    listSort:  {
+      __typename: "TSortItem",
+      item: string,
+      sort: SortOrder,
+    },
+    excludeNoticeFlag: boolean,
+    type: BoardType,
+    category?:  {
+      __typename: "ModelBoardCatgoryConnection",
+      items:  Array< {
+        __typename: "BoardCatgory",
+        id: string,
+        name: string,
+        parent?:  {
+          __typename: "BoardCatgory",
+          id: string,
+          name: string,
+          parent?:  {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null,
+          children?:  {
+            __typename: "ModelBoardCatgoryConnection",
+            nextToken?: string | null,
+          } | null,
+          sortOrder: number,
+          createdAt: string,
+          updatedAt: string,
+          boardCatgoryChildrenId: string,
+          boardCategoryId: string,
+        } | null,
+        children?:  {
+          __typename: "ModelBoardCatgoryConnection",
+          items:  Array< {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null >,
+          nextToken?: string | null,
+        } | null,
+        sortOrder: number,
+        createdAt: string,
+        updatedAt: string,
+        boardCatgoryChildrenId: string,
+        boardCategoryId: string,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type DeleteBoardMutationVariables = {
+  input: DeleteBoardInput,
+  condition?: ModelBoardConditionInput | null,
+};
+
+export type DeleteBoardMutation = {
+  deleteBoard?:  {
+    __typename: "Board",
+    id: string,
+    title: string,
+    header?: string | null,
+    footer?: string | null,
+    listViewItems: Array< string | null >,
+    listSort:  {
+      __typename: "TSortItem",
+      item: string,
+      sort: SortOrder,
+    },
+    excludeNoticeFlag: boolean,
+    type: BoardType,
+    category?:  {
+      __typename: "ModelBoardCatgoryConnection",
+      items:  Array< {
+        __typename: "BoardCatgory",
+        id: string,
+        name: string,
+        parent?:  {
+          __typename: "BoardCatgory",
+          id: string,
+          name: string,
+          parent?:  {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null,
+          children?:  {
+            __typename: "ModelBoardCatgoryConnection",
+            nextToken?: string | null,
+          } | null,
+          sortOrder: number,
+          createdAt: string,
+          updatedAt: string,
+          boardCatgoryChildrenId: string,
+          boardCategoryId: string,
+        } | null,
+        children?:  {
+          __typename: "ModelBoardCatgoryConnection",
+          items:  Array< {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null >,
+          nextToken?: string | null,
+        } | null,
+        sortOrder: number,
+        createdAt: string,
+        updatedAt: string,
+        boardCatgoryChildrenId: string,
+        boardCategoryId: string,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type CreateAttachmentMutationVariables = {
+  input: CreateAttachmentInput,
+  condition?: ModelAttachmentConditionInput | null,
+};
+
+export type CreateAttachmentMutation = {
+  createAttachment?:  {
+    __typename: "Attachment",
+    id: string,
+    filename: string,
+    filetype: string,
+    path: string,
+    createdAt: string,
+    updatedAt: string,
+    boardItemAttachmentsId?: string | null,
+    author?: string | null,
+  } | null,
+};
+
+export type UpdateAttachmentMutationVariables = {
+  input: UpdateAttachmentInput,
+  condition?: ModelAttachmentConditionInput | null,
+};
+
+export type UpdateAttachmentMutation = {
+  updateAttachment?:  {
+    __typename: "Attachment",
+    id: string,
+    filename: string,
+    filetype: string,
+    path: string,
+    createdAt: string,
+    updatedAt: string,
+    boardItemAttachmentsId?: string | null,
+    author?: string | null,
+  } | null,
+};
+
+export type DeleteAttachmentMutationVariables = {
+  input: DeleteAttachmentInput,
+  condition?: ModelAttachmentConditionInput | null,
+};
+
+export type DeleteAttachmentMutation = {
+  deleteAttachment?:  {
+    __typename: "Attachment",
+    id: string,
+    filename: string,
+    filetype: string,
+    path: string,
+    createdAt: string,
+    updatedAt: string,
+    boardItemAttachmentsId?: string | null,
+    author?: string | null,
+  } | null,
+};
+
+export type CreateBoardItemMutationVariables = {
+  input: CreateBoardItemInput,
+  condition?: ModelBoardItemConditionInput | null,
+};
+
+export type CreateBoardItemMutation = {
+  createBoardItem?:  {
+    __typename: "BoardItem",
+    id: string,
+    board:  {
+      __typename: "Board",
+      id: string,
+      title: string,
+      header?: string | null,
+      footer?: string | null,
+      listViewItems: Array< string | null >,
+      listSort:  {
+        __typename: "TSortItem",
+        item: string,
+        sort: SortOrder,
+      },
+      excludeNoticeFlag: boolean,
+      type: BoardType,
+      category?:  {
+        __typename: "ModelBoardCatgoryConnection",
+        items:  Array< {
+          __typename: "BoardCatgory",
+          id: string,
+          name: string,
+          parent?:  {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null,
+          children?:  {
+            __typename: "ModelBoardCatgoryConnection",
+            nextToken?: string | null,
+          } | null,
+          sortOrder: number,
+          createdAt: string,
+          updatedAt: string,
+          boardCatgoryChildrenId: string,
+          boardCategoryId: string,
+        } | null >,
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    },
+    category?:  {
+      __typename: "BoardCatgory",
+      id: string,
+      name: string,
+      parent?:  {
+        __typename: "BoardCatgory",
+        id: string,
+        name: string,
+        parent?:  {
+          __typename: "BoardCatgory",
+          id: string,
+          name: string,
+          parent?:  {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null,
+          children?:  {
+            __typename: "ModelBoardCatgoryConnection",
+            nextToken?: string | null,
+          } | null,
+          sortOrder: number,
+          createdAt: string,
+          updatedAt: string,
+          boardCatgoryChildrenId: string,
+          boardCategoryId: string,
+        } | null,
+        children?:  {
+          __typename: "ModelBoardCatgoryConnection",
+          items:  Array< {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null >,
+          nextToken?: string | null,
+        } | null,
+        sortOrder: number,
+        createdAt: string,
+        updatedAt: string,
+        boardCatgoryChildrenId: string,
+        boardCategoryId: string,
+      } | null,
+      children?:  {
+        __typename: "ModelBoardCatgoryConnection",
+        items:  Array< {
+          __typename: "BoardCatgory",
+          id: string,
+          name: string,
+          parent?:  {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null,
+          children?:  {
+            __typename: "ModelBoardCatgoryConnection",
+            nextToken?: string | null,
+          } | null,
+          sortOrder: number,
+          createdAt: string,
+          updatedAt: string,
+          boardCatgoryChildrenId: string,
+          boardCategoryId: string,
+        } | null >,
+        nextToken?: string | null,
+      } | null,
+      sortOrder: number,
+      createdAt: string,
+      updatedAt: string,
+      boardCatgoryChildrenId: string,
+      boardCategoryId: string,
+    } | null,
+    title: string,
+    content: string,
+    tag: string,
+    author: string,
+    attachments?:  {
+      __typename: "ModelAttachmentConnection",
+      items:  Array< {
+        __typename: "Attachment",
+        id: string,
+        filename: string,
+        filetype: string,
+        path: string,
+        createdAt: string,
+        updatedAt: string,
+        boardItemAttachmentsId?: string | null,
+        author?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    isNotice?: boolean | null,
+    createdAt: string,
+    updatedAt: string,
+    boardItemBoardId: string,
+    boardItemCategoryId?: string | null,
+  } | null,
+};
+
+export type UpdateBoardItemMutationVariables = {
+  input: UpdateBoardItemInput,
+  condition?: ModelBoardItemConditionInput | null,
+};
+
+export type UpdateBoardItemMutation = {
+  updateBoardItem?:  {
+    __typename: "BoardItem",
+    id: string,
+    board:  {
+      __typename: "Board",
+      id: string,
+      title: string,
+      header?: string | null,
+      footer?: string | null,
+      listViewItems: Array< string | null >,
+      listSort:  {
+        __typename: "TSortItem",
+        item: string,
+        sort: SortOrder,
+      },
+      excludeNoticeFlag: boolean,
+      type: BoardType,
+      category?:  {
+        __typename: "ModelBoardCatgoryConnection",
+        items:  Array< {
+          __typename: "BoardCatgory",
+          id: string,
+          name: string,
+          parent?:  {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null,
+          children?:  {
+            __typename: "ModelBoardCatgoryConnection",
+            nextToken?: string | null,
+          } | null,
+          sortOrder: number,
+          createdAt: string,
+          updatedAt: string,
+          boardCatgoryChildrenId: string,
+          boardCategoryId: string,
+        } | null >,
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    },
+    category?:  {
+      __typename: "BoardCatgory",
+      id: string,
+      name: string,
+      parent?:  {
+        __typename: "BoardCatgory",
+        id: string,
+        name: string,
+        parent?:  {
+          __typename: "BoardCatgory",
+          id: string,
+          name: string,
+          parent?:  {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null,
+          children?:  {
+            __typename: "ModelBoardCatgoryConnection",
+            nextToken?: string | null,
+          } | null,
+          sortOrder: number,
+          createdAt: string,
+          updatedAt: string,
+          boardCatgoryChildrenId: string,
+          boardCategoryId: string,
+        } | null,
+        children?:  {
+          __typename: "ModelBoardCatgoryConnection",
+          items:  Array< {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null >,
+          nextToken?: string | null,
+        } | null,
+        sortOrder: number,
+        createdAt: string,
+        updatedAt: string,
+        boardCatgoryChildrenId: string,
+        boardCategoryId: string,
+      } | null,
+      children?:  {
+        __typename: "ModelBoardCatgoryConnection",
+        items:  Array< {
+          __typename: "BoardCatgory",
+          id: string,
+          name: string,
+          parent?:  {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null,
+          children?:  {
+            __typename: "ModelBoardCatgoryConnection",
+            nextToken?: string | null,
+          } | null,
+          sortOrder: number,
+          createdAt: string,
+          updatedAt: string,
+          boardCatgoryChildrenId: string,
+          boardCategoryId: string,
+        } | null >,
+        nextToken?: string | null,
+      } | null,
+      sortOrder: number,
+      createdAt: string,
+      updatedAt: string,
+      boardCatgoryChildrenId: string,
+      boardCategoryId: string,
+    } | null,
+    title: string,
+    content: string,
+    tag: string,
+    author: string,
+    attachments?:  {
+      __typename: "ModelAttachmentConnection",
+      items:  Array< {
+        __typename: "Attachment",
+        id: string,
+        filename: string,
+        filetype: string,
+        path: string,
+        createdAt: string,
+        updatedAt: string,
+        boardItemAttachmentsId?: string | null,
+        author?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    isNotice?: boolean | null,
+    createdAt: string,
+    updatedAt: string,
+    boardItemBoardId: string,
+    boardItemCategoryId?: string | null,
+  } | null,
+};
+
+export type DeleteBoardItemMutationVariables = {
+  input: DeleteBoardItemInput,
+  condition?: ModelBoardItemConditionInput | null,
+};
+
+export type DeleteBoardItemMutation = {
+  deleteBoardItem?:  {
+    __typename: "BoardItem",
+    id: string,
+    board:  {
+      __typename: "Board",
+      id: string,
+      title: string,
+      header?: string | null,
+      footer?: string | null,
+      listViewItems: Array< string | null >,
+      listSort:  {
+        __typename: "TSortItem",
+        item: string,
+        sort: SortOrder,
+      },
+      excludeNoticeFlag: boolean,
+      type: BoardType,
+      category?:  {
+        __typename: "ModelBoardCatgoryConnection",
+        items:  Array< {
+          __typename: "BoardCatgory",
+          id: string,
+          name: string,
+          parent?:  {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null,
+          children?:  {
+            __typename: "ModelBoardCatgoryConnection",
+            nextToken?: string | null,
+          } | null,
+          sortOrder: number,
+          createdAt: string,
+          updatedAt: string,
+          boardCatgoryChildrenId: string,
+          boardCategoryId: string,
+        } | null >,
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    },
+    category?:  {
+      __typename: "BoardCatgory",
+      id: string,
+      name: string,
+      parent?:  {
+        __typename: "BoardCatgory",
+        id: string,
+        name: string,
+        parent?:  {
+          __typename: "BoardCatgory",
+          id: string,
+          name: string,
+          parent?:  {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null,
+          children?:  {
+            __typename: "ModelBoardCatgoryConnection",
+            nextToken?: string | null,
+          } | null,
+          sortOrder: number,
+          createdAt: string,
+          updatedAt: string,
+          boardCatgoryChildrenId: string,
+          boardCategoryId: string,
+        } | null,
+        children?:  {
+          __typename: "ModelBoardCatgoryConnection",
+          items:  Array< {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null >,
+          nextToken?: string | null,
+        } | null,
+        sortOrder: number,
+        createdAt: string,
+        updatedAt: string,
+        boardCatgoryChildrenId: string,
+        boardCategoryId: string,
+      } | null,
+      children?:  {
+        __typename: "ModelBoardCatgoryConnection",
+        items:  Array< {
+          __typename: "BoardCatgory",
+          id: string,
+          name: string,
+          parent?:  {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null,
+          children?:  {
+            __typename: "ModelBoardCatgoryConnection",
+            nextToken?: string | null,
+          } | null,
+          sortOrder: number,
+          createdAt: string,
+          updatedAt: string,
+          boardCatgoryChildrenId: string,
+          boardCategoryId: string,
+        } | null >,
+        nextToken?: string | null,
+      } | null,
+      sortOrder: number,
+      createdAt: string,
+      updatedAt: string,
+      boardCatgoryChildrenId: string,
+      boardCategoryId: string,
+    } | null,
+    title: string,
+    content: string,
+    tag: string,
+    author: string,
+    attachments?:  {
+      __typename: "ModelAttachmentConnection",
+      items:  Array< {
+        __typename: "Attachment",
+        id: string,
+        filename: string,
+        filetype: string,
+        path: string,
+        createdAt: string,
+        updatedAt: string,
+        boardItemAttachmentsId?: string | null,
+        author?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    isNotice?: boolean | null,
+    createdAt: string,
+    updatedAt: string,
+    boardItemBoardId: string,
+    boardItemCategoryId?: string | null,
+  } | null,
+};
+
+export type CreateBoardItemCommentMutationVariables = {
+  input: CreateBoardItemCommentInput,
+  condition?: ModelBoardItemCommentConditionInput | null,
+};
+
+export type CreateBoardItemCommentMutation = {
+  createBoardItemComment?:  {
+    __typename: "BoardItemComment",
+    id: string,
+    boardItem:  {
+      __typename: "BoardItem",
+      id: string,
+      board:  {
+        __typename: "Board",
+        id: string,
+        title: string,
+        header?: string | null,
+        footer?: string | null,
+        listViewItems: Array< string | null >,
+        listSort:  {
+          __typename: "TSortItem",
+          item: string,
+          sort: SortOrder,
+        },
+        excludeNoticeFlag: boolean,
+        type: BoardType,
+        category?:  {
+          __typename: "ModelBoardCatgoryConnection",
+          items:  Array< {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null >,
+          nextToken?: string | null,
+        } | null,
+        createdAt: string,
+        updatedAt: string,
+      },
+      category?:  {
+        __typename: "BoardCatgory",
+        id: string,
+        name: string,
+        parent?:  {
+          __typename: "BoardCatgory",
+          id: string,
+          name: string,
+          parent?:  {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null,
+          children?:  {
+            __typename: "ModelBoardCatgoryConnection",
+            nextToken?: string | null,
+          } | null,
+          sortOrder: number,
+          createdAt: string,
+          updatedAt: string,
+          boardCatgoryChildrenId: string,
+          boardCategoryId: string,
+        } | null,
+        children?:  {
+          __typename: "ModelBoardCatgoryConnection",
+          items:  Array< {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null >,
+          nextToken?: string | null,
+        } | null,
+        sortOrder: number,
+        createdAt: string,
+        updatedAt: string,
+        boardCatgoryChildrenId: string,
+        boardCategoryId: string,
+      } | null,
+      title: string,
+      content: string,
+      tag: string,
+      author: string,
+      attachments?:  {
+        __typename: "ModelAttachmentConnection",
+        items:  Array< {
+          __typename: "Attachment",
+          id: string,
+          filename: string,
+          filetype: string,
+          path: string,
+          createdAt: string,
+          updatedAt: string,
+          boardItemAttachmentsId?: string | null,
+          author?: string | null,
+        } | null >,
+        nextToken?: string | null,
+      } | null,
+      isNotice?: boolean | null,
+      createdAt: string,
+      updatedAt: string,
+      boardItemBoardId: string,
+      boardItemCategoryId?: string | null,
+    },
+    comment: string,
+    author: string,
+    createdAt: string,
+    updatedAt: string,
+    boardItemCommentBoardItemId: string,
+  } | null,
+};
+
+export type UpdateBoardItemCommentMutationVariables = {
+  input: UpdateBoardItemCommentInput,
+  condition?: ModelBoardItemCommentConditionInput | null,
+};
+
+export type UpdateBoardItemCommentMutation = {
+  updateBoardItemComment?:  {
+    __typename: "BoardItemComment",
+    id: string,
+    boardItem:  {
+      __typename: "BoardItem",
+      id: string,
+      board:  {
+        __typename: "Board",
+        id: string,
+        title: string,
+        header?: string | null,
+        footer?: string | null,
+        listViewItems: Array< string | null >,
+        listSort:  {
+          __typename: "TSortItem",
+          item: string,
+          sort: SortOrder,
+        },
+        excludeNoticeFlag: boolean,
+        type: BoardType,
+        category?:  {
+          __typename: "ModelBoardCatgoryConnection",
+          items:  Array< {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null >,
+          nextToken?: string | null,
+        } | null,
+        createdAt: string,
+        updatedAt: string,
+      },
+      category?:  {
+        __typename: "BoardCatgory",
+        id: string,
+        name: string,
+        parent?:  {
+          __typename: "BoardCatgory",
+          id: string,
+          name: string,
+          parent?:  {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null,
+          children?:  {
+            __typename: "ModelBoardCatgoryConnection",
+            nextToken?: string | null,
+          } | null,
+          sortOrder: number,
+          createdAt: string,
+          updatedAt: string,
+          boardCatgoryChildrenId: string,
+          boardCategoryId: string,
+        } | null,
+        children?:  {
+          __typename: "ModelBoardCatgoryConnection",
+          items:  Array< {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null >,
+          nextToken?: string | null,
+        } | null,
+        sortOrder: number,
+        createdAt: string,
+        updatedAt: string,
+        boardCatgoryChildrenId: string,
+        boardCategoryId: string,
+      } | null,
+      title: string,
+      content: string,
+      tag: string,
+      author: string,
+      attachments?:  {
+        __typename: "ModelAttachmentConnection",
+        items:  Array< {
+          __typename: "Attachment",
+          id: string,
+          filename: string,
+          filetype: string,
+          path: string,
+          createdAt: string,
+          updatedAt: string,
+          boardItemAttachmentsId?: string | null,
+          author?: string | null,
+        } | null >,
+        nextToken?: string | null,
+      } | null,
+      isNotice?: boolean | null,
+      createdAt: string,
+      updatedAt: string,
+      boardItemBoardId: string,
+      boardItemCategoryId?: string | null,
+    },
+    comment: string,
+    author: string,
+    createdAt: string,
+    updatedAt: string,
+    boardItemCommentBoardItemId: string,
+  } | null,
+};
+
+export type DeleteBoardItemCommentMutationVariables = {
+  input: DeleteBoardItemCommentInput,
+  condition?: ModelBoardItemCommentConditionInput | null,
+};
+
+export type DeleteBoardItemCommentMutation = {
+  deleteBoardItemComment?:  {
+    __typename: "BoardItemComment",
+    id: string,
+    boardItem:  {
+      __typename: "BoardItem",
+      id: string,
+      board:  {
+        __typename: "Board",
+        id: string,
+        title: string,
+        header?: string | null,
+        footer?: string | null,
+        listViewItems: Array< string | null >,
+        listSort:  {
+          __typename: "TSortItem",
+          item: string,
+          sort: SortOrder,
+        },
+        excludeNoticeFlag: boolean,
+        type: BoardType,
+        category?:  {
+          __typename: "ModelBoardCatgoryConnection",
+          items:  Array< {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null >,
+          nextToken?: string | null,
+        } | null,
+        createdAt: string,
+        updatedAt: string,
+      },
+      category?:  {
+        __typename: "BoardCatgory",
+        id: string,
+        name: string,
+        parent?:  {
+          __typename: "BoardCatgory",
+          id: string,
+          name: string,
+          parent?:  {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null,
+          children?:  {
+            __typename: "ModelBoardCatgoryConnection",
+            nextToken?: string | null,
+          } | null,
+          sortOrder: number,
+          createdAt: string,
+          updatedAt: string,
+          boardCatgoryChildrenId: string,
+          boardCategoryId: string,
+        } | null,
+        children?:  {
+          __typename: "ModelBoardCatgoryConnection",
+          items:  Array< {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null >,
+          nextToken?: string | null,
+        } | null,
+        sortOrder: number,
+        createdAt: string,
+        updatedAt: string,
+        boardCatgoryChildrenId: string,
+        boardCategoryId: string,
+      } | null,
+      title: string,
+      content: string,
+      tag: string,
+      author: string,
+      attachments?:  {
+        __typename: "ModelAttachmentConnection",
+        items:  Array< {
+          __typename: "Attachment",
+          id: string,
+          filename: string,
+          filetype: string,
+          path: string,
+          createdAt: string,
+          updatedAt: string,
+          boardItemAttachmentsId?: string | null,
+          author?: string | null,
+        } | null >,
+        nextToken?: string | null,
+      } | null,
+      isNotice?: boolean | null,
+      createdAt: string,
+      updatedAt: string,
+      boardItemBoardId: string,
+      boardItemCategoryId?: string | null,
+    },
+    comment: string,
+    author: string,
+    createdAt: string,
+    updatedAt: string,
+    boardItemCommentBoardItemId: string,
   } | null,
 };
 
@@ -1984,26 +3908,6 @@ export type GetParameterQuery = {
         } | null >,
         nextToken?: string | null,
       } | null,
-      actions?:  {
-        __typename: "ModelActionConnection",
-        items:  Array< {
-          __typename: "Action",
-          id: string,
-          name: string,
-          isIndex: boolean,
-          module:  {
-            __typename: "Module",
-            id: string,
-            name: string,
-            createdAt: string,
-            updatedAt: string,
-          },
-          createdAt: string,
-          updatedAt: string,
-          moduleActionsId: string,
-        } | null >,
-        nextToken?: string | null,
-      } | null,
       createdAt: string,
       updatedAt: string,
     },
@@ -2068,196 +3972,12 @@ export type ListParametersQuery = {
           } | null >,
           nextToken?: string | null,
         } | null,
-        actions?:  {
-          __typename: "ModelActionConnection",
-          items:  Array< {
-            __typename: "Action",
-            id: string,
-            name: string,
-            isIndex: boolean,
-            createdAt: string,
-            updatedAt: string,
-            moduleActionsId: string,
-          } | null >,
-          nextToken?: string | null,
-        } | null,
         createdAt: string,
         updatedAt: string,
       },
       createdAt: string,
       updatedAt: string,
       moduleParametersId?: string | null,
-    } | null >,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type GetActionQueryVariables = {
-  id: string,
-};
-
-export type GetActionQuery = {
-  getAction?:  {
-    __typename: "Action",
-    id: string,
-    name: string,
-    isIndex: boolean,
-    module:  {
-      __typename: "Module",
-      id: string,
-      name: string,
-      parameters?:  {
-        __typename: "ModelParameterConnection",
-        items:  Array< {
-          __typename: "Parameter",
-          id: string,
-          inputType: InputType,
-          label: string,
-          defaultValue?: string | null,
-          optionValues?:  Array< {
-            __typename: "TOptionValue",
-            value?: string | null,
-            label?: string | null,
-          } | null > | null,
-          module:  {
-            __typename: "Module",
-            id: string,
-            name: string,
-            createdAt: string,
-            updatedAt: string,
-          },
-          createdAt: string,
-          updatedAt: string,
-          moduleParametersId?: string | null,
-        } | null >,
-        nextToken?: string | null,
-      } | null,
-      menus?:  {
-        __typename: "ModelMenuConnection",
-        items:  Array< {
-          __typename: "Menu",
-          id: string,
-          name: string,
-          parent?: string | null,
-          menuType: MenuType,
-          module:  {
-            __typename: "Module",
-            id: string,
-            name: string,
-            createdAt: string,
-            updatedAt: string,
-          },
-          moduleId: string,
-          parameterSettings?:  Array< {
-            __typename: "TParameterValue",
-            id: string,
-            value?: string | null,
-          } | null > | null,
-          url: string,
-          sortOrder?: number | null,
-          createdAt: string,
-          updatedAt: string,
-          moduleMenusId?: string | null,
-        } | null >,
-        nextToken?: string | null,
-      } | null,
-      actions?:  {
-        __typename: "ModelActionConnection",
-        items:  Array< {
-          __typename: "Action",
-          id: string,
-          name: string,
-          isIndex: boolean,
-          module:  {
-            __typename: "Module",
-            id: string,
-            name: string,
-            createdAt: string,
-            updatedAt: string,
-          },
-          createdAt: string,
-          updatedAt: string,
-          moduleActionsId: string,
-        } | null >,
-        nextToken?: string | null,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-    },
-    createdAt: string,
-    updatedAt: string,
-    moduleActionsId: string,
-  } | null,
-};
-
-export type ListActionsQueryVariables = {
-  filter?: ModelActionFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type ListActionsQuery = {
-  listActions?:  {
-    __typename: "ModelActionConnection",
-    items:  Array< {
-      __typename: "Action",
-      id: string,
-      name: string,
-      isIndex: boolean,
-      module:  {
-        __typename: "Module",
-        id: string,
-        name: string,
-        parameters?:  {
-          __typename: "ModelParameterConnection",
-          items:  Array< {
-            __typename: "Parameter",
-            id: string,
-            inputType: InputType,
-            label: string,
-            defaultValue?: string | null,
-            createdAt: string,
-            updatedAt: string,
-            moduleParametersId?: string | null,
-          } | null >,
-          nextToken?: string | null,
-        } | null,
-        menus?:  {
-          __typename: "ModelMenuConnection",
-          items:  Array< {
-            __typename: "Menu",
-            id: string,
-            name: string,
-            parent?: string | null,
-            menuType: MenuType,
-            moduleId: string,
-            url: string,
-            sortOrder?: number | null,
-            createdAt: string,
-            updatedAt: string,
-            moduleMenusId?: string | null,
-          } | null >,
-          nextToken?: string | null,
-        } | null,
-        actions?:  {
-          __typename: "ModelActionConnection",
-          items:  Array< {
-            __typename: "Action",
-            id: string,
-            name: string,
-            isIndex: boolean,
-            createdAt: string,
-            updatedAt: string,
-            moduleActionsId: string,
-          } | null >,
-          nextToken?: string | null,
-        } | null,
-        createdAt: string,
-        updatedAt: string,
-      },
-      createdAt: string,
-      updatedAt: string,
-      moduleActionsId: string,
     } | null >,
     nextToken?: string | null,
   } | null,
@@ -2297,10 +4017,6 @@ export type GetModuleQuery = {
             __typename: "ModelMenuConnection",
             nextToken?: string | null,
           } | null,
-          actions?:  {
-            __typename: "ModelActionConnection",
-            nextToken?: string | null,
-          } | null,
           createdAt: string,
           updatedAt: string,
         },
@@ -2330,10 +4046,6 @@ export type GetModuleQuery = {
             __typename: "ModelMenuConnection",
             nextToken?: string | null,
           } | null,
-          actions?:  {
-            __typename: "ModelActionConnection",
-            nextToken?: string | null,
-          } | null,
           createdAt: string,
           updatedAt: string,
         },
@@ -2348,38 +4060,6 @@ export type GetModuleQuery = {
         createdAt: string,
         updatedAt: string,
         moduleMenusId?: string | null,
-      } | null >,
-      nextToken?: string | null,
-    } | null,
-    actions?:  {
-      __typename: "ModelActionConnection",
-      items:  Array< {
-        __typename: "Action",
-        id: string,
-        name: string,
-        isIndex: boolean,
-        module:  {
-          __typename: "Module",
-          id: string,
-          name: string,
-          parameters?:  {
-            __typename: "ModelParameterConnection",
-            nextToken?: string | null,
-          } | null,
-          menus?:  {
-            __typename: "ModelMenuConnection",
-            nextToken?: string | null,
-          } | null,
-          actions?:  {
-            __typename: "ModelActionConnection",
-            nextToken?: string | null,
-          } | null,
-          createdAt: string,
-          updatedAt: string,
-        },
-        createdAt: string,
-        updatedAt: string,
-        moduleActionsId: string,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -2456,13 +4136,76 @@ export type ListModulesQuery = {
         } | null >,
         nextToken?: string | null,
       } | null,
-      actions?:  {
-        __typename: "ModelActionConnection",
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetRouteParameterQueryVariables = {
+  id: string,
+};
+
+export type GetRouteParameterQuery = {
+  getRouteParameter?:  {
+    __typename: "RouteParameter",
+    name: string,
+    value: string,
+    id: string,
+    createdAt: string,
+    updatedAt: string,
+    routeParametersId?: string | null,
+  } | null,
+};
+
+export type ListRouteParametersQueryVariables = {
+  filter?: ModelRouteParameterFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListRouteParametersQuery = {
+  listRouteParameters?:  {
+    __typename: "ModelRouteParameterConnection",
+    items:  Array< {
+      __typename: "RouteParameter",
+      name: string,
+      value: string,
+      id: string,
+      createdAt: string,
+      updatedAt: string,
+      routeParametersId?: string | null,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetRouteQueryVariables = {
+  id: string,
+};
+
+export type GetRouteQuery = {
+  getRoute?:  {
+    __typename: "Route",
+    id: string,
+    module:  {
+      __typename: "Module",
+      id: string,
+      name: string,
+      parameters?:  {
+        __typename: "ModelParameterConnection",
         items:  Array< {
-          __typename: "Action",
+          __typename: "Parameter",
           id: string,
-          name: string,
-          isIndex: boolean,
+          inputType: InputType,
+          label: string,
+          defaultValue?: string | null,
+          optionValues?:  Array< {
+            __typename: "TOptionValue",
+            value?: string | null,
+            label?: string | null,
+          } | null > | null,
           module:  {
             __typename: "Module",
             id: string,
@@ -2472,12 +4215,131 @@ export type ListModulesQuery = {
           },
           createdAt: string,
           updatedAt: string,
-          moduleActionsId: string,
+          moduleParametersId?: string | null,
+        } | null >,
+        nextToken?: string | null,
+      } | null,
+      menus?:  {
+        __typename: "ModelMenuConnection",
+        items:  Array< {
+          __typename: "Menu",
+          id: string,
+          name: string,
+          parent?: string | null,
+          menuType: MenuType,
+          module:  {
+            __typename: "Module",
+            id: string,
+            name: string,
+            createdAt: string,
+            updatedAt: string,
+          },
+          moduleId: string,
+          parameterSettings?:  Array< {
+            __typename: "TParameterValue",
+            id: string,
+            value?: string | null,
+          } | null > | null,
+          url: string,
+          sortOrder?: number | null,
+          createdAt: string,
+          updatedAt: string,
+          moduleMenusId?: string | null,
         } | null >,
         nextToken?: string | null,
       } | null,
       createdAt: string,
       updatedAt: string,
+    },
+    action: string,
+    path: string,
+    parameters?:  {
+      __typename: "ModelRouteParameterConnection",
+      items:  Array< {
+        __typename: "RouteParameter",
+        name: string,
+        value: string,
+        id: string,
+        createdAt: string,
+        updatedAt: string,
+        routeParametersId?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    routeModuleId: string,
+  } | null,
+};
+
+export type ListRoutesQueryVariables = {
+  filter?: ModelRouteFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListRoutesQuery = {
+  listRoutes?:  {
+    __typename: "ModelRouteConnection",
+    items:  Array< {
+      __typename: "Route",
+      id: string,
+      module:  {
+        __typename: "Module",
+        id: string,
+        name: string,
+        parameters?:  {
+          __typename: "ModelParameterConnection",
+          items:  Array< {
+            __typename: "Parameter",
+            id: string,
+            inputType: InputType,
+            label: string,
+            defaultValue?: string | null,
+            createdAt: string,
+            updatedAt: string,
+            moduleParametersId?: string | null,
+          } | null >,
+          nextToken?: string | null,
+        } | null,
+        menus?:  {
+          __typename: "ModelMenuConnection",
+          items:  Array< {
+            __typename: "Menu",
+            id: string,
+            name: string,
+            parent?: string | null,
+            menuType: MenuType,
+            moduleId: string,
+            url: string,
+            sortOrder?: number | null,
+            createdAt: string,
+            updatedAt: string,
+            moduleMenusId?: string | null,
+          } | null >,
+          nextToken?: string | null,
+        } | null,
+        createdAt: string,
+        updatedAt: string,
+      },
+      action: string,
+      path: string,
+      parameters?:  {
+        __typename: "ModelRouteParameterConnection",
+        items:  Array< {
+          __typename: "RouteParameter",
+          name: string,
+          value: string,
+          id: string,
+          createdAt: string,
+          updatedAt: string,
+          routeParametersId?: string | null,
+        } | null >,
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      routeModuleId: string,
     } | null >,
     nextToken?: string | null,
   } | null,
@@ -2553,26 +4415,6 @@ export type GetMenuQuery = {
         } | null >,
         nextToken?: string | null,
       } | null,
-      actions?:  {
-        __typename: "ModelActionConnection",
-        items:  Array< {
-          __typename: "Action",
-          id: string,
-          name: string,
-          isIndex: boolean,
-          module:  {
-            __typename: "Module",
-            id: string,
-            name: string,
-            createdAt: string,
-            updatedAt: string,
-          },
-          createdAt: string,
-          updatedAt: string,
-          moduleActionsId: string,
-        } | null >,
-        nextToken?: string | null,
-      } | null,
       createdAt: string,
       updatedAt: string,
     },
@@ -2640,19 +4482,6 @@ export type ListMenusQuery = {
           } | null >,
           nextToken?: string | null,
         } | null,
-        actions?:  {
-          __typename: "ModelActionConnection",
-          items:  Array< {
-            __typename: "Action",
-            id: string,
-            name: string,
-            isIndex: boolean,
-            createdAt: string,
-            updatedAt: string,
-            moduleActionsId: string,
-          } | null >,
-          nextToken?: string | null,
-        } | null,
         createdAt: string,
         updatedAt: string,
       },
@@ -2705,6 +4534,940 @@ export type ListDocumentsQuery = {
       author?: string | null,
       createdAt: string,
       updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetBoardCatgoryQueryVariables = {
+  id: string,
+};
+
+export type GetBoardCatgoryQuery = {
+  getBoardCatgory?:  {
+    __typename: "BoardCatgory",
+    id: string,
+    name: string,
+    parent?:  {
+      __typename: "BoardCatgory",
+      id: string,
+      name: string,
+      parent?:  {
+        __typename: "BoardCatgory",
+        id: string,
+        name: string,
+        parent?:  {
+          __typename: "BoardCatgory",
+          id: string,
+          name: string,
+          parent?:  {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null,
+          children?:  {
+            __typename: "ModelBoardCatgoryConnection",
+            nextToken?: string | null,
+          } | null,
+          sortOrder: number,
+          createdAt: string,
+          updatedAt: string,
+          boardCatgoryChildrenId: string,
+          boardCategoryId: string,
+        } | null,
+        children?:  {
+          __typename: "ModelBoardCatgoryConnection",
+          items:  Array< {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null >,
+          nextToken?: string | null,
+        } | null,
+        sortOrder: number,
+        createdAt: string,
+        updatedAt: string,
+        boardCatgoryChildrenId: string,
+        boardCategoryId: string,
+      } | null,
+      children?:  {
+        __typename: "ModelBoardCatgoryConnection",
+        items:  Array< {
+          __typename: "BoardCatgory",
+          id: string,
+          name: string,
+          parent?:  {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null,
+          children?:  {
+            __typename: "ModelBoardCatgoryConnection",
+            nextToken?: string | null,
+          } | null,
+          sortOrder: number,
+          createdAt: string,
+          updatedAt: string,
+          boardCatgoryChildrenId: string,
+          boardCategoryId: string,
+        } | null >,
+        nextToken?: string | null,
+      } | null,
+      sortOrder: number,
+      createdAt: string,
+      updatedAt: string,
+      boardCatgoryChildrenId: string,
+      boardCategoryId: string,
+    } | null,
+    children?:  {
+      __typename: "ModelBoardCatgoryConnection",
+      items:  Array< {
+        __typename: "BoardCatgory",
+        id: string,
+        name: string,
+        parent?:  {
+          __typename: "BoardCatgory",
+          id: string,
+          name: string,
+          parent?:  {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null,
+          children?:  {
+            __typename: "ModelBoardCatgoryConnection",
+            nextToken?: string | null,
+          } | null,
+          sortOrder: number,
+          createdAt: string,
+          updatedAt: string,
+          boardCatgoryChildrenId: string,
+          boardCategoryId: string,
+        } | null,
+        children?:  {
+          __typename: "ModelBoardCatgoryConnection",
+          items:  Array< {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null >,
+          nextToken?: string | null,
+        } | null,
+        sortOrder: number,
+        createdAt: string,
+        updatedAt: string,
+        boardCatgoryChildrenId: string,
+        boardCategoryId: string,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    sortOrder: number,
+    createdAt: string,
+    updatedAt: string,
+    boardCatgoryChildrenId: string,
+    boardCategoryId: string,
+  } | null,
+};
+
+export type ListBoardCatgoriesQueryVariables = {
+  filter?: ModelBoardCatgoryFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListBoardCatgoriesQuery = {
+  listBoardCatgories?:  {
+    __typename: "ModelBoardCatgoryConnection",
+    items:  Array< {
+      __typename: "BoardCatgory",
+      id: string,
+      name: string,
+      parent?:  {
+        __typename: "BoardCatgory",
+        id: string,
+        name: string,
+        parent?:  {
+          __typename: "BoardCatgory",
+          id: string,
+          name: string,
+          parent?:  {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null,
+          children?:  {
+            __typename: "ModelBoardCatgoryConnection",
+            nextToken?: string | null,
+          } | null,
+          sortOrder: number,
+          createdAt: string,
+          updatedAt: string,
+          boardCatgoryChildrenId: string,
+          boardCategoryId: string,
+        } | null,
+        children?:  {
+          __typename: "ModelBoardCatgoryConnection",
+          items:  Array< {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null >,
+          nextToken?: string | null,
+        } | null,
+        sortOrder: number,
+        createdAt: string,
+        updatedAt: string,
+        boardCatgoryChildrenId: string,
+        boardCategoryId: string,
+      } | null,
+      children?:  {
+        __typename: "ModelBoardCatgoryConnection",
+        items:  Array< {
+          __typename: "BoardCatgory",
+          id: string,
+          name: string,
+          parent?:  {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null,
+          children?:  {
+            __typename: "ModelBoardCatgoryConnection",
+            nextToken?: string | null,
+          } | null,
+          sortOrder: number,
+          createdAt: string,
+          updatedAt: string,
+          boardCatgoryChildrenId: string,
+          boardCategoryId: string,
+        } | null >,
+        nextToken?: string | null,
+      } | null,
+      sortOrder: number,
+      createdAt: string,
+      updatedAt: string,
+      boardCatgoryChildrenId: string,
+      boardCategoryId: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetBoardQueryVariables = {
+  id: string,
+};
+
+export type GetBoardQuery = {
+  getBoard?:  {
+    __typename: "Board",
+    id: string,
+    title: string,
+    header?: string | null,
+    footer?: string | null,
+    listViewItems: Array< string | null >,
+    listSort:  {
+      __typename: "TSortItem",
+      item: string,
+      sort: SortOrder,
+    },
+    excludeNoticeFlag: boolean,
+    type: BoardType,
+    category?:  {
+      __typename: "ModelBoardCatgoryConnection",
+      items:  Array< {
+        __typename: "BoardCatgory",
+        id: string,
+        name: string,
+        parent?:  {
+          __typename: "BoardCatgory",
+          id: string,
+          name: string,
+          parent?:  {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null,
+          children?:  {
+            __typename: "ModelBoardCatgoryConnection",
+            nextToken?: string | null,
+          } | null,
+          sortOrder: number,
+          createdAt: string,
+          updatedAt: string,
+          boardCatgoryChildrenId: string,
+          boardCategoryId: string,
+        } | null,
+        children?:  {
+          __typename: "ModelBoardCatgoryConnection",
+          items:  Array< {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null >,
+          nextToken?: string | null,
+        } | null,
+        sortOrder: number,
+        createdAt: string,
+        updatedAt: string,
+        boardCatgoryChildrenId: string,
+        boardCategoryId: string,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type ListBoardsQueryVariables = {
+  filter?: ModelBoardFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListBoardsQuery = {
+  listBoards?:  {
+    __typename: "ModelBoardConnection",
+    items:  Array< {
+      __typename: "Board",
+      id: string,
+      title: string,
+      header?: string | null,
+      footer?: string | null,
+      listViewItems: Array< string | null >,
+      listSort:  {
+        __typename: "TSortItem",
+        item: string,
+        sort: SortOrder,
+      },
+      excludeNoticeFlag: boolean,
+      type: BoardType,
+      category?:  {
+        __typename: "ModelBoardCatgoryConnection",
+        items:  Array< {
+          __typename: "BoardCatgory",
+          id: string,
+          name: string,
+          parent?:  {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null,
+          children?:  {
+            __typename: "ModelBoardCatgoryConnection",
+            nextToken?: string | null,
+          } | null,
+          sortOrder: number,
+          createdAt: string,
+          updatedAt: string,
+          boardCatgoryChildrenId: string,
+          boardCategoryId: string,
+        } | null >,
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetAttachmentQueryVariables = {
+  id: string,
+};
+
+export type GetAttachmentQuery = {
+  getAttachment?:  {
+    __typename: "Attachment",
+    id: string,
+    filename: string,
+    filetype: string,
+    path: string,
+    createdAt: string,
+    updatedAt: string,
+    boardItemAttachmentsId?: string | null,
+    author?: string | null,
+  } | null,
+};
+
+export type ListAttachmentsQueryVariables = {
+  filter?: ModelAttachmentFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListAttachmentsQuery = {
+  listAttachments?:  {
+    __typename: "ModelAttachmentConnection",
+    items:  Array< {
+      __typename: "Attachment",
+      id: string,
+      filename: string,
+      filetype: string,
+      path: string,
+      createdAt: string,
+      updatedAt: string,
+      boardItemAttachmentsId?: string | null,
+      author?: string | null,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetBoardItemQueryVariables = {
+  id: string,
+};
+
+export type GetBoardItemQuery = {
+  getBoardItem?:  {
+    __typename: "BoardItem",
+    id: string,
+    board:  {
+      __typename: "Board",
+      id: string,
+      title: string,
+      header?: string | null,
+      footer?: string | null,
+      listViewItems: Array< string | null >,
+      listSort:  {
+        __typename: "TSortItem",
+        item: string,
+        sort: SortOrder,
+      },
+      excludeNoticeFlag: boolean,
+      type: BoardType,
+      category?:  {
+        __typename: "ModelBoardCatgoryConnection",
+        items:  Array< {
+          __typename: "BoardCatgory",
+          id: string,
+          name: string,
+          parent?:  {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null,
+          children?:  {
+            __typename: "ModelBoardCatgoryConnection",
+            nextToken?: string | null,
+          } | null,
+          sortOrder: number,
+          createdAt: string,
+          updatedAt: string,
+          boardCatgoryChildrenId: string,
+          boardCategoryId: string,
+        } | null >,
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    },
+    category?:  {
+      __typename: "BoardCatgory",
+      id: string,
+      name: string,
+      parent?:  {
+        __typename: "BoardCatgory",
+        id: string,
+        name: string,
+        parent?:  {
+          __typename: "BoardCatgory",
+          id: string,
+          name: string,
+          parent?:  {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null,
+          children?:  {
+            __typename: "ModelBoardCatgoryConnection",
+            nextToken?: string | null,
+          } | null,
+          sortOrder: number,
+          createdAt: string,
+          updatedAt: string,
+          boardCatgoryChildrenId: string,
+          boardCategoryId: string,
+        } | null,
+        children?:  {
+          __typename: "ModelBoardCatgoryConnection",
+          items:  Array< {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null >,
+          nextToken?: string | null,
+        } | null,
+        sortOrder: number,
+        createdAt: string,
+        updatedAt: string,
+        boardCatgoryChildrenId: string,
+        boardCategoryId: string,
+      } | null,
+      children?:  {
+        __typename: "ModelBoardCatgoryConnection",
+        items:  Array< {
+          __typename: "BoardCatgory",
+          id: string,
+          name: string,
+          parent?:  {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null,
+          children?:  {
+            __typename: "ModelBoardCatgoryConnection",
+            nextToken?: string | null,
+          } | null,
+          sortOrder: number,
+          createdAt: string,
+          updatedAt: string,
+          boardCatgoryChildrenId: string,
+          boardCategoryId: string,
+        } | null >,
+        nextToken?: string | null,
+      } | null,
+      sortOrder: number,
+      createdAt: string,
+      updatedAt: string,
+      boardCatgoryChildrenId: string,
+      boardCategoryId: string,
+    } | null,
+    title: string,
+    content: string,
+    tag: string,
+    author: string,
+    attachments?:  {
+      __typename: "ModelAttachmentConnection",
+      items:  Array< {
+        __typename: "Attachment",
+        id: string,
+        filename: string,
+        filetype: string,
+        path: string,
+        createdAt: string,
+        updatedAt: string,
+        boardItemAttachmentsId?: string | null,
+        author?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    isNotice?: boolean | null,
+    createdAt: string,
+    updatedAt: string,
+    boardItemBoardId: string,
+    boardItemCategoryId?: string | null,
+  } | null,
+};
+
+export type ListBoardItemsQueryVariables = {
+  filter?: ModelBoardItemFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListBoardItemsQuery = {
+  listBoardItems?:  {
+    __typename: "ModelBoardItemConnection",
+    items:  Array< {
+      __typename: "BoardItem",
+      id: string,
+      board:  {
+        __typename: "Board",
+        id: string,
+        title: string,
+        header?: string | null,
+        footer?: string | null,
+        listViewItems: Array< string | null >,
+        listSort:  {
+          __typename: "TSortItem",
+          item: string,
+          sort: SortOrder,
+        },
+        excludeNoticeFlag: boolean,
+        type: BoardType,
+        category?:  {
+          __typename: "ModelBoardCatgoryConnection",
+          items:  Array< {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null >,
+          nextToken?: string | null,
+        } | null,
+        createdAt: string,
+        updatedAt: string,
+      },
+      category?:  {
+        __typename: "BoardCatgory",
+        id: string,
+        name: string,
+        parent?:  {
+          __typename: "BoardCatgory",
+          id: string,
+          name: string,
+          parent?:  {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null,
+          children?:  {
+            __typename: "ModelBoardCatgoryConnection",
+            nextToken?: string | null,
+          } | null,
+          sortOrder: number,
+          createdAt: string,
+          updatedAt: string,
+          boardCatgoryChildrenId: string,
+          boardCategoryId: string,
+        } | null,
+        children?:  {
+          __typename: "ModelBoardCatgoryConnection",
+          items:  Array< {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null >,
+          nextToken?: string | null,
+        } | null,
+        sortOrder: number,
+        createdAt: string,
+        updatedAt: string,
+        boardCatgoryChildrenId: string,
+        boardCategoryId: string,
+      } | null,
+      title: string,
+      content: string,
+      tag: string,
+      author: string,
+      attachments?:  {
+        __typename: "ModelAttachmentConnection",
+        items:  Array< {
+          __typename: "Attachment",
+          id: string,
+          filename: string,
+          filetype: string,
+          path: string,
+          createdAt: string,
+          updatedAt: string,
+          boardItemAttachmentsId?: string | null,
+          author?: string | null,
+        } | null >,
+        nextToken?: string | null,
+      } | null,
+      isNotice?: boolean | null,
+      createdAt: string,
+      updatedAt: string,
+      boardItemBoardId: string,
+      boardItemCategoryId?: string | null,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetBoardItemCommentQueryVariables = {
+  id: string,
+};
+
+export type GetBoardItemCommentQuery = {
+  getBoardItemComment?:  {
+    __typename: "BoardItemComment",
+    id: string,
+    boardItem:  {
+      __typename: "BoardItem",
+      id: string,
+      board:  {
+        __typename: "Board",
+        id: string,
+        title: string,
+        header?: string | null,
+        footer?: string | null,
+        listViewItems: Array< string | null >,
+        listSort:  {
+          __typename: "TSortItem",
+          item: string,
+          sort: SortOrder,
+        },
+        excludeNoticeFlag: boolean,
+        type: BoardType,
+        category?:  {
+          __typename: "ModelBoardCatgoryConnection",
+          items:  Array< {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null >,
+          nextToken?: string | null,
+        } | null,
+        createdAt: string,
+        updatedAt: string,
+      },
+      category?:  {
+        __typename: "BoardCatgory",
+        id: string,
+        name: string,
+        parent?:  {
+          __typename: "BoardCatgory",
+          id: string,
+          name: string,
+          parent?:  {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null,
+          children?:  {
+            __typename: "ModelBoardCatgoryConnection",
+            nextToken?: string | null,
+          } | null,
+          sortOrder: number,
+          createdAt: string,
+          updatedAt: string,
+          boardCatgoryChildrenId: string,
+          boardCategoryId: string,
+        } | null,
+        children?:  {
+          __typename: "ModelBoardCatgoryConnection",
+          items:  Array< {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null >,
+          nextToken?: string | null,
+        } | null,
+        sortOrder: number,
+        createdAt: string,
+        updatedAt: string,
+        boardCatgoryChildrenId: string,
+        boardCategoryId: string,
+      } | null,
+      title: string,
+      content: string,
+      tag: string,
+      author: string,
+      attachments?:  {
+        __typename: "ModelAttachmentConnection",
+        items:  Array< {
+          __typename: "Attachment",
+          id: string,
+          filename: string,
+          filetype: string,
+          path: string,
+          createdAt: string,
+          updatedAt: string,
+          boardItemAttachmentsId?: string | null,
+          author?: string | null,
+        } | null >,
+        nextToken?: string | null,
+      } | null,
+      isNotice?: boolean | null,
+      createdAt: string,
+      updatedAt: string,
+      boardItemBoardId: string,
+      boardItemCategoryId?: string | null,
+    },
+    comment: string,
+    author: string,
+    createdAt: string,
+    updatedAt: string,
+    boardItemCommentBoardItemId: string,
+  } | null,
+};
+
+export type ListBoardItemCommentsQueryVariables = {
+  filter?: ModelBoardItemCommentFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListBoardItemCommentsQuery = {
+  listBoardItemComments?:  {
+    __typename: "ModelBoardItemCommentConnection",
+    items:  Array< {
+      __typename: "BoardItemComment",
+      id: string,
+      boardItem:  {
+        __typename: "BoardItem",
+        id: string,
+        board:  {
+          __typename: "Board",
+          id: string,
+          title: string,
+          header?: string | null,
+          footer?: string | null,
+          listViewItems: Array< string | null >,
+          listSort:  {
+            __typename: "TSortItem",
+            item: string,
+            sort: SortOrder,
+          },
+          excludeNoticeFlag: boolean,
+          type: BoardType,
+          category?:  {
+            __typename: "ModelBoardCatgoryConnection",
+            nextToken?: string | null,
+          } | null,
+          createdAt: string,
+          updatedAt: string,
+        },
+        category?:  {
+          __typename: "BoardCatgory",
+          id: string,
+          name: string,
+          parent?:  {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null,
+          children?:  {
+            __typename: "ModelBoardCatgoryConnection",
+            nextToken?: string | null,
+          } | null,
+          sortOrder: number,
+          createdAt: string,
+          updatedAt: string,
+          boardCatgoryChildrenId: string,
+          boardCategoryId: string,
+        } | null,
+        title: string,
+        content: string,
+        tag: string,
+        author: string,
+        attachments?:  {
+          __typename: "ModelAttachmentConnection",
+          items:  Array< {
+            __typename: "Attachment",
+            id: string,
+            filename: string,
+            filetype: string,
+            path: string,
+            createdAt: string,
+            updatedAt: string,
+            boardItemAttachmentsId?: string | null,
+            author?: string | null,
+          } | null >,
+          nextToken?: string | null,
+        } | null,
+        isNotice?: boolean | null,
+        createdAt: string,
+        updatedAt: string,
+        boardItemBoardId: string,
+        boardItemCategoryId?: string | null,
+      },
+      comment: string,
+      author: string,
+      createdAt: string,
+      updatedAt: string,
+      boardItemCommentBoardItemId: string,
     } | null >,
     nextToken?: string | null,
   } | null,
@@ -2782,26 +5545,6 @@ export type OnCreateParameterSubscription = {
           createdAt: string,
           updatedAt: string,
           moduleMenusId?: string | null,
-        } | null >,
-        nextToken?: string | null,
-      } | null,
-      actions?:  {
-        __typename: "ModelActionConnection",
-        items:  Array< {
-          __typename: "Action",
-          id: string,
-          name: string,
-          isIndex: boolean,
-          module:  {
-            __typename: "Module",
-            id: string,
-            name: string,
-            createdAt: string,
-            updatedAt: string,
-          },
-          createdAt: string,
-          updatedAt: string,
-          moduleActionsId: string,
         } | null >,
         nextToken?: string | null,
       } | null,
@@ -2889,26 +5632,6 @@ export type OnUpdateParameterSubscription = {
         } | null >,
         nextToken?: string | null,
       } | null,
-      actions?:  {
-        __typename: "ModelActionConnection",
-        items:  Array< {
-          __typename: "Action",
-          id: string,
-          name: string,
-          isIndex: boolean,
-          module:  {
-            __typename: "Module",
-            id: string,
-            name: string,
-            createdAt: string,
-            updatedAt: string,
-          },
-          createdAt: string,
-          updatedAt: string,
-          moduleActionsId: string,
-        } | null >,
-        nextToken?: string | null,
-      } | null,
       createdAt: string,
       updatedAt: string,
     },
@@ -2993,326 +5716,12 @@ export type OnDeleteParameterSubscription = {
         } | null >,
         nextToken?: string | null,
       } | null,
-      actions?:  {
-        __typename: "ModelActionConnection",
-        items:  Array< {
-          __typename: "Action",
-          id: string,
-          name: string,
-          isIndex: boolean,
-          module:  {
-            __typename: "Module",
-            id: string,
-            name: string,
-            createdAt: string,
-            updatedAt: string,
-          },
-          createdAt: string,
-          updatedAt: string,
-          moduleActionsId: string,
-        } | null >,
-        nextToken?: string | null,
-      } | null,
       createdAt: string,
       updatedAt: string,
     },
     createdAt: string,
     updatedAt: string,
     moduleParametersId?: string | null,
-  } | null,
-};
-
-export type OnCreateActionSubscriptionVariables = {
-  filter?: ModelSubscriptionActionFilterInput | null,
-};
-
-export type OnCreateActionSubscription = {
-  onCreateAction?:  {
-    __typename: "Action",
-    id: string,
-    name: string,
-    isIndex: boolean,
-    module:  {
-      __typename: "Module",
-      id: string,
-      name: string,
-      parameters?:  {
-        __typename: "ModelParameterConnection",
-        items:  Array< {
-          __typename: "Parameter",
-          id: string,
-          inputType: InputType,
-          label: string,
-          defaultValue?: string | null,
-          optionValues?:  Array< {
-            __typename: "TOptionValue",
-            value?: string | null,
-            label?: string | null,
-          } | null > | null,
-          module:  {
-            __typename: "Module",
-            id: string,
-            name: string,
-            createdAt: string,
-            updatedAt: string,
-          },
-          createdAt: string,
-          updatedAt: string,
-          moduleParametersId?: string | null,
-        } | null >,
-        nextToken?: string | null,
-      } | null,
-      menus?:  {
-        __typename: "ModelMenuConnection",
-        items:  Array< {
-          __typename: "Menu",
-          id: string,
-          name: string,
-          parent?: string | null,
-          menuType: MenuType,
-          module:  {
-            __typename: "Module",
-            id: string,
-            name: string,
-            createdAt: string,
-            updatedAt: string,
-          },
-          moduleId: string,
-          parameterSettings?:  Array< {
-            __typename: "TParameterValue",
-            id: string,
-            value?: string | null,
-          } | null > | null,
-          url: string,
-          sortOrder?: number | null,
-          createdAt: string,
-          updatedAt: string,
-          moduleMenusId?: string | null,
-        } | null >,
-        nextToken?: string | null,
-      } | null,
-      actions?:  {
-        __typename: "ModelActionConnection",
-        items:  Array< {
-          __typename: "Action",
-          id: string,
-          name: string,
-          isIndex: boolean,
-          module:  {
-            __typename: "Module",
-            id: string,
-            name: string,
-            createdAt: string,
-            updatedAt: string,
-          },
-          createdAt: string,
-          updatedAt: string,
-          moduleActionsId: string,
-        } | null >,
-        nextToken?: string | null,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-    },
-    createdAt: string,
-    updatedAt: string,
-    moduleActionsId: string,
-  } | null,
-};
-
-export type OnUpdateActionSubscriptionVariables = {
-  filter?: ModelSubscriptionActionFilterInput | null,
-};
-
-export type OnUpdateActionSubscription = {
-  onUpdateAction?:  {
-    __typename: "Action",
-    id: string,
-    name: string,
-    isIndex: boolean,
-    module:  {
-      __typename: "Module",
-      id: string,
-      name: string,
-      parameters?:  {
-        __typename: "ModelParameterConnection",
-        items:  Array< {
-          __typename: "Parameter",
-          id: string,
-          inputType: InputType,
-          label: string,
-          defaultValue?: string | null,
-          optionValues?:  Array< {
-            __typename: "TOptionValue",
-            value?: string | null,
-            label?: string | null,
-          } | null > | null,
-          module:  {
-            __typename: "Module",
-            id: string,
-            name: string,
-            createdAt: string,
-            updatedAt: string,
-          },
-          createdAt: string,
-          updatedAt: string,
-          moduleParametersId?: string | null,
-        } | null >,
-        nextToken?: string | null,
-      } | null,
-      menus?:  {
-        __typename: "ModelMenuConnection",
-        items:  Array< {
-          __typename: "Menu",
-          id: string,
-          name: string,
-          parent?: string | null,
-          menuType: MenuType,
-          module:  {
-            __typename: "Module",
-            id: string,
-            name: string,
-            createdAt: string,
-            updatedAt: string,
-          },
-          moduleId: string,
-          parameterSettings?:  Array< {
-            __typename: "TParameterValue",
-            id: string,
-            value?: string | null,
-          } | null > | null,
-          url: string,
-          sortOrder?: number | null,
-          createdAt: string,
-          updatedAt: string,
-          moduleMenusId?: string | null,
-        } | null >,
-        nextToken?: string | null,
-      } | null,
-      actions?:  {
-        __typename: "ModelActionConnection",
-        items:  Array< {
-          __typename: "Action",
-          id: string,
-          name: string,
-          isIndex: boolean,
-          module:  {
-            __typename: "Module",
-            id: string,
-            name: string,
-            createdAt: string,
-            updatedAt: string,
-          },
-          createdAt: string,
-          updatedAt: string,
-          moduleActionsId: string,
-        } | null >,
-        nextToken?: string | null,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-    },
-    createdAt: string,
-    updatedAt: string,
-    moduleActionsId: string,
-  } | null,
-};
-
-export type OnDeleteActionSubscriptionVariables = {
-  filter?: ModelSubscriptionActionFilterInput | null,
-};
-
-export type OnDeleteActionSubscription = {
-  onDeleteAction?:  {
-    __typename: "Action",
-    id: string,
-    name: string,
-    isIndex: boolean,
-    module:  {
-      __typename: "Module",
-      id: string,
-      name: string,
-      parameters?:  {
-        __typename: "ModelParameterConnection",
-        items:  Array< {
-          __typename: "Parameter",
-          id: string,
-          inputType: InputType,
-          label: string,
-          defaultValue?: string | null,
-          optionValues?:  Array< {
-            __typename: "TOptionValue",
-            value?: string | null,
-            label?: string | null,
-          } | null > | null,
-          module:  {
-            __typename: "Module",
-            id: string,
-            name: string,
-            createdAt: string,
-            updatedAt: string,
-          },
-          createdAt: string,
-          updatedAt: string,
-          moduleParametersId?: string | null,
-        } | null >,
-        nextToken?: string | null,
-      } | null,
-      menus?:  {
-        __typename: "ModelMenuConnection",
-        items:  Array< {
-          __typename: "Menu",
-          id: string,
-          name: string,
-          parent?: string | null,
-          menuType: MenuType,
-          module:  {
-            __typename: "Module",
-            id: string,
-            name: string,
-            createdAt: string,
-            updatedAt: string,
-          },
-          moduleId: string,
-          parameterSettings?:  Array< {
-            __typename: "TParameterValue",
-            id: string,
-            value?: string | null,
-          } | null > | null,
-          url: string,
-          sortOrder?: number | null,
-          createdAt: string,
-          updatedAt: string,
-          moduleMenusId?: string | null,
-        } | null >,
-        nextToken?: string | null,
-      } | null,
-      actions?:  {
-        __typename: "ModelActionConnection",
-        items:  Array< {
-          __typename: "Action",
-          id: string,
-          name: string,
-          isIndex: boolean,
-          module:  {
-            __typename: "Module",
-            id: string,
-            name: string,
-            createdAt: string,
-            updatedAt: string,
-          },
-          createdAt: string,
-          updatedAt: string,
-          moduleActionsId: string,
-        } | null >,
-        nextToken?: string | null,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-    },
-    createdAt: string,
-    updatedAt: string,
-    moduleActionsId: string,
   } | null,
 };
 
@@ -3350,10 +5759,6 @@ export type OnCreateModuleSubscription = {
             __typename: "ModelMenuConnection",
             nextToken?: string | null,
           } | null,
-          actions?:  {
-            __typename: "ModelActionConnection",
-            nextToken?: string | null,
-          } | null,
           createdAt: string,
           updatedAt: string,
         },
@@ -3383,10 +5788,6 @@ export type OnCreateModuleSubscription = {
             __typename: "ModelMenuConnection",
             nextToken?: string | null,
           } | null,
-          actions?:  {
-            __typename: "ModelActionConnection",
-            nextToken?: string | null,
-          } | null,
           createdAt: string,
           updatedAt: string,
         },
@@ -3401,38 +5802,6 @@ export type OnCreateModuleSubscription = {
         createdAt: string,
         updatedAt: string,
         moduleMenusId?: string | null,
-      } | null >,
-      nextToken?: string | null,
-    } | null,
-    actions?:  {
-      __typename: "ModelActionConnection",
-      items:  Array< {
-        __typename: "Action",
-        id: string,
-        name: string,
-        isIndex: boolean,
-        module:  {
-          __typename: "Module",
-          id: string,
-          name: string,
-          parameters?:  {
-            __typename: "ModelParameterConnection",
-            nextToken?: string | null,
-          } | null,
-          menus?:  {
-            __typename: "ModelMenuConnection",
-            nextToken?: string | null,
-          } | null,
-          actions?:  {
-            __typename: "ModelActionConnection",
-            nextToken?: string | null,
-          } | null,
-          createdAt: string,
-          updatedAt: string,
-        },
-        createdAt: string,
-        updatedAt: string,
-        moduleActionsId: string,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -3475,10 +5844,6 @@ export type OnUpdateModuleSubscription = {
             __typename: "ModelMenuConnection",
             nextToken?: string | null,
           } | null,
-          actions?:  {
-            __typename: "ModelActionConnection",
-            nextToken?: string | null,
-          } | null,
           createdAt: string,
           updatedAt: string,
         },
@@ -3508,10 +5873,6 @@ export type OnUpdateModuleSubscription = {
             __typename: "ModelMenuConnection",
             nextToken?: string | null,
           } | null,
-          actions?:  {
-            __typename: "ModelActionConnection",
-            nextToken?: string | null,
-          } | null,
           createdAt: string,
           updatedAt: string,
         },
@@ -3526,38 +5887,6 @@ export type OnUpdateModuleSubscription = {
         createdAt: string,
         updatedAt: string,
         moduleMenusId?: string | null,
-      } | null >,
-      nextToken?: string | null,
-    } | null,
-    actions?:  {
-      __typename: "ModelActionConnection",
-      items:  Array< {
-        __typename: "Action",
-        id: string,
-        name: string,
-        isIndex: boolean,
-        module:  {
-          __typename: "Module",
-          id: string,
-          name: string,
-          parameters?:  {
-            __typename: "ModelParameterConnection",
-            nextToken?: string | null,
-          } | null,
-          menus?:  {
-            __typename: "ModelMenuConnection",
-            nextToken?: string | null,
-          } | null,
-          actions?:  {
-            __typename: "ModelActionConnection",
-            nextToken?: string | null,
-          } | null,
-          createdAt: string,
-          updatedAt: string,
-        },
-        createdAt: string,
-        updatedAt: string,
-        moduleActionsId: string,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -3600,10 +5929,6 @@ export type OnDeleteModuleSubscription = {
             __typename: "ModelMenuConnection",
             nextToken?: string | null,
           } | null,
-          actions?:  {
-            __typename: "ModelActionConnection",
-            nextToken?: string | null,
-          } | null,
           createdAt: string,
           updatedAt: string,
         },
@@ -3633,10 +5958,6 @@ export type OnDeleteModuleSubscription = {
             __typename: "ModelMenuConnection",
             nextToken?: string | null,
           } | null,
-          actions?:  {
-            __typename: "ModelActionConnection",
-            nextToken?: string | null,
-          } | null,
           createdAt: string,
           updatedAt: string,
         },
@@ -3654,40 +5975,329 @@ export type OnDeleteModuleSubscription = {
       } | null >,
       nextToken?: string | null,
     } | null,
-    actions?:  {
-      __typename: "ModelActionConnection",
-      items:  Array< {
-        __typename: "Action",
-        id: string,
-        name: string,
-        isIndex: boolean,
-        module:  {
-          __typename: "Module",
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnCreateRouteParameterSubscriptionVariables = {
+  filter?: ModelSubscriptionRouteParameterFilterInput | null,
+};
+
+export type OnCreateRouteParameterSubscription = {
+  onCreateRouteParameter?:  {
+    __typename: "RouteParameter",
+    name: string,
+    value: string,
+    id: string,
+    createdAt: string,
+    updatedAt: string,
+    routeParametersId?: string | null,
+  } | null,
+};
+
+export type OnUpdateRouteParameterSubscriptionVariables = {
+  filter?: ModelSubscriptionRouteParameterFilterInput | null,
+};
+
+export type OnUpdateRouteParameterSubscription = {
+  onUpdateRouteParameter?:  {
+    __typename: "RouteParameter",
+    name: string,
+    value: string,
+    id: string,
+    createdAt: string,
+    updatedAt: string,
+    routeParametersId?: string | null,
+  } | null,
+};
+
+export type OnDeleteRouteParameterSubscriptionVariables = {
+  filter?: ModelSubscriptionRouteParameterFilterInput | null,
+};
+
+export type OnDeleteRouteParameterSubscription = {
+  onDeleteRouteParameter?:  {
+    __typename: "RouteParameter",
+    name: string,
+    value: string,
+    id: string,
+    createdAt: string,
+    updatedAt: string,
+    routeParametersId?: string | null,
+  } | null,
+};
+
+export type OnCreateRouteSubscriptionVariables = {
+  filter?: ModelSubscriptionRouteFilterInput | null,
+};
+
+export type OnCreateRouteSubscription = {
+  onCreateRoute?:  {
+    __typename: "Route",
+    id: string,
+    module:  {
+      __typename: "Module",
+      id: string,
+      name: string,
+      parameters?:  {
+        __typename: "ModelParameterConnection",
+        items:  Array< {
+          __typename: "Parameter",
           id: string,
-          name: string,
-          parameters?:  {
-            __typename: "ModelParameterConnection",
-            nextToken?: string | null,
-          } | null,
-          menus?:  {
-            __typename: "ModelMenuConnection",
-            nextToken?: string | null,
-          } | null,
-          actions?:  {
-            __typename: "ModelActionConnection",
-            nextToken?: string | null,
-          } | null,
+          inputType: InputType,
+          label: string,
+          defaultValue?: string | null,
+          optionValues?:  Array< {
+            __typename: "TOptionValue",
+            value?: string | null,
+            label?: string | null,
+          } | null > | null,
+          module:  {
+            __typename: "Module",
+            id: string,
+            name: string,
+            createdAt: string,
+            updatedAt: string,
+          },
           createdAt: string,
           updatedAt: string,
-        },
+          moduleParametersId?: string | null,
+        } | null >,
+        nextToken?: string | null,
+      } | null,
+      menus?:  {
+        __typename: "ModelMenuConnection",
+        items:  Array< {
+          __typename: "Menu",
+          id: string,
+          name: string,
+          parent?: string | null,
+          menuType: MenuType,
+          module:  {
+            __typename: "Module",
+            id: string,
+            name: string,
+            createdAt: string,
+            updatedAt: string,
+          },
+          moduleId: string,
+          parameterSettings?:  Array< {
+            __typename: "TParameterValue",
+            id: string,
+            value?: string | null,
+          } | null > | null,
+          url: string,
+          sortOrder?: number | null,
+          createdAt: string,
+          updatedAt: string,
+          moduleMenusId?: string | null,
+        } | null >,
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    },
+    action: string,
+    path: string,
+    parameters?:  {
+      __typename: "ModelRouteParameterConnection",
+      items:  Array< {
+        __typename: "RouteParameter",
+        name: string,
+        value: string,
+        id: string,
         createdAt: string,
         updatedAt: string,
-        moduleActionsId: string,
+        routeParametersId?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
+    routeModuleId: string,
+  } | null,
+};
+
+export type OnUpdateRouteSubscriptionVariables = {
+  filter?: ModelSubscriptionRouteFilterInput | null,
+};
+
+export type OnUpdateRouteSubscription = {
+  onUpdateRoute?:  {
+    __typename: "Route",
+    id: string,
+    module:  {
+      __typename: "Module",
+      id: string,
+      name: string,
+      parameters?:  {
+        __typename: "ModelParameterConnection",
+        items:  Array< {
+          __typename: "Parameter",
+          id: string,
+          inputType: InputType,
+          label: string,
+          defaultValue?: string | null,
+          optionValues?:  Array< {
+            __typename: "TOptionValue",
+            value?: string | null,
+            label?: string | null,
+          } | null > | null,
+          module:  {
+            __typename: "Module",
+            id: string,
+            name: string,
+            createdAt: string,
+            updatedAt: string,
+          },
+          createdAt: string,
+          updatedAt: string,
+          moduleParametersId?: string | null,
+        } | null >,
+        nextToken?: string | null,
+      } | null,
+      menus?:  {
+        __typename: "ModelMenuConnection",
+        items:  Array< {
+          __typename: "Menu",
+          id: string,
+          name: string,
+          parent?: string | null,
+          menuType: MenuType,
+          module:  {
+            __typename: "Module",
+            id: string,
+            name: string,
+            createdAt: string,
+            updatedAt: string,
+          },
+          moduleId: string,
+          parameterSettings?:  Array< {
+            __typename: "TParameterValue",
+            id: string,
+            value?: string | null,
+          } | null > | null,
+          url: string,
+          sortOrder?: number | null,
+          createdAt: string,
+          updatedAt: string,
+          moduleMenusId?: string | null,
+        } | null >,
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    },
+    action: string,
+    path: string,
+    parameters?:  {
+      __typename: "ModelRouteParameterConnection",
+      items:  Array< {
+        __typename: "RouteParameter",
+        name: string,
+        value: string,
+        id: string,
+        createdAt: string,
+        updatedAt: string,
+        routeParametersId?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    routeModuleId: string,
+  } | null,
+};
+
+export type OnDeleteRouteSubscriptionVariables = {
+  filter?: ModelSubscriptionRouteFilterInput | null,
+};
+
+export type OnDeleteRouteSubscription = {
+  onDeleteRoute?:  {
+    __typename: "Route",
+    id: string,
+    module:  {
+      __typename: "Module",
+      id: string,
+      name: string,
+      parameters?:  {
+        __typename: "ModelParameterConnection",
+        items:  Array< {
+          __typename: "Parameter",
+          id: string,
+          inputType: InputType,
+          label: string,
+          defaultValue?: string | null,
+          optionValues?:  Array< {
+            __typename: "TOptionValue",
+            value?: string | null,
+            label?: string | null,
+          } | null > | null,
+          module:  {
+            __typename: "Module",
+            id: string,
+            name: string,
+            createdAt: string,
+            updatedAt: string,
+          },
+          createdAt: string,
+          updatedAt: string,
+          moduleParametersId?: string | null,
+        } | null >,
+        nextToken?: string | null,
+      } | null,
+      menus?:  {
+        __typename: "ModelMenuConnection",
+        items:  Array< {
+          __typename: "Menu",
+          id: string,
+          name: string,
+          parent?: string | null,
+          menuType: MenuType,
+          module:  {
+            __typename: "Module",
+            id: string,
+            name: string,
+            createdAt: string,
+            updatedAt: string,
+          },
+          moduleId: string,
+          parameterSettings?:  Array< {
+            __typename: "TParameterValue",
+            id: string,
+            value?: string | null,
+          } | null > | null,
+          url: string,
+          sortOrder?: number | null,
+          createdAt: string,
+          updatedAt: string,
+          moduleMenusId?: string | null,
+        } | null >,
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    },
+    action: string,
+    path: string,
+    parameters?:  {
+      __typename: "ModelRouteParameterConnection",
+      items:  Array< {
+        __typename: "RouteParameter",
+        name: string,
+        value: string,
+        id: string,
+        createdAt: string,
+        updatedAt: string,
+        routeParametersId?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    routeModuleId: string,
   } | null,
 };
 
@@ -3758,26 +6368,6 @@ export type OnCreateMenuSubscription = {
           createdAt: string,
           updatedAt: string,
           moduleMenusId?: string | null,
-        } | null >,
-        nextToken?: string | null,
-      } | null,
-      actions?:  {
-        __typename: "ModelActionConnection",
-        items:  Array< {
-          __typename: "Action",
-          id: string,
-          name: string,
-          isIndex: boolean,
-          module:  {
-            __typename: "Module",
-            id: string,
-            name: string,
-            createdAt: string,
-            updatedAt: string,
-          },
-          createdAt: string,
-          updatedAt: string,
-          moduleActionsId: string,
         } | null >,
         nextToken?: string | null,
       } | null,
@@ -3868,26 +6458,6 @@ export type OnUpdateMenuSubscription = {
         } | null >,
         nextToken?: string | null,
       } | null,
-      actions?:  {
-        __typename: "ModelActionConnection",
-        items:  Array< {
-          __typename: "Action",
-          id: string,
-          name: string,
-          isIndex: boolean,
-          module:  {
-            __typename: "Module",
-            id: string,
-            name: string,
-            createdAt: string,
-            updatedAt: string,
-          },
-          createdAt: string,
-          updatedAt: string,
-          moduleActionsId: string,
-        } | null >,
-        nextToken?: string | null,
-      } | null,
       createdAt: string,
       updatedAt: string,
     },
@@ -3975,26 +6545,6 @@ export type OnDeleteMenuSubscription = {
         } | null >,
         nextToken?: string | null,
       } | null,
-      actions?:  {
-        __typename: "ModelActionConnection",
-        items:  Array< {
-          __typename: "Action",
-          id: string,
-          name: string,
-          isIndex: boolean,
-          module:  {
-            __typename: "Module",
-            id: string,
-            name: string,
-            createdAt: string,
-            updatedAt: string,
-          },
-          createdAt: string,
-          updatedAt: string,
-          moduleActionsId: string,
-        } | null >,
-        nextToken?: string | null,
-      } | null,
       createdAt: string,
       updatedAt: string,
     },
@@ -4057,5 +6607,1619 @@ export type OnDeleteDocumentSubscription = {
     author?: string | null,
     createdAt: string,
     updatedAt: string,
+  } | null,
+};
+
+export type OnCreateBoardCatgorySubscriptionVariables = {
+  filter?: ModelSubscriptionBoardCatgoryFilterInput | null,
+};
+
+export type OnCreateBoardCatgorySubscription = {
+  onCreateBoardCatgory?:  {
+    __typename: "BoardCatgory",
+    id: string,
+    name: string,
+    parent?:  {
+      __typename: "BoardCatgory",
+      id: string,
+      name: string,
+      parent?:  {
+        __typename: "BoardCatgory",
+        id: string,
+        name: string,
+        parent?:  {
+          __typename: "BoardCatgory",
+          id: string,
+          name: string,
+          parent?:  {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null,
+          children?:  {
+            __typename: "ModelBoardCatgoryConnection",
+            nextToken?: string | null,
+          } | null,
+          sortOrder: number,
+          createdAt: string,
+          updatedAt: string,
+          boardCatgoryChildrenId: string,
+          boardCategoryId: string,
+        } | null,
+        children?:  {
+          __typename: "ModelBoardCatgoryConnection",
+          items:  Array< {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null >,
+          nextToken?: string | null,
+        } | null,
+        sortOrder: number,
+        createdAt: string,
+        updatedAt: string,
+        boardCatgoryChildrenId: string,
+        boardCategoryId: string,
+      } | null,
+      children?:  {
+        __typename: "ModelBoardCatgoryConnection",
+        items:  Array< {
+          __typename: "BoardCatgory",
+          id: string,
+          name: string,
+          parent?:  {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null,
+          children?:  {
+            __typename: "ModelBoardCatgoryConnection",
+            nextToken?: string | null,
+          } | null,
+          sortOrder: number,
+          createdAt: string,
+          updatedAt: string,
+          boardCatgoryChildrenId: string,
+          boardCategoryId: string,
+        } | null >,
+        nextToken?: string | null,
+      } | null,
+      sortOrder: number,
+      createdAt: string,
+      updatedAt: string,
+      boardCatgoryChildrenId: string,
+      boardCategoryId: string,
+    } | null,
+    children?:  {
+      __typename: "ModelBoardCatgoryConnection",
+      items:  Array< {
+        __typename: "BoardCatgory",
+        id: string,
+        name: string,
+        parent?:  {
+          __typename: "BoardCatgory",
+          id: string,
+          name: string,
+          parent?:  {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null,
+          children?:  {
+            __typename: "ModelBoardCatgoryConnection",
+            nextToken?: string | null,
+          } | null,
+          sortOrder: number,
+          createdAt: string,
+          updatedAt: string,
+          boardCatgoryChildrenId: string,
+          boardCategoryId: string,
+        } | null,
+        children?:  {
+          __typename: "ModelBoardCatgoryConnection",
+          items:  Array< {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null >,
+          nextToken?: string | null,
+        } | null,
+        sortOrder: number,
+        createdAt: string,
+        updatedAt: string,
+        boardCatgoryChildrenId: string,
+        boardCategoryId: string,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    sortOrder: number,
+    createdAt: string,
+    updatedAt: string,
+    boardCatgoryChildrenId: string,
+    boardCategoryId: string,
+  } | null,
+};
+
+export type OnUpdateBoardCatgorySubscriptionVariables = {
+  filter?: ModelSubscriptionBoardCatgoryFilterInput | null,
+};
+
+export type OnUpdateBoardCatgorySubscription = {
+  onUpdateBoardCatgory?:  {
+    __typename: "BoardCatgory",
+    id: string,
+    name: string,
+    parent?:  {
+      __typename: "BoardCatgory",
+      id: string,
+      name: string,
+      parent?:  {
+        __typename: "BoardCatgory",
+        id: string,
+        name: string,
+        parent?:  {
+          __typename: "BoardCatgory",
+          id: string,
+          name: string,
+          parent?:  {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null,
+          children?:  {
+            __typename: "ModelBoardCatgoryConnection",
+            nextToken?: string | null,
+          } | null,
+          sortOrder: number,
+          createdAt: string,
+          updatedAt: string,
+          boardCatgoryChildrenId: string,
+          boardCategoryId: string,
+        } | null,
+        children?:  {
+          __typename: "ModelBoardCatgoryConnection",
+          items:  Array< {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null >,
+          nextToken?: string | null,
+        } | null,
+        sortOrder: number,
+        createdAt: string,
+        updatedAt: string,
+        boardCatgoryChildrenId: string,
+        boardCategoryId: string,
+      } | null,
+      children?:  {
+        __typename: "ModelBoardCatgoryConnection",
+        items:  Array< {
+          __typename: "BoardCatgory",
+          id: string,
+          name: string,
+          parent?:  {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null,
+          children?:  {
+            __typename: "ModelBoardCatgoryConnection",
+            nextToken?: string | null,
+          } | null,
+          sortOrder: number,
+          createdAt: string,
+          updatedAt: string,
+          boardCatgoryChildrenId: string,
+          boardCategoryId: string,
+        } | null >,
+        nextToken?: string | null,
+      } | null,
+      sortOrder: number,
+      createdAt: string,
+      updatedAt: string,
+      boardCatgoryChildrenId: string,
+      boardCategoryId: string,
+    } | null,
+    children?:  {
+      __typename: "ModelBoardCatgoryConnection",
+      items:  Array< {
+        __typename: "BoardCatgory",
+        id: string,
+        name: string,
+        parent?:  {
+          __typename: "BoardCatgory",
+          id: string,
+          name: string,
+          parent?:  {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null,
+          children?:  {
+            __typename: "ModelBoardCatgoryConnection",
+            nextToken?: string | null,
+          } | null,
+          sortOrder: number,
+          createdAt: string,
+          updatedAt: string,
+          boardCatgoryChildrenId: string,
+          boardCategoryId: string,
+        } | null,
+        children?:  {
+          __typename: "ModelBoardCatgoryConnection",
+          items:  Array< {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null >,
+          nextToken?: string | null,
+        } | null,
+        sortOrder: number,
+        createdAt: string,
+        updatedAt: string,
+        boardCatgoryChildrenId: string,
+        boardCategoryId: string,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    sortOrder: number,
+    createdAt: string,
+    updatedAt: string,
+    boardCatgoryChildrenId: string,
+    boardCategoryId: string,
+  } | null,
+};
+
+export type OnDeleteBoardCatgorySubscriptionVariables = {
+  filter?: ModelSubscriptionBoardCatgoryFilterInput | null,
+};
+
+export type OnDeleteBoardCatgorySubscription = {
+  onDeleteBoardCatgory?:  {
+    __typename: "BoardCatgory",
+    id: string,
+    name: string,
+    parent?:  {
+      __typename: "BoardCatgory",
+      id: string,
+      name: string,
+      parent?:  {
+        __typename: "BoardCatgory",
+        id: string,
+        name: string,
+        parent?:  {
+          __typename: "BoardCatgory",
+          id: string,
+          name: string,
+          parent?:  {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null,
+          children?:  {
+            __typename: "ModelBoardCatgoryConnection",
+            nextToken?: string | null,
+          } | null,
+          sortOrder: number,
+          createdAt: string,
+          updatedAt: string,
+          boardCatgoryChildrenId: string,
+          boardCategoryId: string,
+        } | null,
+        children?:  {
+          __typename: "ModelBoardCatgoryConnection",
+          items:  Array< {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null >,
+          nextToken?: string | null,
+        } | null,
+        sortOrder: number,
+        createdAt: string,
+        updatedAt: string,
+        boardCatgoryChildrenId: string,
+        boardCategoryId: string,
+      } | null,
+      children?:  {
+        __typename: "ModelBoardCatgoryConnection",
+        items:  Array< {
+          __typename: "BoardCatgory",
+          id: string,
+          name: string,
+          parent?:  {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null,
+          children?:  {
+            __typename: "ModelBoardCatgoryConnection",
+            nextToken?: string | null,
+          } | null,
+          sortOrder: number,
+          createdAt: string,
+          updatedAt: string,
+          boardCatgoryChildrenId: string,
+          boardCategoryId: string,
+        } | null >,
+        nextToken?: string | null,
+      } | null,
+      sortOrder: number,
+      createdAt: string,
+      updatedAt: string,
+      boardCatgoryChildrenId: string,
+      boardCategoryId: string,
+    } | null,
+    children?:  {
+      __typename: "ModelBoardCatgoryConnection",
+      items:  Array< {
+        __typename: "BoardCatgory",
+        id: string,
+        name: string,
+        parent?:  {
+          __typename: "BoardCatgory",
+          id: string,
+          name: string,
+          parent?:  {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null,
+          children?:  {
+            __typename: "ModelBoardCatgoryConnection",
+            nextToken?: string | null,
+          } | null,
+          sortOrder: number,
+          createdAt: string,
+          updatedAt: string,
+          boardCatgoryChildrenId: string,
+          boardCategoryId: string,
+        } | null,
+        children?:  {
+          __typename: "ModelBoardCatgoryConnection",
+          items:  Array< {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null >,
+          nextToken?: string | null,
+        } | null,
+        sortOrder: number,
+        createdAt: string,
+        updatedAt: string,
+        boardCatgoryChildrenId: string,
+        boardCategoryId: string,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    sortOrder: number,
+    createdAt: string,
+    updatedAt: string,
+    boardCatgoryChildrenId: string,
+    boardCategoryId: string,
+  } | null,
+};
+
+export type OnCreateBoardSubscriptionVariables = {
+  filter?: ModelSubscriptionBoardFilterInput | null,
+};
+
+export type OnCreateBoardSubscription = {
+  onCreateBoard?:  {
+    __typename: "Board",
+    id: string,
+    title: string,
+    header?: string | null,
+    footer?: string | null,
+    listViewItems: Array< string | null >,
+    listSort:  {
+      __typename: "TSortItem",
+      item: string,
+      sort: SortOrder,
+    },
+    excludeNoticeFlag: boolean,
+    type: BoardType,
+    category?:  {
+      __typename: "ModelBoardCatgoryConnection",
+      items:  Array< {
+        __typename: "BoardCatgory",
+        id: string,
+        name: string,
+        parent?:  {
+          __typename: "BoardCatgory",
+          id: string,
+          name: string,
+          parent?:  {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null,
+          children?:  {
+            __typename: "ModelBoardCatgoryConnection",
+            nextToken?: string | null,
+          } | null,
+          sortOrder: number,
+          createdAt: string,
+          updatedAt: string,
+          boardCatgoryChildrenId: string,
+          boardCategoryId: string,
+        } | null,
+        children?:  {
+          __typename: "ModelBoardCatgoryConnection",
+          items:  Array< {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null >,
+          nextToken?: string | null,
+        } | null,
+        sortOrder: number,
+        createdAt: string,
+        updatedAt: string,
+        boardCatgoryChildrenId: string,
+        boardCategoryId: string,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnUpdateBoardSubscriptionVariables = {
+  filter?: ModelSubscriptionBoardFilterInput | null,
+};
+
+export type OnUpdateBoardSubscription = {
+  onUpdateBoard?:  {
+    __typename: "Board",
+    id: string,
+    title: string,
+    header?: string | null,
+    footer?: string | null,
+    listViewItems: Array< string | null >,
+    listSort:  {
+      __typename: "TSortItem",
+      item: string,
+      sort: SortOrder,
+    },
+    excludeNoticeFlag: boolean,
+    type: BoardType,
+    category?:  {
+      __typename: "ModelBoardCatgoryConnection",
+      items:  Array< {
+        __typename: "BoardCatgory",
+        id: string,
+        name: string,
+        parent?:  {
+          __typename: "BoardCatgory",
+          id: string,
+          name: string,
+          parent?:  {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null,
+          children?:  {
+            __typename: "ModelBoardCatgoryConnection",
+            nextToken?: string | null,
+          } | null,
+          sortOrder: number,
+          createdAt: string,
+          updatedAt: string,
+          boardCatgoryChildrenId: string,
+          boardCategoryId: string,
+        } | null,
+        children?:  {
+          __typename: "ModelBoardCatgoryConnection",
+          items:  Array< {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null >,
+          nextToken?: string | null,
+        } | null,
+        sortOrder: number,
+        createdAt: string,
+        updatedAt: string,
+        boardCatgoryChildrenId: string,
+        boardCategoryId: string,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnDeleteBoardSubscriptionVariables = {
+  filter?: ModelSubscriptionBoardFilterInput | null,
+};
+
+export type OnDeleteBoardSubscription = {
+  onDeleteBoard?:  {
+    __typename: "Board",
+    id: string,
+    title: string,
+    header?: string | null,
+    footer?: string | null,
+    listViewItems: Array< string | null >,
+    listSort:  {
+      __typename: "TSortItem",
+      item: string,
+      sort: SortOrder,
+    },
+    excludeNoticeFlag: boolean,
+    type: BoardType,
+    category?:  {
+      __typename: "ModelBoardCatgoryConnection",
+      items:  Array< {
+        __typename: "BoardCatgory",
+        id: string,
+        name: string,
+        parent?:  {
+          __typename: "BoardCatgory",
+          id: string,
+          name: string,
+          parent?:  {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null,
+          children?:  {
+            __typename: "ModelBoardCatgoryConnection",
+            nextToken?: string | null,
+          } | null,
+          sortOrder: number,
+          createdAt: string,
+          updatedAt: string,
+          boardCatgoryChildrenId: string,
+          boardCategoryId: string,
+        } | null,
+        children?:  {
+          __typename: "ModelBoardCatgoryConnection",
+          items:  Array< {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null >,
+          nextToken?: string | null,
+        } | null,
+        sortOrder: number,
+        createdAt: string,
+        updatedAt: string,
+        boardCatgoryChildrenId: string,
+        boardCategoryId: string,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnCreateAttachmentSubscriptionVariables = {
+  filter?: ModelSubscriptionAttachmentFilterInput | null,
+};
+
+export type OnCreateAttachmentSubscription = {
+  onCreateAttachment?:  {
+    __typename: "Attachment",
+    id: string,
+    filename: string,
+    filetype: string,
+    path: string,
+    createdAt: string,
+    updatedAt: string,
+    boardItemAttachmentsId?: string | null,
+    author?: string | null,
+  } | null,
+};
+
+export type OnUpdateAttachmentSubscriptionVariables = {
+  filter?: ModelSubscriptionAttachmentFilterInput | null,
+};
+
+export type OnUpdateAttachmentSubscription = {
+  onUpdateAttachment?:  {
+    __typename: "Attachment",
+    id: string,
+    filename: string,
+    filetype: string,
+    path: string,
+    createdAt: string,
+    updatedAt: string,
+    boardItemAttachmentsId?: string | null,
+    author?: string | null,
+  } | null,
+};
+
+export type OnDeleteAttachmentSubscriptionVariables = {
+  filter?: ModelSubscriptionAttachmentFilterInput | null,
+};
+
+export type OnDeleteAttachmentSubscription = {
+  onDeleteAttachment?:  {
+    __typename: "Attachment",
+    id: string,
+    filename: string,
+    filetype: string,
+    path: string,
+    createdAt: string,
+    updatedAt: string,
+    boardItemAttachmentsId?: string | null,
+    author?: string | null,
+  } | null,
+};
+
+export type OnCreateBoardItemSubscriptionVariables = {
+  filter?: ModelSubscriptionBoardItemFilterInput | null,
+};
+
+export type OnCreateBoardItemSubscription = {
+  onCreateBoardItem?:  {
+    __typename: "BoardItem",
+    id: string,
+    board:  {
+      __typename: "Board",
+      id: string,
+      title: string,
+      header?: string | null,
+      footer?: string | null,
+      listViewItems: Array< string | null >,
+      listSort:  {
+        __typename: "TSortItem",
+        item: string,
+        sort: SortOrder,
+      },
+      excludeNoticeFlag: boolean,
+      type: BoardType,
+      category?:  {
+        __typename: "ModelBoardCatgoryConnection",
+        items:  Array< {
+          __typename: "BoardCatgory",
+          id: string,
+          name: string,
+          parent?:  {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null,
+          children?:  {
+            __typename: "ModelBoardCatgoryConnection",
+            nextToken?: string | null,
+          } | null,
+          sortOrder: number,
+          createdAt: string,
+          updatedAt: string,
+          boardCatgoryChildrenId: string,
+          boardCategoryId: string,
+        } | null >,
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    },
+    category?:  {
+      __typename: "BoardCatgory",
+      id: string,
+      name: string,
+      parent?:  {
+        __typename: "BoardCatgory",
+        id: string,
+        name: string,
+        parent?:  {
+          __typename: "BoardCatgory",
+          id: string,
+          name: string,
+          parent?:  {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null,
+          children?:  {
+            __typename: "ModelBoardCatgoryConnection",
+            nextToken?: string | null,
+          } | null,
+          sortOrder: number,
+          createdAt: string,
+          updatedAt: string,
+          boardCatgoryChildrenId: string,
+          boardCategoryId: string,
+        } | null,
+        children?:  {
+          __typename: "ModelBoardCatgoryConnection",
+          items:  Array< {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null >,
+          nextToken?: string | null,
+        } | null,
+        sortOrder: number,
+        createdAt: string,
+        updatedAt: string,
+        boardCatgoryChildrenId: string,
+        boardCategoryId: string,
+      } | null,
+      children?:  {
+        __typename: "ModelBoardCatgoryConnection",
+        items:  Array< {
+          __typename: "BoardCatgory",
+          id: string,
+          name: string,
+          parent?:  {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null,
+          children?:  {
+            __typename: "ModelBoardCatgoryConnection",
+            nextToken?: string | null,
+          } | null,
+          sortOrder: number,
+          createdAt: string,
+          updatedAt: string,
+          boardCatgoryChildrenId: string,
+          boardCategoryId: string,
+        } | null >,
+        nextToken?: string | null,
+      } | null,
+      sortOrder: number,
+      createdAt: string,
+      updatedAt: string,
+      boardCatgoryChildrenId: string,
+      boardCategoryId: string,
+    } | null,
+    title: string,
+    content: string,
+    tag: string,
+    author: string,
+    attachments?:  {
+      __typename: "ModelAttachmentConnection",
+      items:  Array< {
+        __typename: "Attachment",
+        id: string,
+        filename: string,
+        filetype: string,
+        path: string,
+        createdAt: string,
+        updatedAt: string,
+        boardItemAttachmentsId?: string | null,
+        author?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    isNotice?: boolean | null,
+    createdAt: string,
+    updatedAt: string,
+    boardItemBoardId: string,
+    boardItemCategoryId?: string | null,
+  } | null,
+};
+
+export type OnUpdateBoardItemSubscriptionVariables = {
+  filter?: ModelSubscriptionBoardItemFilterInput | null,
+};
+
+export type OnUpdateBoardItemSubscription = {
+  onUpdateBoardItem?:  {
+    __typename: "BoardItem",
+    id: string,
+    board:  {
+      __typename: "Board",
+      id: string,
+      title: string,
+      header?: string | null,
+      footer?: string | null,
+      listViewItems: Array< string | null >,
+      listSort:  {
+        __typename: "TSortItem",
+        item: string,
+        sort: SortOrder,
+      },
+      excludeNoticeFlag: boolean,
+      type: BoardType,
+      category?:  {
+        __typename: "ModelBoardCatgoryConnection",
+        items:  Array< {
+          __typename: "BoardCatgory",
+          id: string,
+          name: string,
+          parent?:  {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null,
+          children?:  {
+            __typename: "ModelBoardCatgoryConnection",
+            nextToken?: string | null,
+          } | null,
+          sortOrder: number,
+          createdAt: string,
+          updatedAt: string,
+          boardCatgoryChildrenId: string,
+          boardCategoryId: string,
+        } | null >,
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    },
+    category?:  {
+      __typename: "BoardCatgory",
+      id: string,
+      name: string,
+      parent?:  {
+        __typename: "BoardCatgory",
+        id: string,
+        name: string,
+        parent?:  {
+          __typename: "BoardCatgory",
+          id: string,
+          name: string,
+          parent?:  {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null,
+          children?:  {
+            __typename: "ModelBoardCatgoryConnection",
+            nextToken?: string | null,
+          } | null,
+          sortOrder: number,
+          createdAt: string,
+          updatedAt: string,
+          boardCatgoryChildrenId: string,
+          boardCategoryId: string,
+        } | null,
+        children?:  {
+          __typename: "ModelBoardCatgoryConnection",
+          items:  Array< {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null >,
+          nextToken?: string | null,
+        } | null,
+        sortOrder: number,
+        createdAt: string,
+        updatedAt: string,
+        boardCatgoryChildrenId: string,
+        boardCategoryId: string,
+      } | null,
+      children?:  {
+        __typename: "ModelBoardCatgoryConnection",
+        items:  Array< {
+          __typename: "BoardCatgory",
+          id: string,
+          name: string,
+          parent?:  {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null,
+          children?:  {
+            __typename: "ModelBoardCatgoryConnection",
+            nextToken?: string | null,
+          } | null,
+          sortOrder: number,
+          createdAt: string,
+          updatedAt: string,
+          boardCatgoryChildrenId: string,
+          boardCategoryId: string,
+        } | null >,
+        nextToken?: string | null,
+      } | null,
+      sortOrder: number,
+      createdAt: string,
+      updatedAt: string,
+      boardCatgoryChildrenId: string,
+      boardCategoryId: string,
+    } | null,
+    title: string,
+    content: string,
+    tag: string,
+    author: string,
+    attachments?:  {
+      __typename: "ModelAttachmentConnection",
+      items:  Array< {
+        __typename: "Attachment",
+        id: string,
+        filename: string,
+        filetype: string,
+        path: string,
+        createdAt: string,
+        updatedAt: string,
+        boardItemAttachmentsId?: string | null,
+        author?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    isNotice?: boolean | null,
+    createdAt: string,
+    updatedAt: string,
+    boardItemBoardId: string,
+    boardItemCategoryId?: string | null,
+  } | null,
+};
+
+export type OnDeleteBoardItemSubscriptionVariables = {
+  filter?: ModelSubscriptionBoardItemFilterInput | null,
+};
+
+export type OnDeleteBoardItemSubscription = {
+  onDeleteBoardItem?:  {
+    __typename: "BoardItem",
+    id: string,
+    board:  {
+      __typename: "Board",
+      id: string,
+      title: string,
+      header?: string | null,
+      footer?: string | null,
+      listViewItems: Array< string | null >,
+      listSort:  {
+        __typename: "TSortItem",
+        item: string,
+        sort: SortOrder,
+      },
+      excludeNoticeFlag: boolean,
+      type: BoardType,
+      category?:  {
+        __typename: "ModelBoardCatgoryConnection",
+        items:  Array< {
+          __typename: "BoardCatgory",
+          id: string,
+          name: string,
+          parent?:  {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null,
+          children?:  {
+            __typename: "ModelBoardCatgoryConnection",
+            nextToken?: string | null,
+          } | null,
+          sortOrder: number,
+          createdAt: string,
+          updatedAt: string,
+          boardCatgoryChildrenId: string,
+          boardCategoryId: string,
+        } | null >,
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    },
+    category?:  {
+      __typename: "BoardCatgory",
+      id: string,
+      name: string,
+      parent?:  {
+        __typename: "BoardCatgory",
+        id: string,
+        name: string,
+        parent?:  {
+          __typename: "BoardCatgory",
+          id: string,
+          name: string,
+          parent?:  {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null,
+          children?:  {
+            __typename: "ModelBoardCatgoryConnection",
+            nextToken?: string | null,
+          } | null,
+          sortOrder: number,
+          createdAt: string,
+          updatedAt: string,
+          boardCatgoryChildrenId: string,
+          boardCategoryId: string,
+        } | null,
+        children?:  {
+          __typename: "ModelBoardCatgoryConnection",
+          items:  Array< {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null >,
+          nextToken?: string | null,
+        } | null,
+        sortOrder: number,
+        createdAt: string,
+        updatedAt: string,
+        boardCatgoryChildrenId: string,
+        boardCategoryId: string,
+      } | null,
+      children?:  {
+        __typename: "ModelBoardCatgoryConnection",
+        items:  Array< {
+          __typename: "BoardCatgory",
+          id: string,
+          name: string,
+          parent?:  {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null,
+          children?:  {
+            __typename: "ModelBoardCatgoryConnection",
+            nextToken?: string | null,
+          } | null,
+          sortOrder: number,
+          createdAt: string,
+          updatedAt: string,
+          boardCatgoryChildrenId: string,
+          boardCategoryId: string,
+        } | null >,
+        nextToken?: string | null,
+      } | null,
+      sortOrder: number,
+      createdAt: string,
+      updatedAt: string,
+      boardCatgoryChildrenId: string,
+      boardCategoryId: string,
+    } | null,
+    title: string,
+    content: string,
+    tag: string,
+    author: string,
+    attachments?:  {
+      __typename: "ModelAttachmentConnection",
+      items:  Array< {
+        __typename: "Attachment",
+        id: string,
+        filename: string,
+        filetype: string,
+        path: string,
+        createdAt: string,
+        updatedAt: string,
+        boardItemAttachmentsId?: string | null,
+        author?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    isNotice?: boolean | null,
+    createdAt: string,
+    updatedAt: string,
+    boardItemBoardId: string,
+    boardItemCategoryId?: string | null,
+  } | null,
+};
+
+export type OnCreateBoardItemCommentSubscriptionVariables = {
+  filter?: ModelSubscriptionBoardItemCommentFilterInput | null,
+};
+
+export type OnCreateBoardItemCommentSubscription = {
+  onCreateBoardItemComment?:  {
+    __typename: "BoardItemComment",
+    id: string,
+    boardItem:  {
+      __typename: "BoardItem",
+      id: string,
+      board:  {
+        __typename: "Board",
+        id: string,
+        title: string,
+        header?: string | null,
+        footer?: string | null,
+        listViewItems: Array< string | null >,
+        listSort:  {
+          __typename: "TSortItem",
+          item: string,
+          sort: SortOrder,
+        },
+        excludeNoticeFlag: boolean,
+        type: BoardType,
+        category?:  {
+          __typename: "ModelBoardCatgoryConnection",
+          items:  Array< {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null >,
+          nextToken?: string | null,
+        } | null,
+        createdAt: string,
+        updatedAt: string,
+      },
+      category?:  {
+        __typename: "BoardCatgory",
+        id: string,
+        name: string,
+        parent?:  {
+          __typename: "BoardCatgory",
+          id: string,
+          name: string,
+          parent?:  {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null,
+          children?:  {
+            __typename: "ModelBoardCatgoryConnection",
+            nextToken?: string | null,
+          } | null,
+          sortOrder: number,
+          createdAt: string,
+          updatedAt: string,
+          boardCatgoryChildrenId: string,
+          boardCategoryId: string,
+        } | null,
+        children?:  {
+          __typename: "ModelBoardCatgoryConnection",
+          items:  Array< {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null >,
+          nextToken?: string | null,
+        } | null,
+        sortOrder: number,
+        createdAt: string,
+        updatedAt: string,
+        boardCatgoryChildrenId: string,
+        boardCategoryId: string,
+      } | null,
+      title: string,
+      content: string,
+      tag: string,
+      author: string,
+      attachments?:  {
+        __typename: "ModelAttachmentConnection",
+        items:  Array< {
+          __typename: "Attachment",
+          id: string,
+          filename: string,
+          filetype: string,
+          path: string,
+          createdAt: string,
+          updatedAt: string,
+          boardItemAttachmentsId?: string | null,
+          author?: string | null,
+        } | null >,
+        nextToken?: string | null,
+      } | null,
+      isNotice?: boolean | null,
+      createdAt: string,
+      updatedAt: string,
+      boardItemBoardId: string,
+      boardItemCategoryId?: string | null,
+    },
+    comment: string,
+    author: string,
+    createdAt: string,
+    updatedAt: string,
+    boardItemCommentBoardItemId: string,
+  } | null,
+};
+
+export type OnUpdateBoardItemCommentSubscriptionVariables = {
+  filter?: ModelSubscriptionBoardItemCommentFilterInput | null,
+};
+
+export type OnUpdateBoardItemCommentSubscription = {
+  onUpdateBoardItemComment?:  {
+    __typename: "BoardItemComment",
+    id: string,
+    boardItem:  {
+      __typename: "BoardItem",
+      id: string,
+      board:  {
+        __typename: "Board",
+        id: string,
+        title: string,
+        header?: string | null,
+        footer?: string | null,
+        listViewItems: Array< string | null >,
+        listSort:  {
+          __typename: "TSortItem",
+          item: string,
+          sort: SortOrder,
+        },
+        excludeNoticeFlag: boolean,
+        type: BoardType,
+        category?:  {
+          __typename: "ModelBoardCatgoryConnection",
+          items:  Array< {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null >,
+          nextToken?: string | null,
+        } | null,
+        createdAt: string,
+        updatedAt: string,
+      },
+      category?:  {
+        __typename: "BoardCatgory",
+        id: string,
+        name: string,
+        parent?:  {
+          __typename: "BoardCatgory",
+          id: string,
+          name: string,
+          parent?:  {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null,
+          children?:  {
+            __typename: "ModelBoardCatgoryConnection",
+            nextToken?: string | null,
+          } | null,
+          sortOrder: number,
+          createdAt: string,
+          updatedAt: string,
+          boardCatgoryChildrenId: string,
+          boardCategoryId: string,
+        } | null,
+        children?:  {
+          __typename: "ModelBoardCatgoryConnection",
+          items:  Array< {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null >,
+          nextToken?: string | null,
+        } | null,
+        sortOrder: number,
+        createdAt: string,
+        updatedAt: string,
+        boardCatgoryChildrenId: string,
+        boardCategoryId: string,
+      } | null,
+      title: string,
+      content: string,
+      tag: string,
+      author: string,
+      attachments?:  {
+        __typename: "ModelAttachmentConnection",
+        items:  Array< {
+          __typename: "Attachment",
+          id: string,
+          filename: string,
+          filetype: string,
+          path: string,
+          createdAt: string,
+          updatedAt: string,
+          boardItemAttachmentsId?: string | null,
+          author?: string | null,
+        } | null >,
+        nextToken?: string | null,
+      } | null,
+      isNotice?: boolean | null,
+      createdAt: string,
+      updatedAt: string,
+      boardItemBoardId: string,
+      boardItemCategoryId?: string | null,
+    },
+    comment: string,
+    author: string,
+    createdAt: string,
+    updatedAt: string,
+    boardItemCommentBoardItemId: string,
+  } | null,
+};
+
+export type OnDeleteBoardItemCommentSubscriptionVariables = {
+  filter?: ModelSubscriptionBoardItemCommentFilterInput | null,
+};
+
+export type OnDeleteBoardItemCommentSubscription = {
+  onDeleteBoardItemComment?:  {
+    __typename: "BoardItemComment",
+    id: string,
+    boardItem:  {
+      __typename: "BoardItem",
+      id: string,
+      board:  {
+        __typename: "Board",
+        id: string,
+        title: string,
+        header?: string | null,
+        footer?: string | null,
+        listViewItems: Array< string | null >,
+        listSort:  {
+          __typename: "TSortItem",
+          item: string,
+          sort: SortOrder,
+        },
+        excludeNoticeFlag: boolean,
+        type: BoardType,
+        category?:  {
+          __typename: "ModelBoardCatgoryConnection",
+          items:  Array< {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null >,
+          nextToken?: string | null,
+        } | null,
+        createdAt: string,
+        updatedAt: string,
+      },
+      category?:  {
+        __typename: "BoardCatgory",
+        id: string,
+        name: string,
+        parent?:  {
+          __typename: "BoardCatgory",
+          id: string,
+          name: string,
+          parent?:  {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null,
+          children?:  {
+            __typename: "ModelBoardCatgoryConnection",
+            nextToken?: string | null,
+          } | null,
+          sortOrder: number,
+          createdAt: string,
+          updatedAt: string,
+          boardCatgoryChildrenId: string,
+          boardCategoryId: string,
+        } | null,
+        children?:  {
+          __typename: "ModelBoardCatgoryConnection",
+          items:  Array< {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null >,
+          nextToken?: string | null,
+        } | null,
+        sortOrder: number,
+        createdAt: string,
+        updatedAt: string,
+        boardCatgoryChildrenId: string,
+        boardCategoryId: string,
+      } | null,
+      title: string,
+      content: string,
+      tag: string,
+      author: string,
+      attachments?:  {
+        __typename: "ModelAttachmentConnection",
+        items:  Array< {
+          __typename: "Attachment",
+          id: string,
+          filename: string,
+          filetype: string,
+          path: string,
+          createdAt: string,
+          updatedAt: string,
+          boardItemAttachmentsId?: string | null,
+          author?: string | null,
+        } | null >,
+        nextToken?: string | null,
+      } | null,
+      isNotice?: boolean | null,
+      createdAt: string,
+      updatedAt: string,
+      boardItemBoardId: string,
+      boardItemCategoryId?: string | null,
+    },
+    comment: string,
+    author: string,
+    createdAt: string,
+    updatedAt: string,
+    boardItemCommentBoardItemId: string,
   } | null,
 };

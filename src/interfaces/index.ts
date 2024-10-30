@@ -1,18 +1,13 @@
 import { ComponentType } from 'react';
 
 export interface IModuleProp {
-  id: string;
   action: string;
 }
 
 export interface IDynamicModuleProp {
-  id: string;
+  id?: string;
   action: string;
-  getComponentsMap: () => { [key: string]: ComponentType<{ id: string }> };
-}
-
-export interface IDynamicModuleActionProp {
-  id: string
+  getComponentsMap: () => { [key: string]: ComponentType<{ id?: string }> };
 }
 
 export interface IModule {

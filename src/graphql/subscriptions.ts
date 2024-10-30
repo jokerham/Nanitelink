@@ -77,26 +77,6 @@ export const onCreateParameter = /* GraphQL */ `subscription OnCreateParameter($
         nextToken
         __typename
       }
-      actions {
-        items {
-          id
-          name
-          isIndex
-          module {
-            id
-            name
-            createdAt
-            updatedAt
-            __typename
-          }
-          createdAt
-          updatedAt
-          moduleActionsId
-          __typename
-        }
-        nextToken
-        __typename
-      }
       createdAt
       updatedAt
       __typename
@@ -175,26 +155,6 @@ export const onUpdateParameter = /* GraphQL */ `subscription OnUpdateParameter($
           createdAt
           updatedAt
           moduleMenusId
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      actions {
-        items {
-          id
-          name
-          isIndex
-          module {
-            id
-            name
-            createdAt
-            updatedAt
-            __typename
-          }
-          createdAt
-          updatedAt
-          moduleActionsId
           __typename
         }
         nextToken
@@ -283,26 +243,6 @@ export const onDeleteParameter = /* GraphQL */ `subscription OnDeleteParameter($
         nextToken
         __typename
       }
-      actions {
-        items {
-          id
-          name
-          isIndex
-          module {
-            id
-            name
-            createdAt
-            updatedAt
-            __typename
-          }
-          createdAt
-          updatedAt
-          moduleActionsId
-          __typename
-        }
-        nextToken
-        __typename
-      }
       createdAt
       updatedAt
       __typename
@@ -316,297 +256,6 @@ export const onDeleteParameter = /* GraphQL */ `subscription OnDeleteParameter($
 ` as GeneratedSubscription<
   APITypes.OnDeleteParameterSubscriptionVariables,
   APITypes.OnDeleteParameterSubscription
->;
-export const onCreateAction = /* GraphQL */ `subscription OnCreateAction($filter: ModelSubscriptionActionFilterInput) {
-  onCreateAction(filter: $filter) {
-    id
-    name
-    isIndex
-    module {
-      id
-      name
-      parameters {
-        items {
-          id
-          inputType
-          label
-          defaultValue
-          optionValues {
-            value
-            label
-            __typename
-          }
-          module {
-            id
-            name
-            createdAt
-            updatedAt
-            __typename
-          }
-          createdAt
-          updatedAt
-          moduleParametersId
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      menus {
-        items {
-          id
-          name
-          parent
-          menuType
-          module {
-            id
-            name
-            createdAt
-            updatedAt
-            __typename
-          }
-          moduleId
-          parameterSettings {
-            id
-            value
-            __typename
-          }
-          url
-          sortOrder
-          createdAt
-          updatedAt
-          moduleMenusId
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      actions {
-        items {
-          id
-          name
-          isIndex
-          module {
-            id
-            name
-            createdAt
-            updatedAt
-            __typename
-          }
-          createdAt
-          updatedAt
-          moduleActionsId
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-    createdAt
-    updatedAt
-    moduleActionsId
-    __typename
-  }
-}
-` as GeneratedSubscription<
-  APITypes.OnCreateActionSubscriptionVariables,
-  APITypes.OnCreateActionSubscription
->;
-export const onUpdateAction = /* GraphQL */ `subscription OnUpdateAction($filter: ModelSubscriptionActionFilterInput) {
-  onUpdateAction(filter: $filter) {
-    id
-    name
-    isIndex
-    module {
-      id
-      name
-      parameters {
-        items {
-          id
-          inputType
-          label
-          defaultValue
-          optionValues {
-            value
-            label
-            __typename
-          }
-          module {
-            id
-            name
-            createdAt
-            updatedAt
-            __typename
-          }
-          createdAt
-          updatedAt
-          moduleParametersId
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      menus {
-        items {
-          id
-          name
-          parent
-          menuType
-          module {
-            id
-            name
-            createdAt
-            updatedAt
-            __typename
-          }
-          moduleId
-          parameterSettings {
-            id
-            value
-            __typename
-          }
-          url
-          sortOrder
-          createdAt
-          updatedAt
-          moduleMenusId
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      actions {
-        items {
-          id
-          name
-          isIndex
-          module {
-            id
-            name
-            createdAt
-            updatedAt
-            __typename
-          }
-          createdAt
-          updatedAt
-          moduleActionsId
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-    createdAt
-    updatedAt
-    moduleActionsId
-    __typename
-  }
-}
-` as GeneratedSubscription<
-  APITypes.OnUpdateActionSubscriptionVariables,
-  APITypes.OnUpdateActionSubscription
->;
-export const onDeleteAction = /* GraphQL */ `subscription OnDeleteAction($filter: ModelSubscriptionActionFilterInput) {
-  onDeleteAction(filter: $filter) {
-    id
-    name
-    isIndex
-    module {
-      id
-      name
-      parameters {
-        items {
-          id
-          inputType
-          label
-          defaultValue
-          optionValues {
-            value
-            label
-            __typename
-          }
-          module {
-            id
-            name
-            createdAt
-            updatedAt
-            __typename
-          }
-          createdAt
-          updatedAt
-          moduleParametersId
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      menus {
-        items {
-          id
-          name
-          parent
-          menuType
-          module {
-            id
-            name
-            createdAt
-            updatedAt
-            __typename
-          }
-          moduleId
-          parameterSettings {
-            id
-            value
-            __typename
-          }
-          url
-          sortOrder
-          createdAt
-          updatedAt
-          moduleMenusId
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      actions {
-        items {
-          id
-          name
-          isIndex
-          module {
-            id
-            name
-            createdAt
-            updatedAt
-            __typename
-          }
-          createdAt
-          updatedAt
-          moduleActionsId
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-    createdAt
-    updatedAt
-    moduleActionsId
-    __typename
-  }
-}
-` as GeneratedSubscription<
-  APITypes.OnDeleteActionSubscriptionVariables,
-  APITypes.OnDeleteActionSubscription
 >;
 export const onCreateModule = /* GraphQL */ `subscription OnCreateModule($filter: ModelSubscriptionModuleFilterInput) {
   onCreateModule(filter: $filter) {
@@ -631,10 +280,6 @@ export const onCreateModule = /* GraphQL */ `subscription OnCreateModule($filter
             __typename
           }
           menus {
-            nextToken
-            __typename
-          }
-          actions {
             nextToken
             __typename
           }
@@ -667,10 +312,6 @@ export const onCreateModule = /* GraphQL */ `subscription OnCreateModule($filter
             nextToken
             __typename
           }
-          actions {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -686,38 +327,6 @@ export const onCreateModule = /* GraphQL */ `subscription OnCreateModule($filter
         createdAt
         updatedAt
         moduleMenusId
-        __typename
-      }
-      nextToken
-      __typename
-    }
-    actions {
-      items {
-        id
-        name
-        isIndex
-        module {
-          id
-          name
-          parameters {
-            nextToken
-            __typename
-          }
-          menus {
-            nextToken
-            __typename
-          }
-          actions {
-            nextToken
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        createdAt
-        updatedAt
-        moduleActionsId
         __typename
       }
       nextToken
@@ -758,10 +367,6 @@ export const onUpdateModule = /* GraphQL */ `subscription OnUpdateModule($filter
             nextToken
             __typename
           }
-          actions {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -791,10 +396,6 @@ export const onUpdateModule = /* GraphQL */ `subscription OnUpdateModule($filter
             nextToken
             __typename
           }
-          actions {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -810,38 +411,6 @@ export const onUpdateModule = /* GraphQL */ `subscription OnUpdateModule($filter
         createdAt
         updatedAt
         moduleMenusId
-        __typename
-      }
-      nextToken
-      __typename
-    }
-    actions {
-      items {
-        id
-        name
-        isIndex
-        module {
-          id
-          name
-          parameters {
-            nextToken
-            __typename
-          }
-          menus {
-            nextToken
-            __typename
-          }
-          actions {
-            nextToken
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        createdAt
-        updatedAt
-        moduleActionsId
         __typename
       }
       nextToken
@@ -882,10 +451,6 @@ export const onDeleteModule = /* GraphQL */ `subscription OnDeleteModule($filter
             nextToken
             __typename
           }
-          actions {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -915,10 +480,6 @@ export const onDeleteModule = /* GraphQL */ `subscription OnDeleteModule($filter
             nextToken
             __typename
           }
-          actions {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -939,38 +500,6 @@ export const onDeleteModule = /* GraphQL */ `subscription OnDeleteModule($filter
       nextToken
       __typename
     }
-    actions {
-      items {
-        id
-        name
-        isIndex
-        module {
-          id
-          name
-          parameters {
-            nextToken
-            __typename
-          }
-          menus {
-            nextToken
-            __typename
-          }
-          actions {
-            nextToken
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        createdAt
-        updatedAt
-        moduleActionsId
-        __typename
-      }
-      nextToken
-      __typename
-    }
     createdAt
     updatedAt
     __typename
@@ -979,6 +508,327 @@ export const onDeleteModule = /* GraphQL */ `subscription OnDeleteModule($filter
 ` as GeneratedSubscription<
   APITypes.OnDeleteModuleSubscriptionVariables,
   APITypes.OnDeleteModuleSubscription
+>;
+export const onCreateRouteParameter = /* GraphQL */ `subscription OnCreateRouteParameter(
+  $filter: ModelSubscriptionRouteParameterFilterInput
+) {
+  onCreateRouteParameter(filter: $filter) {
+    name
+    value
+    id
+    createdAt
+    updatedAt
+    routeParametersId
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnCreateRouteParameterSubscriptionVariables,
+  APITypes.OnCreateRouteParameterSubscription
+>;
+export const onUpdateRouteParameter = /* GraphQL */ `subscription OnUpdateRouteParameter(
+  $filter: ModelSubscriptionRouteParameterFilterInput
+) {
+  onUpdateRouteParameter(filter: $filter) {
+    name
+    value
+    id
+    createdAt
+    updatedAt
+    routeParametersId
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdateRouteParameterSubscriptionVariables,
+  APITypes.OnUpdateRouteParameterSubscription
+>;
+export const onDeleteRouteParameter = /* GraphQL */ `subscription OnDeleteRouteParameter(
+  $filter: ModelSubscriptionRouteParameterFilterInput
+) {
+  onDeleteRouteParameter(filter: $filter) {
+    name
+    value
+    id
+    createdAt
+    updatedAt
+    routeParametersId
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnDeleteRouteParameterSubscriptionVariables,
+  APITypes.OnDeleteRouteParameterSubscription
+>;
+export const onCreateRoute = /* GraphQL */ `subscription OnCreateRoute($filter: ModelSubscriptionRouteFilterInput) {
+  onCreateRoute(filter: $filter) {
+    id
+    module {
+      id
+      name
+      parameters {
+        items {
+          id
+          inputType
+          label
+          defaultValue
+          optionValues {
+            value
+            label
+            __typename
+          }
+          module {
+            id
+            name
+            createdAt
+            updatedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          moduleParametersId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      menus {
+        items {
+          id
+          name
+          parent
+          menuType
+          module {
+            id
+            name
+            createdAt
+            updatedAt
+            __typename
+          }
+          moduleId
+          parameterSettings {
+            id
+            value
+            __typename
+          }
+          url
+          sortOrder
+          createdAt
+          updatedAt
+          moduleMenusId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    action
+    path
+    parameters {
+      items {
+        name
+        value
+        id
+        createdAt
+        updatedAt
+        routeParametersId
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    createdAt
+    updatedAt
+    routeModuleId
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnCreateRouteSubscriptionVariables,
+  APITypes.OnCreateRouteSubscription
+>;
+export const onUpdateRoute = /* GraphQL */ `subscription OnUpdateRoute($filter: ModelSubscriptionRouteFilterInput) {
+  onUpdateRoute(filter: $filter) {
+    id
+    module {
+      id
+      name
+      parameters {
+        items {
+          id
+          inputType
+          label
+          defaultValue
+          optionValues {
+            value
+            label
+            __typename
+          }
+          module {
+            id
+            name
+            createdAt
+            updatedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          moduleParametersId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      menus {
+        items {
+          id
+          name
+          parent
+          menuType
+          module {
+            id
+            name
+            createdAt
+            updatedAt
+            __typename
+          }
+          moduleId
+          parameterSettings {
+            id
+            value
+            __typename
+          }
+          url
+          sortOrder
+          createdAt
+          updatedAt
+          moduleMenusId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    action
+    path
+    parameters {
+      items {
+        name
+        value
+        id
+        createdAt
+        updatedAt
+        routeParametersId
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    createdAt
+    updatedAt
+    routeModuleId
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdateRouteSubscriptionVariables,
+  APITypes.OnUpdateRouteSubscription
+>;
+export const onDeleteRoute = /* GraphQL */ `subscription OnDeleteRoute($filter: ModelSubscriptionRouteFilterInput) {
+  onDeleteRoute(filter: $filter) {
+    id
+    module {
+      id
+      name
+      parameters {
+        items {
+          id
+          inputType
+          label
+          defaultValue
+          optionValues {
+            value
+            label
+            __typename
+          }
+          module {
+            id
+            name
+            createdAt
+            updatedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          moduleParametersId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      menus {
+        items {
+          id
+          name
+          parent
+          menuType
+          module {
+            id
+            name
+            createdAt
+            updatedAt
+            __typename
+          }
+          moduleId
+          parameterSettings {
+            id
+            value
+            __typename
+          }
+          url
+          sortOrder
+          createdAt
+          updatedAt
+          moduleMenusId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    action
+    path
+    parameters {
+      items {
+        name
+        value
+        id
+        createdAt
+        updatedAt
+        routeParametersId
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    createdAt
+    updatedAt
+    routeModuleId
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnDeleteRouteSubscriptionVariables,
+  APITypes.OnDeleteRouteSubscription
 >;
 export const onCreateMenu = /* GraphQL */ `subscription OnCreateMenu($filter: ModelSubscriptionMenuFilterInput) {
   onCreateMenu(filter: $filter) {
@@ -1039,26 +889,6 @@ export const onCreateMenu = /* GraphQL */ `subscription OnCreateMenu($filter: Mo
           createdAt
           updatedAt
           moduleMenusId
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      actions {
-        items {
-          id
-          name
-          isIndex
-          module {
-            id
-            name
-            createdAt
-            updatedAt
-            __typename
-          }
-          createdAt
-          updatedAt
-          moduleActionsId
           __typename
         }
         nextToken
@@ -1150,26 +980,6 @@ export const onUpdateMenu = /* GraphQL */ `subscription OnUpdateMenu($filter: Mo
         nextToken
         __typename
       }
-      actions {
-        items {
-          id
-          name
-          isIndex
-          module {
-            id
-            name
-            createdAt
-            updatedAt
-            __typename
-          }
-          createdAt
-          updatedAt
-          moduleActionsId
-          __typename
-        }
-        nextToken
-        __typename
-      }
       createdAt
       updatedAt
       __typename
@@ -1256,26 +1066,6 @@ export const onDeleteMenu = /* GraphQL */ `subscription OnDeleteMenu($filter: Mo
         nextToken
         __typename
       }
-      actions {
-        items {
-          id
-          name
-          isIndex
-          module {
-            id
-            name
-            createdAt
-            updatedAt
-            __typename
-          }
-          createdAt
-          updatedAt
-          moduleActionsId
-          __typename
-        }
-        nextToken
-        __typename
-      }
       createdAt
       updatedAt
       __typename
@@ -1342,4 +1132,1621 @@ export const onDeleteDocument = /* GraphQL */ `subscription OnDeleteDocument($fi
 ` as GeneratedSubscription<
   APITypes.OnDeleteDocumentSubscriptionVariables,
   APITypes.OnDeleteDocumentSubscription
+>;
+export const onCreateBoardCatgory = /* GraphQL */ `subscription OnCreateBoardCatgory(
+  $filter: ModelSubscriptionBoardCatgoryFilterInput
+) {
+  onCreateBoardCatgory(filter: $filter) {
+    id
+    name
+    parent {
+      id
+      name
+      parent {
+        id
+        name
+        parent {
+          id
+          name
+          parent {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          children {
+            nextToken
+            __typename
+          }
+          sortOrder
+          createdAt
+          updatedAt
+          boardCatgoryChildrenId
+          boardCategoryId
+          __typename
+        }
+        children {
+          items {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        sortOrder
+        createdAt
+        updatedAt
+        boardCatgoryChildrenId
+        boardCategoryId
+        __typename
+      }
+      children {
+        items {
+          id
+          name
+          parent {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          children {
+            nextToken
+            __typename
+          }
+          sortOrder
+          createdAt
+          updatedAt
+          boardCatgoryChildrenId
+          boardCategoryId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      sortOrder
+      createdAt
+      updatedAt
+      boardCatgoryChildrenId
+      boardCategoryId
+      __typename
+    }
+    children {
+      items {
+        id
+        name
+        parent {
+          id
+          name
+          parent {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          children {
+            nextToken
+            __typename
+          }
+          sortOrder
+          createdAt
+          updatedAt
+          boardCatgoryChildrenId
+          boardCategoryId
+          __typename
+        }
+        children {
+          items {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        sortOrder
+        createdAt
+        updatedAt
+        boardCatgoryChildrenId
+        boardCategoryId
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    sortOrder
+    createdAt
+    updatedAt
+    boardCatgoryChildrenId
+    boardCategoryId
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnCreateBoardCatgorySubscriptionVariables,
+  APITypes.OnCreateBoardCatgorySubscription
+>;
+export const onUpdateBoardCatgory = /* GraphQL */ `subscription OnUpdateBoardCatgory(
+  $filter: ModelSubscriptionBoardCatgoryFilterInput
+) {
+  onUpdateBoardCatgory(filter: $filter) {
+    id
+    name
+    parent {
+      id
+      name
+      parent {
+        id
+        name
+        parent {
+          id
+          name
+          parent {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          children {
+            nextToken
+            __typename
+          }
+          sortOrder
+          createdAt
+          updatedAt
+          boardCatgoryChildrenId
+          boardCategoryId
+          __typename
+        }
+        children {
+          items {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        sortOrder
+        createdAt
+        updatedAt
+        boardCatgoryChildrenId
+        boardCategoryId
+        __typename
+      }
+      children {
+        items {
+          id
+          name
+          parent {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          children {
+            nextToken
+            __typename
+          }
+          sortOrder
+          createdAt
+          updatedAt
+          boardCatgoryChildrenId
+          boardCategoryId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      sortOrder
+      createdAt
+      updatedAt
+      boardCatgoryChildrenId
+      boardCategoryId
+      __typename
+    }
+    children {
+      items {
+        id
+        name
+        parent {
+          id
+          name
+          parent {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          children {
+            nextToken
+            __typename
+          }
+          sortOrder
+          createdAt
+          updatedAt
+          boardCatgoryChildrenId
+          boardCategoryId
+          __typename
+        }
+        children {
+          items {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        sortOrder
+        createdAt
+        updatedAt
+        boardCatgoryChildrenId
+        boardCategoryId
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    sortOrder
+    createdAt
+    updatedAt
+    boardCatgoryChildrenId
+    boardCategoryId
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdateBoardCatgorySubscriptionVariables,
+  APITypes.OnUpdateBoardCatgorySubscription
+>;
+export const onDeleteBoardCatgory = /* GraphQL */ `subscription OnDeleteBoardCatgory(
+  $filter: ModelSubscriptionBoardCatgoryFilterInput
+) {
+  onDeleteBoardCatgory(filter: $filter) {
+    id
+    name
+    parent {
+      id
+      name
+      parent {
+        id
+        name
+        parent {
+          id
+          name
+          parent {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          children {
+            nextToken
+            __typename
+          }
+          sortOrder
+          createdAt
+          updatedAt
+          boardCatgoryChildrenId
+          boardCategoryId
+          __typename
+        }
+        children {
+          items {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        sortOrder
+        createdAt
+        updatedAt
+        boardCatgoryChildrenId
+        boardCategoryId
+        __typename
+      }
+      children {
+        items {
+          id
+          name
+          parent {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          children {
+            nextToken
+            __typename
+          }
+          sortOrder
+          createdAt
+          updatedAt
+          boardCatgoryChildrenId
+          boardCategoryId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      sortOrder
+      createdAt
+      updatedAt
+      boardCatgoryChildrenId
+      boardCategoryId
+      __typename
+    }
+    children {
+      items {
+        id
+        name
+        parent {
+          id
+          name
+          parent {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          children {
+            nextToken
+            __typename
+          }
+          sortOrder
+          createdAt
+          updatedAt
+          boardCatgoryChildrenId
+          boardCategoryId
+          __typename
+        }
+        children {
+          items {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        sortOrder
+        createdAt
+        updatedAt
+        boardCatgoryChildrenId
+        boardCategoryId
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    sortOrder
+    createdAt
+    updatedAt
+    boardCatgoryChildrenId
+    boardCategoryId
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnDeleteBoardCatgorySubscriptionVariables,
+  APITypes.OnDeleteBoardCatgorySubscription
+>;
+export const onCreateBoard = /* GraphQL */ `subscription OnCreateBoard($filter: ModelSubscriptionBoardFilterInput) {
+  onCreateBoard(filter: $filter) {
+    id
+    title
+    header
+    footer
+    listViewItems
+    listSort {
+      item
+      sort
+      __typename
+    }
+    excludeNoticeFlag
+    type
+    category {
+      items {
+        id
+        name
+        parent {
+          id
+          name
+          parent {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          children {
+            nextToken
+            __typename
+          }
+          sortOrder
+          createdAt
+          updatedAt
+          boardCatgoryChildrenId
+          boardCategoryId
+          __typename
+        }
+        children {
+          items {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        sortOrder
+        createdAt
+        updatedAt
+        boardCatgoryChildrenId
+        boardCategoryId
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnCreateBoardSubscriptionVariables,
+  APITypes.OnCreateBoardSubscription
+>;
+export const onUpdateBoard = /* GraphQL */ `subscription OnUpdateBoard($filter: ModelSubscriptionBoardFilterInput) {
+  onUpdateBoard(filter: $filter) {
+    id
+    title
+    header
+    footer
+    listViewItems
+    listSort {
+      item
+      sort
+      __typename
+    }
+    excludeNoticeFlag
+    type
+    category {
+      items {
+        id
+        name
+        parent {
+          id
+          name
+          parent {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          children {
+            nextToken
+            __typename
+          }
+          sortOrder
+          createdAt
+          updatedAt
+          boardCatgoryChildrenId
+          boardCategoryId
+          __typename
+        }
+        children {
+          items {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        sortOrder
+        createdAt
+        updatedAt
+        boardCatgoryChildrenId
+        boardCategoryId
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdateBoardSubscriptionVariables,
+  APITypes.OnUpdateBoardSubscription
+>;
+export const onDeleteBoard = /* GraphQL */ `subscription OnDeleteBoard($filter: ModelSubscriptionBoardFilterInput) {
+  onDeleteBoard(filter: $filter) {
+    id
+    title
+    header
+    footer
+    listViewItems
+    listSort {
+      item
+      sort
+      __typename
+    }
+    excludeNoticeFlag
+    type
+    category {
+      items {
+        id
+        name
+        parent {
+          id
+          name
+          parent {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          children {
+            nextToken
+            __typename
+          }
+          sortOrder
+          createdAt
+          updatedAt
+          boardCatgoryChildrenId
+          boardCategoryId
+          __typename
+        }
+        children {
+          items {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        sortOrder
+        createdAt
+        updatedAt
+        boardCatgoryChildrenId
+        boardCategoryId
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnDeleteBoardSubscriptionVariables,
+  APITypes.OnDeleteBoardSubscription
+>;
+export const onCreateAttachment = /* GraphQL */ `subscription OnCreateAttachment(
+  $filter: ModelSubscriptionAttachmentFilterInput
+) {
+  onCreateAttachment(filter: $filter) {
+    id
+    filename
+    filetype
+    path
+    createdAt
+    updatedAt
+    boardItemAttachmentsId
+    author
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnCreateAttachmentSubscriptionVariables,
+  APITypes.OnCreateAttachmentSubscription
+>;
+export const onUpdateAttachment = /* GraphQL */ `subscription OnUpdateAttachment(
+  $filter: ModelSubscriptionAttachmentFilterInput
+) {
+  onUpdateAttachment(filter: $filter) {
+    id
+    filename
+    filetype
+    path
+    createdAt
+    updatedAt
+    boardItemAttachmentsId
+    author
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdateAttachmentSubscriptionVariables,
+  APITypes.OnUpdateAttachmentSubscription
+>;
+export const onDeleteAttachment = /* GraphQL */ `subscription OnDeleteAttachment(
+  $filter: ModelSubscriptionAttachmentFilterInput
+) {
+  onDeleteAttachment(filter: $filter) {
+    id
+    filename
+    filetype
+    path
+    createdAt
+    updatedAt
+    boardItemAttachmentsId
+    author
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnDeleteAttachmentSubscriptionVariables,
+  APITypes.OnDeleteAttachmentSubscription
+>;
+export const onCreateBoardItem = /* GraphQL */ `subscription OnCreateBoardItem($filter: ModelSubscriptionBoardItemFilterInput) {
+  onCreateBoardItem(filter: $filter) {
+    id
+    board {
+      id
+      title
+      header
+      footer
+      listViewItems
+      listSort {
+        item
+        sort
+        __typename
+      }
+      excludeNoticeFlag
+      type
+      category {
+        items {
+          id
+          name
+          parent {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          children {
+            nextToken
+            __typename
+          }
+          sortOrder
+          createdAt
+          updatedAt
+          boardCatgoryChildrenId
+          boardCategoryId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    category {
+      id
+      name
+      parent {
+        id
+        name
+        parent {
+          id
+          name
+          parent {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          children {
+            nextToken
+            __typename
+          }
+          sortOrder
+          createdAt
+          updatedAt
+          boardCatgoryChildrenId
+          boardCategoryId
+          __typename
+        }
+        children {
+          items {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        sortOrder
+        createdAt
+        updatedAt
+        boardCatgoryChildrenId
+        boardCategoryId
+        __typename
+      }
+      children {
+        items {
+          id
+          name
+          parent {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          children {
+            nextToken
+            __typename
+          }
+          sortOrder
+          createdAt
+          updatedAt
+          boardCatgoryChildrenId
+          boardCategoryId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      sortOrder
+      createdAt
+      updatedAt
+      boardCatgoryChildrenId
+      boardCategoryId
+      __typename
+    }
+    title
+    content
+    tag
+    author
+    attachments {
+      items {
+        id
+        filename
+        filetype
+        path
+        createdAt
+        updatedAt
+        boardItemAttachmentsId
+        author
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    isNotice
+    createdAt
+    updatedAt
+    boardItemBoardId
+    boardItemCategoryId
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnCreateBoardItemSubscriptionVariables,
+  APITypes.OnCreateBoardItemSubscription
+>;
+export const onUpdateBoardItem = /* GraphQL */ `subscription OnUpdateBoardItem($filter: ModelSubscriptionBoardItemFilterInput) {
+  onUpdateBoardItem(filter: $filter) {
+    id
+    board {
+      id
+      title
+      header
+      footer
+      listViewItems
+      listSort {
+        item
+        sort
+        __typename
+      }
+      excludeNoticeFlag
+      type
+      category {
+        items {
+          id
+          name
+          parent {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          children {
+            nextToken
+            __typename
+          }
+          sortOrder
+          createdAt
+          updatedAt
+          boardCatgoryChildrenId
+          boardCategoryId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    category {
+      id
+      name
+      parent {
+        id
+        name
+        parent {
+          id
+          name
+          parent {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          children {
+            nextToken
+            __typename
+          }
+          sortOrder
+          createdAt
+          updatedAt
+          boardCatgoryChildrenId
+          boardCategoryId
+          __typename
+        }
+        children {
+          items {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        sortOrder
+        createdAt
+        updatedAt
+        boardCatgoryChildrenId
+        boardCategoryId
+        __typename
+      }
+      children {
+        items {
+          id
+          name
+          parent {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          children {
+            nextToken
+            __typename
+          }
+          sortOrder
+          createdAt
+          updatedAt
+          boardCatgoryChildrenId
+          boardCategoryId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      sortOrder
+      createdAt
+      updatedAt
+      boardCatgoryChildrenId
+      boardCategoryId
+      __typename
+    }
+    title
+    content
+    tag
+    author
+    attachments {
+      items {
+        id
+        filename
+        filetype
+        path
+        createdAt
+        updatedAt
+        boardItemAttachmentsId
+        author
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    isNotice
+    createdAt
+    updatedAt
+    boardItemBoardId
+    boardItemCategoryId
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdateBoardItemSubscriptionVariables,
+  APITypes.OnUpdateBoardItemSubscription
+>;
+export const onDeleteBoardItem = /* GraphQL */ `subscription OnDeleteBoardItem($filter: ModelSubscriptionBoardItemFilterInput) {
+  onDeleteBoardItem(filter: $filter) {
+    id
+    board {
+      id
+      title
+      header
+      footer
+      listViewItems
+      listSort {
+        item
+        sort
+        __typename
+      }
+      excludeNoticeFlag
+      type
+      category {
+        items {
+          id
+          name
+          parent {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          children {
+            nextToken
+            __typename
+          }
+          sortOrder
+          createdAt
+          updatedAt
+          boardCatgoryChildrenId
+          boardCategoryId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    category {
+      id
+      name
+      parent {
+        id
+        name
+        parent {
+          id
+          name
+          parent {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          children {
+            nextToken
+            __typename
+          }
+          sortOrder
+          createdAt
+          updatedAt
+          boardCatgoryChildrenId
+          boardCategoryId
+          __typename
+        }
+        children {
+          items {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        sortOrder
+        createdAt
+        updatedAt
+        boardCatgoryChildrenId
+        boardCategoryId
+        __typename
+      }
+      children {
+        items {
+          id
+          name
+          parent {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          children {
+            nextToken
+            __typename
+          }
+          sortOrder
+          createdAt
+          updatedAt
+          boardCatgoryChildrenId
+          boardCategoryId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      sortOrder
+      createdAt
+      updatedAt
+      boardCatgoryChildrenId
+      boardCategoryId
+      __typename
+    }
+    title
+    content
+    tag
+    author
+    attachments {
+      items {
+        id
+        filename
+        filetype
+        path
+        createdAt
+        updatedAt
+        boardItemAttachmentsId
+        author
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    isNotice
+    createdAt
+    updatedAt
+    boardItemBoardId
+    boardItemCategoryId
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnDeleteBoardItemSubscriptionVariables,
+  APITypes.OnDeleteBoardItemSubscription
+>;
+export const onCreateBoardItemComment = /* GraphQL */ `subscription OnCreateBoardItemComment(
+  $filter: ModelSubscriptionBoardItemCommentFilterInput
+) {
+  onCreateBoardItemComment(filter: $filter) {
+    id
+    boardItem {
+      id
+      board {
+        id
+        title
+        header
+        footer
+        listViewItems
+        listSort {
+          item
+          sort
+          __typename
+        }
+        excludeNoticeFlag
+        type
+        category {
+          items {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      category {
+        id
+        name
+        parent {
+          id
+          name
+          parent {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          children {
+            nextToken
+            __typename
+          }
+          sortOrder
+          createdAt
+          updatedAt
+          boardCatgoryChildrenId
+          boardCategoryId
+          __typename
+        }
+        children {
+          items {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        sortOrder
+        createdAt
+        updatedAt
+        boardCatgoryChildrenId
+        boardCategoryId
+        __typename
+      }
+      title
+      content
+      tag
+      author
+      attachments {
+        items {
+          id
+          filename
+          filetype
+          path
+          createdAt
+          updatedAt
+          boardItemAttachmentsId
+          author
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      isNotice
+      createdAt
+      updatedAt
+      boardItemBoardId
+      boardItemCategoryId
+      __typename
+    }
+    comment
+    author
+    createdAt
+    updatedAt
+    boardItemCommentBoardItemId
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnCreateBoardItemCommentSubscriptionVariables,
+  APITypes.OnCreateBoardItemCommentSubscription
+>;
+export const onUpdateBoardItemComment = /* GraphQL */ `subscription OnUpdateBoardItemComment(
+  $filter: ModelSubscriptionBoardItemCommentFilterInput
+) {
+  onUpdateBoardItemComment(filter: $filter) {
+    id
+    boardItem {
+      id
+      board {
+        id
+        title
+        header
+        footer
+        listViewItems
+        listSort {
+          item
+          sort
+          __typename
+        }
+        excludeNoticeFlag
+        type
+        category {
+          items {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      category {
+        id
+        name
+        parent {
+          id
+          name
+          parent {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          children {
+            nextToken
+            __typename
+          }
+          sortOrder
+          createdAt
+          updatedAt
+          boardCatgoryChildrenId
+          boardCategoryId
+          __typename
+        }
+        children {
+          items {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        sortOrder
+        createdAt
+        updatedAt
+        boardCatgoryChildrenId
+        boardCategoryId
+        __typename
+      }
+      title
+      content
+      tag
+      author
+      attachments {
+        items {
+          id
+          filename
+          filetype
+          path
+          createdAt
+          updatedAt
+          boardItemAttachmentsId
+          author
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      isNotice
+      createdAt
+      updatedAt
+      boardItemBoardId
+      boardItemCategoryId
+      __typename
+    }
+    comment
+    author
+    createdAt
+    updatedAt
+    boardItemCommentBoardItemId
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdateBoardItemCommentSubscriptionVariables,
+  APITypes.OnUpdateBoardItemCommentSubscription
+>;
+export const onDeleteBoardItemComment = /* GraphQL */ `subscription OnDeleteBoardItemComment(
+  $filter: ModelSubscriptionBoardItemCommentFilterInput
+) {
+  onDeleteBoardItemComment(filter: $filter) {
+    id
+    boardItem {
+      id
+      board {
+        id
+        title
+        header
+        footer
+        listViewItems
+        listSort {
+          item
+          sort
+          __typename
+        }
+        excludeNoticeFlag
+        type
+        category {
+          items {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      category {
+        id
+        name
+        parent {
+          id
+          name
+          parent {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          children {
+            nextToken
+            __typename
+          }
+          sortOrder
+          createdAt
+          updatedAt
+          boardCatgoryChildrenId
+          boardCategoryId
+          __typename
+        }
+        children {
+          items {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        sortOrder
+        createdAt
+        updatedAt
+        boardCatgoryChildrenId
+        boardCategoryId
+        __typename
+      }
+      title
+      content
+      tag
+      author
+      attachments {
+        items {
+          id
+          filename
+          filetype
+          path
+          createdAt
+          updatedAt
+          boardItemAttachmentsId
+          author
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      isNotice
+      createdAt
+      updatedAt
+      boardItemBoardId
+      boardItemCategoryId
+      __typename
+    }
+    comment
+    author
+    createdAt
+    updatedAt
+    boardItemCommentBoardItemId
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnDeleteBoardItemCommentSubscriptionVariables,
+  APITypes.OnDeleteBoardItemCommentSubscription
 >;

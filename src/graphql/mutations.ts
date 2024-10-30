@@ -80,26 +80,6 @@ export const createParameter = /* GraphQL */ `mutation CreateParameter(
         nextToken
         __typename
       }
-      actions {
-        items {
-          id
-          name
-          isIndex
-          module {
-            id
-            name
-            createdAt
-            updatedAt
-            __typename
-          }
-          createdAt
-          updatedAt
-          moduleActionsId
-          __typename
-        }
-        nextToken
-        __typename
-      }
       createdAt
       updatedAt
       __typename
@@ -181,26 +161,6 @@ export const updateParameter = /* GraphQL */ `mutation UpdateParameter(
           createdAt
           updatedAt
           moduleMenusId
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      actions {
-        items {
-          id
-          name
-          isIndex
-          module {
-            id
-            name
-            createdAt
-            updatedAt
-            __typename
-          }
-          createdAt
-          updatedAt
-          moduleActionsId
           __typename
         }
         nextToken
@@ -292,26 +252,6 @@ export const deleteParameter = /* GraphQL */ `mutation DeleteParameter(
         nextToken
         __typename
       }
-      actions {
-        items {
-          id
-          name
-          isIndex
-          module {
-            id
-            name
-            createdAt
-            updatedAt
-            __typename
-          }
-          createdAt
-          updatedAt
-          moduleActionsId
-          __typename
-        }
-        nextToken
-        __typename
-      }
       createdAt
       updatedAt
       __typename
@@ -325,306 +265,6 @@ export const deleteParameter = /* GraphQL */ `mutation DeleteParameter(
 ` as GeneratedMutation<
   APITypes.DeleteParameterMutationVariables,
   APITypes.DeleteParameterMutation
->;
-export const createAction = /* GraphQL */ `mutation CreateAction(
-  $input: CreateActionInput!
-  $condition: ModelActionConditionInput
-) {
-  createAction(input: $input, condition: $condition) {
-    id
-    name
-    isIndex
-    module {
-      id
-      name
-      parameters {
-        items {
-          id
-          inputType
-          label
-          defaultValue
-          optionValues {
-            value
-            label
-            __typename
-          }
-          module {
-            id
-            name
-            createdAt
-            updatedAt
-            __typename
-          }
-          createdAt
-          updatedAt
-          moduleParametersId
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      menus {
-        items {
-          id
-          name
-          parent
-          menuType
-          module {
-            id
-            name
-            createdAt
-            updatedAt
-            __typename
-          }
-          moduleId
-          parameterSettings {
-            id
-            value
-            __typename
-          }
-          url
-          sortOrder
-          createdAt
-          updatedAt
-          moduleMenusId
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      actions {
-        items {
-          id
-          name
-          isIndex
-          module {
-            id
-            name
-            createdAt
-            updatedAt
-            __typename
-          }
-          createdAt
-          updatedAt
-          moduleActionsId
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-    createdAt
-    updatedAt
-    moduleActionsId
-    __typename
-  }
-}
-` as GeneratedMutation<
-  APITypes.CreateActionMutationVariables,
-  APITypes.CreateActionMutation
->;
-export const updateAction = /* GraphQL */ `mutation UpdateAction(
-  $input: UpdateActionInput!
-  $condition: ModelActionConditionInput
-) {
-  updateAction(input: $input, condition: $condition) {
-    id
-    name
-    isIndex
-    module {
-      id
-      name
-      parameters {
-        items {
-          id
-          inputType
-          label
-          defaultValue
-          optionValues {
-            value
-            label
-            __typename
-          }
-          module {
-            id
-            name
-            createdAt
-            updatedAt
-            __typename
-          }
-          createdAt
-          updatedAt
-          moduleParametersId
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      menus {
-        items {
-          id
-          name
-          parent
-          menuType
-          module {
-            id
-            name
-            createdAt
-            updatedAt
-            __typename
-          }
-          moduleId
-          parameterSettings {
-            id
-            value
-            __typename
-          }
-          url
-          sortOrder
-          createdAt
-          updatedAt
-          moduleMenusId
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      actions {
-        items {
-          id
-          name
-          isIndex
-          module {
-            id
-            name
-            createdAt
-            updatedAt
-            __typename
-          }
-          createdAt
-          updatedAt
-          moduleActionsId
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-    createdAt
-    updatedAt
-    moduleActionsId
-    __typename
-  }
-}
-` as GeneratedMutation<
-  APITypes.UpdateActionMutationVariables,
-  APITypes.UpdateActionMutation
->;
-export const deleteAction = /* GraphQL */ `mutation DeleteAction(
-  $input: DeleteActionInput!
-  $condition: ModelActionConditionInput
-) {
-  deleteAction(input: $input, condition: $condition) {
-    id
-    name
-    isIndex
-    module {
-      id
-      name
-      parameters {
-        items {
-          id
-          inputType
-          label
-          defaultValue
-          optionValues {
-            value
-            label
-            __typename
-          }
-          module {
-            id
-            name
-            createdAt
-            updatedAt
-            __typename
-          }
-          createdAt
-          updatedAt
-          moduleParametersId
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      menus {
-        items {
-          id
-          name
-          parent
-          menuType
-          module {
-            id
-            name
-            createdAt
-            updatedAt
-            __typename
-          }
-          moduleId
-          parameterSettings {
-            id
-            value
-            __typename
-          }
-          url
-          sortOrder
-          createdAt
-          updatedAt
-          moduleMenusId
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      actions {
-        items {
-          id
-          name
-          isIndex
-          module {
-            id
-            name
-            createdAt
-            updatedAt
-            __typename
-          }
-          createdAt
-          updatedAt
-          moduleActionsId
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-    createdAt
-    updatedAt
-    moduleActionsId
-    __typename
-  }
-}
-` as GeneratedMutation<
-  APITypes.DeleteActionMutationVariables,
-  APITypes.DeleteActionMutation
 >;
 export const createModule = /* GraphQL */ `mutation CreateModule(
   $input: CreateModuleInput!
@@ -652,10 +292,6 @@ export const createModule = /* GraphQL */ `mutation CreateModule(
             __typename
           }
           menus {
-            nextToken
-            __typename
-          }
-          actions {
             nextToken
             __typename
           }
@@ -688,10 +324,6 @@ export const createModule = /* GraphQL */ `mutation CreateModule(
             nextToken
             __typename
           }
-          actions {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -707,38 +339,6 @@ export const createModule = /* GraphQL */ `mutation CreateModule(
         createdAt
         updatedAt
         moduleMenusId
-        __typename
-      }
-      nextToken
-      __typename
-    }
-    actions {
-      items {
-        id
-        name
-        isIndex
-        module {
-          id
-          name
-          parameters {
-            nextToken
-            __typename
-          }
-          menus {
-            nextToken
-            __typename
-          }
-          actions {
-            nextToken
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        createdAt
-        updatedAt
-        moduleActionsId
         __typename
       }
       nextToken
@@ -782,10 +382,6 @@ export const updateModule = /* GraphQL */ `mutation UpdateModule(
             nextToken
             __typename
           }
-          actions {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -815,10 +411,6 @@ export const updateModule = /* GraphQL */ `mutation UpdateModule(
             nextToken
             __typename
           }
-          actions {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -834,38 +426,6 @@ export const updateModule = /* GraphQL */ `mutation UpdateModule(
         createdAt
         updatedAt
         moduleMenusId
-        __typename
-      }
-      nextToken
-      __typename
-    }
-    actions {
-      items {
-        id
-        name
-        isIndex
-        module {
-          id
-          name
-          parameters {
-            nextToken
-            __typename
-          }
-          menus {
-            nextToken
-            __typename
-          }
-          actions {
-            nextToken
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        createdAt
-        updatedAt
-        moduleActionsId
         __typename
       }
       nextToken
@@ -909,10 +469,6 @@ export const deleteModule = /* GraphQL */ `mutation DeleteModule(
             nextToken
             __typename
           }
-          actions {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -942,10 +498,6 @@ export const deleteModule = /* GraphQL */ `mutation DeleteModule(
             nextToken
             __typename
           }
-          actions {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -966,38 +518,6 @@ export const deleteModule = /* GraphQL */ `mutation DeleteModule(
       nextToken
       __typename
     }
-    actions {
-      items {
-        id
-        name
-        isIndex
-        module {
-          id
-          name
-          parameters {
-            nextToken
-            __typename
-          }
-          menus {
-            nextToken
-            __typename
-          }
-          actions {
-            nextToken
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        createdAt
-        updatedAt
-        moduleActionsId
-        __typename
-      }
-      nextToken
-      __typename
-    }
     createdAt
     updatedAt
     __typename
@@ -1006,6 +526,339 @@ export const deleteModule = /* GraphQL */ `mutation DeleteModule(
 ` as GeneratedMutation<
   APITypes.DeleteModuleMutationVariables,
   APITypes.DeleteModuleMutation
+>;
+export const createRouteParameter = /* GraphQL */ `mutation CreateRouteParameter(
+  $input: CreateRouteParameterInput!
+  $condition: ModelRouteParameterConditionInput
+) {
+  createRouteParameter(input: $input, condition: $condition) {
+    name
+    value
+    id
+    createdAt
+    updatedAt
+    routeParametersId
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.CreateRouteParameterMutationVariables,
+  APITypes.CreateRouteParameterMutation
+>;
+export const updateRouteParameter = /* GraphQL */ `mutation UpdateRouteParameter(
+  $input: UpdateRouteParameterInput!
+  $condition: ModelRouteParameterConditionInput
+) {
+  updateRouteParameter(input: $input, condition: $condition) {
+    name
+    value
+    id
+    createdAt
+    updatedAt
+    routeParametersId
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.UpdateRouteParameterMutationVariables,
+  APITypes.UpdateRouteParameterMutation
+>;
+export const deleteRouteParameter = /* GraphQL */ `mutation DeleteRouteParameter(
+  $input: DeleteRouteParameterInput!
+  $condition: ModelRouteParameterConditionInput
+) {
+  deleteRouteParameter(input: $input, condition: $condition) {
+    name
+    value
+    id
+    createdAt
+    updatedAt
+    routeParametersId
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.DeleteRouteParameterMutationVariables,
+  APITypes.DeleteRouteParameterMutation
+>;
+export const createRoute = /* GraphQL */ `mutation CreateRoute(
+  $input: CreateRouteInput!
+  $condition: ModelRouteConditionInput
+) {
+  createRoute(input: $input, condition: $condition) {
+    id
+    module {
+      id
+      name
+      parameters {
+        items {
+          id
+          inputType
+          label
+          defaultValue
+          optionValues {
+            value
+            label
+            __typename
+          }
+          module {
+            id
+            name
+            createdAt
+            updatedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          moduleParametersId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      menus {
+        items {
+          id
+          name
+          parent
+          menuType
+          module {
+            id
+            name
+            createdAt
+            updatedAt
+            __typename
+          }
+          moduleId
+          parameterSettings {
+            id
+            value
+            __typename
+          }
+          url
+          sortOrder
+          createdAt
+          updatedAt
+          moduleMenusId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    action
+    path
+    parameters {
+      items {
+        name
+        value
+        id
+        createdAt
+        updatedAt
+        routeParametersId
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    createdAt
+    updatedAt
+    routeModuleId
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.CreateRouteMutationVariables,
+  APITypes.CreateRouteMutation
+>;
+export const updateRoute = /* GraphQL */ `mutation UpdateRoute(
+  $input: UpdateRouteInput!
+  $condition: ModelRouteConditionInput
+) {
+  updateRoute(input: $input, condition: $condition) {
+    id
+    module {
+      id
+      name
+      parameters {
+        items {
+          id
+          inputType
+          label
+          defaultValue
+          optionValues {
+            value
+            label
+            __typename
+          }
+          module {
+            id
+            name
+            createdAt
+            updatedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          moduleParametersId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      menus {
+        items {
+          id
+          name
+          parent
+          menuType
+          module {
+            id
+            name
+            createdAt
+            updatedAt
+            __typename
+          }
+          moduleId
+          parameterSettings {
+            id
+            value
+            __typename
+          }
+          url
+          sortOrder
+          createdAt
+          updatedAt
+          moduleMenusId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    action
+    path
+    parameters {
+      items {
+        name
+        value
+        id
+        createdAt
+        updatedAt
+        routeParametersId
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    createdAt
+    updatedAt
+    routeModuleId
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.UpdateRouteMutationVariables,
+  APITypes.UpdateRouteMutation
+>;
+export const deleteRoute = /* GraphQL */ `mutation DeleteRoute(
+  $input: DeleteRouteInput!
+  $condition: ModelRouteConditionInput
+) {
+  deleteRoute(input: $input, condition: $condition) {
+    id
+    module {
+      id
+      name
+      parameters {
+        items {
+          id
+          inputType
+          label
+          defaultValue
+          optionValues {
+            value
+            label
+            __typename
+          }
+          module {
+            id
+            name
+            createdAt
+            updatedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          moduleParametersId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      menus {
+        items {
+          id
+          name
+          parent
+          menuType
+          module {
+            id
+            name
+            createdAt
+            updatedAt
+            __typename
+          }
+          moduleId
+          parameterSettings {
+            id
+            value
+            __typename
+          }
+          url
+          sortOrder
+          createdAt
+          updatedAt
+          moduleMenusId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    action
+    path
+    parameters {
+      items {
+        name
+        value
+        id
+        createdAt
+        updatedAt
+        routeParametersId
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    createdAt
+    updatedAt
+    routeModuleId
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.DeleteRouteMutationVariables,
+  APITypes.DeleteRouteMutation
 >;
 export const createMenu = /* GraphQL */ `mutation CreateMenu(
   $input: CreateMenuInput!
@@ -1069,26 +922,6 @@ export const createMenu = /* GraphQL */ `mutation CreateMenu(
           createdAt
           updatedAt
           moduleMenusId
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      actions {
-        items {
-          id
-          name
-          isIndex
-          module {
-            id
-            name
-            createdAt
-            updatedAt
-            __typename
-          }
-          createdAt
-          updatedAt
-          moduleActionsId
           __typename
         }
         nextToken
@@ -1183,26 +1016,6 @@ export const updateMenu = /* GraphQL */ `mutation UpdateMenu(
         nextToken
         __typename
       }
-      actions {
-        items {
-          id
-          name
-          isIndex
-          module {
-            id
-            name
-            createdAt
-            updatedAt
-            __typename
-          }
-          createdAt
-          updatedAt
-          moduleActionsId
-          __typename
-        }
-        nextToken
-        __typename
-      }
       createdAt
       updatedAt
       __typename
@@ -1292,26 +1105,6 @@ export const deleteMenu = /* GraphQL */ `mutation DeleteMenu(
         nextToken
         __typename
       }
-      actions {
-        items {
-          id
-          name
-          isIndex
-          module {
-            id
-            name
-            createdAt
-            updatedAt
-            __typename
-          }
-          createdAt
-          updatedAt
-          moduleActionsId
-          __typename
-        }
-        nextToken
-        __typename
-      }
       createdAt
       updatedAt
       __typename
@@ -1387,4 +1180,1648 @@ export const deleteDocument = /* GraphQL */ `mutation DeleteDocument(
 ` as GeneratedMutation<
   APITypes.DeleteDocumentMutationVariables,
   APITypes.DeleteDocumentMutation
+>;
+export const createBoardCatgory = /* GraphQL */ `mutation CreateBoardCatgory(
+  $input: CreateBoardCatgoryInput!
+  $condition: ModelBoardCatgoryConditionInput
+) {
+  createBoardCatgory(input: $input, condition: $condition) {
+    id
+    name
+    parent {
+      id
+      name
+      parent {
+        id
+        name
+        parent {
+          id
+          name
+          parent {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          children {
+            nextToken
+            __typename
+          }
+          sortOrder
+          createdAt
+          updatedAt
+          boardCatgoryChildrenId
+          boardCategoryId
+          __typename
+        }
+        children {
+          items {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        sortOrder
+        createdAt
+        updatedAt
+        boardCatgoryChildrenId
+        boardCategoryId
+        __typename
+      }
+      children {
+        items {
+          id
+          name
+          parent {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          children {
+            nextToken
+            __typename
+          }
+          sortOrder
+          createdAt
+          updatedAt
+          boardCatgoryChildrenId
+          boardCategoryId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      sortOrder
+      createdAt
+      updatedAt
+      boardCatgoryChildrenId
+      boardCategoryId
+      __typename
+    }
+    children {
+      items {
+        id
+        name
+        parent {
+          id
+          name
+          parent {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          children {
+            nextToken
+            __typename
+          }
+          sortOrder
+          createdAt
+          updatedAt
+          boardCatgoryChildrenId
+          boardCategoryId
+          __typename
+        }
+        children {
+          items {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        sortOrder
+        createdAt
+        updatedAt
+        boardCatgoryChildrenId
+        boardCategoryId
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    sortOrder
+    createdAt
+    updatedAt
+    boardCatgoryChildrenId
+    boardCategoryId
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.CreateBoardCatgoryMutationVariables,
+  APITypes.CreateBoardCatgoryMutation
+>;
+export const updateBoardCatgory = /* GraphQL */ `mutation UpdateBoardCatgory(
+  $input: UpdateBoardCatgoryInput!
+  $condition: ModelBoardCatgoryConditionInput
+) {
+  updateBoardCatgory(input: $input, condition: $condition) {
+    id
+    name
+    parent {
+      id
+      name
+      parent {
+        id
+        name
+        parent {
+          id
+          name
+          parent {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          children {
+            nextToken
+            __typename
+          }
+          sortOrder
+          createdAt
+          updatedAt
+          boardCatgoryChildrenId
+          boardCategoryId
+          __typename
+        }
+        children {
+          items {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        sortOrder
+        createdAt
+        updatedAt
+        boardCatgoryChildrenId
+        boardCategoryId
+        __typename
+      }
+      children {
+        items {
+          id
+          name
+          parent {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          children {
+            nextToken
+            __typename
+          }
+          sortOrder
+          createdAt
+          updatedAt
+          boardCatgoryChildrenId
+          boardCategoryId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      sortOrder
+      createdAt
+      updatedAt
+      boardCatgoryChildrenId
+      boardCategoryId
+      __typename
+    }
+    children {
+      items {
+        id
+        name
+        parent {
+          id
+          name
+          parent {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          children {
+            nextToken
+            __typename
+          }
+          sortOrder
+          createdAt
+          updatedAt
+          boardCatgoryChildrenId
+          boardCategoryId
+          __typename
+        }
+        children {
+          items {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        sortOrder
+        createdAt
+        updatedAt
+        boardCatgoryChildrenId
+        boardCategoryId
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    sortOrder
+    createdAt
+    updatedAt
+    boardCatgoryChildrenId
+    boardCategoryId
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.UpdateBoardCatgoryMutationVariables,
+  APITypes.UpdateBoardCatgoryMutation
+>;
+export const deleteBoardCatgory = /* GraphQL */ `mutation DeleteBoardCatgory(
+  $input: DeleteBoardCatgoryInput!
+  $condition: ModelBoardCatgoryConditionInput
+) {
+  deleteBoardCatgory(input: $input, condition: $condition) {
+    id
+    name
+    parent {
+      id
+      name
+      parent {
+        id
+        name
+        parent {
+          id
+          name
+          parent {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          children {
+            nextToken
+            __typename
+          }
+          sortOrder
+          createdAt
+          updatedAt
+          boardCatgoryChildrenId
+          boardCategoryId
+          __typename
+        }
+        children {
+          items {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        sortOrder
+        createdAt
+        updatedAt
+        boardCatgoryChildrenId
+        boardCategoryId
+        __typename
+      }
+      children {
+        items {
+          id
+          name
+          parent {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          children {
+            nextToken
+            __typename
+          }
+          sortOrder
+          createdAt
+          updatedAt
+          boardCatgoryChildrenId
+          boardCategoryId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      sortOrder
+      createdAt
+      updatedAt
+      boardCatgoryChildrenId
+      boardCategoryId
+      __typename
+    }
+    children {
+      items {
+        id
+        name
+        parent {
+          id
+          name
+          parent {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          children {
+            nextToken
+            __typename
+          }
+          sortOrder
+          createdAt
+          updatedAt
+          boardCatgoryChildrenId
+          boardCategoryId
+          __typename
+        }
+        children {
+          items {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        sortOrder
+        createdAt
+        updatedAt
+        boardCatgoryChildrenId
+        boardCategoryId
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    sortOrder
+    createdAt
+    updatedAt
+    boardCatgoryChildrenId
+    boardCategoryId
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.DeleteBoardCatgoryMutationVariables,
+  APITypes.DeleteBoardCatgoryMutation
+>;
+export const createBoard = /* GraphQL */ `mutation CreateBoard(
+  $input: CreateBoardInput!
+  $condition: ModelBoardConditionInput
+) {
+  createBoard(input: $input, condition: $condition) {
+    id
+    title
+    header
+    footer
+    listViewItems
+    listSort {
+      item
+      sort
+      __typename
+    }
+    excludeNoticeFlag
+    type
+    category {
+      items {
+        id
+        name
+        parent {
+          id
+          name
+          parent {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          children {
+            nextToken
+            __typename
+          }
+          sortOrder
+          createdAt
+          updatedAt
+          boardCatgoryChildrenId
+          boardCategoryId
+          __typename
+        }
+        children {
+          items {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        sortOrder
+        createdAt
+        updatedAt
+        boardCatgoryChildrenId
+        boardCategoryId
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.CreateBoardMutationVariables,
+  APITypes.CreateBoardMutation
+>;
+export const updateBoard = /* GraphQL */ `mutation UpdateBoard(
+  $input: UpdateBoardInput!
+  $condition: ModelBoardConditionInput
+) {
+  updateBoard(input: $input, condition: $condition) {
+    id
+    title
+    header
+    footer
+    listViewItems
+    listSort {
+      item
+      sort
+      __typename
+    }
+    excludeNoticeFlag
+    type
+    category {
+      items {
+        id
+        name
+        parent {
+          id
+          name
+          parent {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          children {
+            nextToken
+            __typename
+          }
+          sortOrder
+          createdAt
+          updatedAt
+          boardCatgoryChildrenId
+          boardCategoryId
+          __typename
+        }
+        children {
+          items {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        sortOrder
+        createdAt
+        updatedAt
+        boardCatgoryChildrenId
+        boardCategoryId
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.UpdateBoardMutationVariables,
+  APITypes.UpdateBoardMutation
+>;
+export const deleteBoard = /* GraphQL */ `mutation DeleteBoard(
+  $input: DeleteBoardInput!
+  $condition: ModelBoardConditionInput
+) {
+  deleteBoard(input: $input, condition: $condition) {
+    id
+    title
+    header
+    footer
+    listViewItems
+    listSort {
+      item
+      sort
+      __typename
+    }
+    excludeNoticeFlag
+    type
+    category {
+      items {
+        id
+        name
+        parent {
+          id
+          name
+          parent {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          children {
+            nextToken
+            __typename
+          }
+          sortOrder
+          createdAt
+          updatedAt
+          boardCatgoryChildrenId
+          boardCategoryId
+          __typename
+        }
+        children {
+          items {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        sortOrder
+        createdAt
+        updatedAt
+        boardCatgoryChildrenId
+        boardCategoryId
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.DeleteBoardMutationVariables,
+  APITypes.DeleteBoardMutation
+>;
+export const createAttachment = /* GraphQL */ `mutation CreateAttachment(
+  $input: CreateAttachmentInput!
+  $condition: ModelAttachmentConditionInput
+) {
+  createAttachment(input: $input, condition: $condition) {
+    id
+    filename
+    filetype
+    path
+    createdAt
+    updatedAt
+    boardItemAttachmentsId
+    author
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.CreateAttachmentMutationVariables,
+  APITypes.CreateAttachmentMutation
+>;
+export const updateAttachment = /* GraphQL */ `mutation UpdateAttachment(
+  $input: UpdateAttachmentInput!
+  $condition: ModelAttachmentConditionInput
+) {
+  updateAttachment(input: $input, condition: $condition) {
+    id
+    filename
+    filetype
+    path
+    createdAt
+    updatedAt
+    boardItemAttachmentsId
+    author
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.UpdateAttachmentMutationVariables,
+  APITypes.UpdateAttachmentMutation
+>;
+export const deleteAttachment = /* GraphQL */ `mutation DeleteAttachment(
+  $input: DeleteAttachmentInput!
+  $condition: ModelAttachmentConditionInput
+) {
+  deleteAttachment(input: $input, condition: $condition) {
+    id
+    filename
+    filetype
+    path
+    createdAt
+    updatedAt
+    boardItemAttachmentsId
+    author
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.DeleteAttachmentMutationVariables,
+  APITypes.DeleteAttachmentMutation
+>;
+export const createBoardItem = /* GraphQL */ `mutation CreateBoardItem(
+  $input: CreateBoardItemInput!
+  $condition: ModelBoardItemConditionInput
+) {
+  createBoardItem(input: $input, condition: $condition) {
+    id
+    board {
+      id
+      title
+      header
+      footer
+      listViewItems
+      listSort {
+        item
+        sort
+        __typename
+      }
+      excludeNoticeFlag
+      type
+      category {
+        items {
+          id
+          name
+          parent {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          children {
+            nextToken
+            __typename
+          }
+          sortOrder
+          createdAt
+          updatedAt
+          boardCatgoryChildrenId
+          boardCategoryId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    category {
+      id
+      name
+      parent {
+        id
+        name
+        parent {
+          id
+          name
+          parent {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          children {
+            nextToken
+            __typename
+          }
+          sortOrder
+          createdAt
+          updatedAt
+          boardCatgoryChildrenId
+          boardCategoryId
+          __typename
+        }
+        children {
+          items {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        sortOrder
+        createdAt
+        updatedAt
+        boardCatgoryChildrenId
+        boardCategoryId
+        __typename
+      }
+      children {
+        items {
+          id
+          name
+          parent {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          children {
+            nextToken
+            __typename
+          }
+          sortOrder
+          createdAt
+          updatedAt
+          boardCatgoryChildrenId
+          boardCategoryId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      sortOrder
+      createdAt
+      updatedAt
+      boardCatgoryChildrenId
+      boardCategoryId
+      __typename
+    }
+    title
+    content
+    tag
+    author
+    attachments {
+      items {
+        id
+        filename
+        filetype
+        path
+        createdAt
+        updatedAt
+        boardItemAttachmentsId
+        author
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    isNotice
+    createdAt
+    updatedAt
+    boardItemBoardId
+    boardItemCategoryId
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.CreateBoardItemMutationVariables,
+  APITypes.CreateBoardItemMutation
+>;
+export const updateBoardItem = /* GraphQL */ `mutation UpdateBoardItem(
+  $input: UpdateBoardItemInput!
+  $condition: ModelBoardItemConditionInput
+) {
+  updateBoardItem(input: $input, condition: $condition) {
+    id
+    board {
+      id
+      title
+      header
+      footer
+      listViewItems
+      listSort {
+        item
+        sort
+        __typename
+      }
+      excludeNoticeFlag
+      type
+      category {
+        items {
+          id
+          name
+          parent {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          children {
+            nextToken
+            __typename
+          }
+          sortOrder
+          createdAt
+          updatedAt
+          boardCatgoryChildrenId
+          boardCategoryId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    category {
+      id
+      name
+      parent {
+        id
+        name
+        parent {
+          id
+          name
+          parent {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          children {
+            nextToken
+            __typename
+          }
+          sortOrder
+          createdAt
+          updatedAt
+          boardCatgoryChildrenId
+          boardCategoryId
+          __typename
+        }
+        children {
+          items {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        sortOrder
+        createdAt
+        updatedAt
+        boardCatgoryChildrenId
+        boardCategoryId
+        __typename
+      }
+      children {
+        items {
+          id
+          name
+          parent {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          children {
+            nextToken
+            __typename
+          }
+          sortOrder
+          createdAt
+          updatedAt
+          boardCatgoryChildrenId
+          boardCategoryId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      sortOrder
+      createdAt
+      updatedAt
+      boardCatgoryChildrenId
+      boardCategoryId
+      __typename
+    }
+    title
+    content
+    tag
+    author
+    attachments {
+      items {
+        id
+        filename
+        filetype
+        path
+        createdAt
+        updatedAt
+        boardItemAttachmentsId
+        author
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    isNotice
+    createdAt
+    updatedAt
+    boardItemBoardId
+    boardItemCategoryId
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.UpdateBoardItemMutationVariables,
+  APITypes.UpdateBoardItemMutation
+>;
+export const deleteBoardItem = /* GraphQL */ `mutation DeleteBoardItem(
+  $input: DeleteBoardItemInput!
+  $condition: ModelBoardItemConditionInput
+) {
+  deleteBoardItem(input: $input, condition: $condition) {
+    id
+    board {
+      id
+      title
+      header
+      footer
+      listViewItems
+      listSort {
+        item
+        sort
+        __typename
+      }
+      excludeNoticeFlag
+      type
+      category {
+        items {
+          id
+          name
+          parent {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          children {
+            nextToken
+            __typename
+          }
+          sortOrder
+          createdAt
+          updatedAt
+          boardCatgoryChildrenId
+          boardCategoryId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    category {
+      id
+      name
+      parent {
+        id
+        name
+        parent {
+          id
+          name
+          parent {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          children {
+            nextToken
+            __typename
+          }
+          sortOrder
+          createdAt
+          updatedAt
+          boardCatgoryChildrenId
+          boardCategoryId
+          __typename
+        }
+        children {
+          items {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        sortOrder
+        createdAt
+        updatedAt
+        boardCatgoryChildrenId
+        boardCategoryId
+        __typename
+      }
+      children {
+        items {
+          id
+          name
+          parent {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          children {
+            nextToken
+            __typename
+          }
+          sortOrder
+          createdAt
+          updatedAt
+          boardCatgoryChildrenId
+          boardCategoryId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      sortOrder
+      createdAt
+      updatedAt
+      boardCatgoryChildrenId
+      boardCategoryId
+      __typename
+    }
+    title
+    content
+    tag
+    author
+    attachments {
+      items {
+        id
+        filename
+        filetype
+        path
+        createdAt
+        updatedAt
+        boardItemAttachmentsId
+        author
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    isNotice
+    createdAt
+    updatedAt
+    boardItemBoardId
+    boardItemCategoryId
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.DeleteBoardItemMutationVariables,
+  APITypes.DeleteBoardItemMutation
+>;
+export const createBoardItemComment = /* GraphQL */ `mutation CreateBoardItemComment(
+  $input: CreateBoardItemCommentInput!
+  $condition: ModelBoardItemCommentConditionInput
+) {
+  createBoardItemComment(input: $input, condition: $condition) {
+    id
+    boardItem {
+      id
+      board {
+        id
+        title
+        header
+        footer
+        listViewItems
+        listSort {
+          item
+          sort
+          __typename
+        }
+        excludeNoticeFlag
+        type
+        category {
+          items {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      category {
+        id
+        name
+        parent {
+          id
+          name
+          parent {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          children {
+            nextToken
+            __typename
+          }
+          sortOrder
+          createdAt
+          updatedAt
+          boardCatgoryChildrenId
+          boardCategoryId
+          __typename
+        }
+        children {
+          items {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        sortOrder
+        createdAt
+        updatedAt
+        boardCatgoryChildrenId
+        boardCategoryId
+        __typename
+      }
+      title
+      content
+      tag
+      author
+      attachments {
+        items {
+          id
+          filename
+          filetype
+          path
+          createdAt
+          updatedAt
+          boardItemAttachmentsId
+          author
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      isNotice
+      createdAt
+      updatedAt
+      boardItemBoardId
+      boardItemCategoryId
+      __typename
+    }
+    comment
+    author
+    createdAt
+    updatedAt
+    boardItemCommentBoardItemId
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.CreateBoardItemCommentMutationVariables,
+  APITypes.CreateBoardItemCommentMutation
+>;
+export const updateBoardItemComment = /* GraphQL */ `mutation UpdateBoardItemComment(
+  $input: UpdateBoardItemCommentInput!
+  $condition: ModelBoardItemCommentConditionInput
+) {
+  updateBoardItemComment(input: $input, condition: $condition) {
+    id
+    boardItem {
+      id
+      board {
+        id
+        title
+        header
+        footer
+        listViewItems
+        listSort {
+          item
+          sort
+          __typename
+        }
+        excludeNoticeFlag
+        type
+        category {
+          items {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      category {
+        id
+        name
+        parent {
+          id
+          name
+          parent {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          children {
+            nextToken
+            __typename
+          }
+          sortOrder
+          createdAt
+          updatedAt
+          boardCatgoryChildrenId
+          boardCategoryId
+          __typename
+        }
+        children {
+          items {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        sortOrder
+        createdAt
+        updatedAt
+        boardCatgoryChildrenId
+        boardCategoryId
+        __typename
+      }
+      title
+      content
+      tag
+      author
+      attachments {
+        items {
+          id
+          filename
+          filetype
+          path
+          createdAt
+          updatedAt
+          boardItemAttachmentsId
+          author
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      isNotice
+      createdAt
+      updatedAt
+      boardItemBoardId
+      boardItemCategoryId
+      __typename
+    }
+    comment
+    author
+    createdAt
+    updatedAt
+    boardItemCommentBoardItemId
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.UpdateBoardItemCommentMutationVariables,
+  APITypes.UpdateBoardItemCommentMutation
+>;
+export const deleteBoardItemComment = /* GraphQL */ `mutation DeleteBoardItemComment(
+  $input: DeleteBoardItemCommentInput!
+  $condition: ModelBoardItemCommentConditionInput
+) {
+  deleteBoardItemComment(input: $input, condition: $condition) {
+    id
+    boardItem {
+      id
+      board {
+        id
+        title
+        header
+        footer
+        listViewItems
+        listSort {
+          item
+          sort
+          __typename
+        }
+        excludeNoticeFlag
+        type
+        category {
+          items {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      category {
+        id
+        name
+        parent {
+          id
+          name
+          parent {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          children {
+            nextToken
+            __typename
+          }
+          sortOrder
+          createdAt
+          updatedAt
+          boardCatgoryChildrenId
+          boardCategoryId
+          __typename
+        }
+        children {
+          items {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        sortOrder
+        createdAt
+        updatedAt
+        boardCatgoryChildrenId
+        boardCategoryId
+        __typename
+      }
+      title
+      content
+      tag
+      author
+      attachments {
+        items {
+          id
+          filename
+          filetype
+          path
+          createdAt
+          updatedAt
+          boardItemAttachmentsId
+          author
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      isNotice
+      createdAt
+      updatedAt
+      boardItemBoardId
+      boardItemCategoryId
+      __typename
+    }
+    comment
+    author
+    createdAt
+    updatedAt
+    boardItemCommentBoardItemId
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.DeleteBoardItemCommentMutationVariables,
+  APITypes.DeleteBoardItemCommentMutation
 >;

@@ -49,16 +49,6 @@ type Parameter @model @auth(rules: [
   module: Module! @belongsTo
 }
 
-type Action @model @auth(rules: [
-  { allow: groups, groups: ["Admin"], operations: [read, create, update, delete] },
-  { allow: public, operations: [read] }
-]) {
-  id: ID!
-  name: String!
-  isIndex: Boolean!
-  module: Module! @belongsTo
-}
-
 type Module @model @auth(rules: [
   { allow: groups, groups: ["Admin"], operations: [read, create, update, delete] },
   { allow: public, operations: [read] }
@@ -67,7 +57,25 @@ type Module @model @auth(rules: [
   name: String!
   parameters: [Parameter] @hasMany
   menus: [Menu] @hasMany
-  actions: [Action]! @hasMany
+}
+
+type RouteParameter @model @auth(rules: [
+  { allow: groups, groups: ["Admin"], operations: [read, create, update, delete] },
+  { allow: public, operations: [read] }
+]) {
+  name: String!
+  value: String!
+}
+
+type Route @model @auth(rules: [
+  { allow: groups, groups: ["Admin"], operations: [read, create, update, delete] },
+  { allow: public, operations: [read] }
+]) {
+  id: ID!
+  module: Module! @hasOne
+  action: String!
+  path: String!
+  parameters: [RouteParameter] @hasMany
 }
 
 enum MenuType {
@@ -105,4 +113,93 @@ type Document @model @auth(rules: [
   title: String
   content: String
   author: String
+}
+
+enum SortOrder {
+  asc
+  desc
+}
+
+type TSortItem {
+  item: String!
+  sort: SortOrder!
+}
+
+enum BoardType {
+  default
+  anonymous
+  consultation
+}
+
+type BoardCatgory @model @auth(rules: [
+  { allow: groups, groups: ["Admin"], operations: [read, create, update, delete] },
+  { allow: public, operations: [read] }
+]) {
+  id: ID!
+  name: String!
+  parent: BoardCatgory @belongsTo
+  children: [BoardCatgory]! @hasMany
+  sortOrder: Int!
+}
+
+type Board @model @auth(rules: [
+  { allow: groups, groups: ["Admin"], operations: [read, create, update, delete] },
+  { allow: public, operations: [read] }
+]) {
+  #PRIMARY
+  id: ID!
+  title: String!
+  header: String
+  footer: String
+  #SECONDARY
+  listViewItems: [String]!
+  listSort: TSortItem!
+  excludeNoticeFlag: Boolean!
+  type: BoardType!
+  category: [BoardCatgory]! @hasMany
+  #PERMISSION
+  # - TODO
+  #POINTS
+  # - TODO
+}
+
+type Attachment @model @auth(rules: [
+  { allow: groups, groups: ["Admin"], operations: [read, create, update, delete] },
+  { allow: private, operations: [read, create] },
+  { allow: owner, operations: [update, delete], ownerField: "author" },
+  { allow: public, operations: [read] }
+]) {
+  id: ID!
+  filename: String!
+  filetype: String!
+  path: String!
+}
+
+type BoardItem @model @auth(rules: [
+  { allow: groups, groups: ["Admin"], operations: [read, create, update, delete] },
+  { allow: private, operations: [read, create] },
+  { allow: owner, operations: [update, delete], ownerField: "author" },
+  { allow: public, operations: [read] }
+]) {
+  id: ID!
+  board: Board! @hasOne
+  category: BoardCatgory @hasOne
+  title: String!
+  content: String!
+  tag: String!
+  author: String!
+  attachments: [Attachment] @hasMany
+  isNotice: Boolean
+}
+
+type BoardItemComment @model @auth(rules: [
+  { allow: groups, groups: ["Admin"], operations: [read, create, update, delete] },
+  { allow: private, operations: [read, create] },
+  { allow: owner, operations: [update, delete], ownerField: "author" },
+  { allow: public, operations: [read] }
+]) {
+  id: ID!
+  boardItem: BoardItem! @hasOne
+  comment: String!
+  author: String!
 }
