@@ -627,6 +627,7 @@ export const onCreateRoute = /* GraphQL */ `subscription OnCreateRoute($filter: 
     }
     action
     path
+    isAdmin
     parameters {
       items {
         name
@@ -717,6 +718,7 @@ export const onUpdateRoute = /* GraphQL */ `subscription OnUpdateRoute($filter: 
     }
     action
     path
+    isAdmin
     parameters {
       items {
         name
@@ -807,6 +809,7 @@ export const onDeleteRoute = /* GraphQL */ `subscription OnDeleteRoute($filter: 
     }
     action
     path
+    isAdmin
     parameters {
       items {
         name

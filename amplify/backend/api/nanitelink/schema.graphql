@@ -75,6 +75,7 @@ type Route @model @auth(rules: [
   module: Module! @hasOne
   action: String!
   path: String!
+  isAdmin: Boolean!
   parameters: [RouteParameter] @hasMany
 }
 

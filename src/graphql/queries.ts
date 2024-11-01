@@ -420,6 +420,7 @@ export const getRoute = /* GraphQL */ `query GetRoute($id: ID!) {
     }
     action
     path
+    isAdmin
     parameters {
       items {
         name
@@ -488,6 +489,7 @@ export const listRoutes = /* GraphQL */ `query ListRoutes(
       }
       action
       path
+      isAdmin
       parameters {
         items {
           name

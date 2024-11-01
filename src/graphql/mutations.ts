@@ -651,6 +651,7 @@ export const createRoute = /* GraphQL */ `mutation CreateRoute(
     }
     action
     path
+    isAdmin
     parameters {
       items {
         name
@@ -744,6 +745,7 @@ export const updateRoute = /* GraphQL */ `mutation UpdateRoute(
     }
     action
     path
+    isAdmin
     parameters {
       items {
         name
@@ -837,6 +839,7 @@ export const deleteRoute = /* GraphQL */ `mutation DeleteRoute(
     }
     action
     path
+    isAdmin
     parameters {
       items {
         name

@@ -197,7 +197,7 @@ const Header: React.FC = () => {
                 >
                   <NavLink to={`/${route.url}`} >{route.name}</NavLink>
                 </div>
-                { anchorEl && route.subMenus && route.subMenus?.length &&
+                { route.subMenus && anchorEl && (route.subMenus?.length ?? 0 > 0) &&
                   <MenuPopper
                     targetRef={anchorEl}
                     open={openSubMenu !== null && openSubMenu === route.id}

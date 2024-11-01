@@ -1,61 +1,8 @@
-import { CKEditor } from '@ckeditor/ckeditor5-react';
 import { Box } from '@mui/material';
-import {
-  ClassicEditor,
-  AccessibilityHelp,
-  Autoformat,
-  AutoImage,
-  Autosave,
-  Base64UploadAdapter,
-  BlockQuote,
-  Bold,
-  CloudServices,
-  Essentials,
-  FullPage,
-  GeneralHtmlSupport,
-  Heading,
-  HtmlComment,
-  HtmlEmbed,
-  ImageBlock,
-  ImageCaption,
-  ImageInline,
-  ImageInsert,
-  ImageInsertViaUrl,
-  ImageResize,
-  ImageStyle,
-  ImageTextAlternative,
-  ImageToolbar,
-  ImageUpload,
-  Indent,
-  IndentBlock,
-  Italic,
-  Link,
-  LinkImage,
-  List,
-  ListProperties,
-  MediaEmbed,
-  Paragraph,
-  PasteFromOffice,
-  SelectAll,
-  ShowBlocks,
-  SourceEditing,
-  Table,
-  TableCaption,
-  TableCellProperties,
-  TableColumnResize,
-  TableProperties,
-  TableToolbar,
-  TextTransformation,
-  TodoList,
-  Underline,
-  Undo,
-  Editor,
-  EditorConfig
-} from 'ckeditor5';
 import { ButtonBlack, ButtonGroupBlack } from 'component/CustomMaterialUI';
 import { useNavigate } from 'react-router-dom';
 import { isAdminUser } from 'function/amplify/auth';
-import { GraphqlQueryGetDocument, GraphqlQueryUpdateDocument } from 'function/amplify/graphqlQueries';
+import { GraphqlQueryGetDocument } from 'function/amplify/graphqlQueries';
 import { getUserById } from 'function/amplify/restApiQueries';
 import { useEffect, useState } from 'react';
 import 'ckeditor5/ckeditor5.css';
@@ -66,7 +13,6 @@ const Page = (props: {id?: string}) => {
   const [content, setContent] = useState(' ');
   const [author, setAuthor] = useState('');
   const [isAdmin, setIsAdmin] = useState(false);
-  const [isEditMode, setIsEditMode] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -88,7 +34,7 @@ const Page = (props: {id?: string}) => {
           setAuthor(author ?? '');
         }
       } catch (error) {
-        console.log(error);
+        //console.log(error);
       } 
     };
 
@@ -100,11 +46,10 @@ const Page = (props: {id?: string}) => {
   useEffect(() => {
     const retrieveData = async(id: string) => {
       try {
-        console.log(id);
-        const user = await getUserById({id});
-        console.log(user);
+        //const user = await 
+        getUserById({id});
       } catch (error) {
-        console.log(error);
+        //console.log(error);
       }
     };
     if (author) {
@@ -114,7 +59,6 @@ const Page = (props: {id?: string}) => {
 
   const onModifyHandler = () => {
     const path = `/page/edit/${id}`;
-    console.log(path);
     return navigate(path);
   };
 

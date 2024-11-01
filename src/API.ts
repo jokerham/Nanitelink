@@ -249,12 +249,14 @@ export type CreateRouteInput = {
   id?: string | null,
   action: string,
   path: string,
+  isAdmin: boolean,
   routeModuleId: string,
 };
 
 export type ModelRouteConditionInput = {
   action?: ModelStringInput | null,
   path?: ModelStringInput | null,
+  isAdmin?: ModelBooleanInput | null,
   and?: Array< ModelRouteConditionInput | null > | null,
   or?: Array< ModelRouteConditionInput | null > | null,
   not?: ModelRouteConditionInput | null,
@@ -263,12 +265,20 @@ export type ModelRouteConditionInput = {
   routeModuleId?: ModelIDInput | null,
 };
 
+export type ModelBooleanInput = {
+  ne?: boolean | null,
+  eq?: boolean | null,
+  attributeExists?: boolean | null,
+  attributeType?: ModelAttributeTypes | null,
+};
+
 export type Route = {
   __typename: "Route",
   id: string,
   module: Module,
   action: string,
   path: string,
+  isAdmin: boolean,
   parameters?: ModelRouteParameterConnection | null,
   createdAt: string,
   updatedAt: string,
@@ -285,6 +295,7 @@ export type UpdateRouteInput = {
   id: string,
   action?: string | null,
   path?: string | null,
+  isAdmin?: boolean | null,
   routeModuleId?: string | null,
 };
 
@@ -488,13 +499,6 @@ export type ModelBoardConditionInput = {
   not?: ModelBoardConditionInput | null,
   createdAt?: ModelStringInput | null,
   updatedAt?: ModelStringInput | null,
-};
-
-export type ModelBooleanInput = {
-  ne?: boolean | null,
-  eq?: boolean | null,
-  attributeExists?: boolean | null,
-  attributeType?: ModelAttributeTypes | null,
 };
 
 export type ModelBoardTypeInput = {
@@ -732,6 +736,7 @@ export type ModelRouteFilterInput = {
   id?: ModelIDInput | null,
   action?: ModelStringInput | null,
   path?: ModelStringInput | null,
+  isAdmin?: ModelBooleanInput | null,
   createdAt?: ModelStringInput | null,
   updatedAt?: ModelStringInput | null,
   and?: Array< ModelRouteFilterInput | null > | null,
@@ -934,12 +939,18 @@ export type ModelSubscriptionRouteFilterInput = {
   id?: ModelSubscriptionIDInput | null,
   action?: ModelSubscriptionStringInput | null,
   path?: ModelSubscriptionStringInput | null,
+  isAdmin?: ModelSubscriptionBooleanInput | null,
   createdAt?: ModelSubscriptionStringInput | null,
   updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionRouteFilterInput | null > | null,
   or?: Array< ModelSubscriptionRouteFilterInput | null > | null,
   routeParametersId?: ModelSubscriptionIDInput | null,
   routeModuleId?: ModelSubscriptionIDInput | null,
+};
+
+export type ModelSubscriptionBooleanInput = {
+  ne?: boolean | null,
+  eq?: boolean | null,
 };
 
 export type ModelSubscriptionMenuFilterInput = {
@@ -1003,11 +1014,6 @@ export type ModelSubscriptionBoardFilterInput = {
   and?: Array< ModelSubscriptionBoardFilterInput | null > | null,
   or?: Array< ModelSubscriptionBoardFilterInput | null > | null,
   boardCategoryId?: ModelSubscriptionIDInput | null,
-};
-
-export type ModelSubscriptionBooleanInput = {
-  ne?: boolean | null,
-  eq?: boolean | null,
 };
 
 export type ModelSubscriptionAttachmentFilterInput = {
@@ -1686,6 +1692,7 @@ export type CreateRouteMutation = {
     },
     action: string,
     path: string,
+    isAdmin: boolean,
     parameters?:  {
       __typename: "ModelRouteParameterConnection",
       items:  Array< {
@@ -1778,6 +1785,7 @@ export type UpdateRouteMutation = {
     },
     action: string,
     path: string,
+    isAdmin: boolean,
     parameters?:  {
       __typename: "ModelRouteParameterConnection",
       items:  Array< {
@@ -1870,6 +1878,7 @@ export type DeleteRouteMutation = {
     },
     action: string,
     path: string,
+    isAdmin: boolean,
     parameters?:  {
       __typename: "ModelRouteParameterConnection",
       items:  Array< {
@@ -4253,6 +4262,7 @@ export type GetRouteQuery = {
     },
     action: string,
     path: string,
+    isAdmin: boolean,
     parameters?:  {
       __typename: "ModelRouteParameterConnection",
       items:  Array< {
@@ -4324,6 +4334,7 @@ export type ListRoutesQuery = {
       },
       action: string,
       path: string,
+      isAdmin: boolean,
       parameters?:  {
         __typename: "ModelRouteParameterConnection",
         items:  Array< {
@@ -6100,6 +6111,7 @@ export type OnCreateRouteSubscription = {
     },
     action: string,
     path: string,
+    isAdmin: boolean,
     parameters?:  {
       __typename: "ModelRouteParameterConnection",
       items:  Array< {
@@ -6191,6 +6203,7 @@ export type OnUpdateRouteSubscription = {
     },
     action: string,
     path: string,
+    isAdmin: boolean,
     parameters?:  {
       __typename: "ModelRouteParameterConnection",
       items:  Array< {
@@ -6282,6 +6295,7 @@ export type OnDeleteRouteSubscription = {
     },
     action: string,
     path: string,
+    isAdmin: boolean,
     parameters?:  {
       __typename: "ModelRouteParameterConnection",
       items:  Array< {

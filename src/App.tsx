@@ -5,27 +5,42 @@ import AdminLayout from 'layout/admin/AdminLayout';
 import Signup from 'pages/auth/Signup';
 import PageNotFound from 'layout/PageNotFound';
 import { GraphqlQueryListAllRoutes } from 'function/amplify/graphqlQueries';
-import { IModuleProp, IRoute } from 'interfaces';
+import { IRoute } from 'interfaces';
 import { Dashboard, Members, Menu } from 'pages/admin';
 import 'App.scss';
 import LoadingPage from 'component/LoadingPage';
 
-type TDynamicModules = Record<string, React.FC<IModuleProp>>;
+type TDynamicModules = Record<string, React.FC>;
 
-interface IAction {
-  id: string;
-  name: string;
-  isIndex: boolean;
-  isAdmin: boolean;
+interface RouteWrapperProps {
+  index: number;
+  route: IRoute;
+  ModuleComponent?: React.ComponentType;
 }
 
-interface IModule {
-  id: string;
-  name: string;
-  actions: {
-    items: IAction[];
+const RouteWrapper = ({ ModuleComponent, route }: RouteWrapperProps) => {
+  const { id, action } = useParams<{ id: string, action: string }>();
+
+  const props = route.parameters?.items?.reduce((acc: { [key: string]: string }, param) => {
+    acc[param.name] = param.value;
+    return acc;
+  }, {}) ?? {};
+
+  if (id) {
+    props['id'] = id;
   }
-}
+  if (action) {
+    props['action'] = action;
+  } else {
+    props['action'] = route.action;
+  }
+
+  if (ModuleComponent) {
+    return <ModuleComponent {...props} />;
+  } else {
+    return <PageNotFound />;
+  }
+};
 
 const App = () => {
   const [routes, setRoutes] = useState<IRoute[]>([]);
@@ -39,64 +54,33 @@ const App = () => {
         // Retrieve all routes from api
         const tmpRoutes = await GraphqlQueryListAllRoutes();
         const routes = tmpRoutes.map(route => {
-          const { path, module, action, parameters } = route;
-          const moduleId = parameters?.items.find((param: {name: string} | null) => param?.name === 'id')?.value;
-          return {
-            path,
-            module,
-            action,
-            moduleId: moduleId ?? ''
-          };
+          const { path, module, action, parameters, isAdmin } = route;
+          const moduleId = parameters?.items.find((param: {name: string} | null) => param?.name === 'id')?.value ?? '';
+          const routeParameters = {
+            items: parameters?.items
+              .filter(item => (item !== null))
+              .map(item => ({
+                name: item?.name ?? '',
+                value: item?.value ?? '',
+              })) ?? []};
+          return { path, module, action, moduleId: moduleId, isAdmin, parameters: routeParameters };
         });
 
         // Import module elements
         const moduleMapping: TDynamicModules = {};
         for (const route of routes) {
-          const moduleElement = await import(`pages/module/${route.module.name.toLowerCase()}`);
-          moduleMapping[route.module.id] = moduleElement.default;
+          const moduleElement = await import(`pages/module/${route.module.name.toLowerCase()}${route.isAdmin ? '/admin' : ''}`);
+          moduleMapping[route.module.id + (route.isAdmin ? 'Admin' : '')] = moduleElement.default;
         }
-
         setModuleMapping(moduleMapping);
         setRoutes(routes);
         setLoading(false);
       } catch(error) {
-        console.log(error);
+        //console.log(error);
       }
     };
     getRoutes();
   }, []);
-
-  interface RouteProps {
-    index: number;
-    route: {
-      path: string;
-      moduleId: string;
-      action: string;
-    };
-    ModuleComponent?: React.ComponentType<{ id: string; action: string }>;
-  }
-  
-  const RouteWrapper: React.FC<RouteProps> = ({ ModuleComponent, route }) => {
-    const { id: paramId, action } = useParams<{ id: string, action: string }>();
-
-    // Use `paramId` if available; otherwise, fall back to `route.moduleId`
-    const id = paramId || route.moduleId;
-    
-    if (!id) {
-      console.log('ID not found for RouteWrapper');
-      return <PageNotFound />;
-    }
-
-    if (!ModuleComponent) {
-      console.log('module component not found for RouteWrapper');
-    }
-
-    return ModuleComponent ? (
-      <ModuleComponent id={id} action={action ?? route.action} />
-    ) : (
-      <PageNotFound />
-    );
-  };
 
   return (
     <>
@@ -106,23 +90,41 @@ const App = () => {
         <Router>
           <Routes>
             <Route path="/" element={<Layout />}>
-              {routes.map((route, index) => {
-                const ModuleComponent = moduleMapping[route.module.id]; // Assign the component
-                return (
-                  <Route
-                    key={index}
-                    path={route.path}
-                    element={ModuleComponent ? 
-                      <RouteWrapper ModuleComponent={ModuleComponent} route={route} index={0} /> :
-                      <PageNotFound />}
-                  />
-                );
-              })}
+              {routes
+                .filter(route => !route.isAdmin)
+                .map((route, index) => {
+                  const ModuleComponent = moduleMapping[route.module.id]; // Assign the component
+                  return (
+                    <Route
+                      key={index}
+                      path={route.path}
+                      element={ModuleComponent ? 
+                        <RouteWrapper ModuleComponent={ModuleComponent} route={route} index={0} /> :
+                        <PageNotFound />}
+                    />
+                  );
+                })
+              }
               <Route path="signup" element={<Signup />} />  {/* Signup route */}
               <Route path="*" element={<PageNotFound />} /> {/* Page not found route */}
             </Route>
             <Route path="admin/" element={<AdminLayout />}>
               <Route index element={<Dashboard />} />
+              {routes
+                .filter(route => route.isAdmin)
+                .map((route, index) => {
+                  const ModuleComponent = moduleMapping[route.module.id + (route.isAdmin ? 'Admin' : '')]; // Assign the component
+                  return (
+                    <Route
+                      key={index}
+                      path={route.path}
+                      element={ModuleComponent ? 
+                        <RouteWrapper ModuleComponent={ModuleComponent} route={route} index={0} /> :
+                        <PageNotFound />}
+                    />
+                  );
+                })
+              }
               <Route path="members" element={<Members />} />
               <Route path="menu" element={<Menu />} />
               <Route path="*" element={<PageNotFound />} />

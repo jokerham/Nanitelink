@@ -87,7 +87,7 @@ const Page = (props: {id?: string}) => {
           setAuthor(author ?? '');
         }
       } catch (error) {
-        console.log(error);
+        //console.log(error);
       } 
     };
 
@@ -99,11 +99,10 @@ const Page = (props: {id?: string}) => {
   useEffect(() => {
     const retrieveData = async(id: string) => {
       try {
-        console.log(id);
-        const user = await getUserById({id});
-        console.log(user);
+        //const user = await 
+        getUserById({id});
       } catch (error) {
-        console.log(error);
+        //console.log(error);
       }
     };
     if (author) {
@@ -300,7 +299,7 @@ const Page = (props: {id?: string}) => {
         const path = '/page/' + id;
         navigate(path);
       } catch (error) {
-        console.log(error);
+        //console.log(error);
       }
     }
   };

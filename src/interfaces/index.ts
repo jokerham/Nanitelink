@@ -19,7 +19,14 @@ export interface IRoute {
   path: string;
   module: IModule;
   action: string;
-  moduleId: string
+  moduleId: string;
+  isAdmin: boolean;
+  parameters?: {
+    items: {
+      name: string;
+      value: string;
+    }[];
+  };
 }
 
 export interface IMenu {
