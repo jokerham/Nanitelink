@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Box, Button, ButtonGroup, Divider, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Toolbar, Checkbox } from '@mui/material';
 import { GraphqlQueryListAllModules } from 'function/amplify/graphqlQueries';
+import { toLocalDate } from 'function/amplify/awsDate';
 
 interface IModules {
   id: string
@@ -39,19 +40,19 @@ const Module = () => {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell><Checkbox/></TableCell>
+              <TableCell sx={{paddingY: 0}}><Checkbox/></TableCell>
               <TableCell>Module</TableCell>
               <TableCell>Parameters</TableCell>
-              <TableCell>Created At</TableCell>
+              <TableCell align='center'>Created At</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {modules?.sort((a, b) => (a.createdAt > b.createdAt ? 1 : -1)).map((module: IModules) => (
               <TableRow key={module.id}>
-                <TableCell><Checkbox/></TableCell>
+                <TableCell sx={{paddingY: 0}}><Checkbox/></TableCell>
                 <TableCell>{module.name}</TableCell>
                 <TableCell>{module.parameters?.items?.join(' / ')}</TableCell>
-                <TableCell>{module.createdAt.toString()}</TableCell>
+                <TableCell align='center'>{toLocalDate(module.createdAt)}</TableCell>
               </TableRow>
             ))}
           </TableBody>
