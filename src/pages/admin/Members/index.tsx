@@ -21,7 +21,7 @@ interface IResult {
 }
 
 const Members = () => {
-  const [totalPages, setTotalPages] = useState(0);
+  //const [totalPages, setTotalPages] = useState(0);
   const [members, setMembers] = useState<IMember[] | undefined>();
   const [filter, setFilter] = useState<string | null>('all');
 
@@ -47,7 +47,7 @@ const Members = () => {
           }).response;
           const data = await response.body.json() as unknown as IResult;
           setMembers(data.users);
-          setTotalPages(data.totalPages);
+          //setTotalPages(data.totalPages);
         }
       } catch (error) {
         toast.error('Error listing users:' + error);

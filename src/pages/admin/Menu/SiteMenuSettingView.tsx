@@ -52,7 +52,7 @@ const SiteMenuSettingView = (props: SiteMenuSettingViewProps) => {
   const amplifyDeleteMenu = async (id: string) => {
     const client = generateClient();
     try {
-      const result = await client.graphql({
+      await client.graphql({
         query: deleteMenu,
         variables: {
           input:  {
@@ -61,10 +61,9 @@ const SiteMenuSettingView = (props: SiteMenuSettingViewProps) => {
         },
         authMode: 'userPool'
       });
-      console.log(result);
       onClose(true);
     } catch (error) {
-      console.error('Error deleting menu:', error);
+      //console.error('Error deleting menu:', error);
     }
   };
 

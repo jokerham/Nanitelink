@@ -4,11 +4,11 @@ import PageNotFound from 'layout/PageNotFound';
 
 const BaseModule: React.FC<IDynamicModuleProp> = (props) => {
   const componentsMap = props.getComponentsMap();
-  const ActionComponent = componentsMap[props.action.toLowerCase()] || null;
-
-  if (!ActionComponent) {
-    return <PageNotFound />;
-  }
+  const listOfActions = Object.keys(componentsMap);
+  const action = props.action != '' ? props.action : listOfActions[0];
+  
+  //console.log(props);
+  const ActionComponent = componentsMap[action] || PageNotFound;
 
   if (props.id == undefined) {
     return <ActionComponent />;

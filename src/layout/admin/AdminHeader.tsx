@@ -4,7 +4,6 @@ import { fetchUserAttributes, FetchUserAttributesOutput, signOut } from 'aws-amp
 import { useEffect, useState } from 'react';
 import { Hub } from 'aws-amplify/utils';
 import { useNavigate } from 'react-router-dom';
-import { Link } from 'react-router-dom';
 
 const Header = () => {
   const navigate = useNavigate();

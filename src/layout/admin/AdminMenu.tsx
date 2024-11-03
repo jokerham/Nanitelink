@@ -1,11 +1,13 @@
 import { Accordion, AccordionDetails, AccordionSummary, Box, Button, List, ListItem } from '@mui/material';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FaCaretDown, FaCaretLeft } from 'react-icons/fa6';
 import { MdSpaceDashboard } from 'react-icons/md';
 import { IoMdHome } from 'react-icons/io';
 import { ImUser } from 'react-icons/im';
 import { FaCaretRight } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
+import { GraphqlQueryListAllModules } from 'function/amplify/graphqlQueries';
+import { IModule } from 'interfaces';
 
 interface IMenu {
   icon: JSX.Element, title: string, subMenus?: ISubMenu[], onClick: () => void
@@ -19,13 +21,9 @@ const AdminMenu = () => {
   const [open, setOpen] = useState(true);
   const [expandedIndices, setExpandedIndices] = useState<number[]>([]); // Manage expanded indices
   const [activeMenu, setActiveMenu] = useState<number | null>(null); // Track active menu
+  const [modules, setModules] = useState<IModule[]>([]);
+  const [menus, setMenus] = useState<IMenu[]>([]);
   const navigate = useNavigate();
-
-  const menuNavigate = (clickedMenu: number, href?: string) => {
-    setOpen(true);
-    setActiveMenu(clickedMenu);
-    if (href) navigate(href);
-  };
 
   const handleAccordionChange = (index: number) => (event: React.ChangeEvent<unknown>, isExpanded: boolean) => {
     setExpandedIndices(prevIndices =>
@@ -35,37 +33,60 @@ const AdminMenu = () => {
     );
   };
 
-  const handleSubMenuClick = (index: number, subMenuIndex: number, href?: string) => () => {
-    menuNavigate(index, href);
-  };
+  useEffect(() => {
+    const getModuleList = async () => {
+      try {
+        const modules = await GraphqlQueryListAllModules();
+        setModules(modules);
+      } catch (error) {
+        //console.error('Error fetching module list:', error);
+      }
+    };
+    getModuleList();
+  }, []);
 
-  const menus: IMenu[] = [
-    {
-      icon: <MdSpaceDashboard />, title: 'Dashboard', onClick: () => { menuNavigate(0, '/admin'); }
-    }, {
-      icon: <IoMdHome />, title: 'Edit Site', subMenus: [
+  useEffect(() => {
+    const menuNavigate = (clickedMenu: number, href?: string) => {
+      setOpen(true);
+      setActiveMenu(clickedMenu);
+      if (href) navigate(href);
+    };
+
+    const handleSubMenuClick = (index: number, subMenuIndex: number, href?: string) => () => {
+      menuNavigate(index, href);
+    };
+
+    if (modules) {
+      const menus: IMenu[] = [
         {
-          title: 'Edit Menu', onClick: handleSubMenuClick(1, 0, '/admin/menu')
-        }
-      ], onClick: () => { menuNavigate(1); }
-    }, {
-      icon: <IoMdHome />, title: 'Edit Modules', subMenus: [
-        {
-          title: 'Modules', onClick: handleSubMenuClick(2, 0, '/admin/module')
-        }
-      ], onClick: () => { menuNavigate(2); }
-    }, {
-      icon: <ImUser />, title: 'Members', subMenus: [
-        {
-          title: 'Member List', onClick: handleSubMenuClick(3, 0, '/admin/members')
+          icon: <MdSpaceDashboard />, title: 'Dashboard', onClick: () => { menuNavigate(0, '/admin'); }
         }, {
-          title: 'Group List', onClick: handleSubMenuClick(3, 1, '/admin/groups')
+          icon: <IoMdHome />, title: 'Edit Site', subMenus: [
+            { title: 'Edit Menu', onClick: handleSubMenuClick(1, 0, '/admin/menu') },
+          ], onClick: () => { menuNavigate(1); }
         }, {
-          title: 'Member Setting', onClick: handleSubMenuClick(3, 2, '/admin/member/setting')
+          icon: <IoMdHome />, title: 'Edit Modules', subMenus: [
+            { title: 'Module List', onClick: handleSubMenuClick(2, 0, '/admin/module') },
+            ...modules
+              .sort((a, b) => (a.name.localeCompare(b.name)))
+              .map((module: IModule) => {
+                return { title: module.name, onClick: handleSubMenuClick(2, 1, '/admin/' + module.name.toLowerCase()) };
+              })
+          ], onClick: () => { menuNavigate(2); }
+        }, {
+          icon: <ImUser />, title: 'Members', subMenus: [
+            { title: 'Member List', onClick: handleSubMenuClick(3, 0, '/admin/members') }, 
+            { title: 'Group List', onClick: handleSubMenuClick(3, 1, '/admin/groups') }, 
+            { title: 'Member Setting', onClick: handleSubMenuClick(3, 2, '/admin/member/setting') },
+          ], onClick: () => { menuNavigate(3); }
         }
-      ], onClick: () => { menuNavigate(3); }
+      ];
+      setMenus(menus);
     }
-  ];
+  }, [modules, navigate]);
+  /*
+
+  */
 
   return (
     <Box className={'NL_admin_drawer_container ' + (open ? 'open' : 'close')}>

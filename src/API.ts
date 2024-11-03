@@ -125,7 +125,6 @@ export type Module = {
   id: string,
   name: string,
   parameters?: ModelParameterConnection | null,
-  menus?: ModelMenuConnection | null,
   createdAt: string,
   updatedAt: string,
 };
@@ -134,40 +133,6 @@ export type ModelParameterConnection = {
   __typename: "ModelParameterConnection",
   items:  Array<Parameter | null >,
   nextToken?: string | null,
-};
-
-export type ModelMenuConnection = {
-  __typename: "ModelMenuConnection",
-  items:  Array<Menu | null >,
-  nextToken?: string | null,
-};
-
-export type Menu = {
-  __typename: "Menu",
-  id: string,
-  name: string,
-  parent?: string | null,
-  menuType: MenuType,
-  module: Module,
-  moduleId: string,
-  parameterSettings?:  Array<TParameterValue | null > | null,
-  url: string,
-  sortOrder?: number | null,
-  createdAt: string,
-  updatedAt: string,
-  moduleMenusId?: string | null,
-};
-
-export enum MenuType {
-  Internal = "Internal",
-  External = "External",
-}
-
-
-export type TParameterValue = {
-  __typename: "TParameterValue",
-  id: string,
-  value?: string | null,
 };
 
 export type UpdateParameterInput = {
@@ -206,103 +171,6 @@ export type DeleteModuleInput = {
   id: string,
 };
 
-export type CreateRouteParameterInput = {
-  name: string,
-  value: string,
-  id?: string | null,
-  routeParametersId?: string | null,
-};
-
-export type ModelRouteParameterConditionInput = {
-  name?: ModelStringInput | null,
-  value?: ModelStringInput | null,
-  and?: Array< ModelRouteParameterConditionInput | null > | null,
-  or?: Array< ModelRouteParameterConditionInput | null > | null,
-  not?: ModelRouteParameterConditionInput | null,
-  createdAt?: ModelStringInput | null,
-  updatedAt?: ModelStringInput | null,
-  routeParametersId?: ModelIDInput | null,
-};
-
-export type RouteParameter = {
-  __typename: "RouteParameter",
-  name: string,
-  value: string,
-  id: string,
-  createdAt: string,
-  updatedAt: string,
-  routeParametersId?: string | null,
-};
-
-export type UpdateRouteParameterInput = {
-  name?: string | null,
-  value?: string | null,
-  id: string,
-  routeParametersId?: string | null,
-};
-
-export type DeleteRouteParameterInput = {
-  id: string,
-};
-
-export type CreateRouteInput = {
-  id?: string | null,
-  action: string,
-  path: string,
-  isAdmin: boolean,
-  routeModuleId: string,
-};
-
-export type ModelRouteConditionInput = {
-  action?: ModelStringInput | null,
-  path?: ModelStringInput | null,
-  isAdmin?: ModelBooleanInput | null,
-  and?: Array< ModelRouteConditionInput | null > | null,
-  or?: Array< ModelRouteConditionInput | null > | null,
-  not?: ModelRouteConditionInput | null,
-  createdAt?: ModelStringInput | null,
-  updatedAt?: ModelStringInput | null,
-  routeModuleId?: ModelIDInput | null,
-};
-
-export type ModelBooleanInput = {
-  ne?: boolean | null,
-  eq?: boolean | null,
-  attributeExists?: boolean | null,
-  attributeType?: ModelAttributeTypes | null,
-};
-
-export type Route = {
-  __typename: "Route",
-  id: string,
-  module: Module,
-  action: string,
-  path: string,
-  isAdmin: boolean,
-  parameters?: ModelRouteParameterConnection | null,
-  createdAt: string,
-  updatedAt: string,
-  routeModuleId: string,
-};
-
-export type ModelRouteParameterConnection = {
-  __typename: "ModelRouteParameterConnection",
-  items:  Array<RouteParameter | null >,
-  nextToken?: string | null,
-};
-
-export type UpdateRouteInput = {
-  id: string,
-  action?: string | null,
-  path?: string | null,
-  isAdmin?: boolean | null,
-  routeModuleId?: string | null,
-};
-
-export type DeleteRouteInput = {
-  id: string,
-};
-
 export type CreateMenuInput = {
   id?: string | null,
   name: string,
@@ -312,8 +180,14 @@ export type CreateMenuInput = {
   parameterSettings?: Array< TParameterValueInput | null > | null,
   url: string,
   sortOrder?: number | null,
-  moduleMenusId?: string | null,
+  menuModuleId: string,
 };
+
+export enum MenuType {
+  Internal = "Internal",
+  External = "External",
+}
+
 
 export type TParameterValueInput = {
   id: string,
@@ -332,7 +206,7 @@ export type ModelMenuConditionInput = {
   not?: ModelMenuConditionInput | null,
   createdAt?: ModelStringInput | null,
   updatedAt?: ModelStringInput | null,
-  moduleMenusId?: ModelIDInput | null,
+  menuModuleId?: ModelIDInput | null,
 };
 
 export type ModelMenuTypeInput = {
@@ -352,6 +226,28 @@ export type ModelIntInput = {
   attributeType?: ModelAttributeTypes | null,
 };
 
+export type Menu = {
+  __typename: "Menu",
+  id: string,
+  name: string,
+  parent?: string | null,
+  menuType: MenuType,
+  module: Module,
+  moduleId: string,
+  parameterSettings?:  Array<TParameterValue | null > | null,
+  url: string,
+  sortOrder?: number | null,
+  createdAt: string,
+  updatedAt: string,
+  menuModuleId: string,
+};
+
+export type TParameterValue = {
+  __typename: "TParameterValue",
+  id: string,
+  value?: string | null,
+};
+
 export type UpdateMenuInput = {
   id: string,
   name?: string | null,
@@ -361,7 +257,7 @@ export type UpdateMenuInput = {
   parameterSettings?: Array< TParameterValueInput | null > | null,
   url?: string | null,
   sortOrder?: number | null,
-  moduleMenusId?: string | null,
+  menuModuleId?: string | null,
 };
 
 export type DeleteMenuInput = {
@@ -499,6 +395,13 @@ export type ModelBoardConditionInput = {
   not?: ModelBoardConditionInput | null,
   createdAt?: ModelStringInput | null,
   updatedAt?: ModelStringInput | null,
+};
+
+export type ModelBooleanInput = {
+  ne?: boolean | null,
+  eq?: boolean | null,
+  attributeExists?: boolean | null,
+  attributeType?: ModelAttributeTypes | null,
 };
 
 export type ModelBoardTypeInput = {
@@ -720,37 +623,6 @@ export type ModelModuleConnection = {
   nextToken?: string | null,
 };
 
-export type ModelRouteParameterFilterInput = {
-  name?: ModelStringInput | null,
-  value?: ModelStringInput | null,
-  id?: ModelIDInput | null,
-  createdAt?: ModelStringInput | null,
-  updatedAt?: ModelStringInput | null,
-  and?: Array< ModelRouteParameterFilterInput | null > | null,
-  or?: Array< ModelRouteParameterFilterInput | null > | null,
-  not?: ModelRouteParameterFilterInput | null,
-  routeParametersId?: ModelIDInput | null,
-};
-
-export type ModelRouteFilterInput = {
-  id?: ModelIDInput | null,
-  action?: ModelStringInput | null,
-  path?: ModelStringInput | null,
-  isAdmin?: ModelBooleanInput | null,
-  createdAt?: ModelStringInput | null,
-  updatedAt?: ModelStringInput | null,
-  and?: Array< ModelRouteFilterInput | null > | null,
-  or?: Array< ModelRouteFilterInput | null > | null,
-  not?: ModelRouteFilterInput | null,
-  routeModuleId?: ModelIDInput | null,
-};
-
-export type ModelRouteConnection = {
-  __typename: "ModelRouteConnection",
-  items:  Array<Route | null >,
-  nextToken?: string | null,
-};
-
 export type ModelMenuFilterInput = {
   id?: ModelIDInput | null,
   name?: ModelStringInput | null,
@@ -764,7 +636,13 @@ export type ModelMenuFilterInput = {
   and?: Array< ModelMenuFilterInput | null > | null,
   or?: Array< ModelMenuFilterInput | null > | null,
   not?: ModelMenuFilterInput | null,
-  moduleMenusId?: ModelIDInput | null,
+  menuModuleId?: ModelIDInput | null,
+};
+
+export type ModelMenuConnection = {
+  __typename: "ModelMenuConnection",
+  items:  Array<Menu | null >,
+  nextToken?: string | null,
 };
 
 export type ModelDocumentFilterInput = {
@@ -922,35 +800,6 @@ export type ModelSubscriptionModuleFilterInput = {
   and?: Array< ModelSubscriptionModuleFilterInput | null > | null,
   or?: Array< ModelSubscriptionModuleFilterInput | null > | null,
   moduleParametersId?: ModelSubscriptionIDInput | null,
-  moduleMenusId?: ModelSubscriptionIDInput | null,
-};
-
-export type ModelSubscriptionRouteParameterFilterInput = {
-  name?: ModelSubscriptionStringInput | null,
-  value?: ModelSubscriptionStringInput | null,
-  id?: ModelSubscriptionIDInput | null,
-  createdAt?: ModelSubscriptionStringInput | null,
-  updatedAt?: ModelSubscriptionStringInput | null,
-  and?: Array< ModelSubscriptionRouteParameterFilterInput | null > | null,
-  or?: Array< ModelSubscriptionRouteParameterFilterInput | null > | null,
-};
-
-export type ModelSubscriptionRouteFilterInput = {
-  id?: ModelSubscriptionIDInput | null,
-  action?: ModelSubscriptionStringInput | null,
-  path?: ModelSubscriptionStringInput | null,
-  isAdmin?: ModelSubscriptionBooleanInput | null,
-  createdAt?: ModelSubscriptionStringInput | null,
-  updatedAt?: ModelSubscriptionStringInput | null,
-  and?: Array< ModelSubscriptionRouteFilterInput | null > | null,
-  or?: Array< ModelSubscriptionRouteFilterInput | null > | null,
-  routeParametersId?: ModelSubscriptionIDInput | null,
-  routeModuleId?: ModelSubscriptionIDInput | null,
-};
-
-export type ModelSubscriptionBooleanInput = {
-  ne?: boolean | null,
-  eq?: boolean | null,
 };
 
 export type ModelSubscriptionMenuFilterInput = {
@@ -965,6 +814,7 @@ export type ModelSubscriptionMenuFilterInput = {
   updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionMenuFilterInput | null > | null,
   or?: Array< ModelSubscriptionMenuFilterInput | null > | null,
+  menuModuleId?: ModelSubscriptionIDInput | null,
 };
 
 export type ModelSubscriptionIntInput = {
@@ -1014,6 +864,11 @@ export type ModelSubscriptionBoardFilterInput = {
   and?: Array< ModelSubscriptionBoardFilterInput | null > | null,
   or?: Array< ModelSubscriptionBoardFilterInput | null > | null,
   boardCategoryId?: ModelSubscriptionIDInput | null,
+};
+
+export type ModelSubscriptionBooleanInput = {
+  ne?: boolean | null,
+  eq?: boolean | null,
 };
 
 export type ModelSubscriptionAttachmentFilterInput = {
@@ -1102,35 +957,6 @@ export type CreateParameterMutation = {
         } | null >,
         nextToken?: string | null,
       } | null,
-      menus?:  {
-        __typename: "ModelMenuConnection",
-        items:  Array< {
-          __typename: "Menu",
-          id: string,
-          name: string,
-          parent?: string | null,
-          menuType: MenuType,
-          module:  {
-            __typename: "Module",
-            id: string,
-            name: string,
-            createdAt: string,
-            updatedAt: string,
-          },
-          moduleId: string,
-          parameterSettings?:  Array< {
-            __typename: "TParameterValue",
-            id: string,
-            value?: string | null,
-          } | null > | null,
-          url: string,
-          sortOrder?: number | null,
-          createdAt: string,
-          updatedAt: string,
-          moduleMenusId?: string | null,
-        } | null >,
-        nextToken?: string | null,
-      } | null,
       createdAt: string,
       updatedAt: string,
     },
@@ -1184,35 +1010,6 @@ export type UpdateParameterMutation = {
           createdAt: string,
           updatedAt: string,
           moduleParametersId?: string | null,
-        } | null >,
-        nextToken?: string | null,
-      } | null,
-      menus?:  {
-        __typename: "ModelMenuConnection",
-        items:  Array< {
-          __typename: "Menu",
-          id: string,
-          name: string,
-          parent?: string | null,
-          menuType: MenuType,
-          module:  {
-            __typename: "Module",
-            id: string,
-            name: string,
-            createdAt: string,
-            updatedAt: string,
-          },
-          moduleId: string,
-          parameterSettings?:  Array< {
-            __typename: "TParameterValue",
-            id: string,
-            value?: string | null,
-          } | null > | null,
-          url: string,
-          sortOrder?: number | null,
-          createdAt: string,
-          updatedAt: string,
-          moduleMenusId?: string | null,
         } | null >,
         nextToken?: string | null,
       } | null,
@@ -1272,35 +1069,6 @@ export type DeleteParameterMutation = {
         } | null >,
         nextToken?: string | null,
       } | null,
-      menus?:  {
-        __typename: "ModelMenuConnection",
-        items:  Array< {
-          __typename: "Menu",
-          id: string,
-          name: string,
-          parent?: string | null,
-          menuType: MenuType,
-          module:  {
-            __typename: "Module",
-            id: string,
-            name: string,
-            createdAt: string,
-            updatedAt: string,
-          },
-          moduleId: string,
-          parameterSettings?:  Array< {
-            __typename: "TParameterValue",
-            id: string,
-            value?: string | null,
-          } | null > | null,
-          url: string,
-          sortOrder?: number | null,
-          createdAt: string,
-          updatedAt: string,
-          moduleMenusId?: string | null,
-        } | null >,
-        nextToken?: string | null,
-      } | null,
       createdAt: string,
       updatedAt: string,
     },
@@ -1341,53 +1109,12 @@ export type CreateModuleMutation = {
             __typename: "ModelParameterConnection",
             nextToken?: string | null,
           } | null,
-          menus?:  {
-            __typename: "ModelMenuConnection",
-            nextToken?: string | null,
-          } | null,
           createdAt: string,
           updatedAt: string,
         },
         createdAt: string,
         updatedAt: string,
         moduleParametersId?: string | null,
-      } | null >,
-      nextToken?: string | null,
-    } | null,
-    menus?:  {
-      __typename: "ModelMenuConnection",
-      items:  Array< {
-        __typename: "Menu",
-        id: string,
-        name: string,
-        parent?: string | null,
-        menuType: MenuType,
-        module:  {
-          __typename: "Module",
-          id: string,
-          name: string,
-          parameters?:  {
-            __typename: "ModelParameterConnection",
-            nextToken?: string | null,
-          } | null,
-          menus?:  {
-            __typename: "ModelMenuConnection",
-            nextToken?: string | null,
-          } | null,
-          createdAt: string,
-          updatedAt: string,
-        },
-        moduleId: string,
-        parameterSettings?:  Array< {
-          __typename: "TParameterValue",
-          id: string,
-          value?: string | null,
-        } | null > | null,
-        url: string,
-        sortOrder?: number | null,
-        createdAt: string,
-        updatedAt: string,
-        moduleMenusId?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -1427,53 +1154,12 @@ export type UpdateModuleMutation = {
             __typename: "ModelParameterConnection",
             nextToken?: string | null,
           } | null,
-          menus?:  {
-            __typename: "ModelMenuConnection",
-            nextToken?: string | null,
-          } | null,
           createdAt: string,
           updatedAt: string,
         },
         createdAt: string,
         updatedAt: string,
         moduleParametersId?: string | null,
-      } | null >,
-      nextToken?: string | null,
-    } | null,
-    menus?:  {
-      __typename: "ModelMenuConnection",
-      items:  Array< {
-        __typename: "Menu",
-        id: string,
-        name: string,
-        parent?: string | null,
-        menuType: MenuType,
-        module:  {
-          __typename: "Module",
-          id: string,
-          name: string,
-          parameters?:  {
-            __typename: "ModelParameterConnection",
-            nextToken?: string | null,
-          } | null,
-          menus?:  {
-            __typename: "ModelMenuConnection",
-            nextToken?: string | null,
-          } | null,
-          createdAt: string,
-          updatedAt: string,
-        },
-        moduleId: string,
-        parameterSettings?:  Array< {
-          __typename: "TParameterValue",
-          id: string,
-          value?: string | null,
-        } | null > | null,
-        url: string,
-        sortOrder?: number | null,
-        createdAt: string,
-        updatedAt: string,
-        moduleMenusId?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -1513,10 +1199,6 @@ export type DeleteModuleMutation = {
             __typename: "ModelParameterConnection",
             nextToken?: string | null,
           } | null,
-          menus?:  {
-            __typename: "ModelMenuConnection",
-            nextToken?: string | null,
-          } | null,
           createdAt: string,
           updatedAt: string,
         },
@@ -1526,375 +1208,8 @@ export type DeleteModuleMutation = {
       } | null >,
       nextToken?: string | null,
     } | null,
-    menus?:  {
-      __typename: "ModelMenuConnection",
-      items:  Array< {
-        __typename: "Menu",
-        id: string,
-        name: string,
-        parent?: string | null,
-        menuType: MenuType,
-        module:  {
-          __typename: "Module",
-          id: string,
-          name: string,
-          parameters?:  {
-            __typename: "ModelParameterConnection",
-            nextToken?: string | null,
-          } | null,
-          menus?:  {
-            __typename: "ModelMenuConnection",
-            nextToken?: string | null,
-          } | null,
-          createdAt: string,
-          updatedAt: string,
-        },
-        moduleId: string,
-        parameterSettings?:  Array< {
-          __typename: "TParameterValue",
-          id: string,
-          value?: string | null,
-        } | null > | null,
-        url: string,
-        sortOrder?: number | null,
-        createdAt: string,
-        updatedAt: string,
-        moduleMenusId?: string | null,
-      } | null >,
-      nextToken?: string | null,
-    } | null,
     createdAt: string,
     updatedAt: string,
-  } | null,
-};
-
-export type CreateRouteParameterMutationVariables = {
-  input: CreateRouteParameterInput,
-  condition?: ModelRouteParameterConditionInput | null,
-};
-
-export type CreateRouteParameterMutation = {
-  createRouteParameter?:  {
-    __typename: "RouteParameter",
-    name: string,
-    value: string,
-    id: string,
-    createdAt: string,
-    updatedAt: string,
-    routeParametersId?: string | null,
-  } | null,
-};
-
-export type UpdateRouteParameterMutationVariables = {
-  input: UpdateRouteParameterInput,
-  condition?: ModelRouteParameterConditionInput | null,
-};
-
-export type UpdateRouteParameterMutation = {
-  updateRouteParameter?:  {
-    __typename: "RouteParameter",
-    name: string,
-    value: string,
-    id: string,
-    createdAt: string,
-    updatedAt: string,
-    routeParametersId?: string | null,
-  } | null,
-};
-
-export type DeleteRouteParameterMutationVariables = {
-  input: DeleteRouteParameterInput,
-  condition?: ModelRouteParameterConditionInput | null,
-};
-
-export type DeleteRouteParameterMutation = {
-  deleteRouteParameter?:  {
-    __typename: "RouteParameter",
-    name: string,
-    value: string,
-    id: string,
-    createdAt: string,
-    updatedAt: string,
-    routeParametersId?: string | null,
-  } | null,
-};
-
-export type CreateRouteMutationVariables = {
-  input: CreateRouteInput,
-  condition?: ModelRouteConditionInput | null,
-};
-
-export type CreateRouteMutation = {
-  createRoute?:  {
-    __typename: "Route",
-    id: string,
-    module:  {
-      __typename: "Module",
-      id: string,
-      name: string,
-      parameters?:  {
-        __typename: "ModelParameterConnection",
-        items:  Array< {
-          __typename: "Parameter",
-          id: string,
-          inputType: InputType,
-          label: string,
-          defaultValue?: string | null,
-          optionValues?:  Array< {
-            __typename: "TOptionValue",
-            value?: string | null,
-            label?: string | null,
-          } | null > | null,
-          module:  {
-            __typename: "Module",
-            id: string,
-            name: string,
-            createdAt: string,
-            updatedAt: string,
-          },
-          createdAt: string,
-          updatedAt: string,
-          moduleParametersId?: string | null,
-        } | null >,
-        nextToken?: string | null,
-      } | null,
-      menus?:  {
-        __typename: "ModelMenuConnection",
-        items:  Array< {
-          __typename: "Menu",
-          id: string,
-          name: string,
-          parent?: string | null,
-          menuType: MenuType,
-          module:  {
-            __typename: "Module",
-            id: string,
-            name: string,
-            createdAt: string,
-            updatedAt: string,
-          },
-          moduleId: string,
-          parameterSettings?:  Array< {
-            __typename: "TParameterValue",
-            id: string,
-            value?: string | null,
-          } | null > | null,
-          url: string,
-          sortOrder?: number | null,
-          createdAt: string,
-          updatedAt: string,
-          moduleMenusId?: string | null,
-        } | null >,
-        nextToken?: string | null,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-    },
-    action: string,
-    path: string,
-    isAdmin: boolean,
-    parameters?:  {
-      __typename: "ModelRouteParameterConnection",
-      items:  Array< {
-        __typename: "RouteParameter",
-        name: string,
-        value: string,
-        id: string,
-        createdAt: string,
-        updatedAt: string,
-        routeParametersId?: string | null,
-      } | null >,
-      nextToken?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    routeModuleId: string,
-  } | null,
-};
-
-export type UpdateRouteMutationVariables = {
-  input: UpdateRouteInput,
-  condition?: ModelRouteConditionInput | null,
-};
-
-export type UpdateRouteMutation = {
-  updateRoute?:  {
-    __typename: "Route",
-    id: string,
-    module:  {
-      __typename: "Module",
-      id: string,
-      name: string,
-      parameters?:  {
-        __typename: "ModelParameterConnection",
-        items:  Array< {
-          __typename: "Parameter",
-          id: string,
-          inputType: InputType,
-          label: string,
-          defaultValue?: string | null,
-          optionValues?:  Array< {
-            __typename: "TOptionValue",
-            value?: string | null,
-            label?: string | null,
-          } | null > | null,
-          module:  {
-            __typename: "Module",
-            id: string,
-            name: string,
-            createdAt: string,
-            updatedAt: string,
-          },
-          createdAt: string,
-          updatedAt: string,
-          moduleParametersId?: string | null,
-        } | null >,
-        nextToken?: string | null,
-      } | null,
-      menus?:  {
-        __typename: "ModelMenuConnection",
-        items:  Array< {
-          __typename: "Menu",
-          id: string,
-          name: string,
-          parent?: string | null,
-          menuType: MenuType,
-          module:  {
-            __typename: "Module",
-            id: string,
-            name: string,
-            createdAt: string,
-            updatedAt: string,
-          },
-          moduleId: string,
-          parameterSettings?:  Array< {
-            __typename: "TParameterValue",
-            id: string,
-            value?: string | null,
-          } | null > | null,
-          url: string,
-          sortOrder?: number | null,
-          createdAt: string,
-          updatedAt: string,
-          moduleMenusId?: string | null,
-        } | null >,
-        nextToken?: string | null,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-    },
-    action: string,
-    path: string,
-    isAdmin: boolean,
-    parameters?:  {
-      __typename: "ModelRouteParameterConnection",
-      items:  Array< {
-        __typename: "RouteParameter",
-        name: string,
-        value: string,
-        id: string,
-        createdAt: string,
-        updatedAt: string,
-        routeParametersId?: string | null,
-      } | null >,
-      nextToken?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    routeModuleId: string,
-  } | null,
-};
-
-export type DeleteRouteMutationVariables = {
-  input: DeleteRouteInput,
-  condition?: ModelRouteConditionInput | null,
-};
-
-export type DeleteRouteMutation = {
-  deleteRoute?:  {
-    __typename: "Route",
-    id: string,
-    module:  {
-      __typename: "Module",
-      id: string,
-      name: string,
-      parameters?:  {
-        __typename: "ModelParameterConnection",
-        items:  Array< {
-          __typename: "Parameter",
-          id: string,
-          inputType: InputType,
-          label: string,
-          defaultValue?: string | null,
-          optionValues?:  Array< {
-            __typename: "TOptionValue",
-            value?: string | null,
-            label?: string | null,
-          } | null > | null,
-          module:  {
-            __typename: "Module",
-            id: string,
-            name: string,
-            createdAt: string,
-            updatedAt: string,
-          },
-          createdAt: string,
-          updatedAt: string,
-          moduleParametersId?: string | null,
-        } | null >,
-        nextToken?: string | null,
-      } | null,
-      menus?:  {
-        __typename: "ModelMenuConnection",
-        items:  Array< {
-          __typename: "Menu",
-          id: string,
-          name: string,
-          parent?: string | null,
-          menuType: MenuType,
-          module:  {
-            __typename: "Module",
-            id: string,
-            name: string,
-            createdAt: string,
-            updatedAt: string,
-          },
-          moduleId: string,
-          parameterSettings?:  Array< {
-            __typename: "TParameterValue",
-            id: string,
-            value?: string | null,
-          } | null > | null,
-          url: string,
-          sortOrder?: number | null,
-          createdAt: string,
-          updatedAt: string,
-          moduleMenusId?: string | null,
-        } | null >,
-        nextToken?: string | null,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-    },
-    action: string,
-    path: string,
-    isAdmin: boolean,
-    parameters?:  {
-      __typename: "ModelRouteParameterConnection",
-      items:  Array< {
-        __typename: "RouteParameter",
-        name: string,
-        value: string,
-        id: string,
-        createdAt: string,
-        updatedAt: string,
-        routeParametersId?: string | null,
-      } | null >,
-      nextToken?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    routeModuleId: string,
   } | null,
 };
 
@@ -1940,35 +1255,6 @@ export type CreateMenuMutation = {
         } | null >,
         nextToken?: string | null,
       } | null,
-      menus?:  {
-        __typename: "ModelMenuConnection",
-        items:  Array< {
-          __typename: "Menu",
-          id: string,
-          name: string,
-          parent?: string | null,
-          menuType: MenuType,
-          module:  {
-            __typename: "Module",
-            id: string,
-            name: string,
-            createdAt: string,
-            updatedAt: string,
-          },
-          moduleId: string,
-          parameterSettings?:  Array< {
-            __typename: "TParameterValue",
-            id: string,
-            value?: string | null,
-          } | null > | null,
-          url: string,
-          sortOrder?: number | null,
-          createdAt: string,
-          updatedAt: string,
-          moduleMenusId?: string | null,
-        } | null >,
-        nextToken?: string | null,
-      } | null,
       createdAt: string,
       updatedAt: string,
     },
@@ -1982,7 +1268,7 @@ export type CreateMenuMutation = {
     sortOrder?: number | null,
     createdAt: string,
     updatedAt: string,
-    moduleMenusId?: string | null,
+    menuModuleId: string,
   } | null,
 };
 
@@ -2028,35 +1314,6 @@ export type UpdateMenuMutation = {
         } | null >,
         nextToken?: string | null,
       } | null,
-      menus?:  {
-        __typename: "ModelMenuConnection",
-        items:  Array< {
-          __typename: "Menu",
-          id: string,
-          name: string,
-          parent?: string | null,
-          menuType: MenuType,
-          module:  {
-            __typename: "Module",
-            id: string,
-            name: string,
-            createdAt: string,
-            updatedAt: string,
-          },
-          moduleId: string,
-          parameterSettings?:  Array< {
-            __typename: "TParameterValue",
-            id: string,
-            value?: string | null,
-          } | null > | null,
-          url: string,
-          sortOrder?: number | null,
-          createdAt: string,
-          updatedAt: string,
-          moduleMenusId?: string | null,
-        } | null >,
-        nextToken?: string | null,
-      } | null,
       createdAt: string,
       updatedAt: string,
     },
@@ -2070,7 +1327,7 @@ export type UpdateMenuMutation = {
     sortOrder?: number | null,
     createdAt: string,
     updatedAt: string,
-    moduleMenusId?: string | null,
+    menuModuleId: string,
   } | null,
 };
 
@@ -2116,35 +1373,6 @@ export type DeleteMenuMutation = {
         } | null >,
         nextToken?: string | null,
       } | null,
-      menus?:  {
-        __typename: "ModelMenuConnection",
-        items:  Array< {
-          __typename: "Menu",
-          id: string,
-          name: string,
-          parent?: string | null,
-          menuType: MenuType,
-          module:  {
-            __typename: "Module",
-            id: string,
-            name: string,
-            createdAt: string,
-            updatedAt: string,
-          },
-          moduleId: string,
-          parameterSettings?:  Array< {
-            __typename: "TParameterValue",
-            id: string,
-            value?: string | null,
-          } | null > | null,
-          url: string,
-          sortOrder?: number | null,
-          createdAt: string,
-          updatedAt: string,
-          moduleMenusId?: string | null,
-        } | null >,
-        nextToken?: string | null,
-      } | null,
       createdAt: string,
       updatedAt: string,
     },
@@ -2158,7 +1386,7 @@ export type DeleteMenuMutation = {
     sortOrder?: number | null,
     createdAt: string,
     updatedAt: string,
-    moduleMenusId?: string | null,
+    menuModuleId: string,
   } | null,
 };
 
@@ -3888,35 +3116,6 @@ export type GetParameterQuery = {
         } | null >,
         nextToken?: string | null,
       } | null,
-      menus?:  {
-        __typename: "ModelMenuConnection",
-        items:  Array< {
-          __typename: "Menu",
-          id: string,
-          name: string,
-          parent?: string | null,
-          menuType: MenuType,
-          module:  {
-            __typename: "Module",
-            id: string,
-            name: string,
-            createdAt: string,
-            updatedAt: string,
-          },
-          moduleId: string,
-          parameterSettings?:  Array< {
-            __typename: "TParameterValue",
-            id: string,
-            value?: string | null,
-          } | null > | null,
-          url: string,
-          sortOrder?: number | null,
-          createdAt: string,
-          updatedAt: string,
-          moduleMenusId?: string | null,
-        } | null >,
-        nextToken?: string | null,
-      } | null,
       createdAt: string,
       updatedAt: string,
     },
@@ -3964,23 +3163,6 @@ export type ListParametersQuery = {
           } | null >,
           nextToken?: string | null,
         } | null,
-        menus?:  {
-          __typename: "ModelMenuConnection",
-          items:  Array< {
-            __typename: "Menu",
-            id: string,
-            name: string,
-            parent?: string | null,
-            menuType: MenuType,
-            moduleId: string,
-            url: string,
-            sortOrder?: number | null,
-            createdAt: string,
-            updatedAt: string,
-            moduleMenusId?: string | null,
-          } | null >,
-          nextToken?: string | null,
-        } | null,
         createdAt: string,
         updatedAt: string,
       },
@@ -4022,53 +3204,12 @@ export type GetModuleQuery = {
             __typename: "ModelParameterConnection",
             nextToken?: string | null,
           } | null,
-          menus?:  {
-            __typename: "ModelMenuConnection",
-            nextToken?: string | null,
-          } | null,
           createdAt: string,
           updatedAt: string,
         },
         createdAt: string,
         updatedAt: string,
         moduleParametersId?: string | null,
-      } | null >,
-      nextToken?: string | null,
-    } | null,
-    menus?:  {
-      __typename: "ModelMenuConnection",
-      items:  Array< {
-        __typename: "Menu",
-        id: string,
-        name: string,
-        parent?: string | null,
-        menuType: MenuType,
-        module:  {
-          __typename: "Module",
-          id: string,
-          name: string,
-          parameters?:  {
-            __typename: "ModelParameterConnection",
-            nextToken?: string | null,
-          } | null,
-          menus?:  {
-            __typename: "ModelMenuConnection",
-            nextToken?: string | null,
-          } | null,
-          createdAt: string,
-          updatedAt: string,
-        },
-        moduleId: string,
-        parameterSettings?:  Array< {
-          __typename: "TParameterValue",
-          id: string,
-          value?: string | null,
-        } | null > | null,
-        url: string,
-        sortOrder?: number | null,
-        createdAt: string,
-        updatedAt: string,
-        moduleMenusId?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -4116,241 +3257,8 @@ export type ListModulesQuery = {
         } | null >,
         nextToken?: string | null,
       } | null,
-      menus?:  {
-        __typename: "ModelMenuConnection",
-        items:  Array< {
-          __typename: "Menu",
-          id: string,
-          name: string,
-          parent?: string | null,
-          menuType: MenuType,
-          module:  {
-            __typename: "Module",
-            id: string,
-            name: string,
-            createdAt: string,
-            updatedAt: string,
-          },
-          moduleId: string,
-          parameterSettings?:  Array< {
-            __typename: "TParameterValue",
-            id: string,
-            value?: string | null,
-          } | null > | null,
-          url: string,
-          sortOrder?: number | null,
-          createdAt: string,
-          updatedAt: string,
-          moduleMenusId?: string | null,
-        } | null >,
-        nextToken?: string | null,
-      } | null,
       createdAt: string,
       updatedAt: string,
-    } | null >,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type GetRouteParameterQueryVariables = {
-  id: string,
-};
-
-export type GetRouteParameterQuery = {
-  getRouteParameter?:  {
-    __typename: "RouteParameter",
-    name: string,
-    value: string,
-    id: string,
-    createdAt: string,
-    updatedAt: string,
-    routeParametersId?: string | null,
-  } | null,
-};
-
-export type ListRouteParametersQueryVariables = {
-  filter?: ModelRouteParameterFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type ListRouteParametersQuery = {
-  listRouteParameters?:  {
-    __typename: "ModelRouteParameterConnection",
-    items:  Array< {
-      __typename: "RouteParameter",
-      name: string,
-      value: string,
-      id: string,
-      createdAt: string,
-      updatedAt: string,
-      routeParametersId?: string | null,
-    } | null >,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type GetRouteQueryVariables = {
-  id: string,
-};
-
-export type GetRouteQuery = {
-  getRoute?:  {
-    __typename: "Route",
-    id: string,
-    module:  {
-      __typename: "Module",
-      id: string,
-      name: string,
-      parameters?:  {
-        __typename: "ModelParameterConnection",
-        items:  Array< {
-          __typename: "Parameter",
-          id: string,
-          inputType: InputType,
-          label: string,
-          defaultValue?: string | null,
-          optionValues?:  Array< {
-            __typename: "TOptionValue",
-            value?: string | null,
-            label?: string | null,
-          } | null > | null,
-          module:  {
-            __typename: "Module",
-            id: string,
-            name: string,
-            createdAt: string,
-            updatedAt: string,
-          },
-          createdAt: string,
-          updatedAt: string,
-          moduleParametersId?: string | null,
-        } | null >,
-        nextToken?: string | null,
-      } | null,
-      menus?:  {
-        __typename: "ModelMenuConnection",
-        items:  Array< {
-          __typename: "Menu",
-          id: string,
-          name: string,
-          parent?: string | null,
-          menuType: MenuType,
-          module:  {
-            __typename: "Module",
-            id: string,
-            name: string,
-            createdAt: string,
-            updatedAt: string,
-          },
-          moduleId: string,
-          parameterSettings?:  Array< {
-            __typename: "TParameterValue",
-            id: string,
-            value?: string | null,
-          } | null > | null,
-          url: string,
-          sortOrder?: number | null,
-          createdAt: string,
-          updatedAt: string,
-          moduleMenusId?: string | null,
-        } | null >,
-        nextToken?: string | null,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-    },
-    action: string,
-    path: string,
-    isAdmin: boolean,
-    parameters?:  {
-      __typename: "ModelRouteParameterConnection",
-      items:  Array< {
-        __typename: "RouteParameter",
-        name: string,
-        value: string,
-        id: string,
-        createdAt: string,
-        updatedAt: string,
-        routeParametersId?: string | null,
-      } | null >,
-      nextToken?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    routeModuleId: string,
-  } | null,
-};
-
-export type ListRoutesQueryVariables = {
-  filter?: ModelRouteFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type ListRoutesQuery = {
-  listRoutes?:  {
-    __typename: "ModelRouteConnection",
-    items:  Array< {
-      __typename: "Route",
-      id: string,
-      module:  {
-        __typename: "Module",
-        id: string,
-        name: string,
-        parameters?:  {
-          __typename: "ModelParameterConnection",
-          items:  Array< {
-            __typename: "Parameter",
-            id: string,
-            inputType: InputType,
-            label: string,
-            defaultValue?: string | null,
-            createdAt: string,
-            updatedAt: string,
-            moduleParametersId?: string | null,
-          } | null >,
-          nextToken?: string | null,
-        } | null,
-        menus?:  {
-          __typename: "ModelMenuConnection",
-          items:  Array< {
-            __typename: "Menu",
-            id: string,
-            name: string,
-            parent?: string | null,
-            menuType: MenuType,
-            moduleId: string,
-            url: string,
-            sortOrder?: number | null,
-            createdAt: string,
-            updatedAt: string,
-            moduleMenusId?: string | null,
-          } | null >,
-          nextToken?: string | null,
-        } | null,
-        createdAt: string,
-        updatedAt: string,
-      },
-      action: string,
-      path: string,
-      isAdmin: boolean,
-      parameters?:  {
-        __typename: "ModelRouteParameterConnection",
-        items:  Array< {
-          __typename: "RouteParameter",
-          name: string,
-          value: string,
-          id: string,
-          createdAt: string,
-          updatedAt: string,
-          routeParametersId?: string | null,
-        } | null >,
-        nextToken?: string | null,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-      routeModuleId: string,
     } | null >,
     nextToken?: string | null,
   } | null,
@@ -4397,35 +3305,6 @@ export type GetMenuQuery = {
         } | null >,
         nextToken?: string | null,
       } | null,
-      menus?:  {
-        __typename: "ModelMenuConnection",
-        items:  Array< {
-          __typename: "Menu",
-          id: string,
-          name: string,
-          parent?: string | null,
-          menuType: MenuType,
-          module:  {
-            __typename: "Module",
-            id: string,
-            name: string,
-            createdAt: string,
-            updatedAt: string,
-          },
-          moduleId: string,
-          parameterSettings?:  Array< {
-            __typename: "TParameterValue",
-            id: string,
-            value?: string | null,
-          } | null > | null,
-          url: string,
-          sortOrder?: number | null,
-          createdAt: string,
-          updatedAt: string,
-          moduleMenusId?: string | null,
-        } | null >,
-        nextToken?: string | null,
-      } | null,
       createdAt: string,
       updatedAt: string,
     },
@@ -4439,7 +3318,7 @@ export type GetMenuQuery = {
     sortOrder?: number | null,
     createdAt: string,
     updatedAt: string,
-    moduleMenusId?: string | null,
+    menuModuleId: string,
   } | null,
 };
 
@@ -4476,23 +3355,6 @@ export type ListMenusQuery = {
           } | null >,
           nextToken?: string | null,
         } | null,
-        menus?:  {
-          __typename: "ModelMenuConnection",
-          items:  Array< {
-            __typename: "Menu",
-            id: string,
-            name: string,
-            parent?: string | null,
-            menuType: MenuType,
-            moduleId: string,
-            url: string,
-            sortOrder?: number | null,
-            createdAt: string,
-            updatedAt: string,
-            moduleMenusId?: string | null,
-          } | null >,
-          nextToken?: string | null,
-        } | null,
         createdAt: string,
         updatedAt: string,
       },
@@ -4506,7 +3368,7 @@ export type ListMenusQuery = {
       sortOrder?: number | null,
       createdAt: string,
       updatedAt: string,
-      moduleMenusId?: string | null,
+      menuModuleId: string,
     } | null >,
     nextToken?: string | null,
   } | null,
@@ -5530,35 +4392,6 @@ export type OnCreateParameterSubscription = {
         } | null >,
         nextToken?: string | null,
       } | null,
-      menus?:  {
-        __typename: "ModelMenuConnection",
-        items:  Array< {
-          __typename: "Menu",
-          id: string,
-          name: string,
-          parent?: string | null,
-          menuType: MenuType,
-          module:  {
-            __typename: "Module",
-            id: string,
-            name: string,
-            createdAt: string,
-            updatedAt: string,
-          },
-          moduleId: string,
-          parameterSettings?:  Array< {
-            __typename: "TParameterValue",
-            id: string,
-            value?: string | null,
-          } | null > | null,
-          url: string,
-          sortOrder?: number | null,
-          createdAt: string,
-          updatedAt: string,
-          moduleMenusId?: string | null,
-        } | null >,
-        nextToken?: string | null,
-      } | null,
       createdAt: string,
       updatedAt: string,
     },
@@ -5611,35 +4444,6 @@ export type OnUpdateParameterSubscription = {
           createdAt: string,
           updatedAt: string,
           moduleParametersId?: string | null,
-        } | null >,
-        nextToken?: string | null,
-      } | null,
-      menus?:  {
-        __typename: "ModelMenuConnection",
-        items:  Array< {
-          __typename: "Menu",
-          id: string,
-          name: string,
-          parent?: string | null,
-          menuType: MenuType,
-          module:  {
-            __typename: "Module",
-            id: string,
-            name: string,
-            createdAt: string,
-            updatedAt: string,
-          },
-          moduleId: string,
-          parameterSettings?:  Array< {
-            __typename: "TParameterValue",
-            id: string,
-            value?: string | null,
-          } | null > | null,
-          url: string,
-          sortOrder?: number | null,
-          createdAt: string,
-          updatedAt: string,
-          moduleMenusId?: string | null,
         } | null >,
         nextToken?: string | null,
       } | null,
@@ -5698,35 +4502,6 @@ export type OnDeleteParameterSubscription = {
         } | null >,
         nextToken?: string | null,
       } | null,
-      menus?:  {
-        __typename: "ModelMenuConnection",
-        items:  Array< {
-          __typename: "Menu",
-          id: string,
-          name: string,
-          parent?: string | null,
-          menuType: MenuType,
-          module:  {
-            __typename: "Module",
-            id: string,
-            name: string,
-            createdAt: string,
-            updatedAt: string,
-          },
-          moduleId: string,
-          parameterSettings?:  Array< {
-            __typename: "TParameterValue",
-            id: string,
-            value?: string | null,
-          } | null > | null,
-          url: string,
-          sortOrder?: number | null,
-          createdAt: string,
-          updatedAt: string,
-          moduleMenusId?: string | null,
-        } | null >,
-        nextToken?: string | null,
-      } | null,
       createdAt: string,
       updatedAt: string,
     },
@@ -5766,53 +4541,12 @@ export type OnCreateModuleSubscription = {
             __typename: "ModelParameterConnection",
             nextToken?: string | null,
           } | null,
-          menus?:  {
-            __typename: "ModelMenuConnection",
-            nextToken?: string | null,
-          } | null,
           createdAt: string,
           updatedAt: string,
         },
         createdAt: string,
         updatedAt: string,
         moduleParametersId?: string | null,
-      } | null >,
-      nextToken?: string | null,
-    } | null,
-    menus?:  {
-      __typename: "ModelMenuConnection",
-      items:  Array< {
-        __typename: "Menu",
-        id: string,
-        name: string,
-        parent?: string | null,
-        menuType: MenuType,
-        module:  {
-          __typename: "Module",
-          id: string,
-          name: string,
-          parameters?:  {
-            __typename: "ModelParameterConnection",
-            nextToken?: string | null,
-          } | null,
-          menus?:  {
-            __typename: "ModelMenuConnection",
-            nextToken?: string | null,
-          } | null,
-          createdAt: string,
-          updatedAt: string,
-        },
-        moduleId: string,
-        parameterSettings?:  Array< {
-          __typename: "TParameterValue",
-          id: string,
-          value?: string | null,
-        } | null > | null,
-        url: string,
-        sortOrder?: number | null,
-        createdAt: string,
-        updatedAt: string,
-        moduleMenusId?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -5851,53 +4585,12 @@ export type OnUpdateModuleSubscription = {
             __typename: "ModelParameterConnection",
             nextToken?: string | null,
           } | null,
-          menus?:  {
-            __typename: "ModelMenuConnection",
-            nextToken?: string | null,
-          } | null,
           createdAt: string,
           updatedAt: string,
         },
         createdAt: string,
         updatedAt: string,
         moduleParametersId?: string | null,
-      } | null >,
-      nextToken?: string | null,
-    } | null,
-    menus?:  {
-      __typename: "ModelMenuConnection",
-      items:  Array< {
-        __typename: "Menu",
-        id: string,
-        name: string,
-        parent?: string | null,
-        menuType: MenuType,
-        module:  {
-          __typename: "Module",
-          id: string,
-          name: string,
-          parameters?:  {
-            __typename: "ModelParameterConnection",
-            nextToken?: string | null,
-          } | null,
-          menus?:  {
-            __typename: "ModelMenuConnection",
-            nextToken?: string | null,
-          } | null,
-          createdAt: string,
-          updatedAt: string,
-        },
-        moduleId: string,
-        parameterSettings?:  Array< {
-          __typename: "TParameterValue",
-          id: string,
-          value?: string | null,
-        } | null > | null,
-        url: string,
-        sortOrder?: number | null,
-        createdAt: string,
-        updatedAt: string,
-        moduleMenusId?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -5936,10 +4629,6 @@ export type OnDeleteModuleSubscription = {
             __typename: "ModelParameterConnection",
             nextToken?: string | null,
           } | null,
-          menus?:  {
-            __typename: "ModelMenuConnection",
-            nextToken?: string | null,
-          } | null,
           createdAt: string,
           updatedAt: string,
         },
@@ -5949,369 +4638,8 @@ export type OnDeleteModuleSubscription = {
       } | null >,
       nextToken?: string | null,
     } | null,
-    menus?:  {
-      __typename: "ModelMenuConnection",
-      items:  Array< {
-        __typename: "Menu",
-        id: string,
-        name: string,
-        parent?: string | null,
-        menuType: MenuType,
-        module:  {
-          __typename: "Module",
-          id: string,
-          name: string,
-          parameters?:  {
-            __typename: "ModelParameterConnection",
-            nextToken?: string | null,
-          } | null,
-          menus?:  {
-            __typename: "ModelMenuConnection",
-            nextToken?: string | null,
-          } | null,
-          createdAt: string,
-          updatedAt: string,
-        },
-        moduleId: string,
-        parameterSettings?:  Array< {
-          __typename: "TParameterValue",
-          id: string,
-          value?: string | null,
-        } | null > | null,
-        url: string,
-        sortOrder?: number | null,
-        createdAt: string,
-        updatedAt: string,
-        moduleMenusId?: string | null,
-      } | null >,
-      nextToken?: string | null,
-    } | null,
     createdAt: string,
     updatedAt: string,
-  } | null,
-};
-
-export type OnCreateRouteParameterSubscriptionVariables = {
-  filter?: ModelSubscriptionRouteParameterFilterInput | null,
-};
-
-export type OnCreateRouteParameterSubscription = {
-  onCreateRouteParameter?:  {
-    __typename: "RouteParameter",
-    name: string,
-    value: string,
-    id: string,
-    createdAt: string,
-    updatedAt: string,
-    routeParametersId?: string | null,
-  } | null,
-};
-
-export type OnUpdateRouteParameterSubscriptionVariables = {
-  filter?: ModelSubscriptionRouteParameterFilterInput | null,
-};
-
-export type OnUpdateRouteParameterSubscription = {
-  onUpdateRouteParameter?:  {
-    __typename: "RouteParameter",
-    name: string,
-    value: string,
-    id: string,
-    createdAt: string,
-    updatedAt: string,
-    routeParametersId?: string | null,
-  } | null,
-};
-
-export type OnDeleteRouteParameterSubscriptionVariables = {
-  filter?: ModelSubscriptionRouteParameterFilterInput | null,
-};
-
-export type OnDeleteRouteParameterSubscription = {
-  onDeleteRouteParameter?:  {
-    __typename: "RouteParameter",
-    name: string,
-    value: string,
-    id: string,
-    createdAt: string,
-    updatedAt: string,
-    routeParametersId?: string | null,
-  } | null,
-};
-
-export type OnCreateRouteSubscriptionVariables = {
-  filter?: ModelSubscriptionRouteFilterInput | null,
-};
-
-export type OnCreateRouteSubscription = {
-  onCreateRoute?:  {
-    __typename: "Route",
-    id: string,
-    module:  {
-      __typename: "Module",
-      id: string,
-      name: string,
-      parameters?:  {
-        __typename: "ModelParameterConnection",
-        items:  Array< {
-          __typename: "Parameter",
-          id: string,
-          inputType: InputType,
-          label: string,
-          defaultValue?: string | null,
-          optionValues?:  Array< {
-            __typename: "TOptionValue",
-            value?: string | null,
-            label?: string | null,
-          } | null > | null,
-          module:  {
-            __typename: "Module",
-            id: string,
-            name: string,
-            createdAt: string,
-            updatedAt: string,
-          },
-          createdAt: string,
-          updatedAt: string,
-          moduleParametersId?: string | null,
-        } | null >,
-        nextToken?: string | null,
-      } | null,
-      menus?:  {
-        __typename: "ModelMenuConnection",
-        items:  Array< {
-          __typename: "Menu",
-          id: string,
-          name: string,
-          parent?: string | null,
-          menuType: MenuType,
-          module:  {
-            __typename: "Module",
-            id: string,
-            name: string,
-            createdAt: string,
-            updatedAt: string,
-          },
-          moduleId: string,
-          parameterSettings?:  Array< {
-            __typename: "TParameterValue",
-            id: string,
-            value?: string | null,
-          } | null > | null,
-          url: string,
-          sortOrder?: number | null,
-          createdAt: string,
-          updatedAt: string,
-          moduleMenusId?: string | null,
-        } | null >,
-        nextToken?: string | null,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-    },
-    action: string,
-    path: string,
-    isAdmin: boolean,
-    parameters?:  {
-      __typename: "ModelRouteParameterConnection",
-      items:  Array< {
-        __typename: "RouteParameter",
-        name: string,
-        value: string,
-        id: string,
-        createdAt: string,
-        updatedAt: string,
-        routeParametersId?: string | null,
-      } | null >,
-      nextToken?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    routeModuleId: string,
-  } | null,
-};
-
-export type OnUpdateRouteSubscriptionVariables = {
-  filter?: ModelSubscriptionRouteFilterInput | null,
-};
-
-export type OnUpdateRouteSubscription = {
-  onUpdateRoute?:  {
-    __typename: "Route",
-    id: string,
-    module:  {
-      __typename: "Module",
-      id: string,
-      name: string,
-      parameters?:  {
-        __typename: "ModelParameterConnection",
-        items:  Array< {
-          __typename: "Parameter",
-          id: string,
-          inputType: InputType,
-          label: string,
-          defaultValue?: string | null,
-          optionValues?:  Array< {
-            __typename: "TOptionValue",
-            value?: string | null,
-            label?: string | null,
-          } | null > | null,
-          module:  {
-            __typename: "Module",
-            id: string,
-            name: string,
-            createdAt: string,
-            updatedAt: string,
-          },
-          createdAt: string,
-          updatedAt: string,
-          moduleParametersId?: string | null,
-        } | null >,
-        nextToken?: string | null,
-      } | null,
-      menus?:  {
-        __typename: "ModelMenuConnection",
-        items:  Array< {
-          __typename: "Menu",
-          id: string,
-          name: string,
-          parent?: string | null,
-          menuType: MenuType,
-          module:  {
-            __typename: "Module",
-            id: string,
-            name: string,
-            createdAt: string,
-            updatedAt: string,
-          },
-          moduleId: string,
-          parameterSettings?:  Array< {
-            __typename: "TParameterValue",
-            id: string,
-            value?: string | null,
-          } | null > | null,
-          url: string,
-          sortOrder?: number | null,
-          createdAt: string,
-          updatedAt: string,
-          moduleMenusId?: string | null,
-        } | null >,
-        nextToken?: string | null,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-    },
-    action: string,
-    path: string,
-    isAdmin: boolean,
-    parameters?:  {
-      __typename: "ModelRouteParameterConnection",
-      items:  Array< {
-        __typename: "RouteParameter",
-        name: string,
-        value: string,
-        id: string,
-        createdAt: string,
-        updatedAt: string,
-        routeParametersId?: string | null,
-      } | null >,
-      nextToken?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    routeModuleId: string,
-  } | null,
-};
-
-export type OnDeleteRouteSubscriptionVariables = {
-  filter?: ModelSubscriptionRouteFilterInput | null,
-};
-
-export type OnDeleteRouteSubscription = {
-  onDeleteRoute?:  {
-    __typename: "Route",
-    id: string,
-    module:  {
-      __typename: "Module",
-      id: string,
-      name: string,
-      parameters?:  {
-        __typename: "ModelParameterConnection",
-        items:  Array< {
-          __typename: "Parameter",
-          id: string,
-          inputType: InputType,
-          label: string,
-          defaultValue?: string | null,
-          optionValues?:  Array< {
-            __typename: "TOptionValue",
-            value?: string | null,
-            label?: string | null,
-          } | null > | null,
-          module:  {
-            __typename: "Module",
-            id: string,
-            name: string,
-            createdAt: string,
-            updatedAt: string,
-          },
-          createdAt: string,
-          updatedAt: string,
-          moduleParametersId?: string | null,
-        } | null >,
-        nextToken?: string | null,
-      } | null,
-      menus?:  {
-        __typename: "ModelMenuConnection",
-        items:  Array< {
-          __typename: "Menu",
-          id: string,
-          name: string,
-          parent?: string | null,
-          menuType: MenuType,
-          module:  {
-            __typename: "Module",
-            id: string,
-            name: string,
-            createdAt: string,
-            updatedAt: string,
-          },
-          moduleId: string,
-          parameterSettings?:  Array< {
-            __typename: "TParameterValue",
-            id: string,
-            value?: string | null,
-          } | null > | null,
-          url: string,
-          sortOrder?: number | null,
-          createdAt: string,
-          updatedAt: string,
-          moduleMenusId?: string | null,
-        } | null >,
-        nextToken?: string | null,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-    },
-    action: string,
-    path: string,
-    isAdmin: boolean,
-    parameters?:  {
-      __typename: "ModelRouteParameterConnection",
-      items:  Array< {
-        __typename: "RouteParameter",
-        name: string,
-        value: string,
-        id: string,
-        createdAt: string,
-        updatedAt: string,
-        routeParametersId?: string | null,
-      } | null >,
-      nextToken?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    routeModuleId: string,
   } | null,
 };
 
@@ -6356,35 +4684,6 @@ export type OnCreateMenuSubscription = {
         } | null >,
         nextToken?: string | null,
       } | null,
-      menus?:  {
-        __typename: "ModelMenuConnection",
-        items:  Array< {
-          __typename: "Menu",
-          id: string,
-          name: string,
-          parent?: string | null,
-          menuType: MenuType,
-          module:  {
-            __typename: "Module",
-            id: string,
-            name: string,
-            createdAt: string,
-            updatedAt: string,
-          },
-          moduleId: string,
-          parameterSettings?:  Array< {
-            __typename: "TParameterValue",
-            id: string,
-            value?: string | null,
-          } | null > | null,
-          url: string,
-          sortOrder?: number | null,
-          createdAt: string,
-          updatedAt: string,
-          moduleMenusId?: string | null,
-        } | null >,
-        nextToken?: string | null,
-      } | null,
       createdAt: string,
       updatedAt: string,
     },
@@ -6398,7 +4697,7 @@ export type OnCreateMenuSubscription = {
     sortOrder?: number | null,
     createdAt: string,
     updatedAt: string,
-    moduleMenusId?: string | null,
+    menuModuleId: string,
   } | null,
 };
 
@@ -6443,35 +4742,6 @@ export type OnUpdateMenuSubscription = {
         } | null >,
         nextToken?: string | null,
       } | null,
-      menus?:  {
-        __typename: "ModelMenuConnection",
-        items:  Array< {
-          __typename: "Menu",
-          id: string,
-          name: string,
-          parent?: string | null,
-          menuType: MenuType,
-          module:  {
-            __typename: "Module",
-            id: string,
-            name: string,
-            createdAt: string,
-            updatedAt: string,
-          },
-          moduleId: string,
-          parameterSettings?:  Array< {
-            __typename: "TParameterValue",
-            id: string,
-            value?: string | null,
-          } | null > | null,
-          url: string,
-          sortOrder?: number | null,
-          createdAt: string,
-          updatedAt: string,
-          moduleMenusId?: string | null,
-        } | null >,
-        nextToken?: string | null,
-      } | null,
       createdAt: string,
       updatedAt: string,
     },
@@ -6485,7 +4755,7 @@ export type OnUpdateMenuSubscription = {
     sortOrder?: number | null,
     createdAt: string,
     updatedAt: string,
-    moduleMenusId?: string | null,
+    menuModuleId: string,
   } | null,
 };
 
@@ -6530,35 +4800,6 @@ export type OnDeleteMenuSubscription = {
         } | null >,
         nextToken?: string | null,
       } | null,
-      menus?:  {
-        __typename: "ModelMenuConnection",
-        items:  Array< {
-          __typename: "Menu",
-          id: string,
-          name: string,
-          parent?: string | null,
-          menuType: MenuType,
-          module:  {
-            __typename: "Module",
-            id: string,
-            name: string,
-            createdAt: string,
-            updatedAt: string,
-          },
-          moduleId: string,
-          parameterSettings?:  Array< {
-            __typename: "TParameterValue",
-            id: string,
-            value?: string | null,
-          } | null > | null,
-          url: string,
-          sortOrder?: number | null,
-          createdAt: string,
-          updatedAt: string,
-          moduleMenusId?: string | null,
-        } | null >,
-        nextToken?: string | null,
-      } | null,
       createdAt: string,
       updatedAt: string,
     },
@@ -6572,7 +4813,7 @@ export type OnDeleteMenuSubscription = {
     sortOrder?: number | null,
     createdAt: string,
     updatedAt: string,
-    moduleMenusId?: string | null,
+    menuModuleId: string,
   } | null,
 };
 

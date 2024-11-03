@@ -1,7 +1,7 @@
 // src/layout/Header.tsx
 import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { Box, Popover, MenuItem, Collapse } from '@mui/material';
+import { Box, Popover, MenuItem } from '@mui/material';
 import { FaSearch, FaSignInAlt } from 'react-icons/fa';
 import useNavigateWithParams from 'function/useNavigateWithParams';
 import LoginDialog from 'component/dialog/LoginDialog';
@@ -98,7 +98,7 @@ const Header: React.FC = () => {
 
         setRoutes(menusWithSubMenus); // Store the complete menu structure in state
       } catch (error) {
-        console.error('Error fetching menus:', error);
+        //console.error('Error fetching menus:', error);
       }
     };
 

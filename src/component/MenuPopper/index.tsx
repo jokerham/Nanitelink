@@ -32,7 +32,7 @@ const MenuPopper: React.FC<IMenuPopperProps> = ({ children, targetRef, open, onC
     };
 
     const handleClickOutside = (event: Event) => {
-      console.log(event.type);
+      //console.log(event.type);
       if (
         popperRef.current &&
         !popperRef.current.contains(event.target as Node) &&

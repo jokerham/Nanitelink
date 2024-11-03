@@ -48,35 +48,6 @@ export const onCreateParameter = /* GraphQL */ `subscription OnCreateParameter($
         nextToken
         __typename
       }
-      menus {
-        items {
-          id
-          name
-          parent
-          menuType
-          module {
-            id
-            name
-            createdAt
-            updatedAt
-            __typename
-          }
-          moduleId
-          parameterSettings {
-            id
-            value
-            __typename
-          }
-          url
-          sortOrder
-          createdAt
-          updatedAt
-          moduleMenusId
-          __typename
-        }
-        nextToken
-        __typename
-      }
       createdAt
       updatedAt
       __typename
@@ -126,35 +97,6 @@ export const onUpdateParameter = /* GraphQL */ `subscription OnUpdateParameter($
           createdAt
           updatedAt
           moduleParametersId
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      menus {
-        items {
-          id
-          name
-          parent
-          menuType
-          module {
-            id
-            name
-            createdAt
-            updatedAt
-            __typename
-          }
-          moduleId
-          parameterSettings {
-            id
-            value
-            __typename
-          }
-          url
-          sortOrder
-          createdAt
-          updatedAt
-          moduleMenusId
           __typename
         }
         nextToken
@@ -214,35 +156,6 @@ export const onDeleteParameter = /* GraphQL */ `subscription OnDeleteParameter($
         nextToken
         __typename
       }
-      menus {
-        items {
-          id
-          name
-          parent
-          menuType
-          module {
-            id
-            name
-            createdAt
-            updatedAt
-            __typename
-          }
-          moduleId
-          parameterSettings {
-            id
-            value
-            __typename
-          }
-          url
-          sortOrder
-          createdAt
-          updatedAt
-          moduleMenusId
-          __typename
-        }
-        nextToken
-        __typename
-      }
       createdAt
       updatedAt
       __typename
@@ -279,10 +192,6 @@ export const onCreateModule = /* GraphQL */ `subscription OnCreateModule($filter
             nextToken
             __typename
           }
-          menus {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -290,43 +199,6 @@ export const onCreateModule = /* GraphQL */ `subscription OnCreateModule($filter
         createdAt
         updatedAt
         moduleParametersId
-        __typename
-      }
-      nextToken
-      __typename
-    }
-    menus {
-      items {
-        id
-        name
-        parent
-        menuType
-        module {
-          id
-          name
-          parameters {
-            nextToken
-            __typename
-          }
-          menus {
-            nextToken
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        moduleId
-        parameterSettings {
-          id
-          value
-          __typename
-        }
-        url
-        sortOrder
-        createdAt
-        updatedAt
-        moduleMenusId
         __typename
       }
       nextToken
@@ -363,10 +235,6 @@ export const onUpdateModule = /* GraphQL */ `subscription OnUpdateModule($filter
             nextToken
             __typename
           }
-          menus {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -374,43 +242,6 @@ export const onUpdateModule = /* GraphQL */ `subscription OnUpdateModule($filter
         createdAt
         updatedAt
         moduleParametersId
-        __typename
-      }
-      nextToken
-      __typename
-    }
-    menus {
-      items {
-        id
-        name
-        parent
-        menuType
-        module {
-          id
-          name
-          parameters {
-            nextToken
-            __typename
-          }
-          menus {
-            nextToken
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        moduleId
-        parameterSettings {
-          id
-          value
-          __typename
-        }
-        url
-        sortOrder
-        createdAt
-        updatedAt
-        moduleMenusId
         __typename
       }
       nextToken
@@ -447,10 +278,6 @@ export const onDeleteModule = /* GraphQL */ `subscription OnDeleteModule($filter
             nextToken
             __typename
           }
-          menus {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -458,43 +285,6 @@ export const onDeleteModule = /* GraphQL */ `subscription OnDeleteModule($filter
         createdAt
         updatedAt
         moduleParametersId
-        __typename
-      }
-      nextToken
-      __typename
-    }
-    menus {
-      items {
-        id
-        name
-        parent
-        menuType
-        module {
-          id
-          name
-          parameters {
-            nextToken
-            __typename
-          }
-          menus {
-            nextToken
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        moduleId
-        parameterSettings {
-          id
-          value
-          __typename
-        }
-        url
-        sortOrder
-        createdAt
-        updatedAt
-        moduleMenusId
         __typename
       }
       nextToken
@@ -508,330 +298,6 @@ export const onDeleteModule = /* GraphQL */ `subscription OnDeleteModule($filter
 ` as GeneratedSubscription<
   APITypes.OnDeleteModuleSubscriptionVariables,
   APITypes.OnDeleteModuleSubscription
->;
-export const onCreateRouteParameter = /* GraphQL */ `subscription OnCreateRouteParameter(
-  $filter: ModelSubscriptionRouteParameterFilterInput
-) {
-  onCreateRouteParameter(filter: $filter) {
-    name
-    value
-    id
-    createdAt
-    updatedAt
-    routeParametersId
-    __typename
-  }
-}
-` as GeneratedSubscription<
-  APITypes.OnCreateRouteParameterSubscriptionVariables,
-  APITypes.OnCreateRouteParameterSubscription
->;
-export const onUpdateRouteParameter = /* GraphQL */ `subscription OnUpdateRouteParameter(
-  $filter: ModelSubscriptionRouteParameterFilterInput
-) {
-  onUpdateRouteParameter(filter: $filter) {
-    name
-    value
-    id
-    createdAt
-    updatedAt
-    routeParametersId
-    __typename
-  }
-}
-` as GeneratedSubscription<
-  APITypes.OnUpdateRouteParameterSubscriptionVariables,
-  APITypes.OnUpdateRouteParameterSubscription
->;
-export const onDeleteRouteParameter = /* GraphQL */ `subscription OnDeleteRouteParameter(
-  $filter: ModelSubscriptionRouteParameterFilterInput
-) {
-  onDeleteRouteParameter(filter: $filter) {
-    name
-    value
-    id
-    createdAt
-    updatedAt
-    routeParametersId
-    __typename
-  }
-}
-` as GeneratedSubscription<
-  APITypes.OnDeleteRouteParameterSubscriptionVariables,
-  APITypes.OnDeleteRouteParameterSubscription
->;
-export const onCreateRoute = /* GraphQL */ `subscription OnCreateRoute($filter: ModelSubscriptionRouteFilterInput) {
-  onCreateRoute(filter: $filter) {
-    id
-    module {
-      id
-      name
-      parameters {
-        items {
-          id
-          inputType
-          label
-          defaultValue
-          optionValues {
-            value
-            label
-            __typename
-          }
-          module {
-            id
-            name
-            createdAt
-            updatedAt
-            __typename
-          }
-          createdAt
-          updatedAt
-          moduleParametersId
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      menus {
-        items {
-          id
-          name
-          parent
-          menuType
-          module {
-            id
-            name
-            createdAt
-            updatedAt
-            __typename
-          }
-          moduleId
-          parameterSettings {
-            id
-            value
-            __typename
-          }
-          url
-          sortOrder
-          createdAt
-          updatedAt
-          moduleMenusId
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-    action
-    path
-    isAdmin
-    parameters {
-      items {
-        name
-        value
-        id
-        createdAt
-        updatedAt
-        routeParametersId
-        __typename
-      }
-      nextToken
-      __typename
-    }
-    createdAt
-    updatedAt
-    routeModuleId
-    __typename
-  }
-}
-` as GeneratedSubscription<
-  APITypes.OnCreateRouteSubscriptionVariables,
-  APITypes.OnCreateRouteSubscription
->;
-export const onUpdateRoute = /* GraphQL */ `subscription OnUpdateRoute($filter: ModelSubscriptionRouteFilterInput) {
-  onUpdateRoute(filter: $filter) {
-    id
-    module {
-      id
-      name
-      parameters {
-        items {
-          id
-          inputType
-          label
-          defaultValue
-          optionValues {
-            value
-            label
-            __typename
-          }
-          module {
-            id
-            name
-            createdAt
-            updatedAt
-            __typename
-          }
-          createdAt
-          updatedAt
-          moduleParametersId
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      menus {
-        items {
-          id
-          name
-          parent
-          menuType
-          module {
-            id
-            name
-            createdAt
-            updatedAt
-            __typename
-          }
-          moduleId
-          parameterSettings {
-            id
-            value
-            __typename
-          }
-          url
-          sortOrder
-          createdAt
-          updatedAt
-          moduleMenusId
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-    action
-    path
-    isAdmin
-    parameters {
-      items {
-        name
-        value
-        id
-        createdAt
-        updatedAt
-        routeParametersId
-        __typename
-      }
-      nextToken
-      __typename
-    }
-    createdAt
-    updatedAt
-    routeModuleId
-    __typename
-  }
-}
-` as GeneratedSubscription<
-  APITypes.OnUpdateRouteSubscriptionVariables,
-  APITypes.OnUpdateRouteSubscription
->;
-export const onDeleteRoute = /* GraphQL */ `subscription OnDeleteRoute($filter: ModelSubscriptionRouteFilterInput) {
-  onDeleteRoute(filter: $filter) {
-    id
-    module {
-      id
-      name
-      parameters {
-        items {
-          id
-          inputType
-          label
-          defaultValue
-          optionValues {
-            value
-            label
-            __typename
-          }
-          module {
-            id
-            name
-            createdAt
-            updatedAt
-            __typename
-          }
-          createdAt
-          updatedAt
-          moduleParametersId
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      menus {
-        items {
-          id
-          name
-          parent
-          menuType
-          module {
-            id
-            name
-            createdAt
-            updatedAt
-            __typename
-          }
-          moduleId
-          parameterSettings {
-            id
-            value
-            __typename
-          }
-          url
-          sortOrder
-          createdAt
-          updatedAt
-          moduleMenusId
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-    action
-    path
-    isAdmin
-    parameters {
-      items {
-        name
-        value
-        id
-        createdAt
-        updatedAt
-        routeParametersId
-        __typename
-      }
-      nextToken
-      __typename
-    }
-    createdAt
-    updatedAt
-    routeModuleId
-    __typename
-  }
-}
-` as GeneratedSubscription<
-  APITypes.OnDeleteRouteSubscriptionVariables,
-  APITypes.OnDeleteRouteSubscription
 >;
 export const onCreateMenu = /* GraphQL */ `subscription OnCreateMenu($filter: ModelSubscriptionMenuFilterInput) {
   onCreateMenu(filter: $filter) {
@@ -868,35 +334,6 @@ export const onCreateMenu = /* GraphQL */ `subscription OnCreateMenu($filter: Mo
         nextToken
         __typename
       }
-      menus {
-        items {
-          id
-          name
-          parent
-          menuType
-          module {
-            id
-            name
-            createdAt
-            updatedAt
-            __typename
-          }
-          moduleId
-          parameterSettings {
-            id
-            value
-            __typename
-          }
-          url
-          sortOrder
-          createdAt
-          updatedAt
-          moduleMenusId
-          __typename
-        }
-        nextToken
-        __typename
-      }
       createdAt
       updatedAt
       __typename
@@ -911,7 +348,7 @@ export const onCreateMenu = /* GraphQL */ `subscription OnCreateMenu($filter: Mo
     sortOrder
     createdAt
     updatedAt
-    moduleMenusId
+    menuModuleId
     __typename
   }
 }
@@ -954,35 +391,6 @@ export const onUpdateMenu = /* GraphQL */ `subscription OnUpdateMenu($filter: Mo
         nextToken
         __typename
       }
-      menus {
-        items {
-          id
-          name
-          parent
-          menuType
-          module {
-            id
-            name
-            createdAt
-            updatedAt
-            __typename
-          }
-          moduleId
-          parameterSettings {
-            id
-            value
-            __typename
-          }
-          url
-          sortOrder
-          createdAt
-          updatedAt
-          moduleMenusId
-          __typename
-        }
-        nextToken
-        __typename
-      }
       createdAt
       updatedAt
       __typename
@@ -997,7 +405,7 @@ export const onUpdateMenu = /* GraphQL */ `subscription OnUpdateMenu($filter: Mo
     sortOrder
     createdAt
     updatedAt
-    moduleMenusId
+    menuModuleId
     __typename
   }
 }
@@ -1040,35 +448,6 @@ export const onDeleteMenu = /* GraphQL */ `subscription OnDeleteMenu($filter: Mo
         nextToken
         __typename
       }
-      menus {
-        items {
-          id
-          name
-          parent
-          menuType
-          module {
-            id
-            name
-            createdAt
-            updatedAt
-            __typename
-          }
-          moduleId
-          parameterSettings {
-            id
-            value
-            __typename
-          }
-          url
-          sortOrder
-          createdAt
-          updatedAt
-          moduleMenusId
-          __typename
-        }
-        nextToken
-        __typename
-      }
       createdAt
       updatedAt
       __typename
@@ -1083,7 +462,7 @@ export const onDeleteMenu = /* GraphQL */ `subscription OnDeleteMenu($filter: Mo
     sortOrder
     createdAt
     updatedAt
-    moduleMenusId
+    menuModuleId
     __typename
   }
 }

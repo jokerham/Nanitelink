@@ -5,7 +5,6 @@ import { useEffect, useState } from 'react';
 import { generateClient } from 'aws-amplify/api';
 import { listModules } from 'graphql/queries';
 import { TfiSave } from 'react-icons/tfi';
-import * as Yup from 'yup';
 import { Formik, Field, Form } from 'formik';
 import { fetchUserAttributes } from 'aws-amplify/auth';
 import { GraphqlQueryCreateMenu, GraphqlQueryCreateDocument } from 'function/amplify/graphqlQueries';
@@ -117,12 +116,6 @@ const SiteMenuAddView = (props: SiteMenuAddViewProps) => {
     }))
   };
 
-  const validationSchema = Yup.object({
-    module: Yup.string().required('Module is required'),
-    menuName: Yup.string().required('Menu Name is required'),
-    menuUrl: Yup.string().required('Menu URL is required')
-  });
-
   const handleOnSubmit = (values: IFormValues) => {
     const amplifyAddMenu = async (values: IFormValues) => {
       try {
@@ -143,7 +136,7 @@ const SiteMenuAddView = (props: SiteMenuAddViewProps) => {
         onClose(true);
         showToast('Menu added successfully', 'success');
       } catch (e) {
-        console.log(e);
+        //console.log(e);
       }
     };
 

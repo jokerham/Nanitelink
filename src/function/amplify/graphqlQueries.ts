@@ -1,3 +1,4 @@
+import { listBoards } from './../../graphql/queries';
 import { MenuType } from 'API';
 import { generateClient } from 'aws-amplify/api';
 import { 
@@ -10,9 +11,7 @@ import {
   getDocument, 
   getModule,
   listModules,
-  listDocuments,
-  listRouteParameters,
-  listRoutes} from 'graphql/queries';
+  listDocuments } from 'graphql/queries';
 import 'amplifyconfigure';
 
 export interface IGraphqlError {
@@ -39,9 +38,9 @@ const GraphqlQueryCreateMenu = async (props: IGraphqlQueryCreateMenuProps) => {
         name: menuName,
         menuType: MenuType.Internal,
         url: menuUrl,
-        moduleMenusId: module,
-        moduleId: moduleId,
-        parent: parent ?? ''
+        moduleId: module,
+        parent: parent ?? '',
+        menuModuleId: moduleId
       }
     },
     authMode: 'userPool'
@@ -204,15 +203,15 @@ const GraphqlQueryListAllModules = async () => {
   return result.data.listModules.items;
 };
 
-const GraphqlQueryListAllRoutes = async () => {
+const GraphqlQueryListDocuments = async () => {
   const client = generateClient();
   const result = await client.graphql({
-    query: listRoutes
+    query: listDocuments
   });
-  return result.data.listRoutes.items;
+  return result.data.listDocuments.items;
 };
 
-const GraphqlQueryListDocuments = async () => {
+const GraphqlQueryListAllPages = async () => {
   const client = generateClient();
   const result = await client.graphql({
     query: listDocuments
@@ -235,6 +234,15 @@ const GraphqlQueryUpdateDocument = async (props: IGraphqlQueryUpdateDocumentProp
   });
 };
 
+const GraphqlQueryListAllBoards = async () => {
+  const client = generateClient();
+  const result = await client.graphql({
+    query: listBoards
+  });
+  return result.data.listBoards.items;
+};
+
+
 export { 
   // Create
   GraphqlQueryCreateMenu,
@@ -246,8 +254,9 @@ export {
   GraphqlQueryListMenu,
   GraphqlQueryListAllMenu,
   GraphqlQueryListAllModules,
-  GraphqlQueryListAllRoutes,
+  GraphqlQueryListAllPages,
   GraphqlQueryListDocuments,
+  GraphqlQueryListAllBoards,
   // Get
   GraphqlQueryGetModule,
   GraphqlQueryGetDocument

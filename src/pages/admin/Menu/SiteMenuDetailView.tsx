@@ -4,7 +4,6 @@ import { Formik, Form, Field } from 'formik';
 import { FormControl, FormControlLabel, FormLabel, InputLabel, MenuItem, Radio, RadioGroup, Select, SelectChangeEvent, TextField } from '@mui/material';
 import { IGraphqlError, GraphqlQueryUpdateMenu, GraphqlQueryGetModule } from 'function/amplify/graphqlQueries';
 import { TfiSave } from 'react-icons/tfi';
-import * as Yup from 'yup';
 import { showToast } from 'function/showToast';
 import { useEffect, useState } from 'react';
 
@@ -46,12 +45,6 @@ const SiteMenuDetailView = (props: SiteMenuDetailViewProps) => {
     parameters: menuNode.parameters ?? []
   };
 
-  const validationSchema = Yup.object({
-    module: Yup.string().required('Module is required'),
-    menuName: Yup.string().required('Menu Name is required'),
-    menuUrl: Yup.string().required('Menu URL is required')
-  });
-
   const handleOnSubmit = (values: IFormValues) => {
     const amplifyModifyMenu = async (values: IFormValues) => {
       try {
@@ -69,11 +62,11 @@ const SiteMenuDetailView = (props: SiteMenuDetailViewProps) => {
             showToast(error.message, 'error');
           });
         } else {
-          console.log(error);
+          //console.log(error);
         }
       }
     };
-    console.log(values);
+    //console.log(values);
     amplifyModifyMenu(values);
   };
 

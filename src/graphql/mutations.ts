@@ -51,35 +51,6 @@ export const createParameter = /* GraphQL */ `mutation CreateParameter(
         nextToken
         __typename
       }
-      menus {
-        items {
-          id
-          name
-          parent
-          menuType
-          module {
-            id
-            name
-            createdAt
-            updatedAt
-            __typename
-          }
-          moduleId
-          parameterSettings {
-            id
-            value
-            __typename
-          }
-          url
-          sortOrder
-          createdAt
-          updatedAt
-          moduleMenusId
-          __typename
-        }
-        nextToken
-        __typename
-      }
       createdAt
       updatedAt
       __typename
@@ -132,35 +103,6 @@ export const updateParameter = /* GraphQL */ `mutation UpdateParameter(
           createdAt
           updatedAt
           moduleParametersId
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      menus {
-        items {
-          id
-          name
-          parent
-          menuType
-          module {
-            id
-            name
-            createdAt
-            updatedAt
-            __typename
-          }
-          moduleId
-          parameterSettings {
-            id
-            value
-            __typename
-          }
-          url
-          sortOrder
-          createdAt
-          updatedAt
-          moduleMenusId
           __typename
         }
         nextToken
@@ -223,35 +165,6 @@ export const deleteParameter = /* GraphQL */ `mutation DeleteParameter(
         nextToken
         __typename
       }
-      menus {
-        items {
-          id
-          name
-          parent
-          menuType
-          module {
-            id
-            name
-            createdAt
-            updatedAt
-            __typename
-          }
-          moduleId
-          parameterSettings {
-            id
-            value
-            __typename
-          }
-          url
-          sortOrder
-          createdAt
-          updatedAt
-          moduleMenusId
-          __typename
-        }
-        nextToken
-        __typename
-      }
       createdAt
       updatedAt
       __typename
@@ -291,10 +204,6 @@ export const createModule = /* GraphQL */ `mutation CreateModule(
             nextToken
             __typename
           }
-          menus {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -302,43 +211,6 @@ export const createModule = /* GraphQL */ `mutation CreateModule(
         createdAt
         updatedAt
         moduleParametersId
-        __typename
-      }
-      nextToken
-      __typename
-    }
-    menus {
-      items {
-        id
-        name
-        parent
-        menuType
-        module {
-          id
-          name
-          parameters {
-            nextToken
-            __typename
-          }
-          menus {
-            nextToken
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        moduleId
-        parameterSettings {
-          id
-          value
-          __typename
-        }
-        url
-        sortOrder
-        createdAt
-        updatedAt
-        moduleMenusId
         __typename
       }
       nextToken
@@ -378,10 +250,6 @@ export const updateModule = /* GraphQL */ `mutation UpdateModule(
             nextToken
             __typename
           }
-          menus {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -389,43 +257,6 @@ export const updateModule = /* GraphQL */ `mutation UpdateModule(
         createdAt
         updatedAt
         moduleParametersId
-        __typename
-      }
-      nextToken
-      __typename
-    }
-    menus {
-      items {
-        id
-        name
-        parent
-        menuType
-        module {
-          id
-          name
-          parameters {
-            nextToken
-            __typename
-          }
-          menus {
-            nextToken
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        moduleId
-        parameterSettings {
-          id
-          value
-          __typename
-        }
-        url
-        sortOrder
-        createdAt
-        updatedAt
-        moduleMenusId
         __typename
       }
       nextToken
@@ -465,10 +296,6 @@ export const deleteModule = /* GraphQL */ `mutation DeleteModule(
             nextToken
             __typename
           }
-          menus {
-            nextToken
-            __typename
-          }
           createdAt
           updatedAt
           __typename
@@ -476,43 +303,6 @@ export const deleteModule = /* GraphQL */ `mutation DeleteModule(
         createdAt
         updatedAt
         moduleParametersId
-        __typename
-      }
-      nextToken
-      __typename
-    }
-    menus {
-      items {
-        id
-        name
-        parent
-        menuType
-        module {
-          id
-          name
-          parameters {
-            nextToken
-            __typename
-          }
-          menus {
-            nextToken
-            __typename
-          }
-          createdAt
-          updatedAt
-          __typename
-        }
-        moduleId
-        parameterSettings {
-          id
-          value
-          __typename
-        }
-        url
-        sortOrder
-        createdAt
-        updatedAt
-        moduleMenusId
         __typename
       }
       nextToken
@@ -526,342 +316,6 @@ export const deleteModule = /* GraphQL */ `mutation DeleteModule(
 ` as GeneratedMutation<
   APITypes.DeleteModuleMutationVariables,
   APITypes.DeleteModuleMutation
->;
-export const createRouteParameter = /* GraphQL */ `mutation CreateRouteParameter(
-  $input: CreateRouteParameterInput!
-  $condition: ModelRouteParameterConditionInput
-) {
-  createRouteParameter(input: $input, condition: $condition) {
-    name
-    value
-    id
-    createdAt
-    updatedAt
-    routeParametersId
-    __typename
-  }
-}
-` as GeneratedMutation<
-  APITypes.CreateRouteParameterMutationVariables,
-  APITypes.CreateRouteParameterMutation
->;
-export const updateRouteParameter = /* GraphQL */ `mutation UpdateRouteParameter(
-  $input: UpdateRouteParameterInput!
-  $condition: ModelRouteParameterConditionInput
-) {
-  updateRouteParameter(input: $input, condition: $condition) {
-    name
-    value
-    id
-    createdAt
-    updatedAt
-    routeParametersId
-    __typename
-  }
-}
-` as GeneratedMutation<
-  APITypes.UpdateRouteParameterMutationVariables,
-  APITypes.UpdateRouteParameterMutation
->;
-export const deleteRouteParameter = /* GraphQL */ `mutation DeleteRouteParameter(
-  $input: DeleteRouteParameterInput!
-  $condition: ModelRouteParameterConditionInput
-) {
-  deleteRouteParameter(input: $input, condition: $condition) {
-    name
-    value
-    id
-    createdAt
-    updatedAt
-    routeParametersId
-    __typename
-  }
-}
-` as GeneratedMutation<
-  APITypes.DeleteRouteParameterMutationVariables,
-  APITypes.DeleteRouteParameterMutation
->;
-export const createRoute = /* GraphQL */ `mutation CreateRoute(
-  $input: CreateRouteInput!
-  $condition: ModelRouteConditionInput
-) {
-  createRoute(input: $input, condition: $condition) {
-    id
-    module {
-      id
-      name
-      parameters {
-        items {
-          id
-          inputType
-          label
-          defaultValue
-          optionValues {
-            value
-            label
-            __typename
-          }
-          module {
-            id
-            name
-            createdAt
-            updatedAt
-            __typename
-          }
-          createdAt
-          updatedAt
-          moduleParametersId
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      menus {
-        items {
-          id
-          name
-          parent
-          menuType
-          module {
-            id
-            name
-            createdAt
-            updatedAt
-            __typename
-          }
-          moduleId
-          parameterSettings {
-            id
-            value
-            __typename
-          }
-          url
-          sortOrder
-          createdAt
-          updatedAt
-          moduleMenusId
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-    action
-    path
-    isAdmin
-    parameters {
-      items {
-        name
-        value
-        id
-        createdAt
-        updatedAt
-        routeParametersId
-        __typename
-      }
-      nextToken
-      __typename
-    }
-    createdAt
-    updatedAt
-    routeModuleId
-    __typename
-  }
-}
-` as GeneratedMutation<
-  APITypes.CreateRouteMutationVariables,
-  APITypes.CreateRouteMutation
->;
-export const updateRoute = /* GraphQL */ `mutation UpdateRoute(
-  $input: UpdateRouteInput!
-  $condition: ModelRouteConditionInput
-) {
-  updateRoute(input: $input, condition: $condition) {
-    id
-    module {
-      id
-      name
-      parameters {
-        items {
-          id
-          inputType
-          label
-          defaultValue
-          optionValues {
-            value
-            label
-            __typename
-          }
-          module {
-            id
-            name
-            createdAt
-            updatedAt
-            __typename
-          }
-          createdAt
-          updatedAt
-          moduleParametersId
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      menus {
-        items {
-          id
-          name
-          parent
-          menuType
-          module {
-            id
-            name
-            createdAt
-            updatedAt
-            __typename
-          }
-          moduleId
-          parameterSettings {
-            id
-            value
-            __typename
-          }
-          url
-          sortOrder
-          createdAt
-          updatedAt
-          moduleMenusId
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-    action
-    path
-    isAdmin
-    parameters {
-      items {
-        name
-        value
-        id
-        createdAt
-        updatedAt
-        routeParametersId
-        __typename
-      }
-      nextToken
-      __typename
-    }
-    createdAt
-    updatedAt
-    routeModuleId
-    __typename
-  }
-}
-` as GeneratedMutation<
-  APITypes.UpdateRouteMutationVariables,
-  APITypes.UpdateRouteMutation
->;
-export const deleteRoute = /* GraphQL */ `mutation DeleteRoute(
-  $input: DeleteRouteInput!
-  $condition: ModelRouteConditionInput
-) {
-  deleteRoute(input: $input, condition: $condition) {
-    id
-    module {
-      id
-      name
-      parameters {
-        items {
-          id
-          inputType
-          label
-          defaultValue
-          optionValues {
-            value
-            label
-            __typename
-          }
-          module {
-            id
-            name
-            createdAt
-            updatedAt
-            __typename
-          }
-          createdAt
-          updatedAt
-          moduleParametersId
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      menus {
-        items {
-          id
-          name
-          parent
-          menuType
-          module {
-            id
-            name
-            createdAt
-            updatedAt
-            __typename
-          }
-          moduleId
-          parameterSettings {
-            id
-            value
-            __typename
-          }
-          url
-          sortOrder
-          createdAt
-          updatedAt
-          moduleMenusId
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-    action
-    path
-    isAdmin
-    parameters {
-      items {
-        name
-        value
-        id
-        createdAt
-        updatedAt
-        routeParametersId
-        __typename
-      }
-      nextToken
-      __typename
-    }
-    createdAt
-    updatedAt
-    routeModuleId
-    __typename
-  }
-}
-` as GeneratedMutation<
-  APITypes.DeleteRouteMutationVariables,
-  APITypes.DeleteRouteMutation
 >;
 export const createMenu = /* GraphQL */ `mutation CreateMenu(
   $input: CreateMenuInput!
@@ -901,35 +355,6 @@ export const createMenu = /* GraphQL */ `mutation CreateMenu(
         nextToken
         __typename
       }
-      menus {
-        items {
-          id
-          name
-          parent
-          menuType
-          module {
-            id
-            name
-            createdAt
-            updatedAt
-            __typename
-          }
-          moduleId
-          parameterSettings {
-            id
-            value
-            __typename
-          }
-          url
-          sortOrder
-          createdAt
-          updatedAt
-          moduleMenusId
-          __typename
-        }
-        nextToken
-        __typename
-      }
       createdAt
       updatedAt
       __typename
@@ -944,7 +369,7 @@ export const createMenu = /* GraphQL */ `mutation CreateMenu(
     sortOrder
     createdAt
     updatedAt
-    moduleMenusId
+    menuModuleId
     __typename
   }
 }
@@ -990,35 +415,6 @@ export const updateMenu = /* GraphQL */ `mutation UpdateMenu(
         nextToken
         __typename
       }
-      menus {
-        items {
-          id
-          name
-          parent
-          menuType
-          module {
-            id
-            name
-            createdAt
-            updatedAt
-            __typename
-          }
-          moduleId
-          parameterSettings {
-            id
-            value
-            __typename
-          }
-          url
-          sortOrder
-          createdAt
-          updatedAt
-          moduleMenusId
-          __typename
-        }
-        nextToken
-        __typename
-      }
       createdAt
       updatedAt
       __typename
@@ -1033,7 +429,7 @@ export const updateMenu = /* GraphQL */ `mutation UpdateMenu(
     sortOrder
     createdAt
     updatedAt
-    moduleMenusId
+    menuModuleId
     __typename
   }
 }
@@ -1079,35 +475,6 @@ export const deleteMenu = /* GraphQL */ `mutation DeleteMenu(
         nextToken
         __typename
       }
-      menus {
-        items {
-          id
-          name
-          parent
-          menuType
-          module {
-            id
-            name
-            createdAt
-            updatedAt
-            __typename
-          }
-          moduleId
-          parameterSettings {
-            id
-            value
-            __typename
-          }
-          url
-          sortOrder
-          createdAt
-          updatedAt
-          moduleMenusId
-          __typename
-        }
-        nextToken
-        __typename
-      }
       createdAt
       updatedAt
       __typename
@@ -1122,7 +489,7 @@ export const deleteMenu = /* GraphQL */ `mutation DeleteMenu(
     sortOrder
     createdAt
     updatedAt
-    moduleMenusId
+    menuModuleId
     __typename
   }
 }

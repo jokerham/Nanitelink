@@ -28,7 +28,17 @@ export interface SiteMenuTreeNode {
   parameters?: TParameterValue[];
 }
 
-export function isSiteMenuTreeNode(obj: any): obj is SiteMenuTreeNode {
+export function isSiteMenuTreeNode(obj: {
+  id: string;
+  name: string;
+  children?: SiteMenuTreeNode[];
+  active?: boolean;
+  parent: string;
+  module?: string;
+  moduleId?: string;
+  url?: string;
+  parameters?: TParameterValue[];
+}): obj is SiteMenuTreeNode {
   return (
     obj &&
     typeof obj === 'object' &&

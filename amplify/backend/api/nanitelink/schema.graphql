@@ -56,27 +56,6 @@ type Module @model @auth(rules: [
   id: ID!
   name: String!
   parameters: [Parameter] @hasMany
-  menus: [Menu] @hasMany
-}
-
-type RouteParameter @model @auth(rules: [
-  { allow: groups, groups: ["Admin"], operations: [read, create, update, delete] },
-  { allow: public, operations: [read] }
-]) {
-  name: String!
-  value: String!
-}
-
-type Route @model @auth(rules: [
-  { allow: groups, groups: ["Admin"], operations: [read, create, update, delete] },
-  { allow: public, operations: [read] }
-]) {
-  id: ID!
-  module: Module! @hasOne
-  action: String!
-  path: String!
-  isAdmin: Boolean!
-  parameters: [RouteParameter] @hasMany
 }
 
 enum MenuType {
@@ -97,7 +76,7 @@ type Menu @model @auth(rules: [
   name: String!
   parent: String
   menuType: MenuType!
-  module: Module! @belongsTo
+  module: Module! @hasOne
   moduleId: String!
   parameterSettings: [TParameterValue]
   url: String!

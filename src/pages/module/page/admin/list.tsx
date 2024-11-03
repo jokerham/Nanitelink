@@ -4,7 +4,7 @@ const List = () => {
   return (
     <Box>
       <Box>
-        <h1>List of Boards</h1>
+        <h1>List of Pages</h1>
       </Box>      
       <Divider />
     </Box>
