@@ -50,102 +50,73 @@ const App = () => {
   const [moduleMapping, setModuleMapping] = useState<TDynamicModules>({});
   const [loading, setLoading] = useState(true); // State to track if componentMap is loaded
   
-  // get routes
+  // Get Routes By Module (Promise)
+  const getRoutesByModule = async () => {
+    const modules = await GraphqlQueryListAllModules();
+    const routes = [];
+    for (const module of modules) {
+      const modulePath = module.name.toLowerCase();
+      const paths = [modulePath, `${modulePath}/:id`, `${modulePath}/:action/:id`];
+      for (const path of paths) {
+        routes.push({ path, module, action: '', moduleId: '', isAdmin: false, parameters: undefined });
+      }
+      const adminPaths = [modulePath, `${modulePath}/:action`, `${modulePath}/:action/:id`];
+      for (const path of adminPaths) {
+        routes.push({ path, module, action: '', moduleId: '', isAdmin: true, parameters: undefined });
+      }
+    }
+    return routes;
+  };
+  
+  // Get Routes by Menu (Promise)
+  const getRoutesMyMenu = async () => {
+    const menus = await GraphqlQueryListAllMenu();
+    return menus.map(menu => ({
+      path: menu.url,
+      module: menu.module,
+      action: '',
+      moduleId: menu.moduleId,
+      isAdmin: false,
+      parameters: undefined,
+    }));
+  };
+
+  // Get Routes (useEffect)
   useEffect(() => {
-    const getRoutes = async() => {
+    const getRoutes = async () => {
       try {
-        // // Retrieve all routes from api
-        // const tmpRoutes = await GraphqlQueryListAllRoutes();
-        // const routes = tmpRoutes.map(route => {
-        //   const { path, module, action, parameters, isAdmin } = route;
-        //   const moduleId = parameters?.items.find((param: {name: string} | null) => param?.name === 'id')?.value ?? '';
-        //   const routeParameters = {
-        //     items: parameters?.items
-        //       .filter(item => (item !== null))
-        //       .map(item => ({
-        //         name: item?.name ?? '',
-        //         value: item?.value ?? '',
-        //       })) ?? []};
-        //   return { path, module, action, moduleId: moduleId, isAdmin, parameters: routeParameters };
-        // });
-
-        // // Import module elements
-        // const moduleMapping: TDynamicModules = {};
-        // for (const route of routes) {
-        //   const moduleElement = await import(`pages/module/${route.module.name.toLowerCase()}${route.isAdmin ? '/admin' : ''}`);
-        //   moduleMapping[route.module.id + (route.isAdmin ? 'Admin' : '')] = moduleElement.default;
-        // }
-        // setModuleMapping(moduleMapping);
-        // setRoutes(routes);
-        // setLoading(false);
-        
-        // 1. Routes by module
-        const getRoutesByModule = async() => {
-          const modules = await GraphqlQueryListAllModules();
-          const routes: IRoute[] = [];
-          for (const module of modules) {
-            // Paths for open contents
-            const modulePath = module.name.toLowerCase();
-            const paths = [modulePath, `${modulePath}/:id`, `${modulePath}/:action/:id`];
-            for (const path of paths) {
-              routes.push({
-                path,
-                module,
-                action: '',
-                moduleId: '',
-                isAdmin: false,
-                parameters: undefined
-              });
-            }
-
-            // Paths for admin contents
-            const adminPaths = [modulePath, `${modulePath}/:action`, `${modulePath}/:action/:id`];
-            for (const path of adminPaths) {
-              routes.push({
-                path,
-                module,
-                action: '',
-                moduleId: '',
-                isAdmin: true,
-                parameters: undefined
-              });
-            }
-          }
-          return routes;
+        // 1. Fetch routes by module and menu in parallel
+        const fetchRoutes = async () => {
+          const [routesByModule, routesByMenu] = await Promise.all([
+            getRoutesByModule(),
+            getRoutesMyMenu(),
+          ]);
+          return [...routesByModule, ...routesByMenu];
         };
-
-        // 2. Routes by menu
-        const getRoutesMyMenu = async() => {
-          const menus = await GraphqlQueryListAllMenu();
-          const routes = menus.map(menu => {
-            const path = menu.url;
-            const module = menu.module;
-            const action = '';
-            const moduleId = menu.moduleId;
-            const isAdmin = false;
-            return { path, module, action, moduleId, isAdmin };
-          });
-          return routes;
-        };
-
-        const routesByModule = await getRoutesByModule();
-        const routesByMenu = await getRoutesMyMenu();
-        const allRoutes = [...routesByModule, ...routesByMenu];
-        //console.info(allRoutes);
+  
+        const allRoutes = await fetchRoutes();
         setRoutes(allRoutes);
-
-        // 3. Import module elements
-        const moduleMapping: TDynamicModules = {};
-        for (const route of allRoutes) {
-          const moduleElement = await import(`pages/module/${route.module.name.toLowerCase()}${route.isAdmin ? '/admin' : ''}`);
-          moduleMapping[route.module.id + (route.isAdmin ? 'Admin' : '')] = moduleElement.default;
-        }
+  
+        // 2. Import module elements in parallel
+        const loadModules = async () => {
+          const moduleMappingEntries = await Promise.all(
+            allRoutes.map(async route => {
+              const moduleElement = await import(`pages/module/${route.module.name.toLowerCase()}${route.isAdmin ? '/admin' : ''}`);
+              return [route.module.id + (route.isAdmin ? 'Admin' : ''), moduleElement.default];
+            })
+          );
+          return Object.fromEntries(moduleMappingEntries);
+        };
+  
+        const moduleMapping = await loadModules();
         setModuleMapping(moduleMapping);
+  
         setLoading(false);
-      } catch(error) {
+      } catch (error) {
         //console.error(error);
       }
     };
+  
     getRoutes();
   }, []);
 
