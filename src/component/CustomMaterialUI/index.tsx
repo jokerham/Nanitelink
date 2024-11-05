@@ -9,5 +9,7 @@ export { default as ButtonRed } from './ButtonRed';
 export { default as ButtonText } from './ButtonText';
 export { default as DatePickerFocusRedBorder } from './DatePickerFocusRedBorder';
 export { default as DialogWidth300 } from './DialogWidth300';
+export * from './FlexBox';
+export { default as TextArea } from './TextArea';
 export { default as TextFieldFocusRedBorder } from './TextFieldFocusRedBorder';
 export { default as TextFieldFocusRedBorderSmall } from './TextFieldFocusRedBorderSmall';

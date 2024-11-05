@@ -32,7 +32,7 @@ const List = () => {
     <Box>
       <Box>
         <h1>List of Pages</h1>
-      </Box>      
+      </Box> 
       <Divider />
       <Toolbar variant="dense" sx={{ displya: 'flex', justifyContent: 'space-between', px: { sm: 0 } }}>
         <ButtonGroup>
