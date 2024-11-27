@@ -1,44 +1,12 @@
-import { Box, TextField } from '@mui/material';
-import { Field } from 'formik';
-import { FormVariant, TFieldVariantProp, TFieldProp } from '../types';
-import { FlexBox, FlexRowBox } from 'component/CustomMaterialUI';
+import { FormVariant, TFormFieldProps } from '../types';
+import { LabelOnLeft } from './variant/LabelOnLeft';
+import { MUIDefault } from './variant/MUIDefault';
 
-const MUIDefault = (props: TFieldProp) => {
-  return (
-    <Field 
-      as={TextField} 
-      size='small'
-      sx={{width: '100%'}} 
-      {...props} />
-  );
-};
-
-const LabelOnLeft = (props: TFieldProp) => {
-  const {label, ...fieldProps} = props;
-  return (
-    <FlexRowBox sx={{gap: 1}}>
-      <Box sx={{flex: '1', textAlign: 'right', alignContent: 'center'}}>
-        {label}
-      </Box>
-      <FlexBox sx={{flex: '5'}}>
-        <Field 
-          as={TextField} 
-          size='small'
-          sx={{width: '100%'}} 
-          { ...fieldProps } />
-      </FlexBox>
-    </FlexRowBox>
-  );
-};
-
-const FormTextField = (props: TFieldVariantProp) => {
-  const {variant, ...fieldProps} = props;
-  switch (variant){
+export const FormTextField = (props: TFormFieldProps) => {
+  switch (props.variant){
   case FormVariant.MUIDefault:
-    return ( <MUIDefault {...fieldProps} /> );
+    return ( <MUIDefault {...props} /> );
   case FormVariant.LabelOnLeft:
-    return ( <LabelOnLeft {...fieldProps} /> );
+    return ( <LabelOnLeft {...props} /> );
   }
 };
-
-export default FormTextField;
