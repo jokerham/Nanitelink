@@ -922,6 +922,7 @@ export const getBoardItem = /* GraphQL */ `query GetBoardItem($id: ID!) {
       __typename
     }
     isNotice
+    views
     createdAt
     updatedAt
     boardItemBoardId
@@ -1040,6 +1041,7 @@ export const listBoardItems = /* GraphQL */ `query ListBoardItems(
         __typename
       }
       isNotice
+      views
       createdAt
       updatedAt
       boardItemBoardId
@@ -1158,6 +1160,7 @@ export const getBoardItemComment = /* GraphQL */ `query GetBoardItemComment($id:
         __typename
       }
       isNotice
+      views
       createdAt
       updatedAt
       boardItemBoardId
@@ -1251,6 +1254,7 @@ export const listBoardItemComments = /* GraphQL */ `query ListBoardItemComments(
           __typename
         }
         isNotice
+        views
         createdAt
         updatedAt
         boardItemBoardId

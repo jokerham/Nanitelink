@@ -1,11 +1,13 @@
-import { listBoards } from './../../graphql/queries';
-import { MenuType } from 'API';
+import { listBoardItems, listBoards } from './../../graphql/queries';
+import { BoardItem, CreateBoardInput, DeleteBoardInput, MenuType } from 'API';
 import { generateClient } from 'aws-amplify/api';
 import { 
   createMenu,
   createDocument,
   updateMenu,
-  updateDocument } from 'graphql/mutations';
+  updateDocument, 
+  createBoard,
+  deleteBoard} from 'graphql/mutations';
 import { 
   listMenus,
   getDocument, 
@@ -20,7 +22,7 @@ export interface IGraphqlError {
   }[]
 }
 
-interface IGraphqlQueryCreateMenuProps {
+export interface IGraphqlQueryCreateMenuProps {
   menuName: string
   menuUrl: string
   module: string
@@ -28,7 +30,7 @@ interface IGraphqlQueryCreateMenuProps {
   parent?: string
 }
 
-const GraphqlQueryCreateMenu = async (props: IGraphqlQueryCreateMenuProps) => {
+export const GraphqlQueryCreateMenu = async (props: IGraphqlQueryCreateMenuProps) => {
   const { menuName, menuUrl, module, moduleId, parent } = props;
   const client = generateClient();
   await client.graphql({
@@ -47,7 +49,7 @@ const GraphqlQueryCreateMenu = async (props: IGraphqlQueryCreateMenuProps) => {
   });
 };
 
-interface IGraphqlQueryUpdateMenuProps {
+export interface IGraphqlQueryUpdateMenuProps {
   id: string
   menuName?: string
   menuUrl?: string
@@ -55,7 +57,7 @@ interface IGraphqlQueryUpdateMenuProps {
   parent?: string
 }
 
-const GraphqlQueryUpdateMenu = async (props: IGraphqlQueryUpdateMenuProps) => {
+export const GraphqlQueryUpdateMenu = async (props: IGraphqlQueryUpdateMenuProps) => {
   const { id, menuName, menuUrl, module, parent } = props;
 
   // Create the input object and only include defined values
@@ -84,11 +86,11 @@ const GraphqlQueryUpdateMenu = async (props: IGraphqlQueryUpdateMenuProps) => {
   });
 };
 
-interface IGraphqlQueryListMenuProps {
+export interface IGraphqlQueryListMenuProps {
   id: string
 }
 
-const GraphqlQueryListMenu = async(props: IGraphqlQueryListMenuProps) => {
+export const GraphqlQueryListMenu = async(props: IGraphqlQueryListMenuProps) => {
   const { id } = props;
   const client = generateClient();
   const result = await client.graphql({
@@ -106,7 +108,7 @@ const GraphqlQueryListMenu = async(props: IGraphqlQueryListMenuProps) => {
   return items;
 };
 
-const GraphqlQueryListAllMenu = async() => {
+export const GraphqlQueryListAllMenu = async() => {
   const client = generateClient();
   const result = await client.graphql({
     query: listMenus
@@ -116,14 +118,14 @@ const GraphqlQueryListAllMenu = async() => {
   return items;
 };
 
-interface IGraphqlQueryCreateDocument {
+export interface IGraphqlQueryCreateDocument {
   id: string;
   author: string;
   title: string;
   content: string;
 }
 
-const GraphqlQueryCreateDocument = async (props: IGraphqlQueryCreateDocument) => {
+export const GraphqlQueryCreateDocument = async (props: IGraphqlQueryCreateDocument) => {
   const { id, author, title, content } = props;
   const client = generateClient();
 
@@ -158,11 +160,11 @@ const GraphqlQueryCreateDocument = async (props: IGraphqlQueryCreateDocument) =>
 
 };
 
-interface IGraphqlQueryGetDocument {
+export interface IGraphqlQueryGetDocument {
   id: string;
 }
 
-const GraphqlQueryGetDocument = async (props: IGraphqlQueryGetDocument) => {
+export const GraphqlQueryGetDocument = async (props: IGraphqlQueryGetDocument) => {
   const { id } = props;
   const client = generateClient();
   const result = await client.graphql({
@@ -174,11 +176,11 @@ const GraphqlQueryGetDocument = async (props: IGraphqlQueryGetDocument) => {
   return result.data.getDocument;
 };
 
-interface IGraphqlQueryGetModuleProps {
+export interface IGraphqlQueryGetModuleProps {
   id: string;
 }
 
-const GraphqlQueryGetModule = async (props: IGraphqlQueryGetModuleProps) => {
+export const GraphqlQueryGetModule = async (props: IGraphqlQueryGetModuleProps) => {
   const { id } = props;
   const client = generateClient();
   const result = await client.graphql({
@@ -190,12 +192,12 @@ const GraphqlQueryGetModule = async (props: IGraphqlQueryGetModuleProps) => {
   return result.data.getModule;
 };
 
-interface IGraphqlQueryUpdateDocumentProps {
+export interface IGraphqlQueryUpdateDocumentProps {
   id: string;
   content: string;
 }
 
-const GraphqlQueryListAllModules = async () => {
+export const GraphqlQueryListAllModules = async () => {
   const client = generateClient();
   const result = await client.graphql({
     query: listModules
@@ -203,7 +205,7 @@ const GraphqlQueryListAllModules = async () => {
   return result.data.listModules.items;
 };
 
-const GraphqlQueryListDocuments = async () => {
+export const GraphqlQueryListDocuments = async () => {
   const client = generateClient();
   const result = await client.graphql({
     query: listDocuments
@@ -211,7 +213,7 @@ const GraphqlQueryListDocuments = async () => {
   return result.data.listDocuments.items;
 };
 
-const GraphqlQueryListAllPages = async () => {
+export const GraphqlQueryListAllPages = async () => {
   const client = generateClient();
   const result = await client.graphql({
     query: listDocuments
@@ -219,7 +221,7 @@ const GraphqlQueryListAllPages = async () => {
   return result.data.listDocuments.items;
 };
 
-const GraphqlQueryUpdateDocument = async (props: IGraphqlQueryUpdateDocumentProps) => {
+export const GraphqlQueryUpdateDocument = async (props: IGraphqlQueryUpdateDocumentProps) => {
   const { id, content } = props;
   const client = generateClient();
   await client.graphql({
@@ -234,7 +236,7 @@ const GraphqlQueryUpdateDocument = async (props: IGraphqlQueryUpdateDocumentProp
   });
 };
 
-const GraphqlQueryListAllBoards = async () => {
+export const GraphqlQueryListAllBoards = async () => {
   const client = generateClient();
   const result = await client.graphql({
     query: listBoards
@@ -242,22 +244,97 @@ const GraphqlQueryListAllBoards = async () => {
   return result.data.listBoards.items;
 };
 
+export const GraphqlQueryCreateBoard = async (input: CreateBoardInput) => {
+  const client = generateClient();
+  const result = await client.graphql({
+    query: createBoard,
+    variables: { input },
+    authMode: 'userPool'
+  });
+  return result.data.createBoard.id;
+};
 
-export { 
-  // Create
-  GraphqlQueryCreateMenu,
-  GraphqlQueryCreateDocument,
-  // Update
-  GraphqlQueryUpdateMenu,
-  GraphqlQueryUpdateDocument,
-  // List
-  GraphqlQueryListMenu,
-  GraphqlQueryListAllMenu,
-  GraphqlQueryListAllModules,
-  GraphqlQueryListAllPages,
-  GraphqlQueryListDocuments,
-  GraphqlQueryListAllBoards,
-  // Get
-  GraphqlQueryGetModule,
-  GraphqlQueryGetDocument
+export const GraphqlQueryDeleteBoard = async (input: DeleteBoardInput) => {
+  const client = generateClient();
+  const result = await client.graphql({
+    query: deleteBoard,
+    variables: { input },
+    authMode: 'userPool'
+  });
+  return result.data.deleteBoard;
+};
+
+export const GraphqlQueryGetBoardByTitle = async (title: string) => {
+  const client = generateClient();
+  const result = await client.graphql({
+    query: listBoards,
+    variables: {
+      filter: {
+        title: {
+          eq: title
+        }
+      }
+    }
+  });
+
+  if (result.data.listBoards.items.length > 0) {
+    return result.data.listBoards.items[0];
+  } else {
+    return undefined;
+  }
+};
+
+interface ListBoardItemsResponse {
+  data: {
+    listBoardItems: {
+      items: BoardItem[];
+      nextToken: string | null;
+    };
+  };
+}
+export const GraphqlQueryGetBoardItem = async (
+  id: string, 
+  page: number, 
+  numberOfRowsPerPage: number
+): Promise<BoardItem[]> => {
+  const client = generateClient();
+
+  // Pagination parameters
+  const limit = numberOfRowsPerPage;
+  const offset = (page - 1) * numberOfRowsPerPage;
+
+  const items: BoardItem[] = [];
+  let nextToken: string | null = null;
+  let currentIndex = 0;
+
+  // Fetch loop to minimize API costs
+  do {
+    const result: ListBoardItemsResponse = await client.graphql({
+      query: listBoardItems,
+      variables: {
+        filter: {
+          boardItemBoardId: {
+            eq: id
+          }
+        },
+        limit,
+        nextToken
+      }
+    }) as ListBoardItemsResponse;
+
+    const data = result.data.listBoardItems;
+    nextToken = data.nextToken;
+
+    // Process fetched items to include only those within the offset range
+    const fetchedItems = data.items || [];
+    for (const item of fetchedItems) {
+      if (currentIndex >= offset && items.length < limit) {
+        items.push(item);
+      }
+      currentIndex++;
+      if (items.length >= limit) break;
+    }
+  } while (nextToken && items.length < limit);
+
+  return items;
 };

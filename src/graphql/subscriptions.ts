@@ -1419,6 +1419,7 @@ export const onCreateBoardItem = /* GraphQL */ `subscription OnCreateBoardItem($
       __typename
     }
     isNotice
+    views
     createdAt
     updatedAt
     boardItemBoardId
@@ -1584,6 +1585,7 @@ export const onUpdateBoardItem = /* GraphQL */ `subscription OnUpdateBoardItem($
       __typename
     }
     isNotice
+    views
     createdAt
     updatedAt
     boardItemBoardId
@@ -1749,6 +1751,7 @@ export const onDeleteBoardItem = /* GraphQL */ `subscription OnDeleteBoardItem($
       __typename
     }
     isNotice
+    views
     createdAt
     updatedAt
     boardItemBoardId
@@ -1866,6 +1869,7 @@ export const onCreateBoardItemComment = /* GraphQL */ `subscription OnCreateBoar
         __typename
       }
       isNotice
+      views
       createdAt
       updatedAt
       boardItemBoardId
@@ -1990,6 +1994,7 @@ export const onUpdateBoardItemComment = /* GraphQL */ `subscription OnUpdateBoar
         __typename
       }
       isNotice
+      views
       createdAt
       updatedAt
       boardItemBoardId
@@ -2114,6 +2119,7 @@ export const onDeleteBoardItemComment = /* GraphQL */ `subscription OnDeleteBoar
         __typename
       }
       isNotice
+      views
       createdAt
       updatedAt
       boardItemBoardId

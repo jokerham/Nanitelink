@@ -170,6 +170,7 @@ type BoardItem @model @auth(rules: [
   author: String!
   attachments: [Attachment] @hasMany
   isNotice: Boolean
+  views: Int
 }
 
 type BoardItemComment @model @auth(rules: [

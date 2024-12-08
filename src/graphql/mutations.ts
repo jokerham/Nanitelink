@@ -1473,6 +1473,7 @@ export const createBoardItem = /* GraphQL */ `mutation CreateBoardItem(
       __typename
     }
     isNotice
+    views
     createdAt
     updatedAt
     boardItemBoardId
@@ -1641,6 +1642,7 @@ export const updateBoardItem = /* GraphQL */ `mutation UpdateBoardItem(
       __typename
     }
     isNotice
+    views
     createdAt
     updatedAt
     boardItemBoardId
@@ -1809,6 +1811,7 @@ export const deleteBoardItem = /* GraphQL */ `mutation DeleteBoardItem(
       __typename
     }
     isNotice
+    views
     createdAt
     updatedAt
     boardItemBoardId
@@ -1927,6 +1930,7 @@ export const createBoardItemComment = /* GraphQL */ `mutation CreateBoardItemCom
         __typename
       }
       isNotice
+      views
       createdAt
       updatedAt
       boardItemBoardId
@@ -2052,6 +2056,7 @@ export const updateBoardItemComment = /* GraphQL */ `mutation UpdateBoardItemCom
         __typename
       }
       isNotice
+      views
       createdAt
       updatedAt
       boardItemBoardId
@@ -2177,6 +2182,7 @@ export const deleteBoardItemComment = /* GraphQL */ `mutation DeleteBoardItemCom
         __typename
       }
       isNotice
+      views
       createdAt
       updatedAt
       boardItemBoardId

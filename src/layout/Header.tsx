@@ -7,7 +7,7 @@ import useNavigateWithParams from 'function/useNavigateWithParams';
 import LoginDialog from 'component/dialog/LoginDialog';
 import logo from 'logo.svg';
 import { AvatarShadow, TextFieldFocusRedBorder } from 'component/CustomMaterialUI';
-import { fetchUserAttributes, FetchUserAttributesOutput } from 'aws-amplify/auth';
+import { fetchAuthSession, fetchUserAttributes, FetchUserAttributesOutput, getCurrentUser } from 'aws-amplify/auth';
 import { getUrl } from 'aws-amplify/storage';
 import { Hub } from 'aws-amplify/utils';
 import ProfileMenu from './ProfileMenu';
@@ -43,11 +43,22 @@ const Header: React.FC = () => {
   const [routes, setRoutes] = useState<IMenu[]>([]); // State to hold fetched menu items
 
   const getUser = async() => {
-    const attributetmp = await fetchUserAttributes();
-    setUser(attributetmp);
+    try {
+      const session = await fetchAuthSession();
+      if (session) {
+        const user = await getCurrentUser();
+        if (user) {
+          const attributetmp = await fetchUserAttributes();
+          setUser(attributetmp);
+        }
+      }
+    } catch (error) {
+      //console.log(error);
+    }
   };
 
   Hub.listen<'auth'>('auth', async ({ payload }) => {
+    console.log(payload);
     switch(payload.event) {
     case 'signedIn': {
       getUser();
