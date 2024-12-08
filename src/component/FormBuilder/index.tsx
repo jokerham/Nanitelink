@@ -11,6 +11,20 @@ export const FormBuilder = (props: TFormBuilderProps) => {
   const { initialValues, onSubmit, fields, variant: givenVariant, sections } = props;
   const variant = givenVariant || FormVariant.MUIDefault;
 
+  const onMouseEnterHandler = () => {
+    const inputElement = document.activeElement as HTMLInputElement;
+    if (inputElement) {
+      inputElement.blur();
+    }
+  };
+
+  const onClickHandler = (isSubmitting: boolean, handleSubmit: { (e?: React.FormEvent<HTMLFormElement>): void; (): void; }) => {
+    console.log(isSubmitting);
+    isSubmitting ?
+      showToast('In process of saving. Please wait.', 'warning') :
+      handleSubmit();
+  };
+
   return (
     <Formik
       initialValues={initialValues}
@@ -39,10 +53,9 @@ export const FormBuilder = (props: TFormBuilderProps) => {
               })}
 
             <Box className="NL_admin_menu_action">
-              <Button variant="contained" onClick={
-                isSubmitting ?
-                  () => showToast('In process of saving. Please wait.', 'warning') :
-                  () => handleSubmit()}>
+              <Button variant="contained"
+                onMouseEnter={onMouseEnterHandler}
+                onClick={() => onClickHandler(isSubmitting, handleSubmit)}>
                 Save
               </Button>
             </Box>

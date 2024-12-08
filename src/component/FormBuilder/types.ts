@@ -80,6 +80,8 @@ export interface ITextField extends IBaseField {
 export interface ISelectField extends IBaseField {
   type: FieldType.Select;
   options: {
+    hasAny: boolean;
+    hasNone: boolean;
     data: TOptionItem[];
   };
 }

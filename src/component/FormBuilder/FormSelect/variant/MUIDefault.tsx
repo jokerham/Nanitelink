@@ -18,9 +18,16 @@ export const MUIDefault = ({ variant, field, formik }: TFormFieldProps) => {
         required={required}
         onChange={handleChange}
         onBlur={handleBlur}>
-        <MenuItem value="">
-          <em>None</em>
-        </MenuItem>
+        {options.hasAny && (
+          <MenuItem value="">
+            <em>None</em>
+          </MenuItem>
+        )}
+        {options.hasNone && (
+          <MenuItem value="">
+            <em>None</em>
+          </MenuItem>
+        )}
         {options.data.map((item) => {
           const { label, value } = item;
           return (
