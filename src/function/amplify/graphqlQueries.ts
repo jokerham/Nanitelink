@@ -1,5 +1,5 @@
 import { listBoardItems, listBoards } from './../../graphql/queries';
-import { BoardItem, CreateBoardInput, DeleteBoardInput, MenuType } from 'API';
+import { BoardItem, CreateBoardInput, CreateBoardItemInput, DeleteBoardInput, MenuType } from 'API';
 import { generateClient } from 'aws-amplify/api';
 import { 
   createMenu,
@@ -7,7 +7,8 @@ import {
   updateMenu,
   updateDocument, 
   createBoard,
-  deleteBoard} from 'graphql/mutations';
+  deleteBoard,
+  createBoardItem} from 'graphql/mutations';
 import { 
   listMenus,
   getDocument, 
@@ -292,6 +293,7 @@ interface ListBoardItemsResponse {
     };
   };
 }
+
 export const GraphqlQueryGetBoardItem = async (
   id: string, 
   page: number, 
@@ -337,4 +339,14 @@ export const GraphqlQueryGetBoardItem = async (
   } while (nextToken && items.length < limit);
 
   return items;
+};
+
+export const GraphqlQueryCreateBoardItem = async (input: CreateBoardItemInput) => {
+  const client = generateClient();
+  const result = await client.graphql({
+    query: createBoardItem,
+    variables: { input },
+    authMode: 'userPool'
+  });
+  return result.data.createBoardItem.id;
 };

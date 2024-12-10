@@ -5,6 +5,7 @@ import { GraphqlQueryGetBoardByTitle, GraphqlQueryGetBoardItem } from 'function/
 import { FlexRowBox } from 'component/CustomMaterialUI';
 import { IoSearch } from 'react-icons/io5';
 import { FaRegPenToSquare } from 'react-icons/fa6';
+import { useNavigate } from 'react-router-dom';
 
 const View = (props: {id?: string}) => {
   const { id } = props;
@@ -14,6 +15,7 @@ const View = (props: {id?: string}) => {
   const [searchOption, setSearchOption] = useState('');
   const [searchText, setSearchText] = useState('');
   const [boardItems, setBoardItems] = useState<BoardItem[]>([]);
+  const navigate = useNavigate();
 
   // Fetch information of board
   useEffect(() => {
@@ -60,6 +62,14 @@ const View = (props: {id?: string}) => {
   const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
+  };
+
+  const handleOnClickSearch = () => {
+    //
+  };
+
+  const handleOnClickWrite = () => {
+    navigate(`/board/add/${id}`);
   };
 
   return (
@@ -150,6 +160,7 @@ const View = (props: {id?: string}) => {
           <Button
             variant="contained"
             startIcon={<FaRegPenToSquare />}
+            onClick={handleOnClickWrite}
             sx={{width: '100%', height: '100%'}} >
             Write
           </Button>

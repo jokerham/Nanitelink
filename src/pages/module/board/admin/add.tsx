@@ -43,6 +43,8 @@ const listViewItemsOption = {
 };
 
 const listSortOption = {
+  hasAny: false,
+  hasNone: false,
   data: listViewItemsOption.data
 };
 

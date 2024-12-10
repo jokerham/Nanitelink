@@ -6,9 +6,8 @@ const BaseModule: React.FC<IDynamicModuleProp> = (props) => {
   const componentsMap = props.getComponentsMap();
   const listOfActions = Object.keys(componentsMap);
   const action = props.action != '' ? props.action : listOfActions[0];
-  
-  //console.log(props);
-  const ActionComponent = componentsMap[action] || PageNotFound;
+  const actionCap = action.charAt(0).toUpperCase() + action.slice(1);
+  const ActionComponent = componentsMap[action] || componentsMap[actionCap] || PageNotFound;
 
   if (props.id == undefined) {
     return <ActionComponent />;
