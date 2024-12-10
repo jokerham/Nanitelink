@@ -28,6 +28,7 @@ export const FormBuilder = (props: TFormBuilderProps) => {
   return (
     <Formik
       initialValues={initialValues}
+      enableReinitialize={true}
       onSubmit={onSubmit}>
       {({ values, handleChange, handleBlur, handleSubmit, isSubmitting, setFieldValue }) => (
         <Form>

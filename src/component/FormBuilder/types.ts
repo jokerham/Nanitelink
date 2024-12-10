@@ -1,3 +1,4 @@
+import { FileType } from 'aws-sdk/clients/iot';
 import { FormikValues } from 'formik';
 
 export enum FormVariant {
@@ -42,7 +43,7 @@ export type TOptionItem = {
   label: string
 };
 
-type TOnChangeHandler = {
+export type TOnChangeHandler = {
   (e: React.ChangeEvent<unknown>): void;
   <T = string | React.ChangeEvent<unknown>>(field: T): T extends React.ChangeEvent<unknown> ? void : (e: string | React.ChangeEvent<unknown>) => void
 }
@@ -73,7 +74,7 @@ export interface IListField extends IBaseField {
 
 // Text field type
 export interface ITextField extends IBaseField {
-  type: FieldType.TextField | FieldType.TextArea | FieldType.Checkbox | FieldType.Custom;
+  type: FieldType.TextField | FieldType.TextArea | FieldType.Checkbox | FieldType.Custom | FieldType.Hidden;
 }
 
 // Select field type
@@ -86,10 +87,19 @@ export interface ISelectField extends IBaseField {
   };
 }
 
+export interface IFileField extends IBaseField {
+  type: FieldType.File;
+  options: {
+    multiple: boolean;
+  }
+}
+
 // Custom field type
 export interface ICustomField extends IBaseField {
-  custom?: (values: FormikValues) => JSX.Element
-  options?: {[key: string]: unknown}
+  type: FieldType.Custom;
+  options: {
+    component: React.ComponentType<unknown>;
+  }
 }
 
 export type TSectionsProps = {
@@ -101,9 +111,10 @@ export type TSectionsProps = {
 
 export type TFormField = 
   IListField | 
+  IFileField | 
   ITextField | 
-  ISelectField | 
-  ICustomField;
+  ISelectField |
+  ICustomField ;
 
 export type TSetFieldValue = (field: string, value: unknown, shouldValidate?: boolean) => void;
 
