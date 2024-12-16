@@ -26,19 +26,20 @@
       "storage": {
         "profileImages": {}
       },
-      "function": {
-        "listUsersFunction": {
-          "deploymentBucketName": "amplify-nanitelink-dev-8f35e-deployment",
-          "s3Key": "amplify-builds/listUsersFunction-794e3666564c74506144-build.zip"
-        },
-        "getUserFunction": {
-          "deploymentBucketName": "amplify-nanitelink-dev-8f35e-deployment",
-          "s3Key": "amplify-builds/getUserFunction-446e5770563948526449-build.zip"
-        }
-      },
       "api": {
-        "users": {},
-        "nanitelink": {}
+        "nanitelink": {},
+        "Userpool": {},
+        "board": {}
+      },
+      "function": {
+        "getUserAttributes": {
+          "deploymentBucketName": "amplify-nanitelink-dev-8f35e-deployment",
+          "s3Key": "amplify-builds/getUserAttributes-67426b416d6c5678776c-build.zip"
+        },
+        "createBoardItem": {
+          "deploymentBucketName": "amplify-nanitelink-dev-8f35e-deployment",
+          "s3Key": "amplify-builds/createBoardItem-6b336f73424c4a4a4c42-build.zip"
+        }
       }
     }
   }

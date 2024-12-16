@@ -1,5 +1,33 @@
 {
   "api": {
+    "Userpool": {
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "getUserAttributes"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "API Gateway"
+    },
+    "board": {
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "createBoardItem"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "API Gateway"
+    },
     "nanitelink": {
       "dependsOn": [
         {
@@ -32,28 +60,6 @@
       },
       "providerPlugin": "awscloudformation",
       "service": "AppSync"
-    },
-    "users": {
-      "dependsOn": [
-        {
-          "attributes": [
-            "Name",
-            "Arn"
-          ],
-          "category": "function",
-          "resourceName": "listUsersFunction"
-        },
-        {
-          "attributes": [
-            "Name",
-            "Arn"
-          ],
-          "category": "function",
-          "resourceName": "getUserFunction"
-        }
-      ],
-      "providerPlugin": "awscloudformation",
-      "service": "API Gateway"
     }
   },
   "auth": {
@@ -85,22 +91,24 @@
     }
   },
   "function": {
-    "getUserFunction": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda"
-    },
-    "listUsersFunction": {
+    "createBoardItem": {
       "build": true,
       "dependsOn": [
         {
           "attributes": [
-            "UserPoolId"
+            "GraphQLAPIIdOutput",
+            "GraphQLAPIEndpointOutput",
+            "GraphQLAPIKeyOutput"
           ],
-          "category": "auth",
-          "resourceName": "nanitelinke874e11c"
+          "category": "api",
+          "resourceName": "nanitelink"
         }
       ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "getUserAttributes": {
+      "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     }
@@ -113,35 +121,35 @@
     }
   },
   "parameters": {
-    "AMPLIFY_function_getUserFunction_deploymentBucketName": {
+    "AMPLIFY_function_createBoardItem_deploymentBucketName": {
       "usedBy": [
         {
           "category": "function",
-          "resourceName": "getUserFunction"
+          "resourceName": "createBoardItem"
         }
       ]
     },
-    "AMPLIFY_function_getUserFunction_s3Key": {
+    "AMPLIFY_function_createBoardItem_s3Key": {
       "usedBy": [
         {
           "category": "function",
-          "resourceName": "getUserFunction"
+          "resourceName": "createBoardItem"
         }
       ]
     },
-    "AMPLIFY_function_listUsersFunction_deploymentBucketName": {
+    "AMPLIFY_function_getUserAttributes_deploymentBucketName": {
       "usedBy": [
         {
           "category": "function",
-          "resourceName": "listUsersFunction"
+          "resourceName": "getUserAttributes"
         }
       ]
     },
-    "AMPLIFY_function_listUsersFunction_s3Key": {
+    "AMPLIFY_function_getUserAttributes_s3Key": {
       "usedBy": [
         {
           "category": "function",
-          "resourceName": "listUsersFunction"
+          "resourceName": "getUserAttributes"
         }
       ]
     },

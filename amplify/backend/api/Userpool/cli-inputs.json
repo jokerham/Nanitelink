@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "paths": {
+    "/user/attributes/{id}": {
+      "name": "/user/attributes/{id}",
+      "lambdaFunction": "getUserAttributes",
+      "permissions": {
+        "setting": "open"
+      }
+    }
+  }
+}

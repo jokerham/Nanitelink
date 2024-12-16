@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "paths": {
+    "/createBoardItem": {
+      "name": "/createBoardItem",
+      "lambdaFunction": "createBoardItem",
+      "permissions": {
+        "setting": "open"
+      }
+    }
+  }
+}

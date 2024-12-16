@@ -1,14 +1,19 @@
 export type AmplifyDependentResourcesAttributes = {
   "api": {
+    "Userpool": {
+      "ApiId": "string",
+      "ApiName": "string",
+      "RootUrl": "string"
+    },
+    "board": {
+      "ApiId": "string",
+      "ApiName": "string",
+      "RootUrl": "string"
+    },
     "nanitelink": {
       "GraphQLAPIEndpointOutput": "string",
       "GraphQLAPIIdOutput": "string",
       "GraphQLAPIKeyOutput": "string"
-    },
-    "users": {
-      "ApiId": "string",
-      "ApiName": "string",
-      "RootUrl": "string"
     }
   },
   "auth": {
@@ -23,14 +28,14 @@ export type AmplifyDependentResourcesAttributes = {
     }
   },
   "function": {
-    "getUserFunction": {
+    "createBoardItem": {
       "Arn": "string",
       "LambdaExecutionRole": "string",
       "LambdaExecutionRoleArn": "string",
       "Name": "string",
       "Region": "string"
     },
-    "listUsersFunction": {
+    "getUserAttributes": {
       "Arn": "string",
       "LambdaExecutionRole": "string",
       "LambdaExecutionRoleArn": "string",

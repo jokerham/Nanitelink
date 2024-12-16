@@ -137,6 +137,7 @@ type Board @model @auth(rules: [
   excludeNoticeFlag: Boolean!
   type: BoardType!
   category: [BoardCatgory]! @hasMany
+  finalIndex: Int!
   #PERMISSION
   # - TODO
   #POINTS
@@ -162,6 +163,7 @@ type BoardItem @model @auth(rules: [
   { allow: public, operations: [read] }
 ]) {
   id: ID!
+  seq: Int!
   board: Board! @hasOne
   category: BoardCatgory @hasOne
   title: String!
