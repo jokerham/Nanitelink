@@ -1091,6 +1091,7 @@ export const createBoard = /* GraphQL */ `mutation CreateBoard(
       nextToken
       __typename
     }
+    finalIndex
     createdAt
     updatedAt
     __typename
@@ -1169,6 +1170,7 @@ export const updateBoard = /* GraphQL */ `mutation UpdateBoard(
       nextToken
       __typename
     }
+    finalIndex
     createdAt
     updatedAt
     __typename
@@ -1247,6 +1249,7 @@ export const deleteBoard = /* GraphQL */ `mutation DeleteBoard(
       nextToken
       __typename
     }
+    finalIndex
     createdAt
     updatedAt
     __typename
@@ -1322,6 +1325,7 @@ export const createBoardItem = /* GraphQL */ `mutation CreateBoardItem(
 ) {
   createBoardItem(input: $input, condition: $condition) {
     id
+    seq
     board {
       id
       title
@@ -1363,6 +1367,7 @@ export const createBoardItem = /* GraphQL */ `mutation CreateBoardItem(
         nextToken
         __typename
       }
+      finalIndex
       createdAt
       updatedAt
       __typename
@@ -1491,6 +1496,7 @@ export const updateBoardItem = /* GraphQL */ `mutation UpdateBoardItem(
 ) {
   updateBoardItem(input: $input, condition: $condition) {
     id
+    seq
     board {
       id
       title
@@ -1532,6 +1538,7 @@ export const updateBoardItem = /* GraphQL */ `mutation UpdateBoardItem(
         nextToken
         __typename
       }
+      finalIndex
       createdAt
       updatedAt
       __typename
@@ -1660,6 +1667,7 @@ export const deleteBoardItem = /* GraphQL */ `mutation DeleteBoardItem(
 ) {
   deleteBoardItem(input: $input, condition: $condition) {
     id
+    seq
     board {
       id
       title
@@ -1701,6 +1709,7 @@ export const deleteBoardItem = /* GraphQL */ `mutation DeleteBoardItem(
         nextToken
         __typename
       }
+      finalIndex
       createdAt
       updatedAt
       __typename
@@ -1831,6 +1840,7 @@ export const createBoardItemComment = /* GraphQL */ `mutation CreateBoardItemCom
     id
     boardItem {
       id
+      seq
       board {
         id
         title
@@ -1858,6 +1868,7 @@ export const createBoardItemComment = /* GraphQL */ `mutation CreateBoardItemCom
           nextToken
           __typename
         }
+        finalIndex
         createdAt
         updatedAt
         __typename
@@ -1957,6 +1968,7 @@ export const updateBoardItemComment = /* GraphQL */ `mutation UpdateBoardItemCom
     id
     boardItem {
       id
+      seq
       board {
         id
         title
@@ -1984,6 +1996,7 @@ export const updateBoardItemComment = /* GraphQL */ `mutation UpdateBoardItemCom
           nextToken
           __typename
         }
+        finalIndex
         createdAt
         updatedAt
         __typename
@@ -2083,6 +2096,7 @@ export const deleteBoardItemComment = /* GraphQL */ `mutation DeleteBoardItemCom
     id
     boardItem {
       id
+      seq
       board {
         id
         title
@@ -2110,6 +2124,7 @@ export const deleteBoardItemComment = /* GraphQL */ `mutation DeleteBoardItemCom
           nextToken
           __typename
         }
+        finalIndex
         createdAt
         updatedAt
         __typename

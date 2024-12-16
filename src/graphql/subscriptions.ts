@@ -1049,6 +1049,7 @@ export const onCreateBoard = /* GraphQL */ `subscription OnCreateBoard($filter: 
       nextToken
       __typename
     }
+    finalIndex
     createdAt
     updatedAt
     __typename
@@ -1124,6 +1125,7 @@ export const onUpdateBoard = /* GraphQL */ `subscription OnUpdateBoard($filter: 
       nextToken
       __typename
     }
+    finalIndex
     createdAt
     updatedAt
     __typename
@@ -1199,6 +1201,7 @@ export const onDeleteBoard = /* GraphQL */ `subscription OnDeleteBoard($filter: 
       nextToken
       __typename
     }
+    finalIndex
     createdAt
     updatedAt
     __typename
@@ -1268,6 +1271,7 @@ export const onDeleteAttachment = /* GraphQL */ `subscription OnDeleteAttachment
 export const onCreateBoardItem = /* GraphQL */ `subscription OnCreateBoardItem($filter: ModelSubscriptionBoardItemFilterInput) {
   onCreateBoardItem(filter: $filter) {
     id
+    seq
     board {
       id
       title
@@ -1309,6 +1313,7 @@ export const onCreateBoardItem = /* GraphQL */ `subscription OnCreateBoardItem($
         nextToken
         __typename
       }
+      finalIndex
       createdAt
       updatedAt
       __typename
@@ -1434,6 +1439,7 @@ export const onCreateBoardItem = /* GraphQL */ `subscription OnCreateBoardItem($
 export const onUpdateBoardItem = /* GraphQL */ `subscription OnUpdateBoardItem($filter: ModelSubscriptionBoardItemFilterInput) {
   onUpdateBoardItem(filter: $filter) {
     id
+    seq
     board {
       id
       title
@@ -1475,6 +1481,7 @@ export const onUpdateBoardItem = /* GraphQL */ `subscription OnUpdateBoardItem($
         nextToken
         __typename
       }
+      finalIndex
       createdAt
       updatedAt
       __typename
@@ -1600,6 +1607,7 @@ export const onUpdateBoardItem = /* GraphQL */ `subscription OnUpdateBoardItem($
 export const onDeleteBoardItem = /* GraphQL */ `subscription OnDeleteBoardItem($filter: ModelSubscriptionBoardItemFilterInput) {
   onDeleteBoardItem(filter: $filter) {
     id
+    seq
     board {
       id
       title
@@ -1641,6 +1649,7 @@ export const onDeleteBoardItem = /* GraphQL */ `subscription OnDeleteBoardItem($
         nextToken
         __typename
       }
+      finalIndex
       createdAt
       updatedAt
       __typename
@@ -1770,6 +1779,7 @@ export const onCreateBoardItemComment = /* GraphQL */ `subscription OnCreateBoar
     id
     boardItem {
       id
+      seq
       board {
         id
         title
@@ -1797,6 +1807,7 @@ export const onCreateBoardItemComment = /* GraphQL */ `subscription OnCreateBoar
           nextToken
           __typename
         }
+        finalIndex
         createdAt
         updatedAt
         __typename
@@ -1895,6 +1906,7 @@ export const onUpdateBoardItemComment = /* GraphQL */ `subscription OnUpdateBoar
     id
     boardItem {
       id
+      seq
       board {
         id
         title
@@ -1922,6 +1934,7 @@ export const onUpdateBoardItemComment = /* GraphQL */ `subscription OnUpdateBoar
           nextToken
           __typename
         }
+        finalIndex
         createdAt
         updatedAt
         __typename
@@ -2020,6 +2033,7 @@ export const onDeleteBoardItemComment = /* GraphQL */ `subscription OnDeleteBoar
     id
     boardItem {
       id
+      seq
       board {
         id
         title
@@ -2047,6 +2061,7 @@ export const onDeleteBoardItemComment = /* GraphQL */ `subscription OnDeleteBoar
           nextToken
           __typename
         }
+        finalIndex
         createdAt
         updatedAt
         __typename

@@ -5,7 +5,8 @@ import { FieldType, FormBuilder, FormVariant, TFormField } from 'component/FormB
 import { GraphqlQueryCreateBoardItem, GraphqlQueryGetBoardByTitle } from 'function/amplify/graphqlQueries';
 import { CKEditorTemplate } from 'component/CustomCKEditor';
 import { ComponentType, useEffect, useState } from 'react';
-import { AuthUser, fetchAuthSession, fetchUserAttributes, FetchUserAttributesOutput, getCurrentUser } from 'aws-amplify/auth';
+import { AuthUser, fetchAuthSession, getCurrentUser } from 'aws-amplify/auth';
+import { createBoardItem } from 'function/amplify/restApiQueries';
 
 const initialValuesTemplate = {
   title: '',
@@ -16,12 +17,11 @@ const initialValuesTemplate = {
   isNotice: false,
   views: 0,
   boardItemBoardId: '',
-  boardItemCategoryId: undefined,
+  boardItemCategoryId: null,
 };
 
 const Add = (props: {id?: string}) => {
   const [user, setUser] = useState<AuthUser|undefined>(undefined);
-  const [userAttribute, setUserAttribute] = useState<FetchUserAttributesOutput|undefined>(undefined);
   const [board, setBoard] = useState<Board | undefined>(undefined);
   const [initialValues, setInitialValues] = useState(initialValuesTemplate);
 
@@ -36,7 +36,7 @@ const Add = (props: {id?: string}) => {
           const result = await GraphqlQueryGetBoardByTitle(id);
           setBoard(result as Board | undefined);
         } catch (error) {
-          //console.log(error);
+          console.log(error);
         }
       };
       retrieveData(id);
@@ -51,10 +51,6 @@ const Add = (props: {id?: string}) => {
         if (session) {
           const user = await getCurrentUser();
           setUser(user);
-          if (user) {
-            const attributetmp = await fetchUserAttributes();
-            setUserAttribute(attributetmp);
-          }
         }
       } catch (error) {
         //console.log(error);
@@ -74,11 +70,24 @@ const Add = (props: {id?: string}) => {
 
   const onSubmit = async (values: unknown) => {
     try {
-      const formBoardValue = values as CreateBoardItemInput;
-      await GraphqlQueryCreateBoardItem(formBoardValue);
-      navigate('/admin/board/list');
+      if (typeof values === 'object' && values !== null) {
+        const { attachments, boardItemCategoryId, ...rest } = values as { attachments?: string[] } & CreateBoardItemInput;
+  
+        // Use attachments separately if present
+        const savedAttachments = attachments || [];
+  
+        // Ensure the remaining values conform to CreateBoardItemInput
+        const formBoardValue: CreateBoardItemInput = { ...rest };
+  
+        // Submit the form data
+        //await GraphqlQueryCreateBoardItem(formBoardValue);  
+        await createBoardItem({boardId: board?.id as string, boardItemInput: formBoardValue});
+        navigate(`/board/view/${board?.title}`);
+      } else {
+        throw new Error('Invalid form values');
+      }
     } catch (error) {
-      //console.error(error);
+      console.error(error);
     }
   };
 

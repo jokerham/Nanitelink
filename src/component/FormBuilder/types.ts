@@ -1,4 +1,3 @@
-import { FileType } from 'aws-sdk/clients/iot';
 import { FormikValues } from 'formik';
 
 export enum FormVariant {

@@ -363,6 +363,7 @@ export type CreateBoardInput = {
   listSort: TSortItemInput,
   excludeNoticeFlag: boolean,
   type: BoardType,
+  finalIndex: number,
 };
 
 export type TSortItemInput = {
@@ -390,6 +391,7 @@ export type ModelBoardConditionInput = {
   listViewItems?: ModelStringInput | null,
   excludeNoticeFlag?: ModelBooleanInput | null,
   type?: ModelBoardTypeInput | null,
+  finalIndex?: ModelIntInput | null,
   and?: Array< ModelBoardConditionInput | null > | null,
   or?: Array< ModelBoardConditionInput | null > | null,
   not?: ModelBoardConditionInput | null,
@@ -420,6 +422,7 @@ export type Board = {
   excludeNoticeFlag: boolean,
   type: BoardType,
   category?: ModelBoardCatgoryConnection | null,
+  finalIndex: number,
   createdAt: string,
   updatedAt: string,
 };
@@ -439,6 +442,7 @@ export type UpdateBoardInput = {
   listSort?: TSortItemInput | null,
   excludeNoticeFlag?: boolean | null,
   type?: BoardType | null,
+  finalIndex?: number | null,
 };
 
 export type DeleteBoardInput = {
@@ -492,6 +496,7 @@ export type DeleteAttachmentInput = {
 
 export type CreateBoardItemInput = {
   id?: string | null,
+  seq: number,
   title: string,
   content: string,
   tag: string,
@@ -503,6 +508,7 @@ export type CreateBoardItemInput = {
 };
 
 export type ModelBoardItemConditionInput = {
+  seq?: ModelIntInput | null,
   title?: ModelStringInput | null,
   content?: ModelStringInput | null,
   tag?: ModelStringInput | null,
@@ -521,6 +527,7 @@ export type ModelBoardItemConditionInput = {
 export type BoardItem = {
   __typename: "BoardItem",
   id: string,
+  seq: number,
   board: Board,
   category?: BoardCatgory | null,
   title: string,
@@ -544,6 +551,7 @@ export type ModelAttachmentConnection = {
 
 export type UpdateBoardItemInput = {
   id: string,
+  seq?: number | null,
   title?: string | null,
   content?: string | null,
   tag?: string | null,
@@ -688,6 +696,7 @@ export type ModelBoardFilterInput = {
   listViewItems?: ModelStringInput | null,
   excludeNoticeFlag?: ModelBooleanInput | null,
   type?: ModelBoardTypeInput | null,
+  finalIndex?: ModelIntInput | null,
   createdAt?: ModelStringInput | null,
   updatedAt?: ModelStringInput | null,
   and?: Array< ModelBoardFilterInput | null > | null,
@@ -717,6 +726,7 @@ export type ModelAttachmentFilterInput = {
 
 export type ModelBoardItemFilterInput = {
   id?: ModelIDInput | null,
+  seq?: ModelIntInput | null,
   title?: ModelStringInput | null,
   content?: ModelStringInput | null,
   tag?: ModelStringInput | null,
@@ -864,6 +874,7 @@ export type ModelSubscriptionBoardFilterInput = {
   listViewItems?: ModelSubscriptionStringInput | null,
   excludeNoticeFlag?: ModelSubscriptionBooleanInput | null,
   type?: ModelSubscriptionStringInput | null,
+  finalIndex?: ModelSubscriptionIntInput | null,
   createdAt?: ModelSubscriptionStringInput | null,
   updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionBoardFilterInput | null > | null,
@@ -890,6 +901,7 @@ export type ModelSubscriptionAttachmentFilterInput = {
 
 export type ModelSubscriptionBoardItemFilterInput = {
   id?: ModelSubscriptionIDInput | null,
+  seq?: ModelSubscriptionIntInput | null,
   title?: ModelSubscriptionStringInput | null,
   content?: ModelSubscriptionStringInput | null,
   tag?: ModelSubscriptionStringInput | null,
@@ -1987,6 +1999,7 @@ export type CreateBoardMutation = {
       } | null >,
       nextToken?: string | null,
     } | null,
+    finalIndex: number,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -2064,6 +2077,7 @@ export type UpdateBoardMutation = {
       } | null >,
       nextToken?: string | null,
     } | null,
+    finalIndex: number,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -2141,6 +2155,7 @@ export type DeleteBoardMutation = {
       } | null >,
       nextToken?: string | null,
     } | null,
+    finalIndex: number,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -2212,6 +2227,7 @@ export type CreateBoardItemMutation = {
   createBoardItem?:  {
     __typename: "BoardItem",
     id: string,
+    seq: number,
     board:  {
       __typename: "Board",
       id: string,
@@ -2254,6 +2270,7 @@ export type CreateBoardItemMutation = {
         } | null >,
         nextToken?: string | null,
       } | null,
+      finalIndex: number,
       createdAt: string,
       updatedAt: string,
     },
@@ -2380,6 +2397,7 @@ export type UpdateBoardItemMutation = {
   updateBoardItem?:  {
     __typename: "BoardItem",
     id: string,
+    seq: number,
     board:  {
       __typename: "Board",
       id: string,
@@ -2422,6 +2440,7 @@ export type UpdateBoardItemMutation = {
         } | null >,
         nextToken?: string | null,
       } | null,
+      finalIndex: number,
       createdAt: string,
       updatedAt: string,
     },
@@ -2548,6 +2567,7 @@ export type DeleteBoardItemMutation = {
   deleteBoardItem?:  {
     __typename: "BoardItem",
     id: string,
+    seq: number,
     board:  {
       __typename: "Board",
       id: string,
@@ -2590,6 +2610,7 @@ export type DeleteBoardItemMutation = {
         } | null >,
         nextToken?: string | null,
       } | null,
+      finalIndex: number,
       createdAt: string,
       updatedAt: string,
     },
@@ -2719,6 +2740,7 @@ export type CreateBoardItemCommentMutation = {
     boardItem:  {
       __typename: "BoardItem",
       id: string,
+      seq: number,
       board:  {
         __typename: "Board",
         id: string,
@@ -2747,6 +2769,7 @@ export type CreateBoardItemCommentMutation = {
           } | null >,
           nextToken?: string | null,
         } | null,
+        finalIndex: number,
         createdAt: string,
         updatedAt: string,
       },
@@ -2844,6 +2867,7 @@ export type UpdateBoardItemCommentMutation = {
     boardItem:  {
       __typename: "BoardItem",
       id: string,
+      seq: number,
       board:  {
         __typename: "Board",
         id: string,
@@ -2872,6 +2896,7 @@ export type UpdateBoardItemCommentMutation = {
           } | null >,
           nextToken?: string | null,
         } | null,
+        finalIndex: number,
         createdAt: string,
         updatedAt: string,
       },
@@ -2969,6 +2994,7 @@ export type DeleteBoardItemCommentMutation = {
     boardItem:  {
       __typename: "BoardItem",
       id: string,
+      seq: number,
       board:  {
         __typename: "Board",
         id: string,
@@ -2997,6 +3023,7 @@ export type DeleteBoardItemCommentMutation = {
           } | null >,
           nextToken?: string | null,
         } | null,
+        finalIndex: number,
         createdAt: string,
         updatedAt: string,
       },
@@ -3749,6 +3776,7 @@ export type GetBoardQuery = {
       } | null >,
       nextToken?: string | null,
     } | null,
+    finalIndex: number,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -3805,6 +3833,7 @@ export type ListBoardsQuery = {
         } | null >,
         nextToken?: string | null,
       } | null,
+      finalIndex: number,
       createdAt: string,
       updatedAt: string,
     } | null >,
@@ -3862,6 +3891,7 @@ export type GetBoardItemQuery = {
   getBoardItem?:  {
     __typename: "BoardItem",
     id: string,
+    seq: number,
     board:  {
       __typename: "Board",
       id: string,
@@ -3904,6 +3934,7 @@ export type GetBoardItemQuery = {
         } | null >,
         nextToken?: string | null,
       } | null,
+      finalIndex: number,
       createdAt: string,
       updatedAt: string,
     },
@@ -4033,6 +4064,7 @@ export type ListBoardItemsQuery = {
     items:  Array< {
       __typename: "BoardItem",
       id: string,
+      seq: number,
       board:  {
         __typename: "Board",
         id: string,
@@ -4061,6 +4093,7 @@ export type ListBoardItemsQuery = {
           } | null >,
           nextToken?: string | null,
         } | null,
+        finalIndex: number,
         createdAt: string,
         updatedAt: string,
       },
@@ -4153,6 +4186,7 @@ export type GetBoardItemCommentQuery = {
     boardItem:  {
       __typename: "BoardItem",
       id: string,
+      seq: number,
       board:  {
         __typename: "Board",
         id: string,
@@ -4181,6 +4215,7 @@ export type GetBoardItemCommentQuery = {
           } | null >,
           nextToken?: string | null,
         } | null,
+        finalIndex: number,
         createdAt: string,
         updatedAt: string,
       },
@@ -4281,6 +4316,7 @@ export type ListBoardItemCommentsQuery = {
       boardItem:  {
         __typename: "BoardItem",
         id: string,
+        seq: number,
         board:  {
           __typename: "Board",
           id: string,
@@ -4299,6 +4335,7 @@ export type ListBoardItemCommentsQuery = {
             __typename: "ModelBoardCatgoryConnection",
             nextToken?: string | null,
           } | null,
+          finalIndex: number,
           createdAt: string,
           updatedAt: string,
         },
@@ -5417,6 +5454,7 @@ export type OnCreateBoardSubscription = {
       } | null >,
       nextToken?: string | null,
     } | null,
+    finalIndex: number,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -5493,6 +5531,7 @@ export type OnUpdateBoardSubscription = {
       } | null >,
       nextToken?: string | null,
     } | null,
+    finalIndex: number,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -5569,6 +5608,7 @@ export type OnDeleteBoardSubscription = {
       } | null >,
       nextToken?: string | null,
     } | null,
+    finalIndex: number,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -5636,6 +5676,7 @@ export type OnCreateBoardItemSubscription = {
   onCreateBoardItem?:  {
     __typename: "BoardItem",
     id: string,
+    seq: number,
     board:  {
       __typename: "Board",
       id: string,
@@ -5678,6 +5719,7 @@ export type OnCreateBoardItemSubscription = {
         } | null >,
         nextToken?: string | null,
       } | null,
+      finalIndex: number,
       createdAt: string,
       updatedAt: string,
     },
@@ -5803,6 +5845,7 @@ export type OnUpdateBoardItemSubscription = {
   onUpdateBoardItem?:  {
     __typename: "BoardItem",
     id: string,
+    seq: number,
     board:  {
       __typename: "Board",
       id: string,
@@ -5845,6 +5888,7 @@ export type OnUpdateBoardItemSubscription = {
         } | null >,
         nextToken?: string | null,
       } | null,
+      finalIndex: number,
       createdAt: string,
       updatedAt: string,
     },
@@ -5970,6 +6014,7 @@ export type OnDeleteBoardItemSubscription = {
   onDeleteBoardItem?:  {
     __typename: "BoardItem",
     id: string,
+    seq: number,
     board:  {
       __typename: "Board",
       id: string,
@@ -6012,6 +6057,7 @@ export type OnDeleteBoardItemSubscription = {
         } | null >,
         nextToken?: string | null,
       } | null,
+      finalIndex: number,
       createdAt: string,
       updatedAt: string,
     },
@@ -6140,6 +6186,7 @@ export type OnCreateBoardItemCommentSubscription = {
     boardItem:  {
       __typename: "BoardItem",
       id: string,
+      seq: number,
       board:  {
         __typename: "Board",
         id: string,
@@ -6168,6 +6215,7 @@ export type OnCreateBoardItemCommentSubscription = {
           } | null >,
           nextToken?: string | null,
         } | null,
+        finalIndex: number,
         createdAt: string,
         updatedAt: string,
       },
@@ -6264,6 +6312,7 @@ export type OnUpdateBoardItemCommentSubscription = {
     boardItem:  {
       __typename: "BoardItem",
       id: string,
+      seq: number,
       board:  {
         __typename: "Board",
         id: string,
@@ -6292,6 +6341,7 @@ export type OnUpdateBoardItemCommentSubscription = {
           } | null >,
           nextToken?: string | null,
         } | null,
+        finalIndex: number,
         createdAt: string,
         updatedAt: string,
       },
@@ -6388,6 +6438,7 @@ export type OnDeleteBoardItemCommentSubscription = {
     boardItem:  {
       __typename: "BoardItem",
       id: string,
+      seq: number,
       board:  {
         __typename: "Board",
         id: string,
@@ -6416,6 +6467,7 @@ export type OnDeleteBoardItemCommentSubscription = {
           } | null >,
           nextToken?: string | null,
         } | null,
+        finalIndex: number,
         createdAt: string,
         updatedAt: string,
       },

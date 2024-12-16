@@ -661,6 +661,7 @@ export const getBoard = /* GraphQL */ `query GetBoard($id: ID!) {
       nextToken
       __typename
     }
+    finalIndex
     createdAt
     updatedAt
     __typename
@@ -714,6 +715,7 @@ export const listBoards = /* GraphQL */ `query ListBoards(
         nextToken
         __typename
       }
+      finalIndex
       createdAt
       updatedAt
       __typename
@@ -771,6 +773,7 @@ export const listAttachments = /* GraphQL */ `query ListAttachments(
 export const getBoardItem = /* GraphQL */ `query GetBoardItem($id: ID!) {
   getBoardItem(id: $id) {
     id
+    seq
     board {
       id
       title
@@ -812,6 +815,7 @@ export const getBoardItem = /* GraphQL */ `query GetBoardItem($id: ID!) {
         nextToken
         __typename
       }
+      finalIndex
       createdAt
       updatedAt
       __typename
@@ -942,6 +946,7 @@ export const listBoardItems = /* GraphQL */ `query ListBoardItems(
   listBoardItems(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
       id
+      seq
       board {
         id
         title
@@ -969,6 +974,7 @@ export const listBoardItems = /* GraphQL */ `query ListBoardItems(
           nextToken
           __typename
         }
+        finalIndex
         createdAt
         updatedAt
         __typename
@@ -1061,6 +1067,7 @@ export const getBoardItemComment = /* GraphQL */ `query GetBoardItemComment($id:
     id
     boardItem {
       id
+      seq
       board {
         id
         title
@@ -1088,6 +1095,7 @@ export const getBoardItemComment = /* GraphQL */ `query GetBoardItemComment($id:
           nextToken
           __typename
         }
+        finalIndex
         createdAt
         updatedAt
         __typename
@@ -1189,6 +1197,7 @@ export const listBoardItemComments = /* GraphQL */ `query ListBoardItemComments(
       id
       boardItem {
         id
+        seq
         board {
           id
           title
@@ -1206,6 +1215,7 @@ export const listBoardItemComments = /* GraphQL */ `query ListBoardItemComments(
             nextToken
             __typename
           }
+          finalIndex
           createdAt
           updatedAt
           __typename

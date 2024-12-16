@@ -19,7 +19,6 @@ export const FormBuilder = (props: TFormBuilderProps) => {
   };
 
   const onClickHandler = (isSubmitting: boolean, handleSubmit: { (e?: React.FormEvent<HTMLFormElement>): void; (): void; }) => {
-    console.log(isSubmitting);
     isSubmitting ?
       showToast('In process of saving. Please wait.', 'warning') :
       handleSubmit();

@@ -58,7 +58,6 @@ const Header: React.FC = () => {
   };
 
   Hub.listen<'auth'>('auth', async ({ payload }) => {
-    console.log(payload);
     switch(payload.event) {
     case 'signedIn': {
       getUser();

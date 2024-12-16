@@ -6,6 +6,7 @@ import { FlexRowBox } from 'component/CustomMaterialUI';
 import { IoSearch } from 'react-icons/io5';
 import { FaRegPenToSquare } from 'react-icons/fa6';
 import { useNavigate } from 'react-router-dom';
+import { getUserAttributes } from 'function/amplify/auth';
 
 const View = (props: {id?: string}) => {
   const { id } = props;
@@ -15,6 +16,7 @@ const View = (props: {id?: string}) => {
   const [searchOption, setSearchOption] = useState('');
   const [searchText, setSearchText] = useState('');
   const [boardItems, setBoardItems] = useState<BoardItem[]>([]);
+  const [userAttributes, setUserAttributes] = useState<{ [key: string]: any }>({}); // To store user attributes
   const navigate = useNavigate();
 
   // Fetch information of board
@@ -35,17 +37,41 @@ const View = (props: {id?: string}) => {
   // Fetch information of board item
   useEffect(() => {
     if (board) {
-      GraphqlQueryGetBoardItem(board.id, page, rowsPerPage).then(
-        (result) => {
-          const boardItems = result as BoardItem[];
-          setBoardItems(boardItems);
-        },
-        (error) => {
-          console.log(error);
+      const fetchBoardItems = async () => {
+        try {
+          const result = await GraphqlQueryGetBoardItem(board.id, page, rowsPerPage);
+          const items = result as BoardItem[];
+
+          // Extract unique authors
+          const authors = Array.from(new Set(items.map((item) => item.author))).filter(
+            (author) => !userAttributes[author]
+          );
+
+          // Fetch user attributes for unique authors
+          const fetchedAttributes = await Promise.all(
+            authors.map(async (author) => {
+              const userAttribute = await getUserAttributes(author);
+              return { author, userAttribute };
+            })
+          );
+
+          // Update userAttributes state
+          const updatedAttributes = { ...userAttributes };
+          fetchedAttributes.forEach(({ author, userAttribute }) => {
+            updatedAttributes[author] = userAttribute;
+          });
+
+          // Update state
+          setUserAttributes(updatedAttributes);
+          setBoardItems(items);
+        } catch (error) {
+          console.error(error);
         }
-      );
+      };
+
+      fetchBoardItems();
     }
-  }, [board]);
+  }, [board, page, rowsPerPage]);
 
   const selectableValues = [
     {name: 'Subject', value: 'subject'},
@@ -100,9 +126,9 @@ const View = (props: {id?: string}) => {
           <TableBody>
             {boardItems.map((boardItem, index) => (
               <TableRow key={boardItem.id}>
-                <TableCell>{index + 1}</TableCell>
+                <TableCell>{boardItem.seq}</TableCell>
                 <TableCell>{boardItem.title}</TableCell>
-                <TableCell>{boardItem.author}</TableCell>
+                <TableCell>{userAttributes[boardItem.author]?.name}</TableCell>
                 <TableCell>{boardItem.createdAt}</TableCell>
                 <TableCell>{boardItem.views}</TableCell>
               </TableRow>
@@ -121,7 +147,7 @@ const View = (props: {id?: string}) => {
         component="div"
         count={boardItems.length}
         rowsPerPage={rowsPerPage}
-        page={boardItems.length == 0 ? 0 : page}
+        page={page-1}
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
         sx={{width: '100%'}}

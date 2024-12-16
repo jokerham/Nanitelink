@@ -1,7 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import './index.css';
-import { bool } from 'aws-sdk/clients/signer';
 
 interface IMenuPopperProps {
   children: React.ReactNode;
@@ -19,7 +18,7 @@ const MenuPopper: React.FC<IMenuPopperProps> = ({ children, targetRef, open, onC
   const popperRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const addEvent = (events: Set<IEventHandler>, addOrDelete: bool) => {
+    const addEvent = (events: Set<IEventHandler>, addOrDelete: boolean) => {
       if (addOrDelete) {
         events.forEach((event) => {
           document.addEventListener(event.eventName, event.eventHandler);

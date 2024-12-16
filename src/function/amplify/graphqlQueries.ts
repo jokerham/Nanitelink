@@ -1,14 +1,13 @@
 import { listBoardItems, listBoards } from './../../graphql/queries';
 import { BoardItem, CreateBoardInput, CreateBoardItemInput, DeleteBoardInput, MenuType } from 'API';
-import { generateClient } from 'aws-amplify/api';
+import { generateClient, GraphQLResult } from 'aws-amplify/api';
 import { 
   createMenu,
   createDocument,
   updateMenu,
   updateDocument, 
   createBoard,
-  deleteBoard,
-  createBoardItem} from 'graphql/mutations';
+  deleteBoard} from 'graphql/mutations';
 import { 
   listMenus,
   getDocument, 
@@ -342,11 +341,22 @@ export const GraphqlQueryGetBoardItem = async (
 };
 
 export const GraphqlQueryCreateBoardItem = async (input: CreateBoardItemInput) => {
+  const createBoardItemMutation = `
+    mutation CreateBoardItem($input: CreateBoardItemInput!) {
+      createBoardItem(input: $input) {
+        id
+      }
+    }
+  `;
+
   const client = generateClient();
-  const result = await client.graphql({
-    query: createBoardItem,
+  
+  // Explicitly cast the result to GraphQLResult
+  const result = (await client.graphql({
+    query: createBoardItemMutation,
     variables: { input },
     authMode: 'userPool'
-  });
+  })) as GraphQLResult<{ createBoardItem: { id: string; __typename: string } }>;
+
   return result.data.createBoardItem.id;
 };
