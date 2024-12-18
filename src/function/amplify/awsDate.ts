@@ -1,8 +1,4 @@
-const toLocalDate = (isoString: string) => {
+export const toLocalDate = (isoString: string) => {
   const d = new Date(isoString);
-  return d.toLocaleDateString('en-CA');
-};
-
-export {
-  toLocalDate
+  return d.toLocaleDateString('ko-KR');
 };

@@ -1,23 +1,42 @@
 import { useEffect, useState } from 'react';
-import { Box, Button, MenuItem, Paper, Select, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, TextField } from '@mui/material';
+import { Box, Button, CircularProgress, MenuItem, Paper, Select, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, TextField, Typography } from '@mui/material';
 import { Board, BoardItem } from 'API';
-import { GraphqlQueryGetBoardByTitle, GraphqlQueryGetBoardItem } from 'function/amplify/graphqlQueries';
+import { GraphqlQueryGetBoardByTitle } from 'function/amplify/graphqlQueries';
 import { FlexRowBox } from 'component/CustomMaterialUI';
 import { IoSearch } from 'react-icons/io5';
 import { FaRegPenToSquare } from 'react-icons/fa6';
 import { useNavigate } from 'react-router-dom';
 import { getUserAttributes } from 'function/amplify/auth';
+import { toLocalDate } from 'function/amplify/awsDate';
+import { listBoardItems } from 'function/amplify/restApiQueries';
+import { Link } from 'react-router-dom';
+
+const selectableValues = [
+  {name: 'Subject', value: 'subject'},
+  {name: 'Content', value: 'content'},
+  {name: 'Comment', value: 'comment'},
+  {name: 'Author', value: 'author'},
+  {name: 'Tag', value: 'tag'}
+];
 
 const View = (props: {id?: string}) => {
   const { id } = props;
   const [board, setBoard] = useState<Board | undefined>(undefined);
   const [page, setPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(25);
-  const [searchOption, setSearchOption] = useState('');
+  const [searchOption, setSearchOption] = useState(selectableValues[0].value);
   const [searchText, setSearchText] = useState('');
   const [boardItems, setBoardItems] = useState<BoardItem[]>([]);
   const [userAttributes, setUserAttributes] = useState<{ [key: string]: any }>({}); // To store user attributes
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+
+  type TListBoardItems = {
+    totalPages: number,
+    currentPage: number,
+    rowsPerPage: number,
+    items: BoardItem[]
+  }
 
   // Fetch information of board
   useEffect(() => {
@@ -39,11 +58,10 @@ const View = (props: {id?: string}) => {
     if (board) {
       const fetchBoardItems = async () => {
         try {
-          const result = await GraphqlQueryGetBoardItem(board.id, page, rowsPerPage);
-          const items = result as BoardItem[];
+          const result = await listBoardItems(board.id, page, rowsPerPage) as TListBoardItems;
 
           // Extract unique authors
-          const authors = Array.from(new Set(items.map((item) => item.author))).filter(
+          const authors = Array.from(new Set(result.items.map((item) => item.author))).filter(
             (author) => !userAttributes[author]
           );
 
@@ -63,7 +81,8 @@ const View = (props: {id?: string}) => {
 
           // Update state
           setUserAttributes(updatedAttributes);
-          setBoardItems(items);
+          setBoardItems(result.items);
+          setLoading(false);
         } catch (error) {
           console.error(error);
         }
@@ -73,13 +92,6 @@ const View = (props: {id?: string}) => {
     }
   }, [board, page, rowsPerPage]);
 
-  const selectableValues = [
-    {name: 'Subject', value: 'subject'},
-    {name: 'Content', value: 'content'},
-    {name: 'Comment', value: 'comment'},
-    {name: 'Author', value: 'author'},
-    {name: 'Tag', value: 'tag'}
-  ];
 
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
@@ -116,28 +128,35 @@ const View = (props: {id?: string}) => {
         <Table size="small">
           <TableHead>
             <TableRow>
-              <TableCell>No</TableCell>
+              <TableCell align="center">No</TableCell>
               <TableCell>Title</TableCell>
               <TableCell>Author</TableCell>
-              <TableCell>Date</TableCell>
-              <TableCell>Views</TableCell>
+              <TableCell align="center">Date</TableCell>
+              <TableCell align="center">Views</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {boardItems.map((boardItem, index) => (
+            {loading && (
+              <TableRow sx={{ height: '400px' }}>
+                <TableCell colSpan={5} align="center">
+                  <CircularProgress size="100px" />
+                </TableCell>
+              </TableRow>
+            )}
+            {!loading && boardItems.map((boardItem) => (
               <TableRow key={boardItem.id}>
-                <TableCell>{boardItem.seq}</TableCell>
-                <TableCell>{boardItem.title}</TableCell>
+                <TableCell align="center">{boardItem.seq}</TableCell>
+                <TableCell><Link to={`/board/detail/${board?.title}?seq=${boardItem.seq}`} className="NL_link">{boardItem.title}</Link></TableCell>
                 <TableCell>{userAttributes[boardItem.author]?.name}</TableCell>
-                <TableCell>{boardItem.createdAt}</TableCell>
-                <TableCell>{boardItem.views}</TableCell>
+                <TableCell align="center">{toLocalDate(boardItem.createdAt)}</TableCell>
+                <TableCell align="center">{boardItem.views}</TableCell>
               </TableRow>
             ))}
-            {(boardItems.length == 0 && (
+            {!loading && boardItems.length == 0 && (
               <TableRow sx={{ height: '150px' }}>
                 <TableCell colSpan={5} align="center">No Articles</TableCell>
               </TableRow>
-            ))}
+            )}
           </TableBody>
         </Table>
       </TableContainer>

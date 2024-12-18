@@ -1049,7 +1049,6 @@ export const onCreateBoard = /* GraphQL */ `subscription OnCreateBoard($filter: 
       nextToken
       __typename
     }
-    finalIndex
     createdAt
     updatedAt
     __typename
@@ -1125,7 +1124,6 @@ export const onUpdateBoard = /* GraphQL */ `subscription OnUpdateBoard($filter: 
       nextToken
       __typename
     }
-    finalIndex
     createdAt
     updatedAt
     __typename
@@ -1201,7 +1199,6 @@ export const onDeleteBoard = /* GraphQL */ `subscription OnDeleteBoard($filter: 
       nextToken
       __typename
     }
-    finalIndex
     createdAt
     updatedAt
     __typename
@@ -1272,6 +1269,7 @@ export const onCreateBoardItem = /* GraphQL */ `subscription OnCreateBoardItem($
   onCreateBoardItem(filter: $filter) {
     id
     seq
+    boardId
     board {
       id
       title
@@ -1313,7 +1311,6 @@ export const onCreateBoardItem = /* GraphQL */ `subscription OnCreateBoardItem($
         nextToken
         __typename
       }
-      finalIndex
       createdAt
       updatedAt
       __typename
@@ -1427,7 +1424,6 @@ export const onCreateBoardItem = /* GraphQL */ `subscription OnCreateBoardItem($
     views
     createdAt
     updatedAt
-    boardItemBoardId
     boardItemCategoryId
     __typename
   }
@@ -1440,6 +1436,7 @@ export const onUpdateBoardItem = /* GraphQL */ `subscription OnUpdateBoardItem($
   onUpdateBoardItem(filter: $filter) {
     id
     seq
+    boardId
     board {
       id
       title
@@ -1481,7 +1478,6 @@ export const onUpdateBoardItem = /* GraphQL */ `subscription OnUpdateBoardItem($
         nextToken
         __typename
       }
-      finalIndex
       createdAt
       updatedAt
       __typename
@@ -1595,7 +1591,6 @@ export const onUpdateBoardItem = /* GraphQL */ `subscription OnUpdateBoardItem($
     views
     createdAt
     updatedAt
-    boardItemBoardId
     boardItemCategoryId
     __typename
   }
@@ -1608,6 +1603,7 @@ export const onDeleteBoardItem = /* GraphQL */ `subscription OnDeleteBoardItem($
   onDeleteBoardItem(filter: $filter) {
     id
     seq
+    boardId
     board {
       id
       title
@@ -1649,7 +1645,6 @@ export const onDeleteBoardItem = /* GraphQL */ `subscription OnDeleteBoardItem($
         nextToken
         __typename
       }
-      finalIndex
       createdAt
       updatedAt
       __typename
@@ -1763,7 +1758,6 @@ export const onDeleteBoardItem = /* GraphQL */ `subscription OnDeleteBoardItem($
     views
     createdAt
     updatedAt
-    boardItemBoardId
     boardItemCategoryId
     __typename
   }
@@ -1777,9 +1771,12 @@ export const onCreateBoardItemComment = /* GraphQL */ `subscription OnCreateBoar
 ) {
   onCreateBoardItemComment(filter: $filter) {
     id
+    seq
+    boardItemId
     boardItem {
       id
       seq
+      boardId
       board {
         id
         title
@@ -1807,7 +1804,6 @@ export const onCreateBoardItemComment = /* GraphQL */ `subscription OnCreateBoar
           nextToken
           __typename
         }
-        finalIndex
         createdAt
         updatedAt
         __typename
@@ -1883,7 +1879,6 @@ export const onCreateBoardItemComment = /* GraphQL */ `subscription OnCreateBoar
       views
       createdAt
       updatedAt
-      boardItemBoardId
       boardItemCategoryId
       __typename
     }
@@ -1891,7 +1886,6 @@ export const onCreateBoardItemComment = /* GraphQL */ `subscription OnCreateBoar
     author
     createdAt
     updatedAt
-    boardItemCommentBoardItemId
     __typename
   }
 }
@@ -1904,9 +1898,12 @@ export const onUpdateBoardItemComment = /* GraphQL */ `subscription OnUpdateBoar
 ) {
   onUpdateBoardItemComment(filter: $filter) {
     id
+    seq
+    boardItemId
     boardItem {
       id
       seq
+      boardId
       board {
         id
         title
@@ -1934,7 +1931,6 @@ export const onUpdateBoardItemComment = /* GraphQL */ `subscription OnUpdateBoar
           nextToken
           __typename
         }
-        finalIndex
         createdAt
         updatedAt
         __typename
@@ -2010,7 +2006,6 @@ export const onUpdateBoardItemComment = /* GraphQL */ `subscription OnUpdateBoar
       views
       createdAt
       updatedAt
-      boardItemBoardId
       boardItemCategoryId
       __typename
     }
@@ -2018,7 +2013,6 @@ export const onUpdateBoardItemComment = /* GraphQL */ `subscription OnUpdateBoar
     author
     createdAt
     updatedAt
-    boardItemCommentBoardItemId
     __typename
   }
 }
@@ -2031,9 +2025,12 @@ export const onDeleteBoardItemComment = /* GraphQL */ `subscription OnDeleteBoar
 ) {
   onDeleteBoardItemComment(filter: $filter) {
     id
+    seq
+    boardItemId
     boardItem {
       id
       seq
+      boardId
       board {
         id
         title
@@ -2061,7 +2058,6 @@ export const onDeleteBoardItemComment = /* GraphQL */ `subscription OnDeleteBoar
           nextToken
           __typename
         }
-        finalIndex
         createdAt
         updatedAt
         __typename
@@ -2137,7 +2133,6 @@ export const onDeleteBoardItemComment = /* GraphQL */ `subscription OnDeleteBoar
       views
       createdAt
       updatedAt
-      boardItemBoardId
       boardItemCategoryId
       __typename
     }
@@ -2145,7 +2140,6 @@ export const onDeleteBoardItemComment = /* GraphQL */ `subscription OnDeleteBoar
     author
     createdAt
     updatedAt
-    boardItemCommentBoardItemId
     __typename
   }
 }

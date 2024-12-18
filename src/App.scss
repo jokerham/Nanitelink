@@ -71,6 +71,15 @@ html body {
     }
   }
 
+  &link {
+    text-decoration: none;
+    color: inherit;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
   &icon {
     margin-top: 1px;
     margin-right: 5px;

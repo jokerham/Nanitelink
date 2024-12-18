@@ -137,7 +137,6 @@ type Board @model @auth(rules: [
   excludeNoticeFlag: Boolean!
   type: BoardType!
   category: [BoardCatgory]! @hasMany
-  finalIndex: Int!
   #PERMISSION
   # - TODO
   #POINTS
@@ -163,8 +162,9 @@ type BoardItem @model @auth(rules: [
   { allow: public, operations: [read] }
 ]) {
   id: ID!
-  seq: Int!
-  board: Board! @hasOne
+  seq: Int! # Sort Key
+  boardId: ID! @index(name: "byBoard", queryField: "listBoardItemsByBoard", sortKeyFields: ["seq"]) # GSI Partition Key
+  board: Board @hasOne(fields: ["boardId"]) # Maintain relationship to Board
   category: BoardCatgory @hasOne
   title: String!
   content: String!
@@ -182,7 +182,9 @@ type BoardItemComment @model @auth(rules: [
   { allow: public, operations: [read] }
 ]) {
   id: ID!
-  boardItem: BoardItem! @hasOne
+  seq: Int! # Sort Key
+  boardItemId: ID! @index(name: "byBoardItem", queryField: "listBoardItemCommentsByBoard", sortKeyFields: ["seq"]) # GSI Partition Key
+  boardItem: BoardItem @hasOne(fields: ["boardItemId"]) # Maintain relationship to BoardItem
   comment: String!
   author: String!
 }

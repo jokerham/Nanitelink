@@ -293,70 +293,70 @@ interface ListBoardItemsResponse {
   };
 }
 
-export const GraphqlQueryGetBoardItem = async (
-  id: string, 
-  page: number, 
-  numberOfRowsPerPage: number
-): Promise<BoardItem[]> => {
-  const client = generateClient();
+// export const GraphqlQueryGetBoardItem = async (
+//   id: string, 
+//   page: number, 
+//   numberOfRowsPerPage: number
+// ): Promise<BoardItem[]> => {
+//   const client = generateClient();
 
-  // Pagination parameters
-  const limit = numberOfRowsPerPage;
-  const offset = (page - 1) * numberOfRowsPerPage;
+//   // Pagination parameters
+//   const limit = numberOfRowsPerPage;
+//   const offset = (page - 1) * numberOfRowsPerPage;
 
-  const items: BoardItem[] = [];
-  let nextToken: string | null = null;
-  let currentIndex = 0;
+//   const items: BoardItem[] = [];
+//   let nextToken: string | null = null;
+//   let currentIndex = 0;
 
-  // Fetch loop to minimize API costs
-  do {
-    const result: ListBoardItemsResponse = await client.graphql({
-      query: listBoardItems,
-      variables: {
-        filter: {
-          boardItemBoardId: {
-            eq: id
-          }
-        },
-        limit,
-        nextToken
-      }
-    }) as ListBoardItemsResponse;
+//   // Fetch loop to minimize API costs
+//   do {
+//     const result: ListBoardItemsResponse = await client.graphql({
+//       query: listBoardItems,
+//       variables: {
+//         filter: {
+//           boardItemBoardId: {
+//             eq: id
+//           }
+//         },
+//         limit,
+//         nextToken
+//       }
+//     }) as ListBoardItemsResponse;
 
-    const data = result.data.listBoardItems;
-    nextToken = data.nextToken;
+//     const data = result.data.listBoardItems;
+//     nextToken = data.nextToken;
 
-    // Process fetched items to include only those within the offset range
-    const fetchedItems = data.items || [];
-    for (const item of fetchedItems) {
-      if (currentIndex >= offset && items.length < limit) {
-        items.push(item);
-      }
-      currentIndex++;
-      if (items.length >= limit) break;
-    }
-  } while (nextToken && items.length < limit);
+//     // Process fetched items to include only those within the offset range
+//     const fetchedItems = data.items || [];
+//     for (const item of fetchedItems) {
+//       if (currentIndex >= offset && items.length < limit) {
+//         items.push(item);
+//       }
+//       currentIndex++;
+//       if (items.length >= limit) break;
+//     }
+//   } while (nextToken && items.length < limit);
 
-  return items;
-};
+//   return items;
+// };
 
-export const GraphqlQueryCreateBoardItem = async (input: CreateBoardItemInput) => {
-  const createBoardItemMutation = `
-    mutation CreateBoardItem($input: CreateBoardItemInput!) {
-      createBoardItem(input: $input) {
-        id
-      }
-    }
-  `;
+// export const GraphqlQueryCreateBoardItem = async (input: CreateBoardItemInput) => {
+//   const createBoardItemMutation = `
+//     mutation CreateBoardItem($input: CreateBoardItemInput!) {
+//       createBoardItem(input: $input) {
+//         id
+//       }
+//     }
+//   `;
 
-  const client = generateClient();
+//   const client = generateClient();
   
-  // Explicitly cast the result to GraphQLResult
-  const result = (await client.graphql({
-    query: createBoardItemMutation,
-    variables: { input },
-    authMode: 'userPool'
-  })) as GraphQLResult<{ createBoardItem: { id: string; __typename: string } }>;
+//   // Explicitly cast the result to GraphQLResult
+//   const result = (await client.graphql({
+//     query: createBoardItemMutation,
+//     variables: { input },
+//     authMode: 'userPool'
+//   })) as GraphQLResult<{ createBoardItem: { id: string; __typename: string } }>;
 
-  return result.data.createBoardItem.id;
-};
+//   return result.data.createBoardItem.id;
+// };

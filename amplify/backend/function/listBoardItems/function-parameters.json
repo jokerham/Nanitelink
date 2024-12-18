@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "api": {
+      "nanitelink": [
+        "Query"
+      ]
+    }
+  },
+  "lambdaLayers": []
+}

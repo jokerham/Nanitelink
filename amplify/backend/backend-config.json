@@ -23,6 +23,14 @@
           ],
           "category": "function",
           "resourceName": "createBoardItem"
+        },
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "listBoardItems"
         }
       ],
       "providerPlugin": "awscloudformation",
@@ -111,6 +119,22 @@
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
+    },
+    "listBoardItems": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "GraphQLAPIIdOutput",
+            "GraphQLAPIEndpointOutput",
+            "GraphQLAPIKeyOutput"
+          ],
+          "category": "api",
+          "resourceName": "nanitelink"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
     }
   },
   "hosting": {
@@ -150,6 +174,22 @@
         {
           "category": "function",
           "resourceName": "getUserAttributes"
+        }
+      ]
+    },
+    "AMPLIFY_function_listBoardItems_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "listBoardItems"
+        }
+      ]
+    },
+    "AMPLIFY_function_listBoardItems_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "listBoardItems"
         }
       ]
     },

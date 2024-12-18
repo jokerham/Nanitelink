@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom';
-import { Box, Divider } from '@mui/material';
+import { Box, CircularProgress, Divider, Modal } from '@mui/material';
 import { Board, CreateBoardItemInput } from 'API';
 import { FieldType, FormBuilder, FormVariant, TFormField } from 'component/FormBuilder';
-import { GraphqlQueryCreateBoardItem, GraphqlQueryGetBoardByTitle } from 'function/amplify/graphqlQueries';
+import { GraphqlQueryGetBoardByTitle } from 'function/amplify/graphqlQueries';
 import { CKEditorTemplate } from 'component/CustomCKEditor';
 import { ComponentType, useEffect, useState } from 'react';
 import { AuthUser, fetchAuthSession, getCurrentUser } from 'aws-amplify/auth';
@@ -20,10 +20,18 @@ const initialValuesTemplate = {
   boardItemCategoryId: null,
 };
 
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+};
+
 const Add = (props: {id?: string}) => {
   const [user, setUser] = useState<AuthUser|undefined>(undefined);
   const [board, setBoard] = useState<Board | undefined>(undefined);
   const [initialValues, setInitialValues] = useState(initialValuesTemplate);
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
   const { id } = props;
@@ -80,8 +88,10 @@ const Add = (props: {id?: string}) => {
         const formBoardValue: CreateBoardItemInput = { ...rest };
   
         // Submit the form data
-        //await GraphqlQueryCreateBoardItem(formBoardValue);  
+        //await GraphqlQueryCreateBoardItem(formBoardValue);
+        setLoading(true);
         await createBoardItem({boardId: board?.id as string, boardItemInput: formBoardValue});
+        setLoading(false);
         navigate(`/board/view/${board?.title}`);
       } else {
         throw new Error('Invalid form values');
@@ -120,6 +130,9 @@ const Add = (props: {id?: string}) => {
       </Box>      
       <Divider/>
       <FormBuilder {...formBuilderProps}/>
+      <Modal open={loading} >
+        <CircularProgress sx={style} size="100px" />
+      </Modal>
     </Box>
   );
 };

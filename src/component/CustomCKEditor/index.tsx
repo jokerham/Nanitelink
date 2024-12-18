@@ -20,7 +20,7 @@ export const CKEditorTemplate = (props: ICKEditorTemplateProps) => {
   };
   
   return (
-    <Box sx={{marginBottom: '-10px', padding: 0, height: '600px', width: '100%'}}>
+    <Box sx={{marginBottom: '-10px', padding: 0, height: '450px', width: '100%'}}>
       <Field type='hidden' id={name} value={name} onChange={onChange} />
       <CKEditor 
         id='editor'

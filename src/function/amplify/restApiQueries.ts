@@ -83,17 +83,6 @@ export const createBoardItem = async ({boardId, boardItemInput}: IXreateBoardIte
     if (idToken === undefined) {
       throw new Error('No ID token found');
     } else {
-      // Make the request to the Lambda function
-      // const response = await axios.post(
-      //   `https://${getRestApiEndpoint('board')}/boardRest`, // Replace with your API Gateway URL
-      //   payload,
-      //   {
-      //     headers: {
-      //       Authorization: `Bearer ${idToken}`, // Pass the Cognito JWT token in the Authorization header
-      //       'Content-Type': 'application/json',
-      //     },
-      //   }
-      // );
       const response = await API.post({
         apiName: 'board',
         path: '/createBoardItem',
@@ -113,5 +102,35 @@ export const createBoardItem = async ({boardId, boardItemInput}: IXreateBoardIte
   } catch (error) {
     console.error('Error calling Lambda function:', error);
     throw error;
+  }
+};
+
+export const listBoardItems = async (
+  boardId: string,
+  page = 1,
+  rowsPerPage = 10
+): Promise<unknown> => {
+  try {
+    const payload = {
+      boardId,
+      page,
+      rowsPerPage,
+    };
+
+    const response = await API.post({
+      apiName: 'board',
+      path: '/listBoardItems',
+      options: {
+        body: payload,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    }).response;
+    const jsonResult = await response.body.json();
+    return jsonResult;
+  } catch (error) {
+    console.error('Error fetching board items:', error);
+    throw new Error('Failed to fetch board items. Please try again.');
   }
 };

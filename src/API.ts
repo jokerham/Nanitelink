@@ -363,7 +363,6 @@ export type CreateBoardInput = {
   listSort: TSortItemInput,
   excludeNoticeFlag: boolean,
   type: BoardType,
-  finalIndex: number,
 };
 
 export type TSortItemInput = {
@@ -391,7 +390,6 @@ export type ModelBoardConditionInput = {
   listViewItems?: ModelStringInput | null,
   excludeNoticeFlag?: ModelBooleanInput | null,
   type?: ModelBoardTypeInput | null,
-  finalIndex?: ModelIntInput | null,
   and?: Array< ModelBoardConditionInput | null > | null,
   or?: Array< ModelBoardConditionInput | null > | null,
   not?: ModelBoardConditionInput | null,
@@ -422,7 +420,6 @@ export type Board = {
   excludeNoticeFlag: boolean,
   type: BoardType,
   category?: ModelBoardCatgoryConnection | null,
-  finalIndex: number,
   createdAt: string,
   updatedAt: string,
 };
@@ -442,7 +439,6 @@ export type UpdateBoardInput = {
   listSort?: TSortItemInput | null,
   excludeNoticeFlag?: boolean | null,
   type?: BoardType | null,
-  finalIndex?: number | null,
 };
 
 export type DeleteBoardInput = {
@@ -497,18 +493,19 @@ export type DeleteAttachmentInput = {
 export type CreateBoardItemInput = {
   id?: string | null,
   seq: number,
+  boardId: string,
   title: string,
   content: string,
   tag: string,
   author: string,
   isNotice?: boolean | null,
   views?: number | null,
-  boardItemBoardId: string,
   boardItemCategoryId?: string | null,
 };
 
 export type ModelBoardItemConditionInput = {
   seq?: ModelIntInput | null,
+  boardId?: ModelIDInput | null,
   title?: ModelStringInput | null,
   content?: ModelStringInput | null,
   tag?: ModelStringInput | null,
@@ -520,7 +517,6 @@ export type ModelBoardItemConditionInput = {
   not?: ModelBoardItemConditionInput | null,
   createdAt?: ModelStringInput | null,
   updatedAt?: ModelStringInput | null,
-  boardItemBoardId?: ModelIDInput | null,
   boardItemCategoryId?: ModelIDInput | null,
 };
 
@@ -528,7 +524,8 @@ export type BoardItem = {
   __typename: "BoardItem",
   id: string,
   seq: number,
-  board: Board,
+  boardId: string,
+  board?: Board | null,
   category?: BoardCatgory | null,
   title: string,
   content: string,
@@ -539,7 +536,6 @@ export type BoardItem = {
   views?: number | null,
   createdAt: string,
   updatedAt: string,
-  boardItemBoardId: string,
   boardItemCategoryId?: string | null,
 };
 
@@ -552,13 +548,13 @@ export type ModelAttachmentConnection = {
 export type UpdateBoardItemInput = {
   id: string,
   seq?: number | null,
+  boardId?: string | null,
   title?: string | null,
   content?: string | null,
   tag?: string | null,
   author?: string | null,
   isNotice?: boolean | null,
   views?: number | null,
-  boardItemBoardId?: string | null,
   boardItemCategoryId?: string | null,
 };
 
@@ -568,12 +564,15 @@ export type DeleteBoardItemInput = {
 
 export type CreateBoardItemCommentInput = {
   id?: string | null,
+  seq: number,
+  boardItemId: string,
   comment: string,
   author: string,
-  boardItemCommentBoardItemId: string,
 };
 
 export type ModelBoardItemCommentConditionInput = {
+  seq?: ModelIntInput | null,
+  boardItemId?: ModelIDInput | null,
   comment?: ModelStringInput | null,
   author?: ModelStringInput | null,
   and?: Array< ModelBoardItemCommentConditionInput | null > | null,
@@ -581,25 +580,26 @@ export type ModelBoardItemCommentConditionInput = {
   not?: ModelBoardItemCommentConditionInput | null,
   createdAt?: ModelStringInput | null,
   updatedAt?: ModelStringInput | null,
-  boardItemCommentBoardItemId?: ModelIDInput | null,
 };
 
 export type BoardItemComment = {
   __typename: "BoardItemComment",
   id: string,
-  boardItem: BoardItem,
+  seq: number,
+  boardItemId: string,
+  boardItem?: BoardItem | null,
   comment: string,
   author: string,
   createdAt: string,
   updatedAt: string,
-  boardItemCommentBoardItemId: string,
 };
 
 export type UpdateBoardItemCommentInput = {
   id: string,
+  seq?: number | null,
+  boardItemId?: string | null,
   comment?: string | null,
   author?: string | null,
-  boardItemCommentBoardItemId?: string | null,
 };
 
 export type DeleteBoardItemCommentInput = {
@@ -696,7 +696,6 @@ export type ModelBoardFilterInput = {
   listViewItems?: ModelStringInput | null,
   excludeNoticeFlag?: ModelBooleanInput | null,
   type?: ModelBoardTypeInput | null,
-  finalIndex?: ModelIntInput | null,
   createdAt?: ModelStringInput | null,
   updatedAt?: ModelStringInput | null,
   and?: Array< ModelBoardFilterInput | null > | null,
@@ -727,6 +726,7 @@ export type ModelAttachmentFilterInput = {
 export type ModelBoardItemFilterInput = {
   id?: ModelIDInput | null,
   seq?: ModelIntInput | null,
+  boardId?: ModelIDInput | null,
   title?: ModelStringInput | null,
   content?: ModelStringInput | null,
   tag?: ModelStringInput | null,
@@ -738,7 +738,6 @@ export type ModelBoardItemFilterInput = {
   and?: Array< ModelBoardItemFilterInput | null > | null,
   or?: Array< ModelBoardItemFilterInput | null > | null,
   not?: ModelBoardItemFilterInput | null,
-  boardItemBoardId?: ModelIDInput | null,
   boardItemCategoryId?: ModelIDInput | null,
 };
 
@@ -748,8 +747,25 @@ export type ModelBoardItemConnection = {
   nextToken?: string | null,
 };
 
+export type ModelIntKeyConditionInput = {
+  eq?: number | null,
+  le?: number | null,
+  lt?: number | null,
+  ge?: number | null,
+  gt?: number | null,
+  between?: Array< number | null > | null,
+};
+
+export enum ModelSortDirection {
+  ASC = "ASC",
+  DESC = "DESC",
+}
+
+
 export type ModelBoardItemCommentFilterInput = {
   id?: ModelIDInput | null,
+  seq?: ModelIntInput | null,
+  boardItemId?: ModelIDInput | null,
   comment?: ModelStringInput | null,
   author?: ModelStringInput | null,
   createdAt?: ModelStringInput | null,
@@ -757,7 +773,6 @@ export type ModelBoardItemCommentFilterInput = {
   and?: Array< ModelBoardItemCommentFilterInput | null > | null,
   or?: Array< ModelBoardItemCommentFilterInput | null > | null,
   not?: ModelBoardItemCommentFilterInput | null,
-  boardItemCommentBoardItemId?: ModelIDInput | null,
 };
 
 export type ModelBoardItemCommentConnection = {
@@ -874,7 +889,6 @@ export type ModelSubscriptionBoardFilterInput = {
   listViewItems?: ModelSubscriptionStringInput | null,
   excludeNoticeFlag?: ModelSubscriptionBooleanInput | null,
   type?: ModelSubscriptionStringInput | null,
-  finalIndex?: ModelSubscriptionIntInput | null,
   createdAt?: ModelSubscriptionStringInput | null,
   updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionBoardFilterInput | null > | null,
@@ -902,6 +916,7 @@ export type ModelSubscriptionAttachmentFilterInput = {
 export type ModelSubscriptionBoardItemFilterInput = {
   id?: ModelSubscriptionIDInput | null,
   seq?: ModelSubscriptionIntInput | null,
+  boardId?: ModelSubscriptionIDInput | null,
   title?: ModelSubscriptionStringInput | null,
   content?: ModelSubscriptionStringInput | null,
   tag?: ModelSubscriptionStringInput | null,
@@ -912,19 +927,19 @@ export type ModelSubscriptionBoardItemFilterInput = {
   and?: Array< ModelSubscriptionBoardItemFilterInput | null > | null,
   or?: Array< ModelSubscriptionBoardItemFilterInput | null > | null,
   boardItemAttachmentsId?: ModelSubscriptionIDInput | null,
-  boardItemBoardId?: ModelSubscriptionIDInput | null,
   boardItemCategoryId?: ModelSubscriptionIDInput | null,
   author?: ModelStringInput | null,
 };
 
 export type ModelSubscriptionBoardItemCommentFilterInput = {
   id?: ModelSubscriptionIDInput | null,
+  seq?: ModelSubscriptionIntInput | null,
+  boardItemId?: ModelSubscriptionIDInput | null,
   comment?: ModelSubscriptionStringInput | null,
   createdAt?: ModelSubscriptionStringInput | null,
   updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionBoardItemCommentFilterInput | null > | null,
   or?: Array< ModelSubscriptionBoardItemCommentFilterInput | null > | null,
-  boardItemCommentBoardItemId?: ModelSubscriptionIDInput | null,
   author?: ModelStringInput | null,
 };
 
@@ -1999,7 +2014,6 @@ export type CreateBoardMutation = {
       } | null >,
       nextToken?: string | null,
     } | null,
-    finalIndex: number,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -2077,7 +2091,6 @@ export type UpdateBoardMutation = {
       } | null >,
       nextToken?: string | null,
     } | null,
-    finalIndex: number,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -2155,7 +2168,6 @@ export type DeleteBoardMutation = {
       } | null >,
       nextToken?: string | null,
     } | null,
-    finalIndex: number,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -2228,7 +2240,8 @@ export type CreateBoardItemMutation = {
     __typename: "BoardItem",
     id: string,
     seq: number,
-    board:  {
+    boardId: string,
+    board?:  {
       __typename: "Board",
       id: string,
       title: string,
@@ -2270,10 +2283,9 @@ export type CreateBoardItemMutation = {
         } | null >,
         nextToken?: string | null,
       } | null,
-      finalIndex: number,
       createdAt: string,
       updatedAt: string,
-    },
+    } | null,
     category?:  {
       __typename: "BoardCatgory",
       id: string,
@@ -2383,7 +2395,6 @@ export type CreateBoardItemMutation = {
     views?: number | null,
     createdAt: string,
     updatedAt: string,
-    boardItemBoardId: string,
     boardItemCategoryId?: string | null,
   } | null,
 };
@@ -2398,7 +2409,8 @@ export type UpdateBoardItemMutation = {
     __typename: "BoardItem",
     id: string,
     seq: number,
-    board:  {
+    boardId: string,
+    board?:  {
       __typename: "Board",
       id: string,
       title: string,
@@ -2440,10 +2452,9 @@ export type UpdateBoardItemMutation = {
         } | null >,
         nextToken?: string | null,
       } | null,
-      finalIndex: number,
       createdAt: string,
       updatedAt: string,
-    },
+    } | null,
     category?:  {
       __typename: "BoardCatgory",
       id: string,
@@ -2553,7 +2564,6 @@ export type UpdateBoardItemMutation = {
     views?: number | null,
     createdAt: string,
     updatedAt: string,
-    boardItemBoardId: string,
     boardItemCategoryId?: string | null,
   } | null,
 };
@@ -2568,7 +2578,8 @@ export type DeleteBoardItemMutation = {
     __typename: "BoardItem",
     id: string,
     seq: number,
-    board:  {
+    boardId: string,
+    board?:  {
       __typename: "Board",
       id: string,
       title: string,
@@ -2610,10 +2621,9 @@ export type DeleteBoardItemMutation = {
         } | null >,
         nextToken?: string | null,
       } | null,
-      finalIndex: number,
       createdAt: string,
       updatedAt: string,
-    },
+    } | null,
     category?:  {
       __typename: "BoardCatgory",
       id: string,
@@ -2723,7 +2733,6 @@ export type DeleteBoardItemMutation = {
     views?: number | null,
     createdAt: string,
     updatedAt: string,
-    boardItemBoardId: string,
     boardItemCategoryId?: string | null,
   } | null,
 };
@@ -2737,11 +2746,14 @@ export type CreateBoardItemCommentMutation = {
   createBoardItemComment?:  {
     __typename: "BoardItemComment",
     id: string,
-    boardItem:  {
+    seq: number,
+    boardItemId: string,
+    boardItem?:  {
       __typename: "BoardItem",
       id: string,
       seq: number,
-      board:  {
+      boardId: string,
+      board?:  {
         __typename: "Board",
         id: string,
         title: string,
@@ -2769,10 +2781,9 @@ export type CreateBoardItemCommentMutation = {
           } | null >,
           nextToken?: string | null,
         } | null,
-        finalIndex: number,
         createdAt: string,
         updatedAt: string,
-      },
+      } | null,
       category?:  {
         __typename: "BoardCatgory",
         id: string,
@@ -2844,14 +2855,12 @@ export type CreateBoardItemCommentMutation = {
       views?: number | null,
       createdAt: string,
       updatedAt: string,
-      boardItemBoardId: string,
       boardItemCategoryId?: string | null,
-    },
+    } | null,
     comment: string,
     author: string,
     createdAt: string,
     updatedAt: string,
-    boardItemCommentBoardItemId: string,
   } | null,
 };
 
@@ -2864,11 +2873,14 @@ export type UpdateBoardItemCommentMutation = {
   updateBoardItemComment?:  {
     __typename: "BoardItemComment",
     id: string,
-    boardItem:  {
+    seq: number,
+    boardItemId: string,
+    boardItem?:  {
       __typename: "BoardItem",
       id: string,
       seq: number,
-      board:  {
+      boardId: string,
+      board?:  {
         __typename: "Board",
         id: string,
         title: string,
@@ -2896,10 +2908,9 @@ export type UpdateBoardItemCommentMutation = {
           } | null >,
           nextToken?: string | null,
         } | null,
-        finalIndex: number,
         createdAt: string,
         updatedAt: string,
-      },
+      } | null,
       category?:  {
         __typename: "BoardCatgory",
         id: string,
@@ -2971,14 +2982,12 @@ export type UpdateBoardItemCommentMutation = {
       views?: number | null,
       createdAt: string,
       updatedAt: string,
-      boardItemBoardId: string,
       boardItemCategoryId?: string | null,
-    },
+    } | null,
     comment: string,
     author: string,
     createdAt: string,
     updatedAt: string,
-    boardItemCommentBoardItemId: string,
   } | null,
 };
 
@@ -2991,11 +3000,14 @@ export type DeleteBoardItemCommentMutation = {
   deleteBoardItemComment?:  {
     __typename: "BoardItemComment",
     id: string,
-    boardItem:  {
+    seq: number,
+    boardItemId: string,
+    boardItem?:  {
       __typename: "BoardItem",
       id: string,
       seq: number,
-      board:  {
+      boardId: string,
+      board?:  {
         __typename: "Board",
         id: string,
         title: string,
@@ -3023,10 +3035,9 @@ export type DeleteBoardItemCommentMutation = {
           } | null >,
           nextToken?: string | null,
         } | null,
-        finalIndex: number,
         createdAt: string,
         updatedAt: string,
-      },
+      } | null,
       category?:  {
         __typename: "BoardCatgory",
         id: string,
@@ -3098,14 +3109,12 @@ export type DeleteBoardItemCommentMutation = {
       views?: number | null,
       createdAt: string,
       updatedAt: string,
-      boardItemBoardId: string,
       boardItemCategoryId?: string | null,
-    },
+    } | null,
     comment: string,
     author: string,
     createdAt: string,
     updatedAt: string,
-    boardItemCommentBoardItemId: string,
   } | null,
 };
 
@@ -3776,7 +3785,6 @@ export type GetBoardQuery = {
       } | null >,
       nextToken?: string | null,
     } | null,
-    finalIndex: number,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -3833,7 +3841,6 @@ export type ListBoardsQuery = {
         } | null >,
         nextToken?: string | null,
       } | null,
-      finalIndex: number,
       createdAt: string,
       updatedAt: string,
     } | null >,
@@ -3892,7 +3899,8 @@ export type GetBoardItemQuery = {
     __typename: "BoardItem",
     id: string,
     seq: number,
-    board:  {
+    boardId: string,
+    board?:  {
       __typename: "Board",
       id: string,
       title: string,
@@ -3934,10 +3942,9 @@ export type GetBoardItemQuery = {
         } | null >,
         nextToken?: string | null,
       } | null,
-      finalIndex: number,
       createdAt: string,
       updatedAt: string,
-    },
+    } | null,
     category?:  {
       __typename: "BoardCatgory",
       id: string,
@@ -4047,7 +4054,6 @@ export type GetBoardItemQuery = {
     views?: number | null,
     createdAt: string,
     updatedAt: string,
-    boardItemBoardId: string,
     boardItemCategoryId?: string | null,
   } | null,
 };
@@ -4065,7 +4071,8 @@ export type ListBoardItemsQuery = {
       __typename: "BoardItem",
       id: string,
       seq: number,
-      board:  {
+      boardId: string,
+      board?:  {
         __typename: "Board",
         id: string,
         title: string,
@@ -4093,10 +4100,9 @@ export type ListBoardItemsQuery = {
           } | null >,
           nextToken?: string | null,
         } | null,
-        finalIndex: number,
         createdAt: string,
         updatedAt: string,
-      },
+      } | null,
       category?:  {
         __typename: "BoardCatgory",
         id: string,
@@ -4168,7 +4174,131 @@ export type ListBoardItemsQuery = {
       views?: number | null,
       createdAt: string,
       updatedAt: string,
-      boardItemBoardId: string,
+      boardItemCategoryId?: string | null,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type ListBoardItemsByBoardQueryVariables = {
+  boardId: string,
+  seq?: ModelIntKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelBoardItemFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListBoardItemsByBoardQuery = {
+  listBoardItemsByBoard?:  {
+    __typename: "ModelBoardItemConnection",
+    items:  Array< {
+      __typename: "BoardItem",
+      id: string,
+      seq: number,
+      boardId: string,
+      board?:  {
+        __typename: "Board",
+        id: string,
+        title: string,
+        header?: string | null,
+        footer?: string | null,
+        listViewItems: Array< string | null >,
+        listSort:  {
+          __typename: "TSortItem",
+          item: string,
+          sort: SortOrder,
+        },
+        excludeNoticeFlag: boolean,
+        type: BoardType,
+        category?:  {
+          __typename: "ModelBoardCatgoryConnection",
+          items:  Array< {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null >,
+          nextToken?: string | null,
+        } | null,
+        createdAt: string,
+        updatedAt: string,
+      } | null,
+      category?:  {
+        __typename: "BoardCatgory",
+        id: string,
+        name: string,
+        parent?:  {
+          __typename: "BoardCatgory",
+          id: string,
+          name: string,
+          parent?:  {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null,
+          children?:  {
+            __typename: "ModelBoardCatgoryConnection",
+            nextToken?: string | null,
+          } | null,
+          sortOrder: number,
+          createdAt: string,
+          updatedAt: string,
+          boardCatgoryChildrenId: string,
+          boardCategoryId: string,
+        } | null,
+        children?:  {
+          __typename: "ModelBoardCatgoryConnection",
+          items:  Array< {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null >,
+          nextToken?: string | null,
+        } | null,
+        sortOrder: number,
+        createdAt: string,
+        updatedAt: string,
+        boardCatgoryChildrenId: string,
+        boardCategoryId: string,
+      } | null,
+      title: string,
+      content: string,
+      tag: string,
+      author: string,
+      attachments?:  {
+        __typename: "ModelAttachmentConnection",
+        items:  Array< {
+          __typename: "Attachment",
+          id: string,
+          filename: string,
+          filetype: string,
+          path: string,
+          createdAt: string,
+          updatedAt: string,
+          boardItemAttachmentsId?: string | null,
+          author?: string | null,
+        } | null >,
+        nextToken?: string | null,
+      } | null,
+      isNotice?: boolean | null,
+      views?: number | null,
+      createdAt: string,
+      updatedAt: string,
       boardItemCategoryId?: string | null,
     } | null >,
     nextToken?: string | null,
@@ -4183,11 +4313,14 @@ export type GetBoardItemCommentQuery = {
   getBoardItemComment?:  {
     __typename: "BoardItemComment",
     id: string,
-    boardItem:  {
+    seq: number,
+    boardItemId: string,
+    boardItem?:  {
       __typename: "BoardItem",
       id: string,
       seq: number,
-      board:  {
+      boardId: string,
+      board?:  {
         __typename: "Board",
         id: string,
         title: string,
@@ -4215,10 +4348,9 @@ export type GetBoardItemCommentQuery = {
           } | null >,
           nextToken?: string | null,
         } | null,
-        finalIndex: number,
         createdAt: string,
         updatedAt: string,
-      },
+      } | null,
       category?:  {
         __typename: "BoardCatgory",
         id: string,
@@ -4290,14 +4422,12 @@ export type GetBoardItemCommentQuery = {
       views?: number | null,
       createdAt: string,
       updatedAt: string,
-      boardItemBoardId: string,
       boardItemCategoryId?: string | null,
-    },
+    } | null,
     comment: string,
     author: string,
     createdAt: string,
     updatedAt: string,
-    boardItemCommentBoardItemId: string,
   } | null,
 };
 
@@ -4313,11 +4443,14 @@ export type ListBoardItemCommentsQuery = {
     items:  Array< {
       __typename: "BoardItemComment",
       id: string,
-      boardItem:  {
+      seq: number,
+      boardItemId: string,
+      boardItem?:  {
         __typename: "BoardItem",
         id: string,
         seq: number,
-        board:  {
+        boardId: string,
+        board?:  {
           __typename: "Board",
           id: string,
           title: string,
@@ -4335,10 +4468,9 @@ export type ListBoardItemCommentsQuery = {
             __typename: "ModelBoardCatgoryConnection",
             nextToken?: string | null,
           } | null,
-          finalIndex: number,
           createdAt: string,
           updatedAt: string,
-        },
+        } | null,
         category?:  {
           __typename: "BoardCatgory",
           id: string,
@@ -4386,14 +4518,113 @@ export type ListBoardItemCommentsQuery = {
         views?: number | null,
         createdAt: string,
         updatedAt: string,
-        boardItemBoardId: string,
         boardItemCategoryId?: string | null,
-      },
+      } | null,
       comment: string,
       author: string,
       createdAt: string,
       updatedAt: string,
-      boardItemCommentBoardItemId: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type ListBoardItemCommentsByBoardQueryVariables = {
+  boardItemId: string,
+  seq?: ModelIntKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelBoardItemCommentFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListBoardItemCommentsByBoardQuery = {
+  listBoardItemCommentsByBoard?:  {
+    __typename: "ModelBoardItemCommentConnection",
+    items:  Array< {
+      __typename: "BoardItemComment",
+      id: string,
+      seq: number,
+      boardItemId: string,
+      boardItem?:  {
+        __typename: "BoardItem",
+        id: string,
+        seq: number,
+        boardId: string,
+        board?:  {
+          __typename: "Board",
+          id: string,
+          title: string,
+          header?: string | null,
+          footer?: string | null,
+          listViewItems: Array< string | null >,
+          listSort:  {
+            __typename: "TSortItem",
+            item: string,
+            sort: SortOrder,
+          },
+          excludeNoticeFlag: boolean,
+          type: BoardType,
+          category?:  {
+            __typename: "ModelBoardCatgoryConnection",
+            nextToken?: string | null,
+          } | null,
+          createdAt: string,
+          updatedAt: string,
+        } | null,
+        category?:  {
+          __typename: "BoardCatgory",
+          id: string,
+          name: string,
+          parent?:  {
+            __typename: "BoardCatgory",
+            id: string,
+            name: string,
+            sortOrder: number,
+            createdAt: string,
+            updatedAt: string,
+            boardCatgoryChildrenId: string,
+            boardCategoryId: string,
+          } | null,
+          children?:  {
+            __typename: "ModelBoardCatgoryConnection",
+            nextToken?: string | null,
+          } | null,
+          sortOrder: number,
+          createdAt: string,
+          updatedAt: string,
+          boardCatgoryChildrenId: string,
+          boardCategoryId: string,
+        } | null,
+        title: string,
+        content: string,
+        tag: string,
+        author: string,
+        attachments?:  {
+          __typename: "ModelAttachmentConnection",
+          items:  Array< {
+            __typename: "Attachment",
+            id: string,
+            filename: string,
+            filetype: string,
+            path: string,
+            createdAt: string,
+            updatedAt: string,
+            boardItemAttachmentsId?: string | null,
+            author?: string | null,
+          } | null >,
+          nextToken?: string | null,
+        } | null,
+        isNotice?: boolean | null,
+        views?: number | null,
+        createdAt: string,
+        updatedAt: string,
+        boardItemCategoryId?: string | null,
+      } | null,
+      comment: string,
+      author: string,
+      createdAt: string,
+      updatedAt: string,
     } | null >,
     nextToken?: string | null,
   } | null,
@@ -5454,7 +5685,6 @@ export type OnCreateBoardSubscription = {
       } | null >,
       nextToken?: string | null,
     } | null,
-    finalIndex: number,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -5531,7 +5761,6 @@ export type OnUpdateBoardSubscription = {
       } | null >,
       nextToken?: string | null,
     } | null,
-    finalIndex: number,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -5608,7 +5837,6 @@ export type OnDeleteBoardSubscription = {
       } | null >,
       nextToken?: string | null,
     } | null,
-    finalIndex: number,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -5677,7 +5905,8 @@ export type OnCreateBoardItemSubscription = {
     __typename: "BoardItem",
     id: string,
     seq: number,
-    board:  {
+    boardId: string,
+    board?:  {
       __typename: "Board",
       id: string,
       title: string,
@@ -5719,10 +5948,9 @@ export type OnCreateBoardItemSubscription = {
         } | null >,
         nextToken?: string | null,
       } | null,
-      finalIndex: number,
       createdAt: string,
       updatedAt: string,
-    },
+    } | null,
     category?:  {
       __typename: "BoardCatgory",
       id: string,
@@ -5832,7 +6060,6 @@ export type OnCreateBoardItemSubscription = {
     views?: number | null,
     createdAt: string,
     updatedAt: string,
-    boardItemBoardId: string,
     boardItemCategoryId?: string | null,
   } | null,
 };
@@ -5846,7 +6073,8 @@ export type OnUpdateBoardItemSubscription = {
     __typename: "BoardItem",
     id: string,
     seq: number,
-    board:  {
+    boardId: string,
+    board?:  {
       __typename: "Board",
       id: string,
       title: string,
@@ -5888,10 +6116,9 @@ export type OnUpdateBoardItemSubscription = {
         } | null >,
         nextToken?: string | null,
       } | null,
-      finalIndex: number,
       createdAt: string,
       updatedAt: string,
-    },
+    } | null,
     category?:  {
       __typename: "BoardCatgory",
       id: string,
@@ -6001,7 +6228,6 @@ export type OnUpdateBoardItemSubscription = {
     views?: number | null,
     createdAt: string,
     updatedAt: string,
-    boardItemBoardId: string,
     boardItemCategoryId?: string | null,
   } | null,
 };
@@ -6015,7 +6241,8 @@ export type OnDeleteBoardItemSubscription = {
     __typename: "BoardItem",
     id: string,
     seq: number,
-    board:  {
+    boardId: string,
+    board?:  {
       __typename: "Board",
       id: string,
       title: string,
@@ -6057,10 +6284,9 @@ export type OnDeleteBoardItemSubscription = {
         } | null >,
         nextToken?: string | null,
       } | null,
-      finalIndex: number,
       createdAt: string,
       updatedAt: string,
-    },
+    } | null,
     category?:  {
       __typename: "BoardCatgory",
       id: string,
@@ -6170,7 +6396,6 @@ export type OnDeleteBoardItemSubscription = {
     views?: number | null,
     createdAt: string,
     updatedAt: string,
-    boardItemBoardId: string,
     boardItemCategoryId?: string | null,
   } | null,
 };
@@ -6183,11 +6408,14 @@ export type OnCreateBoardItemCommentSubscription = {
   onCreateBoardItemComment?:  {
     __typename: "BoardItemComment",
     id: string,
-    boardItem:  {
+    seq: number,
+    boardItemId: string,
+    boardItem?:  {
       __typename: "BoardItem",
       id: string,
       seq: number,
-      board:  {
+      boardId: string,
+      board?:  {
         __typename: "Board",
         id: string,
         title: string,
@@ -6215,10 +6443,9 @@ export type OnCreateBoardItemCommentSubscription = {
           } | null >,
           nextToken?: string | null,
         } | null,
-        finalIndex: number,
         createdAt: string,
         updatedAt: string,
-      },
+      } | null,
       category?:  {
         __typename: "BoardCatgory",
         id: string,
@@ -6290,14 +6517,12 @@ export type OnCreateBoardItemCommentSubscription = {
       views?: number | null,
       createdAt: string,
       updatedAt: string,
-      boardItemBoardId: string,
       boardItemCategoryId?: string | null,
-    },
+    } | null,
     comment: string,
     author: string,
     createdAt: string,
     updatedAt: string,
-    boardItemCommentBoardItemId: string,
   } | null,
 };
 
@@ -6309,11 +6534,14 @@ export type OnUpdateBoardItemCommentSubscription = {
   onUpdateBoardItemComment?:  {
     __typename: "BoardItemComment",
     id: string,
-    boardItem:  {
+    seq: number,
+    boardItemId: string,
+    boardItem?:  {
       __typename: "BoardItem",
       id: string,
       seq: number,
-      board:  {
+      boardId: string,
+      board?:  {
         __typename: "Board",
         id: string,
         title: string,
@@ -6341,10 +6569,9 @@ export type OnUpdateBoardItemCommentSubscription = {
           } | null >,
           nextToken?: string | null,
         } | null,
-        finalIndex: number,
         createdAt: string,
         updatedAt: string,
-      },
+      } | null,
       category?:  {
         __typename: "BoardCatgory",
         id: string,
@@ -6416,14 +6643,12 @@ export type OnUpdateBoardItemCommentSubscription = {
       views?: number | null,
       createdAt: string,
       updatedAt: string,
-      boardItemBoardId: string,
       boardItemCategoryId?: string | null,
-    },
+    } | null,
     comment: string,
     author: string,
     createdAt: string,
     updatedAt: string,
-    boardItemCommentBoardItemId: string,
   } | null,
 };
 
@@ -6435,11 +6660,14 @@ export type OnDeleteBoardItemCommentSubscription = {
   onDeleteBoardItemComment?:  {
     __typename: "BoardItemComment",
     id: string,
-    boardItem:  {
+    seq: number,
+    boardItemId: string,
+    boardItem?:  {
       __typename: "BoardItem",
       id: string,
       seq: number,
-      board:  {
+      boardId: string,
+      board?:  {
         __typename: "Board",
         id: string,
         title: string,
@@ -6467,10 +6695,9 @@ export type OnDeleteBoardItemCommentSubscription = {
           } | null >,
           nextToken?: string | null,
         } | null,
-        finalIndex: number,
         createdAt: string,
         updatedAt: string,
-      },
+      } | null,
       category?:  {
         __typename: "BoardCatgory",
         id: string,
@@ -6542,13 +6769,11 @@ export type OnDeleteBoardItemCommentSubscription = {
       views?: number | null,
       createdAt: string,
       updatedAt: string,
-      boardItemBoardId: string,
       boardItemCategoryId?: string | null,
-    },
+    } | null,
     comment: string,
     author: string,
     createdAt: string,
     updatedAt: string,
-    boardItemCommentBoardItemId: string,
   } | null,
 };

@@ -661,7 +661,6 @@ export const getBoard = /* GraphQL */ `query GetBoard($id: ID!) {
       nextToken
       __typename
     }
-    finalIndex
     createdAt
     updatedAt
     __typename
@@ -715,7 +714,6 @@ export const listBoards = /* GraphQL */ `query ListBoards(
         nextToken
         __typename
       }
-      finalIndex
       createdAt
       updatedAt
       __typename
@@ -774,6 +772,7 @@ export const getBoardItem = /* GraphQL */ `query GetBoardItem($id: ID!) {
   getBoardItem(id: $id) {
     id
     seq
+    boardId
     board {
       id
       title
@@ -815,7 +814,6 @@ export const getBoardItem = /* GraphQL */ `query GetBoardItem($id: ID!) {
         nextToken
         __typename
       }
-      finalIndex
       createdAt
       updatedAt
       __typename
@@ -929,7 +927,6 @@ export const getBoardItem = /* GraphQL */ `query GetBoardItem($id: ID!) {
     views
     createdAt
     updatedAt
-    boardItemBoardId
     boardItemCategoryId
     __typename
   }
@@ -947,6 +944,7 @@ export const listBoardItems = /* GraphQL */ `query ListBoardItems(
     items {
       id
       seq
+      boardId
       board {
         id
         title
@@ -974,7 +972,6 @@ export const listBoardItems = /* GraphQL */ `query ListBoardItems(
           nextToken
           __typename
         }
-        finalIndex
         createdAt
         updatedAt
         __typename
@@ -1050,7 +1047,6 @@ export const listBoardItems = /* GraphQL */ `query ListBoardItems(
       views
       createdAt
       updatedAt
-      boardItemBoardId
       boardItemCategoryId
       __typename
     }
@@ -1062,12 +1058,26 @@ export const listBoardItems = /* GraphQL */ `query ListBoardItems(
   APITypes.ListBoardItemsQueryVariables,
   APITypes.ListBoardItemsQuery
 >;
-export const getBoardItemComment = /* GraphQL */ `query GetBoardItemComment($id: ID!) {
-  getBoardItemComment(id: $id) {
-    id
-    boardItem {
+export const listBoardItemsByBoard = /* GraphQL */ `query ListBoardItemsByBoard(
+  $boardId: ID!
+  $seq: ModelIntKeyConditionInput
+  $sortDirection: ModelSortDirection
+  $filter: ModelBoardItemFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listBoardItemsByBoard(
+    boardId: $boardId
+    seq: $seq
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
       id
       seq
+      boardId
       board {
         id
         title
@@ -1095,7 +1105,6 @@ export const getBoardItemComment = /* GraphQL */ `query GetBoardItemComment($id:
           nextToken
           __typename
         }
-        finalIndex
         createdAt
         updatedAt
         __typename
@@ -1171,7 +1180,128 @@ export const getBoardItemComment = /* GraphQL */ `query GetBoardItemComment($id:
       views
       createdAt
       updatedAt
-      boardItemBoardId
+      boardItemCategoryId
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListBoardItemsByBoardQueryVariables,
+  APITypes.ListBoardItemsByBoardQuery
+>;
+export const getBoardItemComment = /* GraphQL */ `query GetBoardItemComment($id: ID!) {
+  getBoardItemComment(id: $id) {
+    id
+    seq
+    boardItemId
+    boardItem {
+      id
+      seq
+      boardId
+      board {
+        id
+        title
+        header
+        footer
+        listViewItems
+        listSort {
+          item
+          sort
+          __typename
+        }
+        excludeNoticeFlag
+        type
+        category {
+          items {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      category {
+        id
+        name
+        parent {
+          id
+          name
+          parent {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          children {
+            nextToken
+            __typename
+          }
+          sortOrder
+          createdAt
+          updatedAt
+          boardCatgoryChildrenId
+          boardCategoryId
+          __typename
+        }
+        children {
+          items {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        sortOrder
+        createdAt
+        updatedAt
+        boardCatgoryChildrenId
+        boardCategoryId
+        __typename
+      }
+      title
+      content
+      tag
+      author
+      attachments {
+        items {
+          id
+          filename
+          filetype
+          path
+          createdAt
+          updatedAt
+          boardItemAttachmentsId
+          author
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      isNotice
+      views
+      createdAt
+      updatedAt
       boardItemCategoryId
       __typename
     }
@@ -1179,7 +1309,6 @@ export const getBoardItemComment = /* GraphQL */ `query GetBoardItemComment($id:
     author
     createdAt
     updatedAt
-    boardItemCommentBoardItemId
     __typename
   }
 }
@@ -1195,9 +1324,12 @@ export const listBoardItemComments = /* GraphQL */ `query ListBoardItemComments(
   listBoardItemComments(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
       id
+      seq
+      boardItemId
       boardItem {
         id
         seq
+        boardId
         board {
           id
           title
@@ -1215,7 +1347,6 @@ export const listBoardItemComments = /* GraphQL */ `query ListBoardItemComments(
             nextToken
             __typename
           }
-          finalIndex
           createdAt
           updatedAt
           __typename
@@ -1267,7 +1398,6 @@ export const listBoardItemComments = /* GraphQL */ `query ListBoardItemComments(
         views
         createdAt
         updatedAt
-        boardItemBoardId
         boardItemCategoryId
         __typename
       }
@@ -1275,7 +1405,6 @@ export const listBoardItemComments = /* GraphQL */ `query ListBoardItemComments(
       author
       createdAt
       updatedAt
-      boardItemCommentBoardItemId
       __typename
     }
     nextToken
@@ -1285,4 +1414,113 @@ export const listBoardItemComments = /* GraphQL */ `query ListBoardItemComments(
 ` as GeneratedQuery<
   APITypes.ListBoardItemCommentsQueryVariables,
   APITypes.ListBoardItemCommentsQuery
+>;
+export const listBoardItemCommentsByBoard = /* GraphQL */ `query ListBoardItemCommentsByBoard(
+  $boardItemId: ID!
+  $seq: ModelIntKeyConditionInput
+  $sortDirection: ModelSortDirection
+  $filter: ModelBoardItemCommentFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listBoardItemCommentsByBoard(
+    boardItemId: $boardItemId
+    seq: $seq
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      seq
+      boardItemId
+      boardItem {
+        id
+        seq
+        boardId
+        board {
+          id
+          title
+          header
+          footer
+          listViewItems
+          listSort {
+            item
+            sort
+            __typename
+          }
+          excludeNoticeFlag
+          type
+          category {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        category {
+          id
+          name
+          parent {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          children {
+            nextToken
+            __typename
+          }
+          sortOrder
+          createdAt
+          updatedAt
+          boardCatgoryChildrenId
+          boardCategoryId
+          __typename
+        }
+        title
+        content
+        tag
+        author
+        attachments {
+          items {
+            id
+            filename
+            filetype
+            path
+            createdAt
+            updatedAt
+            boardItemAttachmentsId
+            author
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        isNotice
+        views
+        createdAt
+        updatedAt
+        boardItemCategoryId
+        __typename
+      }
+      comment
+      author
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListBoardItemCommentsByBoardQueryVariables,
+  APITypes.ListBoardItemCommentsByBoardQuery
 >;
