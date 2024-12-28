@@ -661,6 +661,104 @@ export const getBoard = /* GraphQL */ `query GetBoard($id: ID!) {
       nextToken
       __typename
     }
+    boardItems {
+      items {
+        id
+        seq
+        boardId
+        board {
+          id
+          title
+          header
+          footer
+          listViewItems
+          listSort {
+            item
+            sort
+            __typename
+          }
+          excludeNoticeFlag
+          type
+          category {
+            nextToken
+            __typename
+          }
+          boardItems {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        category {
+          id
+          name
+          parent {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          children {
+            nextToken
+            __typename
+          }
+          sortOrder
+          createdAt
+          updatedAt
+          boardCatgoryChildrenId
+          boardCategoryId
+          __typename
+        }
+        title
+        content
+        tag
+        author
+        attachments {
+          items {
+            id
+            filename
+            filetype
+            path
+            createdAt
+            updatedAt
+            boardItemAttachmentsId
+            author
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        isNotice
+        views
+        BoardItemComments {
+          items {
+            id
+            seq
+            boardItemId
+            comment
+            author
+            createdAt
+            updatedAt
+            boardItemBoardItemCommentsId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        boardItemCategoryId
+        __typename
+      }
+      nextToken
+      __typename
+    }
     createdAt
     updatedAt
     __typename
@@ -714,6 +812,55 @@ export const listBoards = /* GraphQL */ `query ListBoards(
         nextToken
         __typename
       }
+      boardItems {
+        items {
+          id
+          seq
+          boardId
+          board {
+            id
+            title
+            header
+            footer
+            listViewItems
+            excludeNoticeFlag
+            type
+            createdAt
+            updatedAt
+            __typename
+          }
+          category {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          title
+          content
+          tag
+          author
+          attachments {
+            nextToken
+            __typename
+          }
+          isNotice
+          views
+          BoardItemComments {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          boardItemCategoryId
+          __typename
+        }
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -725,6 +872,122 @@ export const listBoards = /* GraphQL */ `query ListBoards(
 ` as GeneratedQuery<
   APITypes.ListBoardsQueryVariables,
   APITypes.ListBoardsQuery
+>;
+export const listBoardsByTitle = /* GraphQL */ `query ListBoardsByTitle(
+  $title: String!
+  $sortDirection: ModelSortDirection
+  $filter: ModelBoardFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listBoardsByTitle(
+    title: $title
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      title
+      header
+      footer
+      listViewItems
+      listSort {
+        item
+        sort
+        __typename
+      }
+      excludeNoticeFlag
+      type
+      category {
+        items {
+          id
+          name
+          parent {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          children {
+            nextToken
+            __typename
+          }
+          sortOrder
+          createdAt
+          updatedAt
+          boardCatgoryChildrenId
+          boardCategoryId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      boardItems {
+        items {
+          id
+          seq
+          boardId
+          board {
+            id
+            title
+            header
+            footer
+            listViewItems
+            excludeNoticeFlag
+            type
+            createdAt
+            updatedAt
+            __typename
+          }
+          category {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          title
+          content
+          tag
+          author
+          attachments {
+            nextToken
+            __typename
+          }
+          isNotice
+          views
+          BoardItemComments {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          boardItemCategoryId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListBoardsByTitleQueryVariables,
+  APITypes.ListBoardsByTitleQuery
 >;
 export const getAttachment = /* GraphQL */ `query GetAttachment($id: ID!) {
   getAttachment(id: $id) {
@@ -809,6 +1072,55 @@ export const getBoardItem = /* GraphQL */ `query GetBoardItem($id: ID!) {
           updatedAt
           boardCatgoryChildrenId
           boardCategoryId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      boardItems {
+        items {
+          id
+          seq
+          boardId
+          board {
+            id
+            title
+            header
+            footer
+            listViewItems
+            excludeNoticeFlag
+            type
+            createdAt
+            updatedAt
+            __typename
+          }
+          category {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          title
+          content
+          tag
+          author
+          attachments {
+            nextToken
+            __typename
+          }
+          isNotice
+          views
+          BoardItemComments {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          boardItemCategoryId
           __typename
         }
         nextToken
@@ -925,6 +1237,66 @@ export const getBoardItem = /* GraphQL */ `query GetBoardItem($id: ID!) {
     }
     isNotice
     views
+    BoardItemComments {
+      items {
+        id
+        seq
+        boardItemId
+        boardItem {
+          id
+          seq
+          boardId
+          board {
+            id
+            title
+            header
+            footer
+            listViewItems
+            excludeNoticeFlag
+            type
+            createdAt
+            updatedAt
+            __typename
+          }
+          category {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          title
+          content
+          tag
+          author
+          attachments {
+            nextToken
+            __typename
+          }
+          isNotice
+          views
+          BoardItemComments {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          boardItemCategoryId
+          __typename
+        }
+        comment
+        author
+        createdAt
+        updatedAt
+        boardItemBoardItemCommentsId
+        __typename
+      }
+      nextToken
+      __typename
+    }
     createdAt
     updatedAt
     boardItemCategoryId
@@ -967,6 +1339,25 @@ export const listBoardItems = /* GraphQL */ `query ListBoardItems(
             updatedAt
             boardCatgoryChildrenId
             boardCategoryId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        boardItems {
+          items {
+            id
+            seq
+            boardId
+            title
+            content
+            tag
+            author
+            isNotice
+            views
+            createdAt
+            updatedAt
+            boardItemCategoryId
             __typename
           }
           nextToken
@@ -1045,6 +1436,36 @@ export const listBoardItems = /* GraphQL */ `query ListBoardItems(
       }
       isNotice
       views
+      BoardItemComments {
+        items {
+          id
+          seq
+          boardItemId
+          boardItem {
+            id
+            seq
+            boardId
+            title
+            content
+            tag
+            author
+            isNotice
+            views
+            createdAt
+            updatedAt
+            boardItemCategoryId
+            __typename
+          }
+          comment
+          author
+          createdAt
+          updatedAt
+          boardItemBoardItemCommentsId
+          __typename
+        }
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       boardItemCategoryId
@@ -1105,6 +1526,25 @@ export const listBoardItemsByBoard = /* GraphQL */ `query ListBoardItemsByBoard(
           nextToken
           __typename
         }
+        boardItems {
+          items {
+            id
+            seq
+            boardId
+            title
+            content
+            tag
+            author
+            isNotice
+            views
+            createdAt
+            updatedAt
+            boardItemCategoryId
+            __typename
+          }
+          nextToken
+          __typename
+        }
         createdAt
         updatedAt
         __typename
@@ -1178,6 +1618,36 @@ export const listBoardItemsByBoard = /* GraphQL */ `query ListBoardItemsByBoard(
       }
       isNotice
       views
+      BoardItemComments {
+        items {
+          id
+          seq
+          boardItemId
+          boardItem {
+            id
+            seq
+            boardId
+            title
+            content
+            tag
+            author
+            isNotice
+            views
+            createdAt
+            updatedAt
+            boardItemCategoryId
+            __typename
+          }
+          comment
+          author
+          createdAt
+          updatedAt
+          boardItemBoardItemCommentsId
+          __typename
+        }
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       boardItemCategoryId
@@ -1227,6 +1697,25 @@ export const getBoardItemComment = /* GraphQL */ `query GetBoardItemComment($id:
           nextToken
           __typename
         }
+        boardItems {
+          items {
+            id
+            seq
+            boardId
+            title
+            content
+            tag
+            author
+            isNotice
+            views
+            createdAt
+            updatedAt
+            boardItemCategoryId
+            __typename
+          }
+          nextToken
+          __typename
+        }
         createdAt
         updatedAt
         __typename
@@ -1300,6 +1789,36 @@ export const getBoardItemComment = /* GraphQL */ `query GetBoardItemComment($id:
       }
       isNotice
       views
+      BoardItemComments {
+        items {
+          id
+          seq
+          boardItemId
+          boardItem {
+            id
+            seq
+            boardId
+            title
+            content
+            tag
+            author
+            isNotice
+            views
+            createdAt
+            updatedAt
+            boardItemCategoryId
+            __typename
+          }
+          comment
+          author
+          createdAt
+          updatedAt
+          boardItemBoardItemCommentsId
+          __typename
+        }
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       boardItemCategoryId
@@ -1309,6 +1828,7 @@ export const getBoardItemComment = /* GraphQL */ `query GetBoardItemComment($id:
     author
     createdAt
     updatedAt
+    boardItemBoardItemCommentsId
     __typename
   }
 }
@@ -1344,6 +1864,10 @@ export const listBoardItemComments = /* GraphQL */ `query ListBoardItemComments(
           excludeNoticeFlag
           type
           category {
+            nextToken
+            __typename
+          }
+          boardItems {
             nextToken
             __typename
           }
@@ -1396,6 +1920,21 @@ export const listBoardItemComments = /* GraphQL */ `query ListBoardItemComments(
         }
         isNotice
         views
+        BoardItemComments {
+          items {
+            id
+            seq
+            boardItemId
+            comment
+            author
+            createdAt
+            updatedAt
+            boardItemBoardItemCommentsId
+            __typename
+          }
+          nextToken
+          __typename
+        }
         createdAt
         updatedAt
         boardItemCategoryId
@@ -1405,6 +1944,7 @@ export const listBoardItemComments = /* GraphQL */ `query ListBoardItemComments(
       author
       createdAt
       updatedAt
+      boardItemBoardItemCommentsId
       __typename
     }
     nextToken
@@ -1456,6 +1996,10 @@ export const listBoardItemCommentsByBoard = /* GraphQL */ `query ListBoardItemCo
             nextToken
             __typename
           }
+          boardItems {
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -1505,6 +2049,21 @@ export const listBoardItemCommentsByBoard = /* GraphQL */ `query ListBoardItemCo
         }
         isNotice
         views
+        BoardItemComments {
+          items {
+            id
+            seq
+            boardItemId
+            comment
+            author
+            createdAt
+            updatedAt
+            boardItemBoardItemCommentsId
+            __typename
+          }
+          nextToken
+          __typename
+        }
         createdAt
         updatedAt
         boardItemCategoryId
@@ -1514,6 +2073,7 @@ export const listBoardItemCommentsByBoard = /* GraphQL */ `query ListBoardItemCo
       author
       createdAt
       updatedAt
+      boardItemBoardItemCommentsId
       __typename
     }
     nextToken

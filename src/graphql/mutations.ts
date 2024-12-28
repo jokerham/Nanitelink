@@ -1091,6 +1091,104 @@ export const createBoard = /* GraphQL */ `mutation CreateBoard(
       nextToken
       __typename
     }
+    boardItems {
+      items {
+        id
+        seq
+        boardId
+        board {
+          id
+          title
+          header
+          footer
+          listViewItems
+          listSort {
+            item
+            sort
+            __typename
+          }
+          excludeNoticeFlag
+          type
+          category {
+            nextToken
+            __typename
+          }
+          boardItems {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        category {
+          id
+          name
+          parent {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          children {
+            nextToken
+            __typename
+          }
+          sortOrder
+          createdAt
+          updatedAt
+          boardCatgoryChildrenId
+          boardCategoryId
+          __typename
+        }
+        title
+        content
+        tag
+        author
+        attachments {
+          items {
+            id
+            filename
+            filetype
+            path
+            createdAt
+            updatedAt
+            boardItemAttachmentsId
+            author
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        isNotice
+        views
+        BoardItemComments {
+          items {
+            id
+            seq
+            boardItemId
+            comment
+            author
+            createdAt
+            updatedAt
+            boardItemBoardItemCommentsId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        boardItemCategoryId
+        __typename
+      }
+      nextToken
+      __typename
+    }
     createdAt
     updatedAt
     __typename
@@ -1169,6 +1267,104 @@ export const updateBoard = /* GraphQL */ `mutation UpdateBoard(
       nextToken
       __typename
     }
+    boardItems {
+      items {
+        id
+        seq
+        boardId
+        board {
+          id
+          title
+          header
+          footer
+          listViewItems
+          listSort {
+            item
+            sort
+            __typename
+          }
+          excludeNoticeFlag
+          type
+          category {
+            nextToken
+            __typename
+          }
+          boardItems {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        category {
+          id
+          name
+          parent {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          children {
+            nextToken
+            __typename
+          }
+          sortOrder
+          createdAt
+          updatedAt
+          boardCatgoryChildrenId
+          boardCategoryId
+          __typename
+        }
+        title
+        content
+        tag
+        author
+        attachments {
+          items {
+            id
+            filename
+            filetype
+            path
+            createdAt
+            updatedAt
+            boardItemAttachmentsId
+            author
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        isNotice
+        views
+        BoardItemComments {
+          items {
+            id
+            seq
+            boardItemId
+            comment
+            author
+            createdAt
+            updatedAt
+            boardItemBoardItemCommentsId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        boardItemCategoryId
+        __typename
+      }
+      nextToken
+      __typename
+    }
     createdAt
     updatedAt
     __typename
@@ -1242,6 +1438,104 @@ export const deleteBoard = /* GraphQL */ `mutation DeleteBoard(
         updatedAt
         boardCatgoryChildrenId
         boardCategoryId
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    boardItems {
+      items {
+        id
+        seq
+        boardId
+        board {
+          id
+          title
+          header
+          footer
+          listViewItems
+          listSort {
+            item
+            sort
+            __typename
+          }
+          excludeNoticeFlag
+          type
+          category {
+            nextToken
+            __typename
+          }
+          boardItems {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        category {
+          id
+          name
+          parent {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          children {
+            nextToken
+            __typename
+          }
+          sortOrder
+          createdAt
+          updatedAt
+          boardCatgoryChildrenId
+          boardCategoryId
+          __typename
+        }
+        title
+        content
+        tag
+        author
+        attachments {
+          items {
+            id
+            filename
+            filetype
+            path
+            createdAt
+            updatedAt
+            boardItemAttachmentsId
+            author
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        isNotice
+        views
+        BoardItemComments {
+          items {
+            id
+            seq
+            boardItemId
+            comment
+            author
+            createdAt
+            updatedAt
+            boardItemBoardItemCommentsId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        boardItemCategoryId
         __typename
       }
       nextToken
@@ -1365,6 +1659,55 @@ export const createBoardItem = /* GraphQL */ `mutation CreateBoardItem(
         nextToken
         __typename
       }
+      boardItems {
+        items {
+          id
+          seq
+          boardId
+          board {
+            id
+            title
+            header
+            footer
+            listViewItems
+            excludeNoticeFlag
+            type
+            createdAt
+            updatedAt
+            __typename
+          }
+          category {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          title
+          content
+          tag
+          author
+          attachments {
+            nextToken
+            __typename
+          }
+          isNotice
+          views
+          BoardItemComments {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          boardItemCategoryId
+          __typename
+        }
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -1476,6 +1819,66 @@ export const createBoardItem = /* GraphQL */ `mutation CreateBoardItem(
     }
     isNotice
     views
+    BoardItemComments {
+      items {
+        id
+        seq
+        boardItemId
+        boardItem {
+          id
+          seq
+          boardId
+          board {
+            id
+            title
+            header
+            footer
+            listViewItems
+            excludeNoticeFlag
+            type
+            createdAt
+            updatedAt
+            __typename
+          }
+          category {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          title
+          content
+          tag
+          author
+          attachments {
+            nextToken
+            __typename
+          }
+          isNotice
+          views
+          BoardItemComments {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          boardItemCategoryId
+          __typename
+        }
+        comment
+        author
+        createdAt
+        updatedAt
+        boardItemBoardItemCommentsId
+        __typename
+      }
+      nextToken
+      __typename
+    }
     createdAt
     updatedAt
     boardItemCategoryId
@@ -1535,6 +1938,55 @@ export const updateBoardItem = /* GraphQL */ `mutation UpdateBoardItem(
         nextToken
         __typename
       }
+      boardItems {
+        items {
+          id
+          seq
+          boardId
+          board {
+            id
+            title
+            header
+            footer
+            listViewItems
+            excludeNoticeFlag
+            type
+            createdAt
+            updatedAt
+            __typename
+          }
+          category {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          title
+          content
+          tag
+          author
+          attachments {
+            nextToken
+            __typename
+          }
+          isNotice
+          views
+          BoardItemComments {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          boardItemCategoryId
+          __typename
+        }
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -1646,6 +2098,66 @@ export const updateBoardItem = /* GraphQL */ `mutation UpdateBoardItem(
     }
     isNotice
     views
+    BoardItemComments {
+      items {
+        id
+        seq
+        boardItemId
+        boardItem {
+          id
+          seq
+          boardId
+          board {
+            id
+            title
+            header
+            footer
+            listViewItems
+            excludeNoticeFlag
+            type
+            createdAt
+            updatedAt
+            __typename
+          }
+          category {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          title
+          content
+          tag
+          author
+          attachments {
+            nextToken
+            __typename
+          }
+          isNotice
+          views
+          BoardItemComments {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          boardItemCategoryId
+          __typename
+        }
+        comment
+        author
+        createdAt
+        updatedAt
+        boardItemBoardItemCommentsId
+        __typename
+      }
+      nextToken
+      __typename
+    }
     createdAt
     updatedAt
     boardItemCategoryId
@@ -1705,6 +2217,55 @@ export const deleteBoardItem = /* GraphQL */ `mutation DeleteBoardItem(
         nextToken
         __typename
       }
+      boardItems {
+        items {
+          id
+          seq
+          boardId
+          board {
+            id
+            title
+            header
+            footer
+            listViewItems
+            excludeNoticeFlag
+            type
+            createdAt
+            updatedAt
+            __typename
+          }
+          category {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          title
+          content
+          tag
+          author
+          attachments {
+            nextToken
+            __typename
+          }
+          isNotice
+          views
+          BoardItemComments {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          boardItemCategoryId
+          __typename
+        }
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -1816,6 +2377,66 @@ export const deleteBoardItem = /* GraphQL */ `mutation DeleteBoardItem(
     }
     isNotice
     views
+    BoardItemComments {
+      items {
+        id
+        seq
+        boardItemId
+        boardItem {
+          id
+          seq
+          boardId
+          board {
+            id
+            title
+            header
+            footer
+            listViewItems
+            excludeNoticeFlag
+            type
+            createdAt
+            updatedAt
+            __typename
+          }
+          category {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          title
+          content
+          tag
+          author
+          attachments {
+            nextToken
+            __typename
+          }
+          isNotice
+          views
+          BoardItemComments {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          boardItemCategoryId
+          __typename
+        }
+        comment
+        author
+        createdAt
+        updatedAt
+        boardItemBoardItemCommentsId
+        __typename
+      }
+      nextToken
+      __typename
+    }
     createdAt
     updatedAt
     boardItemCategoryId
@@ -1865,6 +2486,25 @@ export const createBoardItemComment = /* GraphQL */ `mutation CreateBoardItemCom
           nextToken
           __typename
         }
+        boardItems {
+          items {
+            id
+            seq
+            boardId
+            title
+            content
+            tag
+            author
+            isNotice
+            views
+            createdAt
+            updatedAt
+            boardItemCategoryId
+            __typename
+          }
+          nextToken
+          __typename
+        }
         createdAt
         updatedAt
         __typename
@@ -1938,6 +2578,36 @@ export const createBoardItemComment = /* GraphQL */ `mutation CreateBoardItemCom
       }
       isNotice
       views
+      BoardItemComments {
+        items {
+          id
+          seq
+          boardItemId
+          boardItem {
+            id
+            seq
+            boardId
+            title
+            content
+            tag
+            author
+            isNotice
+            views
+            createdAt
+            updatedAt
+            boardItemCategoryId
+            __typename
+          }
+          comment
+          author
+          createdAt
+          updatedAt
+          boardItemBoardItemCommentsId
+          __typename
+        }
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       boardItemCategoryId
@@ -1947,6 +2617,7 @@ export const createBoardItemComment = /* GraphQL */ `mutation CreateBoardItemCom
     author
     createdAt
     updatedAt
+    boardItemBoardItemCommentsId
     __typename
   }
 }
@@ -1993,6 +2664,25 @@ export const updateBoardItemComment = /* GraphQL */ `mutation UpdateBoardItemCom
           nextToken
           __typename
         }
+        boardItems {
+          items {
+            id
+            seq
+            boardId
+            title
+            content
+            tag
+            author
+            isNotice
+            views
+            createdAt
+            updatedAt
+            boardItemCategoryId
+            __typename
+          }
+          nextToken
+          __typename
+        }
         createdAt
         updatedAt
         __typename
@@ -2066,6 +2756,36 @@ export const updateBoardItemComment = /* GraphQL */ `mutation UpdateBoardItemCom
       }
       isNotice
       views
+      BoardItemComments {
+        items {
+          id
+          seq
+          boardItemId
+          boardItem {
+            id
+            seq
+            boardId
+            title
+            content
+            tag
+            author
+            isNotice
+            views
+            createdAt
+            updatedAt
+            boardItemCategoryId
+            __typename
+          }
+          comment
+          author
+          createdAt
+          updatedAt
+          boardItemBoardItemCommentsId
+          __typename
+        }
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       boardItemCategoryId
@@ -2075,6 +2795,7 @@ export const updateBoardItemComment = /* GraphQL */ `mutation UpdateBoardItemCom
     author
     createdAt
     updatedAt
+    boardItemBoardItemCommentsId
     __typename
   }
 }
@@ -2121,6 +2842,25 @@ export const deleteBoardItemComment = /* GraphQL */ `mutation DeleteBoardItemCom
           nextToken
           __typename
         }
+        boardItems {
+          items {
+            id
+            seq
+            boardId
+            title
+            content
+            tag
+            author
+            isNotice
+            views
+            createdAt
+            updatedAt
+            boardItemCategoryId
+            __typename
+          }
+          nextToken
+          __typename
+        }
         createdAt
         updatedAt
         __typename
@@ -2194,6 +2934,36 @@ export const deleteBoardItemComment = /* GraphQL */ `mutation DeleteBoardItemCom
       }
       isNotice
       views
+      BoardItemComments {
+        items {
+          id
+          seq
+          boardItemId
+          boardItem {
+            id
+            seq
+            boardId
+            title
+            content
+            tag
+            author
+            isNotice
+            views
+            createdAt
+            updatedAt
+            boardItemCategoryId
+            __typename
+          }
+          comment
+          author
+          createdAt
+          updatedAt
+          boardItemBoardItemCommentsId
+          __typename
+        }
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       boardItemCategoryId
@@ -2203,6 +2973,7 @@ export const deleteBoardItemComment = /* GraphQL */ `mutation DeleteBoardItemCom
     author
     createdAt
     updatedAt
+    boardItemBoardItemCommentsId
     __typename
   }
 }

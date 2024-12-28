@@ -1,0 +1,87 @@
+<QUERY>
+query MyQuery {
+  listBoards {
+    items {
+      title
+      boardItems {
+        items {
+          seq
+        }
+      }
+      id
+    }
+  }
+}
+
+<RESULT>
+{
+  "data": {
+    "listBoards": {
+      "items": [
+        {
+          "title": "Notice",
+          "boardItems": {
+            "items": []
+          },
+          "id": "0a44cbea-86be-440f-b632-b2ec3bcb37da"
+        }
+      ]
+    }
+  }
+}
+
+<QUERY>
+query MyQuery {
+  listBoards {
+    items {
+      title
+      boardItems {
+        items {
+          seq
+        }
+      }
+      id
+    }
+  }
+  listBoardItems {
+    items {
+      boardId
+      board {
+        id
+        title
+      }
+      title
+      seq
+    }
+  }
+}
+
+<RESULT>
+{
+  "data": {
+    "listBoards": {
+      "items": [
+        {
+          "title": "Notice",
+          "boardItems": {
+            "items": []
+          },
+          "id": "0a44cbea-86be-440f-b632-b2ec3bcb37da"
+        }
+      ]
+    },
+    "listBoardItems": {
+      "items": [
+        {
+          "boardId": "0a44cbea-86be-440f-b632-b2ec3bcb37da",
+          "board": {
+            "id": "0a44cbea-86be-440f-b632-b2ec3bcb37da",
+            "title": "Notice"
+          },
+          "title": "Welcome to Nanitelink",
+          "seq": 1
+        }
+      ]
+    }
+  }
+}

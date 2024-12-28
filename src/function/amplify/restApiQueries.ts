@@ -134,3 +134,24 @@ export const listBoardItems = async (
     throw new Error('Failed to fetch board items. Please try again.');
   }
 };
+
+export const incrementBoardItemViews = async (id: string) => {
+  try {
+    const response = await API.post({
+      apiName: 'boarditem',
+      path: `/boarditem/${id}/increment-views`,
+      options: {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    }).response;
+    const jsonResult = await response.body.json();
+    if (jsonResult !== null && typeof jsonResult === 'object' && 'success' in jsonResult) {
+      return jsonResult.success ?? false;
+    }
+  } catch (error) {
+    console.error('Error incrementing views:', error);
+    throw new Error('Failed to increment views. Please try again.');
+  }
+};

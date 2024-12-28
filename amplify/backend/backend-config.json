@@ -36,6 +36,20 @@
       "providerPlugin": "awscloudformation",
       "service": "API Gateway"
     },
+    "boarditem": {
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "IncrementBoardItemViews"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "API Gateway"
+    },
     "nanitelink": {
       "dependsOn": [
         {
@@ -99,6 +113,22 @@
     }
   },
   "function": {
+    "IncrementBoardItemViews": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "GraphQLAPIIdOutput",
+            "GraphQLAPIEndpointOutput",
+            "GraphQLAPIKeyOutput"
+          ],
+          "category": "api",
+          "resourceName": "nanitelink"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
     "createBoardItem": {
       "build": true,
       "dependsOn": [
@@ -135,6 +165,25 @@
       ],
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
+    },
+    "ttlCache": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributeEnvMap": {
+            "Arn": "TABLE_ARN",
+            "Name": "TABLE_NAME"
+          },
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "storage",
+          "resourceName": "cacheTable"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
     }
   },
   "hosting": {
@@ -145,6 +194,22 @@
     }
   },
   "parameters": {
+    "AMPLIFY_function_IncrementBoardItemViews_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "IncrementBoardItemViews"
+        }
+      ]
+    },
+    "AMPLIFY_function_IncrementBoardItemViews_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "IncrementBoardItemViews"
+        }
+      ]
+    },
     "AMPLIFY_function_createBoardItem_deploymentBucketName": {
       "usedBy": [
         {
@@ -193,6 +258,22 @@
         }
       ]
     },
+    "AMPLIFY_function_ttlCache_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "ttlCache"
+        }
+      ]
+    },
+    "AMPLIFY_function_ttlCache_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "ttlCache"
+        }
+      ]
+    },
     "AMPLIFY_hosting_amplifyhosting_appId": {
       "usedBy": [
         {
@@ -211,6 +292,10 @@
     }
   },
   "storage": {
+    "cacheTable": {
+      "providerPlugin": "awscloudformation",
+      "service": "DynamoDB"
+    },
     "profileImages": {
       "dependsOn": [],
       "providerPlugin": "awscloudformation",

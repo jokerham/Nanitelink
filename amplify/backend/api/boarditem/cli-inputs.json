@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "paths": {
+    "/boarditem/{id}/increment-views": {
+      "name": "/boarditem/{id}/increment-views",
+      "lambdaFunction": "IncrementBoardItemViews",
+      "permissions": {
+        "setting": "open"
+      }
+    }
+  }
+}

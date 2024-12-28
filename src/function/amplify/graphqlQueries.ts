@@ -1,5 +1,5 @@
-import { listBoardItems, listBoards } from './../../graphql/queries';
-import { BoardItem, CreateBoardInput, CreateBoardItemInput, DeleteBoardInput, MenuType } from 'API';
+import { listBoards, listBoardsByTitle } from './../../graphql/queries';
+import { CreateBoardInput, DeleteBoardInput, MenuType } from 'API';
 import { generateClient, GraphQLResult } from 'aws-amplify/api';
 import { 
   createMenu,
@@ -7,7 +7,8 @@ import {
   updateMenu,
   updateDocument, 
   createBoard,
-  deleteBoard} from 'graphql/mutations';
+  deleteBoard,
+  updateBoardItem} from 'graphql/mutations';
 import { 
   listMenus,
   getDocument, 
@@ -267,96 +268,185 @@ export const GraphqlQueryDeleteBoard = async (input: DeleteBoardInput) => {
 export const GraphqlQueryGetBoardByTitle = async (title: string) => {
   const client = generateClient();
   const result = await client.graphql({
-    query: listBoards,
+    query: listBoardsByTitle,
     variables: {
-      filter: {
-        title: {
-          eq: title
-        }
-      }
+      title: title
     }
   });
 
-  if (result.data.listBoards.items.length > 0) {
-    return result.data.listBoards.items[0];
+  if (result.data.listBoardsByTitle.items.length > 0) {
+    return result.data.listBoardsByTitle.items[0];
   } else {
     return undefined;
   }
 };
 
-interface ListBoardItemsResponse {
-  data: {
-    listBoardItems: {
-      items: BoardItem[];
-      nextToken: string | null;
-    };
+export interface IBoard {
+  id: string;
+  footer: string;
+  header: string;
+  title: string;
+  boardItems: {
+    items: IBoardItem[];
   };
 }
 
-// export const GraphqlQueryGetBoardItem = async (
-//   id: string, 
-//   page: number, 
-//   numberOfRowsPerPage: number
-// ): Promise<BoardItem[]> => {
-//   const client = generateClient();
+export interface IBoardItem {
+  id: string;
+  seq: number;
+  title: string;
+  content: string;
+  author: string;
+  tag: string;
+  views: number;
+  isNotice: boolean;
+  updatedAt: string;
+  board: IBoard;
+}
 
-//   // Pagination parameters
-//   const limit = numberOfRowsPerPage;
-//   const offset = (page - 1) * numberOfRowsPerPage;
+export const GraphqlQueryGetBoardItemBySeq = async (
+  boardTitle: string,
+  boardItemSeq: number
+): Promise<IBoardItem | undefined> => {
+  const client = generateClient();
 
-//   const items: BoardItem[] = [];
-//   let nextToken: string | null = null;
-//   let currentIndex = 0;
+  try {
+    // Step 1: Query Board by Title
+    const boardResult = (await client.graphql({
+      query: `
+        query GetBoardByTitle($title: String!) {
+          listBoardsByTitle(title: $title) {
+            items {
+              id
+              footer
+              header
+              title
+            }
+          }
+        }
+      `,
+      variables: {
+        title: boardTitle,
+      },
+      authMode: 'apiKey',
+    })) as GraphQLResult<{ listBoardsByTitle: { items: IBoard[] } }>;
 
-//   // Fetch loop to minimize API costs
-//   do {
-//     const result: ListBoardItemsResponse = await client.graphql({
-//       query: listBoardItems,
-//       variables: {
-//         filter: {
-//           boardItemBoardId: {
-//             eq: id
-//           }
-//         },
-//         limit,
-//         nextToken
-//       }
-//     }) as ListBoardItemsResponse;
+    // Check if the board exists
+    const boards = boardResult.data?.listBoardsByTitle?.items || [];
+    if (boards.length === 0) {
+      console.error('Board not found for the given title.');
+      return undefined;
+    }
 
-//     const data = result.data.listBoardItems;
-//     nextToken = data.nextToken;
+    const board = boards[0]; // Get the first matching board
 
-//     // Process fetched items to include only those within the offset range
-//     const fetchedItems = data.items || [];
-//     for (const item of fetchedItems) {
-//       if (currentIndex >= offset && items.length < limit) {
-//         items.push(item);
-//       }
-//       currentIndex++;
-//       if (items.length >= limit) break;
-//     }
-//   } while (nextToken && items.length < limit);
+    // Step 2: Query BoardItem by seq
+    const boardItemResult = (await client.graphql({
+      query: `
+        query GetBoardItem($boardId: ID!, $seq: Int!) {
+          listBoardItemsByBoard(boardId: $boardId, seq: {eq: $seq}) {
+            items {
+              id
+              seq
+              title
+              content
+              author
+              tag
+              views
+              isNotice
+              updatedAt
+            }
+          }
+        }
+      `,
+      variables: {
+        boardId: board.id,
+        seq: boardItemSeq,
+      },
+      authMode: 'apiKey',
+    })) as GraphQLResult<{ listBoardItemsByBoard: { items: IBoardItem[] } }>;
 
-//   return items;
-// };
+    const boardItems = boardItemResult.data?.listBoardItemsByBoard?.items || [];
+    if (boardItems.length === 0) {
+      console.error('Board item not found for the given seq.');
+      return undefined;
+    }
 
-// export const GraphqlQueryCreateBoardItem = async (input: CreateBoardItemInput) => {
-//   const createBoardItemMutation = `
-//     mutation CreateBoardItem($input: CreateBoardItemInput!) {
-//       createBoardItem(input: $input) {
-//         id
-//       }
-//     }
-//   `;
+    // Attach the board to the board item
+    const boardItem = boardItems[0];
+    boardItem.board = board;
 
-//   const client = generateClient();
-  
-//   // Explicitly cast the result to GraphQLResult
-//   const result = (await client.graphql({
-//     query: createBoardItemMutation,
-//     variables: { input },
-//     authMode: 'userPool'
-//   })) as GraphQLResult<{ createBoardItem: { id: string; __typename: string } }>;
+    return boardItem;
+  } catch (error) {
+    console.error('Error fetching BoardItem by sequence:', error);
+    //throw new Error('Failed to fetch BoardItem by sequence. Please try again.');
+  }
+};
 
-//   return result.data.createBoardItem.id;
-// };
+// Function to delete boarditem based on boarditem id
+export const GraphqlQueryDeleteBoardItem = async (boardItemId: string) => {
+  try {
+    const client = generateClient();
+    await client.graphql({
+      query: `
+        mutation DeleteBoardItem($input: DeleteBoardItemInput!) {
+          deleteBoardItem(input: $input) {
+            id
+          }
+        }
+      `,
+      variables: {
+        input: {
+          id: boardItemId,
+        },
+      },
+      authMode: 'userPool',
+    });
+  } catch (error) {
+    //console.error('Error fetching BoardItem by sequence:', error);
+    //throw new Error('Failed to fetch BoardItem by sequence. Please try again.');
+  }
+};
+
+// Function to fetch boarditem by its id
+export const GraphqlQueryGetBoardItem = async (boardItemId: string) => {
+  try {
+    const client = generateClient();
+    const result = await client.graphql({
+      query: `
+        query GetBoardItem($id: ID!) {
+          getBoardItem(id: $id) {
+            id
+            seq
+            title
+            content
+            author
+            tag
+            views
+            isNotice
+            updatedAt
+            board {
+              id
+              title
+              header
+              footer
+            }
+          }
+        }
+      `,
+      variables: {
+        id: boardItemId,
+      },
+      authMode: 'apiKey',
+    });
+
+    if ('data' in result) {
+      return result.data.getBoardItem;
+    } else {
+      throw new Error('Failed to fetch BoardItem by id. Please try again.');
+    }
+  } catch (error) {
+    console.error('Error fetching BoardItem by id:', error);
+    //throw new Error('Failed to fetch BoardItem by id. Please try again.');
+  }
+};

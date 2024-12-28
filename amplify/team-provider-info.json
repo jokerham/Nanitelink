@@ -24,12 +24,14 @@
         "nanitelinke874e11c": {}
       },
       "storage": {
-        "profileImages": {}
+        "profileImages": {},
+        "cacheTable": {}
       },
       "api": {
         "nanitelink": {},
         "Userpool": {},
-        "board": {}
+        "board": {},
+        "boarditem": {}
       },
       "function": {
         "getUserAttributes": {
@@ -38,11 +40,19 @@
         },
         "createBoardItem": {
           "deploymentBucketName": "amplify-nanitelink-dev-8f35e-deployment",
-          "s3Key": "amplify-builds/createBoardItem-74663177557062797359-build.zip"
+          "s3Key": "amplify-builds/createBoardItem-363776534a467271576c-build.zip"
         },
         "listBoardItems": {
           "deploymentBucketName": "amplify-nanitelink-dev-8f35e-deployment",
           "s3Key": "amplify-builds/listBoardItems-504b54536c6171344672-build.zip"
+        },
+        "IncrementBoardItemViews": {
+          "deploymentBucketName": "amplify-nanitelink-dev-8f35e-deployment",
+          "s3Key": "amplify-builds/IncrementBoardItemViews-35415a7939477468547a-build.zip"
+        },
+        "ttlCache": {
+          "deploymentBucketName": "amplify-nanitelink-dev-8f35e-deployment",
+          "s3Key": "amplify-builds/ttlCache-59363958726b4c4f586b-build.zip"
         }
       }
     }

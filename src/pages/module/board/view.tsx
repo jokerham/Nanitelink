@@ -27,7 +27,7 @@ const View = (props: {id?: string}) => {
   const [searchOption, setSearchOption] = useState(selectableValues[0].value);
   const [searchText, setSearchText] = useState('');
   const [boardItems, setBoardItems] = useState<BoardItem[]>([]);
-  const [userAttributes, setUserAttributes] = useState<{ [key: string]: any }>({}); // To store user attributes
+  const [userAttributes, setUserAttributes] = useState<{ [key: string]: {name: string} }>({}); // To store user attributes
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 

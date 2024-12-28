@@ -1,12 +1,13 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Box, CircularProgress, Divider, Modal } from '@mui/material';
-import { Board, CreateBoardItemInput } from 'API';
+import { Board, BoardItem, CreateBoardItemInput } from 'API';
 import { FieldType, FormBuilder, FormVariant, TFormField } from 'component/FormBuilder';
-import { GraphqlQueryGetBoardByTitle } from 'function/amplify/graphqlQueries';
+import { GraphqlQueryGetBoardByTitle, GraphqlQueryGetBoardItem, GraphqlQueryGetBoardItemBySeq } from 'function/amplify/graphqlQueries';
 import { CKEditorTemplate } from 'component/CustomCKEditor';
 import { ComponentType, useEffect, useState } from 'react';
 import { AuthUser, fetchAuthSession, getCurrentUser } from 'aws-amplify/auth';
 import { createBoardItem } from 'function/amplify/restApiQueries';
+import queryString from 'query-string';
 
 const initialValuesTemplate = {
   title: '',
@@ -16,7 +17,7 @@ const initialValuesTemplate = {
   attachments: [],
   isNotice: false,
   views: 0,
-  boardItemBoardId: '',
+  boardId: '',
   boardItemCategoryId: null,
 };
 
@@ -27,14 +28,17 @@ const style = {
   transform: 'translate(-50%, -50%)',
 };
 
-const Add = (props: {id?: string}) => {
+const Edit = (props: {id?: string}) => {
   const [user, setUser] = useState<AuthUser|undefined>(undefined);
   const [board, setBoard] = useState<Board | undefined>(undefined);
+  const [boardItem, setBoardItem] = useState<BoardItem | undefined>(undefined);
   const [initialValues, setInitialValues] = useState(initialValuesTemplate);
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
   const { id } = props;
+  const params = queryString.parse(window.location.search);
+  const boardItemId = params.id as string || '';
 
   // Fetch information of board
   useEffect(() => {
@@ -50,6 +54,23 @@ const Add = (props: {id?: string}) => {
       retrieveData(id);
     }
   }, [id]);
+
+  // Fetch information of boardItem
+  useEffect(() => {
+    if (boardItemId) {
+      const retrieveData = async (boardItemId: string) => {
+        try {
+          const boardItem = await GraphqlQueryGetBoardItem(boardItemId) as BoardItem;
+          if (boardItem) {
+            setBoardItem(boardItem);
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      };
+      retrieveData(boardItemId);
+    }
+  }, [boardItemId]);
 
   // Fetch user information
   useEffect(() => {
@@ -71,10 +92,15 @@ const Add = (props: {id?: string}) => {
   useEffect(() => {
     setInitialValues(prev => ({
       ...prev,
-      author: user?.userId || '',
-      boardItemBoardId: board?.id || '',
+      id: boardItem?.id || undefined,
+      title: boardItem?.title || prev.title,
+      content: boardItem?.content || prev.content,
+      tag: boardItem?.tag || prev.tag,
+      isNotice: boardItem?.isNotice || prev.isNotice,
+      author: user?.userId || prev.author,
+      boardId: board?.id || prev.boardId,
     }));
-  }, [user, board]);
+  }, [user, board, boardItem]);
 
   const onSubmit = async (values: unknown) => {
     try {
@@ -83,6 +109,8 @@ const Add = (props: {id?: string}) => {
   
         // Use attachments separately if present
         const savedAttachments = attachments || [];
+        // TODO: Implement file saving to S3
+
   
         // Ensure the remaining values conform to CreateBoardItemInput
         const formBoardValue: CreateBoardItemInput = { ...rest };
@@ -112,7 +140,7 @@ const Add = (props: {id?: string}) => {
     { section: 1, type: FieldType.Hidden, name: 'author', label: 'Author', required: true},
     { section: 1, type: FieldType.File, name: 'attachments', label: 'attachments', required: false, options: {multiple: true}},
     { section: 1, type: FieldType.Checkbox, name: 'isNotice', label: 'Is Notice', required: true},
-    { section: 1, type: FieldType.Hidden, name: 'boardItemBoardId', label: 'Board Id', required: true},
+    { section: 1, type: FieldType.Hidden, name: 'bardId', label: 'Board Id', required: true},
     { section: 1, type: FieldType.Hidden, name: 'boardItemCategoryId', label: 'Category Id', required: false},
   ];
 
@@ -137,4 +165,4 @@ const Add = (props: {id?: string}) => {
   );
 };
 
-export default Add;
+export default Edit;

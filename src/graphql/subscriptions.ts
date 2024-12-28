@@ -1049,6 +1049,104 @@ export const onCreateBoard = /* GraphQL */ `subscription OnCreateBoard($filter: 
       nextToken
       __typename
     }
+    boardItems {
+      items {
+        id
+        seq
+        boardId
+        board {
+          id
+          title
+          header
+          footer
+          listViewItems
+          listSort {
+            item
+            sort
+            __typename
+          }
+          excludeNoticeFlag
+          type
+          category {
+            nextToken
+            __typename
+          }
+          boardItems {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        category {
+          id
+          name
+          parent {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          children {
+            nextToken
+            __typename
+          }
+          sortOrder
+          createdAt
+          updatedAt
+          boardCatgoryChildrenId
+          boardCategoryId
+          __typename
+        }
+        title
+        content
+        tag
+        author
+        attachments {
+          items {
+            id
+            filename
+            filetype
+            path
+            createdAt
+            updatedAt
+            boardItemAttachmentsId
+            author
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        isNotice
+        views
+        BoardItemComments {
+          items {
+            id
+            seq
+            boardItemId
+            comment
+            author
+            createdAt
+            updatedAt
+            boardItemBoardItemCommentsId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        boardItemCategoryId
+        __typename
+      }
+      nextToken
+      __typename
+    }
     createdAt
     updatedAt
     __typename
@@ -1124,6 +1222,104 @@ export const onUpdateBoard = /* GraphQL */ `subscription OnUpdateBoard($filter: 
       nextToken
       __typename
     }
+    boardItems {
+      items {
+        id
+        seq
+        boardId
+        board {
+          id
+          title
+          header
+          footer
+          listViewItems
+          listSort {
+            item
+            sort
+            __typename
+          }
+          excludeNoticeFlag
+          type
+          category {
+            nextToken
+            __typename
+          }
+          boardItems {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        category {
+          id
+          name
+          parent {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          children {
+            nextToken
+            __typename
+          }
+          sortOrder
+          createdAt
+          updatedAt
+          boardCatgoryChildrenId
+          boardCategoryId
+          __typename
+        }
+        title
+        content
+        tag
+        author
+        attachments {
+          items {
+            id
+            filename
+            filetype
+            path
+            createdAt
+            updatedAt
+            boardItemAttachmentsId
+            author
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        isNotice
+        views
+        BoardItemComments {
+          items {
+            id
+            seq
+            boardItemId
+            comment
+            author
+            createdAt
+            updatedAt
+            boardItemBoardItemCommentsId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        boardItemCategoryId
+        __typename
+      }
+      nextToken
+      __typename
+    }
     createdAt
     updatedAt
     __typename
@@ -1194,6 +1390,104 @@ export const onDeleteBoard = /* GraphQL */ `subscription OnDeleteBoard($filter: 
         updatedAt
         boardCatgoryChildrenId
         boardCategoryId
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    boardItems {
+      items {
+        id
+        seq
+        boardId
+        board {
+          id
+          title
+          header
+          footer
+          listViewItems
+          listSort {
+            item
+            sort
+            __typename
+          }
+          excludeNoticeFlag
+          type
+          category {
+            nextToken
+            __typename
+          }
+          boardItems {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        category {
+          id
+          name
+          parent {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          children {
+            nextToken
+            __typename
+          }
+          sortOrder
+          createdAt
+          updatedAt
+          boardCatgoryChildrenId
+          boardCategoryId
+          __typename
+        }
+        title
+        content
+        tag
+        author
+        attachments {
+          items {
+            id
+            filename
+            filetype
+            path
+            createdAt
+            updatedAt
+            boardItemAttachmentsId
+            author
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        isNotice
+        views
+        BoardItemComments {
+          items {
+            id
+            seq
+            boardItemId
+            comment
+            author
+            createdAt
+            updatedAt
+            boardItemBoardItemCommentsId
+            __typename
+          }
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        boardItemCategoryId
         __typename
       }
       nextToken
@@ -1311,6 +1605,55 @@ export const onCreateBoardItem = /* GraphQL */ `subscription OnCreateBoardItem($
         nextToken
         __typename
       }
+      boardItems {
+        items {
+          id
+          seq
+          boardId
+          board {
+            id
+            title
+            header
+            footer
+            listViewItems
+            excludeNoticeFlag
+            type
+            createdAt
+            updatedAt
+            __typename
+          }
+          category {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          title
+          content
+          tag
+          author
+          attachments {
+            nextToken
+            __typename
+          }
+          isNotice
+          views
+          BoardItemComments {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          boardItemCategoryId
+          __typename
+        }
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -1422,6 +1765,66 @@ export const onCreateBoardItem = /* GraphQL */ `subscription OnCreateBoardItem($
     }
     isNotice
     views
+    BoardItemComments {
+      items {
+        id
+        seq
+        boardItemId
+        boardItem {
+          id
+          seq
+          boardId
+          board {
+            id
+            title
+            header
+            footer
+            listViewItems
+            excludeNoticeFlag
+            type
+            createdAt
+            updatedAt
+            __typename
+          }
+          category {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          title
+          content
+          tag
+          author
+          attachments {
+            nextToken
+            __typename
+          }
+          isNotice
+          views
+          BoardItemComments {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          boardItemCategoryId
+          __typename
+        }
+        comment
+        author
+        createdAt
+        updatedAt
+        boardItemBoardItemCommentsId
+        __typename
+      }
+      nextToken
+      __typename
+    }
     createdAt
     updatedAt
     boardItemCategoryId
@@ -1478,6 +1881,55 @@ export const onUpdateBoardItem = /* GraphQL */ `subscription OnUpdateBoardItem($
         nextToken
         __typename
       }
+      boardItems {
+        items {
+          id
+          seq
+          boardId
+          board {
+            id
+            title
+            header
+            footer
+            listViewItems
+            excludeNoticeFlag
+            type
+            createdAt
+            updatedAt
+            __typename
+          }
+          category {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          title
+          content
+          tag
+          author
+          attachments {
+            nextToken
+            __typename
+          }
+          isNotice
+          views
+          BoardItemComments {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          boardItemCategoryId
+          __typename
+        }
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -1589,6 +2041,66 @@ export const onUpdateBoardItem = /* GraphQL */ `subscription OnUpdateBoardItem($
     }
     isNotice
     views
+    BoardItemComments {
+      items {
+        id
+        seq
+        boardItemId
+        boardItem {
+          id
+          seq
+          boardId
+          board {
+            id
+            title
+            header
+            footer
+            listViewItems
+            excludeNoticeFlag
+            type
+            createdAt
+            updatedAt
+            __typename
+          }
+          category {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          title
+          content
+          tag
+          author
+          attachments {
+            nextToken
+            __typename
+          }
+          isNotice
+          views
+          BoardItemComments {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          boardItemCategoryId
+          __typename
+        }
+        comment
+        author
+        createdAt
+        updatedAt
+        boardItemBoardItemCommentsId
+        __typename
+      }
+      nextToken
+      __typename
+    }
     createdAt
     updatedAt
     boardItemCategoryId
@@ -1645,6 +2157,55 @@ export const onDeleteBoardItem = /* GraphQL */ `subscription OnDeleteBoardItem($
         nextToken
         __typename
       }
+      boardItems {
+        items {
+          id
+          seq
+          boardId
+          board {
+            id
+            title
+            header
+            footer
+            listViewItems
+            excludeNoticeFlag
+            type
+            createdAt
+            updatedAt
+            __typename
+          }
+          category {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          title
+          content
+          tag
+          author
+          attachments {
+            nextToken
+            __typename
+          }
+          isNotice
+          views
+          BoardItemComments {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          boardItemCategoryId
+          __typename
+        }
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -1756,6 +2317,66 @@ export const onDeleteBoardItem = /* GraphQL */ `subscription OnDeleteBoardItem($
     }
     isNotice
     views
+    BoardItemComments {
+      items {
+        id
+        seq
+        boardItemId
+        boardItem {
+          id
+          seq
+          boardId
+          board {
+            id
+            title
+            header
+            footer
+            listViewItems
+            excludeNoticeFlag
+            type
+            createdAt
+            updatedAt
+            __typename
+          }
+          category {
+            id
+            name
+            sortOrder
+            createdAt
+            updatedAt
+            boardCatgoryChildrenId
+            boardCategoryId
+            __typename
+          }
+          title
+          content
+          tag
+          author
+          attachments {
+            nextToken
+            __typename
+          }
+          isNotice
+          views
+          BoardItemComments {
+            nextToken
+            __typename
+          }
+          createdAt
+          updatedAt
+          boardItemCategoryId
+          __typename
+        }
+        comment
+        author
+        createdAt
+        updatedAt
+        boardItemBoardItemCommentsId
+        __typename
+      }
+      nextToken
+      __typename
+    }
     createdAt
     updatedAt
     boardItemCategoryId
@@ -1804,6 +2425,25 @@ export const onCreateBoardItemComment = /* GraphQL */ `subscription OnCreateBoar
           nextToken
           __typename
         }
+        boardItems {
+          items {
+            id
+            seq
+            boardId
+            title
+            content
+            tag
+            author
+            isNotice
+            views
+            createdAt
+            updatedAt
+            boardItemCategoryId
+            __typename
+          }
+          nextToken
+          __typename
+        }
         createdAt
         updatedAt
         __typename
@@ -1877,6 +2517,36 @@ export const onCreateBoardItemComment = /* GraphQL */ `subscription OnCreateBoar
       }
       isNotice
       views
+      BoardItemComments {
+        items {
+          id
+          seq
+          boardItemId
+          boardItem {
+            id
+            seq
+            boardId
+            title
+            content
+            tag
+            author
+            isNotice
+            views
+            createdAt
+            updatedAt
+            boardItemCategoryId
+            __typename
+          }
+          comment
+          author
+          createdAt
+          updatedAt
+          boardItemBoardItemCommentsId
+          __typename
+        }
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       boardItemCategoryId
@@ -1886,6 +2556,7 @@ export const onCreateBoardItemComment = /* GraphQL */ `subscription OnCreateBoar
     author
     createdAt
     updatedAt
+    boardItemBoardItemCommentsId
     __typename
   }
 }
@@ -1931,6 +2602,25 @@ export const onUpdateBoardItemComment = /* GraphQL */ `subscription OnUpdateBoar
           nextToken
           __typename
         }
+        boardItems {
+          items {
+            id
+            seq
+            boardId
+            title
+            content
+            tag
+            author
+            isNotice
+            views
+            createdAt
+            updatedAt
+            boardItemCategoryId
+            __typename
+          }
+          nextToken
+          __typename
+        }
         createdAt
         updatedAt
         __typename
@@ -2004,6 +2694,36 @@ export const onUpdateBoardItemComment = /* GraphQL */ `subscription OnUpdateBoar
       }
       isNotice
       views
+      BoardItemComments {
+        items {
+          id
+          seq
+          boardItemId
+          boardItem {
+            id
+            seq
+            boardId
+            title
+            content
+            tag
+            author
+            isNotice
+            views
+            createdAt
+            updatedAt
+            boardItemCategoryId
+            __typename
+          }
+          comment
+          author
+          createdAt
+          updatedAt
+          boardItemBoardItemCommentsId
+          __typename
+        }
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       boardItemCategoryId
@@ -2013,6 +2733,7 @@ export const onUpdateBoardItemComment = /* GraphQL */ `subscription OnUpdateBoar
     author
     createdAt
     updatedAt
+    boardItemBoardItemCommentsId
     __typename
   }
 }
@@ -2058,6 +2779,25 @@ export const onDeleteBoardItemComment = /* GraphQL */ `subscription OnDeleteBoar
           nextToken
           __typename
         }
+        boardItems {
+          items {
+            id
+            seq
+            boardId
+            title
+            content
+            tag
+            author
+            isNotice
+            views
+            createdAt
+            updatedAt
+            boardItemCategoryId
+            __typename
+          }
+          nextToken
+          __typename
+        }
         createdAt
         updatedAt
         __typename
@@ -2131,6 +2871,36 @@ export const onDeleteBoardItemComment = /* GraphQL */ `subscription OnDeleteBoar
       }
       isNotice
       views
+      BoardItemComments {
+        items {
+          id
+          seq
+          boardItemId
+          boardItem {
+            id
+            seq
+            boardId
+            title
+            content
+            tag
+            author
+            isNotice
+            views
+            createdAt
+            updatedAt
+            boardItemCategoryId
+            __typename
+          }
+          comment
+          author
+          createdAt
+          updatedAt
+          boardItemBoardItemCommentsId
+          __typename
+        }
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       boardItemCategoryId
@@ -2140,6 +2910,7 @@ export const onDeleteBoardItemComment = /* GraphQL */ `subscription OnDeleteBoar
     author
     createdAt
     updatedAt
+    boardItemBoardItemCommentsId
     __typename
   }
 }

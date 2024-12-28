@@ -1,0 +1,10 @@
+{
+  "resourceName": "cacheTable",
+  "tableName": "cacheTable",
+  "partitionKey": {
+    "fieldName": "cacheKey",
+    "fieldType": "string"
+  },
+  "gsi": [],
+  "triggerFunctions": []
+}
