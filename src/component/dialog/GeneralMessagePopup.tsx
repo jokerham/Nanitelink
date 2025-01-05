@@ -27,24 +27,24 @@ interface GeneralMessagePopupProps {
 const GeneralMessagePopup: React.FC<GeneralMessagePopupProps> = ({ open, onClose, title, message, type }) => {
   const renderButtons = () => {
     switch (type) {
-    case MessageBoxType.OK:
-      return <Button onClick={() => onClose('OK')}>OK</Button>;
-    case MessageBoxType.OKCancel:
-      return (
-        <>
-          <Button onClick={() => onClose('OK')}>OK</Button>
-          <Button onClick={() => onClose('Cancel')}>Cancel</Button>
-        </>
-      );
-    case MessageBoxType.YesNo:
-      return (
-        <>
-          <Button onClick={() => onClose('Yes')}>Yes</Button>
-          <Button onClick={() => onClose('No')}>No</Button>
-        </>
-      );
-    default:
-      return <Button onClick={() => onClose('Close')}>Close</Button>;
+      case MessageBoxType.OK:
+        return <Button onClick={() => onClose('OK')}>OK</Button>;
+      case MessageBoxType.OKCancel:
+        return (
+          <>
+            <Button onClick={() => onClose('OK')}>OK</Button>
+            <Button onClick={() => onClose('Cancel')}>Cancel</Button>
+          </>
+        );
+      case MessageBoxType.YesNo:
+        return (
+          <>
+            <Button onClick={() => onClose('Yes')}>Yes</Button>
+            <Button onClick={() => onClose('No')}>No</Button>
+          </>
+        );
+      default:
+        return <Button onClick={() => onClose('Close')}>Close</Button>;
     }
   };
 

@@ -1154,6 +1154,7 @@ export const createBoard = /* GraphQL */ `mutation CreateBoard(
             id
             filename
             filetype
+            fileSize
             path
             createdAt
             updatedAt
@@ -1330,6 +1331,7 @@ export const updateBoard = /* GraphQL */ `mutation UpdateBoard(
             id
             filename
             filetype
+            fileSize
             path
             createdAt
             updatedAt
@@ -1506,6 +1508,7 @@ export const deleteBoard = /* GraphQL */ `mutation DeleteBoard(
             id
             filename
             filetype
+            fileSize
             path
             createdAt
             updatedAt
@@ -1549,66 +1552,6 @@ export const deleteBoard = /* GraphQL */ `mutation DeleteBoard(
 ` as GeneratedMutation<
   APITypes.DeleteBoardMutationVariables,
   APITypes.DeleteBoardMutation
->;
-export const createAttachment = /* GraphQL */ `mutation CreateAttachment(
-  $input: CreateAttachmentInput!
-  $condition: ModelAttachmentConditionInput
-) {
-  createAttachment(input: $input, condition: $condition) {
-    id
-    filename
-    filetype
-    path
-    createdAt
-    updatedAt
-    boardItemAttachmentsId
-    author
-    __typename
-  }
-}
-` as GeneratedMutation<
-  APITypes.CreateAttachmentMutationVariables,
-  APITypes.CreateAttachmentMutation
->;
-export const updateAttachment = /* GraphQL */ `mutation UpdateAttachment(
-  $input: UpdateAttachmentInput!
-  $condition: ModelAttachmentConditionInput
-) {
-  updateAttachment(input: $input, condition: $condition) {
-    id
-    filename
-    filetype
-    path
-    createdAt
-    updatedAt
-    boardItemAttachmentsId
-    author
-    __typename
-  }
-}
-` as GeneratedMutation<
-  APITypes.UpdateAttachmentMutationVariables,
-  APITypes.UpdateAttachmentMutation
->;
-export const deleteAttachment = /* GraphQL */ `mutation DeleteAttachment(
-  $input: DeleteAttachmentInput!
-  $condition: ModelAttachmentConditionInput
-) {
-  deleteAttachment(input: $input, condition: $condition) {
-    id
-    filename
-    filetype
-    path
-    createdAt
-    updatedAt
-    boardItemAttachmentsId
-    author
-    __typename
-  }
-}
-` as GeneratedMutation<
-  APITypes.DeleteAttachmentMutationVariables,
-  APITypes.DeleteAttachmentMutation
 >;
 export const createBoardItem = /* GraphQL */ `mutation CreateBoardItem(
   $input: CreateBoardItemInput!
@@ -1807,6 +1750,7 @@ export const createBoardItem = /* GraphQL */ `mutation CreateBoardItem(
         id
         filename
         filetype
+        fileSize
         path
         createdAt
         updatedAt
@@ -2086,6 +2030,7 @@ export const updateBoardItem = /* GraphQL */ `mutation UpdateBoardItem(
         id
         filename
         filetype
+        fileSize
         path
         createdAt
         updatedAt
@@ -2365,6 +2310,7 @@ export const deleteBoardItem = /* GraphQL */ `mutation DeleteBoardItem(
         id
         filename
         filetype
+        fileSize
         path
         createdAt
         updatedAt
@@ -2446,6 +2392,69 @@ export const deleteBoardItem = /* GraphQL */ `mutation DeleteBoardItem(
 ` as GeneratedMutation<
   APITypes.DeleteBoardItemMutationVariables,
   APITypes.DeleteBoardItemMutation
+>;
+export const createAttachment = /* GraphQL */ `mutation CreateAttachment(
+  $input: CreateAttachmentInput!
+  $condition: ModelAttachmentConditionInput
+) {
+  createAttachment(input: $input, condition: $condition) {
+    id
+    filename
+    filetype
+    fileSize
+    path
+    createdAt
+    updatedAt
+    boardItemAttachmentsId
+    author
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.CreateAttachmentMutationVariables,
+  APITypes.CreateAttachmentMutation
+>;
+export const updateAttachment = /* GraphQL */ `mutation UpdateAttachment(
+  $input: UpdateAttachmentInput!
+  $condition: ModelAttachmentConditionInput
+) {
+  updateAttachment(input: $input, condition: $condition) {
+    id
+    filename
+    filetype
+    fileSize
+    path
+    createdAt
+    updatedAt
+    boardItemAttachmentsId
+    author
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.UpdateAttachmentMutationVariables,
+  APITypes.UpdateAttachmentMutation
+>;
+export const deleteAttachment = /* GraphQL */ `mutation DeleteAttachment(
+  $input: DeleteAttachmentInput!
+  $condition: ModelAttachmentConditionInput
+) {
+  deleteAttachment(input: $input, condition: $condition) {
+    id
+    filename
+    filetype
+    fileSize
+    path
+    createdAt
+    updatedAt
+    boardItemAttachmentsId
+    author
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.DeleteAttachmentMutationVariables,
+  APITypes.DeleteAttachmentMutation
 >;
 export const createBoardItemComment = /* GraphQL */ `mutation CreateBoardItemComment(
   $input: CreateBoardItemCommentInput!
@@ -2566,6 +2575,7 @@ export const createBoardItemComment = /* GraphQL */ `mutation CreateBoardItemCom
           id
           filename
           filetype
+          fileSize
           path
           createdAt
           updatedAt
@@ -2744,6 +2754,7 @@ export const updateBoardItemComment = /* GraphQL */ `mutation UpdateBoardItemCom
           id
           filename
           filetype
+          fileSize
           path
           createdAt
           updatedAt
@@ -2922,6 +2933,7 @@ export const deleteBoardItemComment = /* GraphQL */ `mutation DeleteBoardItemCom
           id
           filename
           filetype
+          fileSize
           path
           createdAt
           updatedAt

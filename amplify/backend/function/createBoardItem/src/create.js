@@ -100,6 +100,33 @@ exports.createBoardItem = async (boardId, boardItemInput) => {
       mutation: createBoardItemMutation,
       variables: { input: createBoardItemPayload },
     });
+    createdBoardItemId = createBoardItemResponse.data.createBoardItem.id;
+
+    // Step 5: Link Attachments to the BoardItem
+    if (boardItemInput.attachments && boardItemInput.attachments.length > 0) {
+      await Promise.all(
+        boardItemInput.attachments.map(async (attachmentId) => {
+          const updateAttachmentResponse = await client.mutate({
+            mutation: gql`
+              mutation UpdateAttachment($input: UpdateAttachmentInput!) {
+                updateAttachment(input: $input) {
+                  id
+                  boardItemAttachmentsId
+                }
+              }
+            `,
+            variables: {
+              input: {
+                id: attachmentId,
+                boardItemAttachmentsId: createdBoardItemId,
+              },
+            },
+          });
+
+          console.log('Updated Attachment:', updateAttachmentResponse.data.updateAttachment);
+        })
+      );
+    }
 
     console.log('Board Item Created:', createBoardItemResponse.data.createBoardItem);
 

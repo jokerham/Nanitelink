@@ -45,6 +45,22 @@
           ],
           "category": "function",
           "resourceName": "IncrementBoardItemViews"
+        },
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "getBoardItembyBoardTitleAndBoardItemSeq"
+        },
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "deleteBoardItem"
         }
       ],
       "providerPlugin": "awscloudformation",
@@ -145,6 +161,52 @@
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     },
+    "deleteBoardItem": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "GraphQLAPIIdOutput",
+            "GraphQLAPIEndpointOutput",
+            "GraphQLAPIKeyOutput"
+          ],
+          "category": "api",
+          "resourceName": "nanitelink"
+        },
+        {
+          "attributes": [
+            "BucketName"
+          ],
+          "category": "storage",
+          "resourceName": "profileImages"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "getBoardItembyBoardTitleAndBoardItemSeq": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "nanitelinkSharedLayer"
+        },
+        {
+          "attributes": [
+            "GraphQLAPIIdOutput",
+            "GraphQLAPIEndpointOutput",
+            "GraphQLAPIKeyOutput"
+          ],
+          "category": "api",
+          "resourceName": "nanitelink"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
     "getUserAttributes": {
       "build": true,
       "providerPlugin": "awscloudformation",
@@ -165,6 +227,11 @@
       ],
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
+    },
+    "nanitelinkSharedLayer": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "LambdaLayer"
     },
     "ttlCache": {
       "build": true,
@@ -226,6 +293,38 @@
         }
       ]
     },
+    "AMPLIFY_function_deleteBoardItem_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "deleteBoardItem"
+        }
+      ]
+    },
+    "AMPLIFY_function_deleteBoardItem_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "deleteBoardItem"
+        }
+      ]
+    },
+    "AMPLIFY_function_getBoardItembyBoardTitleAndBoardItemSeq_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "getBoardItembyBoardTitleAndBoardItemSeq"
+        }
+      ]
+    },
+    "AMPLIFY_function_getBoardItembyBoardTitleAndBoardItemSeq_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "getBoardItembyBoardTitleAndBoardItemSeq"
+        }
+      ]
+    },
     "AMPLIFY_function_getUserAttributes_deploymentBucketName": {
       "usedBy": [
         {
@@ -255,6 +354,22 @@
         {
           "category": "function",
           "resourceName": "listBoardItems"
+        }
+      ]
+    },
+    "AMPLIFY_function_nanitelinkSharedLayer_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "nanitelinkSharedLayer"
+        }
+      ]
+    },
+    "AMPLIFY_function_nanitelinkSharedLayer_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "nanitelinkSharedLayer"
         }
       ]
     },

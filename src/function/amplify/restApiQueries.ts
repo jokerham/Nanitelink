@@ -2,6 +2,7 @@ import * as Auth from 'aws-amplify/auth';
 import * as API from 'aws-amplify/api';
 import { Amplify } from 'aws-amplify';
 import { CreateBoardItemInput } from 'API';
+import config from '../../aws-exports';
 
 interface IGetUserById {
   id: string
@@ -35,7 +36,7 @@ interface IMember {
   Attributes: IAttribute[]
 }
 
-interface IGetUsersResult {
+export interface IGetUsersResult {
   users: IMember[],
   totalPages: number
 }
@@ -63,18 +64,22 @@ export const getUsers = async () => {
   }
 };
 
-interface IXreateBoardItemProps {
+export type ExtendedCreateBoardItemInput = CreateBoardItemInput & {
+  attachments?: string[]; // Add optional array of strings
+};
+
+interface ICreateBoardItemProps {
   boardId: string, 
-  boardItemInput: CreateBoardItemInput
+  boardItemInput: ExtendedCreateBoardItemInput
 }
 
-export const createBoardItem = async ({boardId, boardItemInput}: IXreateBoardItemProps) => {
+export const createBoardItem = async ({boardId, boardItemInput}: ICreateBoardItemProps) => {
   try {
     // Retrieve the current user's Cognito session
     const session = await Auth.fetchAuthSession();
     const idToken = session.tokens?.idToken; // Get the JWT token
 
-    // Prepare the payload
+    // Ensure payload is a plain object and serialized correctly
     const payload = {
       boardId,
       boardItemInput,
@@ -90,7 +95,6 @@ export const createBoardItem = async ({boardId, boardItemInput}: IXreateBoardIte
           body: payload,
           headers: {
             Authorization: idToken.toString(),
-            //Authorization: `Bearer ${idToken}`, // Pass the Cognito JWT token in the Authorization header
             'Content-Type': 'application/json',
           },
         }
@@ -139,7 +143,7 @@ export const incrementBoardItemViews = async (id: string) => {
   try {
     const response = await API.post({
       apiName: 'boarditem',
-      path: `/boarditem/${id}/increment-views`,
+      path: `/boarditem/increment-views/${id}`,
       options: {
         headers: {
           'Content-Type': 'application/json',
@@ -154,4 +158,96 @@ export const incrementBoardItemViews = async (id: string) => {
     console.error('Error incrementing views:', error);
     throw new Error('Failed to increment views. Please try again.');
   }
+};
+
+export interface IBoardItem {
+  id: string,
+  seq: number,
+  isNotice?: boolean,
+  board: {
+    id: string,
+    title: string,
+    description: string,
+  },
+  title: string,
+  content: string,
+  views: number,
+  author: {
+    username: string,
+    email: string,
+    name: string,
+    nickname: string,
+    picture: string,
+    birthdate: string,
+  },
+  tag?: string,
+  attachments: {
+    id: string
+    filename: string,
+    fileSize: number,
+    fileType: string,
+    path: string,
+  }[],
+  boardItemCategoryId?: string,
+  createdAt: string,
+  updatedAt: string,  
+}
+
+export const getBoardItem = async (boardTitle: string, boardItemSeq: number) => {
+  try {
+    const response = await API.get({
+      apiName: 'boarditem',
+      path: `/boarditem/get/${boardTitle}/${boardItemSeq}`,
+      options: {
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-key': config.aws_appsync_apiKey
+        },
+      }
+    }).response;
+    const jsonResult = await response.body.json() as unknown as IBoardItem;
+    return jsonResult;
+  } catch (error) {
+    console.error('Error fetching board item:', error);
+    throw new Error('Failed to fetch board item. Please try again.');
+  }
+};
+
+export async function deleteBoardItem(boardItemId: string): Promise<void> {
+  try {
+    // 1. Get the token
+    const token = await getToken();
+
+    // 2. Set the API name and path
+    const apiName = 'boarditem'; // Replace with your API name in Amplify
+    const path = `/boarditem/delete/${boardItemId}`;
+
+    // 3. Set the request options with the Authorization header
+    const requestOptions = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    // 4. Call the API DELETE method
+    //const response = await API.del(apiName, path, requestOptions);
+    const response = await API.post({
+      apiName: apiName,
+      path: path,
+      options: requestOptions,
+    }).response;
+
+    // Handle response if needed, but do not return it
+  } catch (error) {
+    console.error('Error deleting board item:', error);
+    const errorMessage = (error as { response?: { data?: { message?: string } } }).response?.data?.message || 'Failed to delete board item';
+    throw new Error(errorMessage);
+  }
+}
+
+const getToken = async() => {
+  // Retrieve the current user's Cognito session
+  const session = await Auth.fetchAuthSession();
+  const idToken = session.tokens?.idToken; // Get the JWT token
+  return idToken;
 };

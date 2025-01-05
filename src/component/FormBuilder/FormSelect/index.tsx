@@ -4,9 +4,9 @@ import { LabelOnLeft, MUIDefault } from './variant';
 export const FormSelect = (props: TFormFieldProps) => {
   const {variant} = props;
   switch (variant){
-  case FormVariant.MUIDefault:
-    return ( <MUIDefault {...props} /> );
-  case FormVariant.LabelOnLeft:
-    return ( <LabelOnLeft {...props} /> );
+    case FormVariant.MUIDefault:
+      return ( <MUIDefault {...props} /> );
+    case FormVariant.LabelOnLeft:
+      return ( <LabelOnLeft {...props} /> );
   }
 };

@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "api": {
+      "nanitelink": [
+        "Query"
+      ]
+    }
+  },
+  "lambdaLayers": [
+    {
+      "type": "ProjectLayer",
+      "resourceName": "nanitelinkSharedLayer",
+      "env": "dev",
+      "version": "Always choose latest version",
+      "isLatestVersionSelected": true
+    }
+  ]
+}

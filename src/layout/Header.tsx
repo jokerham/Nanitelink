@@ -59,13 +59,13 @@ const Header: React.FC = () => {
 
   Hub.listen<'auth'>('auth', async ({ payload }) => {
     switch(payload.event) {
-    case 'signedIn': {
-      getUser();
-      break;
-    }
-    default:
-      setUser(undefined);
-      break;
+      case 'signedIn': {
+        getUser();
+        break;
+      }
+      default:
+        setUser(undefined);
+        break;
     }
   });
 
@@ -291,19 +291,11 @@ const Header: React.FC = () => {
                 </button>
                 <Popover
                   anchorEl={anchorEl}
-                  anchorOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'right',
-                  }}
-                  transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                  }}
+                  anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+                  transformOrigin={{ vertical: 'top', horizontal: 'right' }}
                   open={openProfileMenu}
                   onClose={handleCloseProfileMenu}
-                  sx={{
-                    marginTop: '10px',
-                  }}
+                  sx={{ marginTop: '10px' }}
                 >
                   <ProfileMenu closeHandler={handleCloseProfileMenu} />
                 </Popover>

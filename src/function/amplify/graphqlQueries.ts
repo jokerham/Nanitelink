@@ -8,7 +8,7 @@ import {
   updateDocument, 
   createBoard,
   deleteBoard,
-  updateBoardItem} from 'graphql/mutations';
+  createAttachment} from 'graphql/mutations';
 import { 
   listMenus,
   getDocument, 
@@ -300,8 +300,17 @@ export interface IBoardItem {
   tag: string;
   views: number;
   isNotice: boolean;
+  attachments: IAttachment[];
   updatedAt: string;
   board: IBoard;
+}
+
+export interface IAttachment {
+  id: string;
+  filename: string;
+  filetype: string;
+  fileSize: number;
+  path: string;
 }
 
 export const GraphqlQueryGetBoardItemBySeq = async (
@@ -449,4 +458,30 @@ export const GraphqlQueryGetBoardItem = async (boardItemId: string) => {
     console.error('Error fetching BoardItem by id:', error);
     //throw new Error('Failed to fetch BoardItem by id. Please try again.');
   }
+};
+
+export interface IGraphqlQueryCreateBoardItemProps {
+  filename: string;
+  filetype: string;
+  fileSize: number;
+  path: string;
+}
+
+export const GraphqlQueryCreateAttachment = async (props: IGraphqlQueryCreateBoardItemProps) => {
+  const { filename, filetype, fileSize, path } = props;
+  const client = generateClient();
+  const result = await client.graphql({
+    query: createAttachment,
+    variables: {
+      input: {
+        filename,
+        filetype,
+        fileSize,
+        path,
+      },
+    },
+    authMode: 'userPool',
+  });
+
+  return result.data.createAttachment;
 };

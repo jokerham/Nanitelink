@@ -468,6 +468,7 @@ export type Attachment = {
   id: string,
   filename: string,
   filetype: string,
+  fileSize: number,
   path: string,
   createdAt: string,
   updatedAt: string,
@@ -506,39 +507,6 @@ export type UpdateBoardInput = {
 };
 
 export type DeleteBoardInput = {
-  id: string,
-};
-
-export type CreateAttachmentInput = {
-  id?: string | null,
-  filename: string,
-  filetype: string,
-  path: string,
-  boardItemAttachmentsId?: string | null,
-};
-
-export type ModelAttachmentConditionInput = {
-  filename?: ModelStringInput | null,
-  filetype?: ModelStringInput | null,
-  path?: ModelStringInput | null,
-  and?: Array< ModelAttachmentConditionInput | null > | null,
-  or?: Array< ModelAttachmentConditionInput | null > | null,
-  not?: ModelAttachmentConditionInput | null,
-  createdAt?: ModelStringInput | null,
-  updatedAt?: ModelStringInput | null,
-  boardItemAttachmentsId?: ModelIDInput | null,
-  author?: ModelStringInput | null,
-};
-
-export type UpdateAttachmentInput = {
-  id: string,
-  filename?: string | null,
-  filetype?: string | null,
-  path?: string | null,
-  boardItemAttachmentsId?: string | null,
-};
-
-export type DeleteAttachmentInput = {
   id: string,
 };
 
@@ -586,6 +554,42 @@ export type UpdateBoardItemInput = {
 };
 
 export type DeleteBoardItemInput = {
+  id: string,
+};
+
+export type CreateAttachmentInput = {
+  id?: string | null,
+  filename: string,
+  filetype: string,
+  fileSize: number,
+  path: string,
+  boardItemAttachmentsId?: string | null,
+};
+
+export type ModelAttachmentConditionInput = {
+  filename?: ModelStringInput | null,
+  filetype?: ModelStringInput | null,
+  fileSize?: ModelIntInput | null,
+  path?: ModelStringInput | null,
+  and?: Array< ModelAttachmentConditionInput | null > | null,
+  or?: Array< ModelAttachmentConditionInput | null > | null,
+  not?: ModelAttachmentConditionInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
+  boardItemAttachmentsId?: ModelIDInput | null,
+  author?: ModelStringInput | null,
+};
+
+export type UpdateAttachmentInput = {
+  id: string,
+  filename?: string | null,
+  filetype?: string | null,
+  fileSize?: number | null,
+  path?: string | null,
+  boardItemAttachmentsId?: string | null,
+};
+
+export type DeleteAttachmentInput = {
   id: string,
 };
 
@@ -733,20 +737,6 @@ export enum ModelSortDirection {
 }
 
 
-export type ModelAttachmentFilterInput = {
-  id?: ModelIDInput | null,
-  filename?: ModelStringInput | null,
-  filetype?: ModelStringInput | null,
-  path?: ModelStringInput | null,
-  createdAt?: ModelStringInput | null,
-  updatedAt?: ModelStringInput | null,
-  and?: Array< ModelAttachmentFilterInput | null > | null,
-  or?: Array< ModelAttachmentFilterInput | null > | null,
-  not?: ModelAttachmentFilterInput | null,
-  boardItemAttachmentsId?: ModelIDInput | null,
-  author?: ModelStringInput | null,
-};
-
 export type ModelBoardItemFilterInput = {
   id?: ModelIDInput | null,
   seq?: ModelIntInput | null,
@@ -772,6 +762,21 @@ export type ModelIntKeyConditionInput = {
   ge?: number | null,
   gt?: number | null,
   between?: Array< number | null > | null,
+};
+
+export type ModelAttachmentFilterInput = {
+  id?: ModelIDInput | null,
+  filename?: ModelStringInput | null,
+  filetype?: ModelStringInput | null,
+  fileSize?: ModelIntInput | null,
+  path?: ModelStringInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
+  and?: Array< ModelAttachmentFilterInput | null > | null,
+  or?: Array< ModelAttachmentFilterInput | null > | null,
+  not?: ModelAttachmentFilterInput | null,
+  boardItemAttachmentsId?: ModelIDInput | null,
+  author?: ModelStringInput | null,
 };
 
 export type ModelBoardItemCommentFilterInput = {
@@ -908,18 +913,6 @@ export type ModelSubscriptionBooleanInput = {
   eq?: boolean | null,
 };
 
-export type ModelSubscriptionAttachmentFilterInput = {
-  id?: ModelSubscriptionIDInput | null,
-  filename?: ModelSubscriptionStringInput | null,
-  filetype?: ModelSubscriptionStringInput | null,
-  path?: ModelSubscriptionStringInput | null,
-  createdAt?: ModelSubscriptionStringInput | null,
-  updatedAt?: ModelSubscriptionStringInput | null,
-  and?: Array< ModelSubscriptionAttachmentFilterInput | null > | null,
-  or?: Array< ModelSubscriptionAttachmentFilterInput | null > | null,
-  author?: ModelStringInput | null,
-};
-
 export type ModelSubscriptionBoardItemFilterInput = {
   id?: ModelSubscriptionIDInput | null,
   seq?: ModelSubscriptionIntInput | null,
@@ -936,6 +929,19 @@ export type ModelSubscriptionBoardItemFilterInput = {
   boardItemAttachmentsId?: ModelSubscriptionIDInput | null,
   boardItemBoardItemCommentsId?: ModelSubscriptionIDInput | null,
   boardItemCategoryId?: ModelSubscriptionIDInput | null,
+  author?: ModelStringInput | null,
+};
+
+export type ModelSubscriptionAttachmentFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  filename?: ModelSubscriptionStringInput | null,
+  filetype?: ModelSubscriptionStringInput | null,
+  fileSize?: ModelSubscriptionIntInput | null,
+  path?: ModelSubscriptionStringInput | null,
+  createdAt?: ModelSubscriptionStringInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionAttachmentFilterInput | null > | null,
+  or?: Array< ModelSubscriptionAttachmentFilterInput | null > | null,
   author?: ModelStringInput | null,
 };
 
@@ -2089,6 +2095,7 @@ export type CreateBoardMutation = {
             id: string,
             filename: string,
             filetype: string,
+            fileSize: number,
             path: string,
             createdAt: string,
             updatedAt: string,
@@ -2264,6 +2271,7 @@ export type UpdateBoardMutation = {
             id: string,
             filename: string,
             filetype: string,
+            fileSize: number,
             path: string,
             createdAt: string,
             updatedAt: string,
@@ -2439,6 +2447,7 @@ export type DeleteBoardMutation = {
             id: string,
             filename: string,
             filetype: string,
+            fileSize: number,
             path: string,
             createdAt: string,
             updatedAt: string,
@@ -2472,63 +2481,6 @@ export type DeleteBoardMutation = {
     } | null,
     createdAt: string,
     updatedAt: string,
-  } | null,
-};
-
-export type CreateAttachmentMutationVariables = {
-  input: CreateAttachmentInput,
-  condition?: ModelAttachmentConditionInput | null,
-};
-
-export type CreateAttachmentMutation = {
-  createAttachment?:  {
-    __typename: "Attachment",
-    id: string,
-    filename: string,
-    filetype: string,
-    path: string,
-    createdAt: string,
-    updatedAt: string,
-    boardItemAttachmentsId?: string | null,
-    author?: string | null,
-  } | null,
-};
-
-export type UpdateAttachmentMutationVariables = {
-  input: UpdateAttachmentInput,
-  condition?: ModelAttachmentConditionInput | null,
-};
-
-export type UpdateAttachmentMutation = {
-  updateAttachment?:  {
-    __typename: "Attachment",
-    id: string,
-    filename: string,
-    filetype: string,
-    path: string,
-    createdAt: string,
-    updatedAt: string,
-    boardItemAttachmentsId?: string | null,
-    author?: string | null,
-  } | null,
-};
-
-export type DeleteAttachmentMutationVariables = {
-  input: DeleteAttachmentInput,
-  condition?: ModelAttachmentConditionInput | null,
-};
-
-export type DeleteAttachmentMutation = {
-  deleteAttachment?:  {
-    __typename: "Attachment",
-    id: string,
-    filename: string,
-    filetype: string,
-    path: string,
-    createdAt: string,
-    updatedAt: string,
-    boardItemAttachmentsId?: string | null,
-    author?: string | null,
   } | null,
 };
 
@@ -2734,6 +2686,7 @@ export type CreateBoardItemMutation = {
         id: string,
         filename: string,
         filetype: string,
+        fileSize: number,
         path: string,
         createdAt: string,
         updatedAt: string,
@@ -3012,6 +2965,7 @@ export type UpdateBoardItemMutation = {
         id: string,
         filename: string,
         filetype: string,
+        fileSize: number,
         path: string,
         createdAt: string,
         updatedAt: string,
@@ -3290,6 +3244,7 @@ export type DeleteBoardItemMutation = {
         id: string,
         filename: string,
         filetype: string,
+        fileSize: number,
         path: string,
         createdAt: string,
         updatedAt: string,
@@ -3363,6 +3318,66 @@ export type DeleteBoardItemMutation = {
     createdAt: string,
     updatedAt: string,
     boardItemCategoryId?: string | null,
+  } | null,
+};
+
+export type CreateAttachmentMutationVariables = {
+  input: CreateAttachmentInput,
+  condition?: ModelAttachmentConditionInput | null,
+};
+
+export type CreateAttachmentMutation = {
+  createAttachment?:  {
+    __typename: "Attachment",
+    id: string,
+    filename: string,
+    filetype: string,
+    fileSize: number,
+    path: string,
+    createdAt: string,
+    updatedAt: string,
+    boardItemAttachmentsId?: string | null,
+    author?: string | null,
+  } | null,
+};
+
+export type UpdateAttachmentMutationVariables = {
+  input: UpdateAttachmentInput,
+  condition?: ModelAttachmentConditionInput | null,
+};
+
+export type UpdateAttachmentMutation = {
+  updateAttachment?:  {
+    __typename: "Attachment",
+    id: string,
+    filename: string,
+    filetype: string,
+    fileSize: number,
+    path: string,
+    createdAt: string,
+    updatedAt: string,
+    boardItemAttachmentsId?: string | null,
+    author?: string | null,
+  } | null,
+};
+
+export type DeleteAttachmentMutationVariables = {
+  input: DeleteAttachmentInput,
+  condition?: ModelAttachmentConditionInput | null,
+};
+
+export type DeleteAttachmentMutation = {
+  deleteAttachment?:  {
+    __typename: "Attachment",
+    id: string,
+    filename: string,
+    filetype: string,
+    fileSize: number,
+    path: string,
+    createdAt: string,
+    updatedAt: string,
+    boardItemAttachmentsId?: string | null,
+    author?: string | null,
   } | null,
 };
 
@@ -3491,6 +3506,7 @@ export type CreateBoardItemCommentMutation = {
           id: string,
           filename: string,
           filetype: string,
+          fileSize: number,
           path: string,
           createdAt: string,
           updatedAt: string,
@@ -3668,6 +3684,7 @@ export type UpdateBoardItemCommentMutation = {
           id: string,
           filename: string,
           filetype: string,
+          fileSize: number,
           path: string,
           createdAt: string,
           updatedAt: string,
@@ -3845,6 +3862,7 @@ export type DeleteBoardItemCommentMutation = {
           id: string,
           filename: string,
           filetype: string,
+          fileSize: number,
           path: string,
           createdAt: string,
           updatedAt: string,
@@ -4631,6 +4649,7 @@ export type GetBoardQuery = {
             id: string,
             filename: string,
             filetype: string,
+            fileSize: number,
             path: string,
             createdAt: string,
             updatedAt: string,
@@ -4883,48 +4902,6 @@ export type ListBoardsByTitleQuery = {
   } | null,
 };
 
-export type GetAttachmentQueryVariables = {
-  id: string,
-};
-
-export type GetAttachmentQuery = {
-  getAttachment?:  {
-    __typename: "Attachment",
-    id: string,
-    filename: string,
-    filetype: string,
-    path: string,
-    createdAt: string,
-    updatedAt: string,
-    boardItemAttachmentsId?: string | null,
-    author?: string | null,
-  } | null,
-};
-
-export type ListAttachmentsQueryVariables = {
-  filter?: ModelAttachmentFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type ListAttachmentsQuery = {
-  listAttachments?:  {
-    __typename: "ModelAttachmentConnection",
-    items:  Array< {
-      __typename: "Attachment",
-      id: string,
-      filename: string,
-      filetype: string,
-      path: string,
-      createdAt: string,
-      updatedAt: string,
-      boardItemAttachmentsId?: string | null,
-      author?: string | null,
-    } | null >,
-    nextToken?: string | null,
-  } | null,
-};
-
 export type GetBoardItemQueryVariables = {
   id: string,
 };
@@ -5126,6 +5103,7 @@ export type GetBoardItemQuery = {
         id: string,
         filename: string,
         filetype: string,
+        fileSize: number,
         path: string,
         createdAt: string,
         updatedAt: string,
@@ -5325,6 +5303,7 @@ export type ListBoardItemsQuery = {
           id: string,
           filename: string,
           filetype: string,
+          fileSize: number,
           path: string,
           createdAt: string,
           updatedAt: string,
@@ -5499,6 +5478,7 @@ export type ListBoardItemsByBoardQuery = {
           id: string,
           filename: string,
           filetype: string,
+          fileSize: number,
           path: string,
           createdAt: string,
           updatedAt: string,
@@ -5542,6 +5522,50 @@ export type ListBoardItemsByBoardQuery = {
       createdAt: string,
       updatedAt: string,
       boardItemCategoryId?: string | null,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetAttachmentQueryVariables = {
+  id: string,
+};
+
+export type GetAttachmentQuery = {
+  getAttachment?:  {
+    __typename: "Attachment",
+    id: string,
+    filename: string,
+    filetype: string,
+    fileSize: number,
+    path: string,
+    createdAt: string,
+    updatedAt: string,
+    boardItemAttachmentsId?: string | null,
+    author?: string | null,
+  } | null,
+};
+
+export type ListAttachmentsQueryVariables = {
+  filter?: ModelAttachmentFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListAttachmentsQuery = {
+  listAttachments?:  {
+    __typename: "ModelAttachmentConnection",
+    items:  Array< {
+      __typename: "Attachment",
+      id: string,
+      filename: string,
+      filetype: string,
+      fileSize: number,
+      path: string,
+      createdAt: string,
+      updatedAt: string,
+      boardItemAttachmentsId?: string | null,
+      author?: string | null,
     } | null >,
     nextToken?: string | null,
   } | null,
@@ -5671,6 +5695,7 @@ export type GetBoardItemCommentQuery = {
           id: string,
           filename: string,
           filetype: string,
+          fileSize: number,
           path: string,
           createdAt: string,
           updatedAt: string,
@@ -5802,6 +5827,7 @@ export type ListBoardItemCommentsQuery = {
             id: string,
             filename: string,
             filetype: string,
+            fileSize: number,
             path: string,
             createdAt: string,
             updatedAt: string,
@@ -5923,6 +5949,7 @@ export type ListBoardItemCommentsByBoardQuery = {
             id: string,
             filename: string,
             filetype: string,
+            fileSize: number,
             path: string,
             createdAt: string,
             updatedAt: string,
@@ -7084,6 +7111,7 @@ export type OnCreateBoardSubscription = {
             id: string,
             filename: string,
             filetype: string,
+            fileSize: number,
             path: string,
             createdAt: string,
             updatedAt: string,
@@ -7258,6 +7286,7 @@ export type OnUpdateBoardSubscription = {
             id: string,
             filename: string,
             filetype: string,
+            fileSize: number,
             path: string,
             createdAt: string,
             updatedAt: string,
@@ -7432,6 +7461,7 @@ export type OnDeleteBoardSubscription = {
             id: string,
             filename: string,
             filetype: string,
+            fileSize: number,
             path: string,
             createdAt: string,
             updatedAt: string,
@@ -7465,60 +7495,6 @@ export type OnDeleteBoardSubscription = {
     } | null,
     createdAt: string,
     updatedAt: string,
-  } | null,
-};
-
-export type OnCreateAttachmentSubscriptionVariables = {
-  filter?: ModelSubscriptionAttachmentFilterInput | null,
-};
-
-export type OnCreateAttachmentSubscription = {
-  onCreateAttachment?:  {
-    __typename: "Attachment",
-    id: string,
-    filename: string,
-    filetype: string,
-    path: string,
-    createdAt: string,
-    updatedAt: string,
-    boardItemAttachmentsId?: string | null,
-    author?: string | null,
-  } | null,
-};
-
-export type OnUpdateAttachmentSubscriptionVariables = {
-  filter?: ModelSubscriptionAttachmentFilterInput | null,
-};
-
-export type OnUpdateAttachmentSubscription = {
-  onUpdateAttachment?:  {
-    __typename: "Attachment",
-    id: string,
-    filename: string,
-    filetype: string,
-    path: string,
-    createdAt: string,
-    updatedAt: string,
-    boardItemAttachmentsId?: string | null,
-    author?: string | null,
-  } | null,
-};
-
-export type OnDeleteAttachmentSubscriptionVariables = {
-  filter?: ModelSubscriptionAttachmentFilterInput | null,
-};
-
-export type OnDeleteAttachmentSubscription = {
-  onDeleteAttachment?:  {
-    __typename: "Attachment",
-    id: string,
-    filename: string,
-    filetype: string,
-    path: string,
-    createdAt: string,
-    updatedAt: string,
-    boardItemAttachmentsId?: string | null,
-    author?: string | null,
   } | null,
 };
 
@@ -7723,6 +7699,7 @@ export type OnCreateBoardItemSubscription = {
         id: string,
         filename: string,
         filetype: string,
+        fileSize: number,
         path: string,
         createdAt: string,
         updatedAt: string,
@@ -8000,6 +7977,7 @@ export type OnUpdateBoardItemSubscription = {
         id: string,
         filename: string,
         filetype: string,
+        fileSize: number,
         path: string,
         createdAt: string,
         updatedAt: string,
@@ -8277,6 +8255,7 @@ export type OnDeleteBoardItemSubscription = {
         id: string,
         filename: string,
         filetype: string,
+        fileSize: number,
         path: string,
         createdAt: string,
         updatedAt: string,
@@ -8350,6 +8329,63 @@ export type OnDeleteBoardItemSubscription = {
     createdAt: string,
     updatedAt: string,
     boardItemCategoryId?: string | null,
+  } | null,
+};
+
+export type OnCreateAttachmentSubscriptionVariables = {
+  filter?: ModelSubscriptionAttachmentFilterInput | null,
+};
+
+export type OnCreateAttachmentSubscription = {
+  onCreateAttachment?:  {
+    __typename: "Attachment",
+    id: string,
+    filename: string,
+    filetype: string,
+    fileSize: number,
+    path: string,
+    createdAt: string,
+    updatedAt: string,
+    boardItemAttachmentsId?: string | null,
+    author?: string | null,
+  } | null,
+};
+
+export type OnUpdateAttachmentSubscriptionVariables = {
+  filter?: ModelSubscriptionAttachmentFilterInput | null,
+};
+
+export type OnUpdateAttachmentSubscription = {
+  onUpdateAttachment?:  {
+    __typename: "Attachment",
+    id: string,
+    filename: string,
+    filetype: string,
+    fileSize: number,
+    path: string,
+    createdAt: string,
+    updatedAt: string,
+    boardItemAttachmentsId?: string | null,
+    author?: string | null,
+  } | null,
+};
+
+export type OnDeleteAttachmentSubscriptionVariables = {
+  filter?: ModelSubscriptionAttachmentFilterInput | null,
+};
+
+export type OnDeleteAttachmentSubscription = {
+  onDeleteAttachment?:  {
+    __typename: "Attachment",
+    id: string,
+    filename: string,
+    filetype: string,
+    fileSize: number,
+    path: string,
+    createdAt: string,
+    updatedAt: string,
+    boardItemAttachmentsId?: string | null,
+    author?: string | null,
   } | null,
 };
 
@@ -8477,6 +8513,7 @@ export type OnCreateBoardItemCommentSubscription = {
           id: string,
           filename: string,
           filetype: string,
+          fileSize: number,
           path: string,
           createdAt: string,
           updatedAt: string,
@@ -8653,6 +8690,7 @@ export type OnUpdateBoardItemCommentSubscription = {
           id: string,
           filename: string,
           filetype: string,
+          fileSize: number,
           path: string,
           createdAt: string,
           updatedAt: string,
@@ -8829,6 +8867,7 @@ export type OnDeleteBoardItemCommentSubscription = {
           id: string,
           filename: string,
           filetype: string,
+          fileSize: number,
           path: string,
           createdAt: string,
           updatedAt: string,

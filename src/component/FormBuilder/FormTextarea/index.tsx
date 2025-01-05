@@ -5,9 +5,9 @@ import { LabelOnLeft } from './variant/LabelOnLeft';
 export const FormTextarea = (props: TFormFieldProps) => {
   const {variant} = props;
   switch (variant){
-  case FormVariant.MUIDefault:
-    return ( <MUIDefault {...props} /> );
-  case FormVariant.LabelOnLeft:
-    return ( <LabelOnLeft {...props} /> );
+    case FormVariant.MUIDefault:
+      return ( <MUIDefault {...props} /> );
+    case FormVariant.LabelOnLeft:
+      return ( <LabelOnLeft {...props} /> );
   }
 };

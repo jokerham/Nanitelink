@@ -1,0 +1,16 @@
+{
+  "lambdaLayers": [],
+  "permissions": {
+    "api": {
+      "nanitelink": [
+        "Query"
+      ]
+    },
+    "storage": {
+      "profileImages": [
+        "read",
+        "delete"
+      ]
+    }
+  }
+}

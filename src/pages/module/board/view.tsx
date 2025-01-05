@@ -6,10 +6,11 @@ import { FlexRowBox } from 'component/CustomMaterialUI';
 import { IoSearch } from 'react-icons/io5';
 import { FaRegPenToSquare } from 'react-icons/fa6';
 import { useNavigate } from 'react-router-dom';
-import { getUserAttributes } from 'function/amplify/auth';
+import { getUserAttributes, isAdminUser } from 'function/amplify/auth';
 import { toLocalDate } from 'function/amplify/awsDate';
 import { listBoardItems } from 'function/amplify/restApiQueries';
 import { Link } from 'react-router-dom';
+import { showToast } from 'function/showToast';
 
 const selectableValues = [
   {name: 'Subject', value: 'subject'},
@@ -23,6 +24,7 @@ const View = (props: {id?: string}) => {
   const { id } = props;
   const [board, setBoard] = useState<Board | undefined>(undefined);
   const [page, setPage] = useState(1);
+  const [isAdmin, setIsAdmin] = useState(false);
   const [rowsPerPage, setRowsPerPage] = useState(25);
   const [searchOption, setSearchOption] = useState(selectableValues[0].value);
   const [searchText, setSearchText] = useState('');
@@ -38,13 +40,26 @@ const View = (props: {id?: string}) => {
     items: BoardItem[]
   }
 
+  // Confirm if user is admin
+  useEffect(() => {
+    const confirmAdmin = async() => {
+      const result = await isAdminUser();
+      setIsAdmin(result);
+    };
+    confirmAdmin();
+  }, []);
+
   // Fetch information of board
   useEffect(() => {
     if (id) {
       const retrieveData = async (id: string) => {
         try {
           const result = await GraphqlQueryGetBoardByTitle(id);
-          setBoard(result as Board | undefined);
+          const board = result as Board;
+          setBoard(board);
+          if (!board) {
+            setLoading(false);
+          }
         } catch (error) {
           //console.log(error);
         }
@@ -84,14 +99,15 @@ const View = (props: {id?: string}) => {
           setBoardItems(result.items);
           setLoading(false);
         } catch (error) {
-          console.error(error);
+          showToast(JSON.stringify(error), 'error');
+          setLoading(false);
         }
       };
 
       fetchBoardItems();
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [board, page, rowsPerPage]);
-
 
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
@@ -104,6 +120,10 @@ const View = (props: {id?: string}) => {
 
   const handleOnClickSearch = () => {
     //
+  };
+
+  const handleOnClickConfigure = () => {
+    navigate(`/board/add/${id}`);
   };
 
   const handleOnClickWrite = () => {
@@ -128,11 +148,11 @@ const View = (props: {id?: string}) => {
         <Table size="small">
           <TableHead>
             <TableRow>
-              <TableCell align="center">No</TableCell>
-              <TableCell>Title</TableCell>
-              <TableCell>Author</TableCell>
-              <TableCell align="center">Date</TableCell>
-              <TableCell align="center">Views</TableCell>
+              <TableCell align="center" sx={{width: '5%'}}>No</TableCell>
+              <TableCell sx={{width: '60%'}}>Title</TableCell>
+              <TableCell sx={{width: '20%'}}>Author</TableCell>
+              <TableCell align="center" sx={{width: '10%'}}>Date</TableCell>
+              <TableCell align="center" sx={{width: '5%'}}>Views</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -152,9 +172,22 @@ const View = (props: {id?: string}) => {
                 <TableCell align="center">{boardItem.views}</TableCell>
               </TableRow>
             ))}
-            {!loading && boardItems.length == 0 && (
+            {!loading && board && boardItems.length == 0 && (
               <TableRow sx={{ height: '150px' }}>
-                <TableCell colSpan={5} align="center">No Articles</TableCell>
+                <TableCell colSpan={5} align="center">
+                  <Typography variant='h5'>
+                    No Articles
+                  </Typography>
+                </TableCell>
+              </TableRow>
+            )}
+            {!loading && !board && (
+              <TableRow sx={{ height: '150px' }}>
+                <TableCell colSpan={5} align="center">
+                  <Typography variant='h5'>
+                    Board does not exists
+                  </Typography>
+                </TableCell>
               </TableRow>
             )}
           </TableBody>
@@ -199,16 +232,29 @@ const View = (props: {id?: string}) => {
           <Button
             variant='contained'
             startIcon={<IoSearch/>}
+            onClick={handleOnClickSearch}
             sx={{width: '100%', height: '100%'}} >
             Search
           </Button>
-          <Button
-            variant="contained"
-            startIcon={<FaRegPenToSquare />}
-            onClick={handleOnClickWrite}
-            sx={{width: '100%', height: '100%'}} >
-            Write
-          </Button>
+          {
+            isAdmin &&
+            <Button
+              variant="contained"
+              startIcon={<FaRegPenToSquare />}
+              onClick={handleOnClickConfigure}
+              sx={{width: '100%', height: '100%'}} >
+              Configure
+            </Button>
+          }
+          { board && 
+            <Button
+              variant="contained"
+              startIcon={<FaRegPenToSquare />}
+              onClick={handleOnClickWrite}
+              sx={{width: '100%', height: '100%'}} >
+              Write
+            </Button>
+          }
         </FlexRowBox>
       </FlexRowBox>
       <Box>

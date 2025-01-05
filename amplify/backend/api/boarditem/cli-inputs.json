@@ -1,9 +1,23 @@
 {
   "version": 1,
   "paths": {
-    "/boarditem/{id}/increment-views": {
-      "name": "/boarditem/{id}/increment-views",
+    "/boarditem/increment-views/{id}": {
+      "name": "/boarditem/increment-views/{id}",
       "lambdaFunction": "IncrementBoardItemViews",
+      "permissions": {
+        "setting": "open"
+      }
+    },
+    "/boarditem/get/{boardTitle}/{boarditemSeq}": {
+      "name": "/boarditem/get/{boardTitle}/{boarditemSeq}",
+      "lambdaFunction": "getBoardItembyBoardTitleAndBoardItemSeq",
+      "permissions": {
+        "setting": "open"
+      }
+    },
+    "/boarditem/delete/{id}": {
+      "name": "/boarditem/delete/{id}",
+      "lambdaFunction": "deleteBoardItem",
       "permissions": {
         "setting": "open"
       }

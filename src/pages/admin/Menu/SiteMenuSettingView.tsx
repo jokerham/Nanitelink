@@ -34,18 +34,18 @@ const SiteMenuSettingView = (props: SiteMenuSettingViewProps) => {
   
   function onClickHandler(action: string) {
     switch (action) {
-    case 'edit':
-      onEdit(menuNode);
-      break;
-    case 'add':
-      onAdd(menuNode);
-      break;
-    case 'delete': {
-      setOpenMessagePopup(true);
-      break;
-    }
-    case 'permission':
-      break;
+      case 'edit':
+        onEdit(menuNode);
+        break;
+      case 'add':
+        onAdd(menuNode);
+        break;
+      case 'delete': {
+        setOpenMessagePopup(true);
+        break;
+      }
+      case 'permission':
+        break;
     }
   }
 

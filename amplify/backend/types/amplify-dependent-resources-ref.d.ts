@@ -47,6 +47,20 @@ export type AmplifyDependentResourcesAttributes = {
       "Name": "string",
       "Region": "string"
     },
+    "deleteBoardItem": {
+      "Arn": "string",
+      "LambdaExecutionRole": "string",
+      "LambdaExecutionRoleArn": "string",
+      "Name": "string",
+      "Region": "string"
+    },
+    "getBoardItembyBoardTitleAndBoardItemSeq": {
+      "Arn": "string",
+      "LambdaExecutionRole": "string",
+      "LambdaExecutionRoleArn": "string",
+      "Name": "string",
+      "Region": "string"
+    },
     "getUserAttributes": {
       "Arn": "string",
       "LambdaExecutionRole": "string",
@@ -60,6 +74,9 @@ export type AmplifyDependentResourcesAttributes = {
       "LambdaExecutionRoleArn": "string",
       "Name": "string",
       "Region": "string"
+    },
+    "nanitelinkSharedLayer": {
+      "Arn": "string"
     },
     "ttlCache": {
       "Arn": "string",

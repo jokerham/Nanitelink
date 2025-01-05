@@ -48,6 +48,7 @@ exports.updateBoardItem = async (boardId, boardItemInput) => {
   try {
     console.log('Updating BoardItem:', boardItemInput.id);
 
+    // Step 1: Update the BoardItem
     const updateBoardItemPayload = {
       id: boardItemInput.id, // Existing ID
       author: boardItemInput.author || '',
@@ -65,6 +66,32 @@ exports.updateBoardItem = async (boardId, boardItemInput) => {
       mutation: updateBoardItemMutation,
       variables: { input: updateBoardItemPayload },
     });
+
+    // Step 2: Link Attachments to the BoardItem
+    if (boardItemInput.attachments && boardItemInput.attachments.length > 0) {
+      await Promise.all(
+        boardItemInput.attachments.map(async (attachmentId) => {
+          const updateAttachmentResponse = await client.mutate({
+            mutation: gql`
+              mutation UpdateAttachment($input: UpdateAttachmentInput!) {
+                updateAttachment(input: $input) {
+                  id
+                  boardItemAttachmentsId
+                }
+              }
+            `,
+            variables: {
+              input: {
+                id: attachmentId,
+                boardItemAttachmentsId: boardItemInput.id,
+              },
+            },
+          });
+
+          console.log('Updated Attachment:', updateAttachmentResponse.data.updateAttachment);
+        })
+      );
+    }
 
     console.log('Board Item Updated:', updateBoardItemResponse.data.updateBoardItem);
 

@@ -22,41 +22,41 @@ const Menu = () => {
   const handleClicked = (action: string, node: SiteMenuTreeNode | undefined, open: boolean, reload?: boolean) => {
     if (reload) setMenuReloadkey(prev => prev + 1);
     switch (action) {
-    case 'menuItem':
-      if (open) {
-        setMenuNode(node);
-        setOpenMenuSettingView(true);
-      } else {
-        setOpenMenuSettingView(false);
-      }
-      setOpenMenuDetailView(false);
-      setOpenMenuAddView(false);
-      break;
-    case 'menuItemEdit':
-      if (open) {
-        setMenuNode(node);
-        setOpenMenuAddView(false);
-        setOpenMenuDetailView(true);
-      } else {
-        setOpenMenuDetailView(false);
-      }
-      break;
-    case 'menuItemAdd':
-      if (open) {
-        if (node && isSiteMenuTreeNode(node)) {
+      case 'menuItem':
+        if (open) {
           setMenuNode(node);
+          setOpenMenuSettingView(true);
         } else {
           setOpenMenuSettingView(false);
         }
         setOpenMenuDetailView(false);
-        setOpenMenuAddView(true);
-      } else {
         setOpenMenuAddView(false);
-        setOpenMenuSettingView(false);
-      }
-      break;
-    default:
-      break;
+        break;
+      case 'menuItemEdit':
+        if (open) {
+          setMenuNode(node);
+          setOpenMenuAddView(false);
+          setOpenMenuDetailView(true);
+        } else {
+          setOpenMenuDetailView(false);
+        }
+        break;
+      case 'menuItemAdd':
+        if (open) {
+          if (node && isSiteMenuTreeNode(node)) {
+            setMenuNode(node);
+          } else {
+            setOpenMenuSettingView(false);
+          }
+          setOpenMenuDetailView(false);
+          setOpenMenuAddView(true);
+        } else {
+          setOpenMenuAddView(false);
+          setOpenMenuSettingView(false);
+        }
+        break;
+      default:
+        break;
     }
   };
 

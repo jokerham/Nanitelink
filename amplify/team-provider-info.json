@@ -40,7 +40,7 @@
         },
         "createBoardItem": {
           "deploymentBucketName": "amplify-nanitelink-dev-8f35e-deployment",
-          "s3Key": "amplify-builds/createBoardItem-363776534a467271576c-build.zip"
+          "s3Key": "amplify-builds/createBoardItem-76695568797337554849-build.zip"
         },
         "listBoardItems": {
           "deploymentBucketName": "amplify-nanitelink-dev-8f35e-deployment",
@@ -53,6 +53,18 @@
         "ttlCache": {
           "deploymentBucketName": "amplify-nanitelink-dev-8f35e-deployment",
           "s3Key": "amplify-builds/ttlCache-59363958726b4c4f586b-build.zip"
+        },
+        "getBoardItembyBoardTitleAndBoardItemSeq": {
+          "deploymentBucketName": "amplify-nanitelink-dev-8f35e-deployment",
+          "s3Key": "amplify-builds/getBoardItembyBoardTitleAndBoardItemSeq-44574e666c6e63702b6b-build.zip"
+        },
+        "nanitelinkSharedLayer": {
+          "deploymentBucketName": "amplify-nanitelink-dev-8f35e-deployment",
+          "s3Key": "amplify-builds/nanitelinkSharedLayer-LambdaLayerVersionb5142d09-build.zip"
+        },
+        "deleteBoardItem": {
+          "deploymentBucketName": "amplify-nanitelink-dev-8f35e-deployment",
+          "s3Key": "amplify-builds/deleteBoardItem-4b426f6b4434796d5356-build.zip"
         }
       }
     }

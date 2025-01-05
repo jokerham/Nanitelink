@@ -104,66 +104,66 @@ const SiteMenuDetailView = (props: SiteMenuDetailViewProps) => {
               {
                 (module?.parameters ?? []).map((item) => {
                   switch (item.inputType) {
-                  case 'select':
-                    return (
-                      <FormControl key={item.id} size='small' required variant='outlined' margin={'dense'}>
-                        <InputLabel id={item.id}>{item.label}</InputLabel>
-                        <Field
-                          as={Select}
-                          labelId={item.id}
-                          id={item.id}
-                          name={item.id}
-                          value={item.defaultValue}
-                          onChange={(e: SelectChangeEvent) => setFieldValue(item.id, e.target.value)}
-                          label={item.label}
-                        >
-                          {
-                            item.optionValues?.map(option => {
-                              return <MenuItem key={option.value} value={option.value}>{option.label}</MenuItem>;
-                            })
-                          }
-                        </Field>
-                      </FormControl>
-                    );
-                  case 'text':
-                    return (
-                      <FormControl key={item.id} size='small' required variant='outlined' margin={'dense'}>
-                        <Field
-                          as={TextField}
-                          id={item.id}
-                          name={item.id}
-                          label={item.label}
-                          size="small"
-                          value={item.defaultValue}
-                          onChange={(e: SelectChangeEvent) => setFieldValue(item.id, e.target.value)}
-                        />
-                      </FormControl>
-                    );
-                  case 'radio':
-                    return (
-                      <FormControl key={item.id} size='small' required variant='outlined' margin={'dense'}>
-                        <FormLabel>{item.label}</FormLabel>
-                        <Field 
-                          as={RadioGroup} 
-                          defaultValue={item.defaultValue}id={item.id} 
-                          name={item.id}
-                          onChange={(e: SelectChangeEvent) => setFieldValue(item.id, e.target.value)}>
-                          {
-                            item.optionValues?.map(option => {
-                              return (
-                                <FormControlLabel
-                                  key={option.value}
-                                  value={option.value}
-                                  control={<Radio />}
-                                  label={option.label}/>
-                              );
-                            })
-                          }
-                        </Field>
-                      </FormControl>
-                    );
-                  case 'textarea':
-                    break;
+                    case 'select':
+                      return (
+                        <FormControl key={item.id} size='small' required variant='outlined' margin={'dense'}>
+                          <InputLabel id={item.id}>{item.label}</InputLabel>
+                          <Field
+                            as={Select}
+                            labelId={item.id}
+                            id={item.id}
+                            name={item.id}
+                            value={item.defaultValue}
+                            onChange={(e: SelectChangeEvent) => setFieldValue(item.id, e.target.value)}
+                            label={item.label}
+                          >
+                            {
+                              item.optionValues?.map(option => {
+                                return <MenuItem key={option.value} value={option.value}>{option.label}</MenuItem>;
+                              })
+                            }
+                          </Field>
+                        </FormControl>
+                      );
+                    case 'text':
+                      return (
+                        <FormControl key={item.id} size='small' required variant='outlined' margin={'dense'}>
+                          <Field
+                            as={TextField}
+                            id={item.id}
+                            name={item.id}
+                            label={item.label}
+                            size="small"
+                            value={item.defaultValue}
+                            onChange={(e: SelectChangeEvent) => setFieldValue(item.id, e.target.value)}
+                          />
+                        </FormControl>
+                      );
+                    case 'radio':
+                      return (
+                        <FormControl key={item.id} size='small' required variant='outlined' margin={'dense'}>
+                          <FormLabel>{item.label}</FormLabel>
+                          <Field 
+                            as={RadioGroup} 
+                            defaultValue={item.defaultValue}id={item.id} 
+                            name={item.id}
+                            onChange={(e: SelectChangeEvent) => setFieldValue(item.id, e.target.value)}>
+                            {
+                              item.optionValues?.map(option => {
+                                return (
+                                  <FormControlLabel
+                                    key={option.value}
+                                    value={option.value}
+                                    control={<Radio />}
+                                    label={option.label}/>
+                                );
+                              })
+                            }
+                          </Field>
+                        </FormControl>
+                      );
+                    case 'textarea':
+                      break;
                   }
                 })
               }

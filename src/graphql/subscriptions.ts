@@ -1112,6 +1112,7 @@ export const onCreateBoard = /* GraphQL */ `subscription OnCreateBoard($filter: 
             id
             filename
             filetype
+            fileSize
             path
             createdAt
             updatedAt
@@ -1285,6 +1286,7 @@ export const onUpdateBoard = /* GraphQL */ `subscription OnUpdateBoard($filter: 
             id
             filename
             filetype
+            fileSize
             path
             createdAt
             updatedAt
@@ -1458,6 +1460,7 @@ export const onDeleteBoard = /* GraphQL */ `subscription OnDeleteBoard($filter: 
             id
             filename
             filetype
+            fileSize
             path
             createdAt
             updatedAt
@@ -1501,63 +1504,6 @@ export const onDeleteBoard = /* GraphQL */ `subscription OnDeleteBoard($filter: 
 ` as GeneratedSubscription<
   APITypes.OnDeleteBoardSubscriptionVariables,
   APITypes.OnDeleteBoardSubscription
->;
-export const onCreateAttachment = /* GraphQL */ `subscription OnCreateAttachment(
-  $filter: ModelSubscriptionAttachmentFilterInput
-) {
-  onCreateAttachment(filter: $filter) {
-    id
-    filename
-    filetype
-    path
-    createdAt
-    updatedAt
-    boardItemAttachmentsId
-    author
-    __typename
-  }
-}
-` as GeneratedSubscription<
-  APITypes.OnCreateAttachmentSubscriptionVariables,
-  APITypes.OnCreateAttachmentSubscription
->;
-export const onUpdateAttachment = /* GraphQL */ `subscription OnUpdateAttachment(
-  $filter: ModelSubscriptionAttachmentFilterInput
-) {
-  onUpdateAttachment(filter: $filter) {
-    id
-    filename
-    filetype
-    path
-    createdAt
-    updatedAt
-    boardItemAttachmentsId
-    author
-    __typename
-  }
-}
-` as GeneratedSubscription<
-  APITypes.OnUpdateAttachmentSubscriptionVariables,
-  APITypes.OnUpdateAttachmentSubscription
->;
-export const onDeleteAttachment = /* GraphQL */ `subscription OnDeleteAttachment(
-  $filter: ModelSubscriptionAttachmentFilterInput
-) {
-  onDeleteAttachment(filter: $filter) {
-    id
-    filename
-    filetype
-    path
-    createdAt
-    updatedAt
-    boardItemAttachmentsId
-    author
-    __typename
-  }
-}
-` as GeneratedSubscription<
-  APITypes.OnDeleteAttachmentSubscriptionVariables,
-  APITypes.OnDeleteAttachmentSubscription
 >;
 export const onCreateBoardItem = /* GraphQL */ `subscription OnCreateBoardItem($filter: ModelSubscriptionBoardItemFilterInput) {
   onCreateBoardItem(filter: $filter) {
@@ -1753,6 +1699,7 @@ export const onCreateBoardItem = /* GraphQL */ `subscription OnCreateBoardItem($
         id
         filename
         filetype
+        fileSize
         path
         createdAt
         updatedAt
@@ -2029,6 +1976,7 @@ export const onUpdateBoardItem = /* GraphQL */ `subscription OnUpdateBoardItem($
         id
         filename
         filetype
+        fileSize
         path
         createdAt
         updatedAt
@@ -2305,6 +2253,7 @@ export const onDeleteBoardItem = /* GraphQL */ `subscription OnDeleteBoardItem($
         id
         filename
         filetype
+        fileSize
         path
         createdAt
         updatedAt
@@ -2386,6 +2335,66 @@ export const onDeleteBoardItem = /* GraphQL */ `subscription OnDeleteBoardItem($
 ` as GeneratedSubscription<
   APITypes.OnDeleteBoardItemSubscriptionVariables,
   APITypes.OnDeleteBoardItemSubscription
+>;
+export const onCreateAttachment = /* GraphQL */ `subscription OnCreateAttachment(
+  $filter: ModelSubscriptionAttachmentFilterInput
+) {
+  onCreateAttachment(filter: $filter) {
+    id
+    filename
+    filetype
+    fileSize
+    path
+    createdAt
+    updatedAt
+    boardItemAttachmentsId
+    author
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnCreateAttachmentSubscriptionVariables,
+  APITypes.OnCreateAttachmentSubscription
+>;
+export const onUpdateAttachment = /* GraphQL */ `subscription OnUpdateAttachment(
+  $filter: ModelSubscriptionAttachmentFilterInput
+) {
+  onUpdateAttachment(filter: $filter) {
+    id
+    filename
+    filetype
+    fileSize
+    path
+    createdAt
+    updatedAt
+    boardItemAttachmentsId
+    author
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdateAttachmentSubscriptionVariables,
+  APITypes.OnUpdateAttachmentSubscription
+>;
+export const onDeleteAttachment = /* GraphQL */ `subscription OnDeleteAttachment(
+  $filter: ModelSubscriptionAttachmentFilterInput
+) {
+  onDeleteAttachment(filter: $filter) {
+    id
+    filename
+    filetype
+    fileSize
+    path
+    createdAt
+    updatedAt
+    boardItemAttachmentsId
+    author
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnDeleteAttachmentSubscriptionVariables,
+  APITypes.OnDeleteAttachmentSubscription
 >;
 export const onCreateBoardItemComment = /* GraphQL */ `subscription OnCreateBoardItemComment(
   $filter: ModelSubscriptionBoardItemCommentFilterInput
@@ -2505,6 +2514,7 @@ export const onCreateBoardItemComment = /* GraphQL */ `subscription OnCreateBoar
           id
           filename
           filetype
+          fileSize
           path
           createdAt
           updatedAt
@@ -2682,6 +2692,7 @@ export const onUpdateBoardItemComment = /* GraphQL */ `subscription OnUpdateBoar
           id
           filename
           filetype
+          fileSize
           path
           createdAt
           updatedAt
@@ -2859,6 +2870,7 @@ export const onDeleteBoardItemComment = /* GraphQL */ `subscription OnDeleteBoar
           id
           filename
           filetype
+          fileSize
           path
           createdAt
           updatedAt

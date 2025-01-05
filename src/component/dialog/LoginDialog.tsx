@@ -49,12 +49,12 @@ export default function LoginDialog(props: {open: boolean, handleClose: () => vo
       });
 
       switch(nextStep.signInStep) {
-      case 'CONFIRM_SIGN_UP':
-        setUsername(values.username);
-        setOpenConfirmSignUpDialog(true);
-        break;
-      case 'DONE':
-        props.handleClose();
+        case 'CONFIRM_SIGN_UP':
+          setUsername(values.username);
+          setOpenConfirmSignUpDialog(true);
+          break;
+        case 'DONE':
+          props.handleClose();
       }
     } catch(err) {
       if (err instanceof Error) {

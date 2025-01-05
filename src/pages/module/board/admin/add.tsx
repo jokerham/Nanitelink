@@ -66,7 +66,7 @@ const fields: TFormField[] = [
   { section: 2, type: FieldType.Select, name: 'listSort', label: 'Sorting Type', required: true, options: listSortOption },
   { section: 2, type: FieldType.Select, name: 'sortOrder', label: 'Sort Order', required: true, options: sortOrderOption },
   { section: 2, type: FieldType.Checkbox, name: 'excludeNoticeFlag', label: 'Exclude Notices', required: true },
-  { section: 3, type: FieldType.Custom, name: 'categories', label: 'Category', required: true },
+  //{ section: 3, type: FieldType.Custom, name: 'categories', label: 'Category', required: true },
 ];
 
 const initialValues = {

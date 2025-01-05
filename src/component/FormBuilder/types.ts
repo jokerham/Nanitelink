@@ -86,9 +86,11 @@ export interface ISelectField extends IBaseField {
   };
 }
 
+// File field type
 export interface IFileField extends IBaseField {
   type: FieldType.File;
   options: {
+    contentId: string;
     multiple: boolean;
   }
 }
@@ -128,4 +130,12 @@ export type TFormFieldProps = {
   variant: FormVariant
   formik: TFormik
   field: TFormField
+}
+export interface IFileValue {
+  filename: string,
+  fileSize: number,
+  filetype: string,
+  path: string,
+  signedUrl?: string,
+  file: Blob;
 }

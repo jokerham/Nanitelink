@@ -144,18 +144,6 @@ type Board @model @auth(rules: [
   boardItems: [BoardItem] @hasMany(indexName: "byBoard", fields: ["id"])
 }
 
-type Attachment @model @auth(rules: [
-  { allow: groups, groups: ["Admin"], operations: [read, create, update, delete] },
-  { allow: private, operations: [read, create] },
-  { allow: owner, operations: [update, delete], ownerField: "author" },
-  { allow: public, operations: [read] }
-]) {
-  id: ID!
-  filename: String!
-  filetype: String!
-  path: String!
-}
-
 type BoardItem @model @auth(rules: [
   { allow: groups, groups: ["Admin"], operations: [read, create, update, delete] },
   { allow: private, operations: [read, create] },
@@ -175,6 +163,19 @@ type BoardItem @model @auth(rules: [
   isNotice: Boolean
   views: Int
   BoardItemComments: [BoardItemComment] @hasMany
+}
+
+type Attachment @model @auth(rules: [
+  { allow: groups, groups: ["Admin"], operations: [read, create, update, delete] },
+  { allow: private, operations: [read, create] },
+  { allow: owner, operations: [update, delete], ownerField: "author" },
+  { allow: public, operations: [read] }
+]) {
+  id: ID!
+  filename: String!
+  filetype: String!
+  fileSize: Int!
+  path: String!
 }
 
 type BoardItemComment @model @auth(rules: [

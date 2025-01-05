@@ -16,13 +16,13 @@ const Header = () => {
 
   Hub.listen<'auth'>('auth', async ({ payload }) => {
     switch(payload.event) {
-    case 'signedIn': {
-      getUser();
-      break;
-    }
-    default:
-      setUser(undefined);
-      break;
+      case 'signedIn': {
+        getUser();
+        break;
+      }
+      default:
+        setUser(undefined);
+        break;
     }
   });
 

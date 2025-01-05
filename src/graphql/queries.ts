@@ -724,6 +724,7 @@ export const getBoard = /* GraphQL */ `query GetBoard($id: ID!) {
             id
             filename
             filetype
+            fileSize
             path
             createdAt
             updatedAt
@@ -989,48 +990,6 @@ export const listBoardsByTitle = /* GraphQL */ `query ListBoardsByTitle(
   APITypes.ListBoardsByTitleQueryVariables,
   APITypes.ListBoardsByTitleQuery
 >;
-export const getAttachment = /* GraphQL */ `query GetAttachment($id: ID!) {
-  getAttachment(id: $id) {
-    id
-    filename
-    filetype
-    path
-    createdAt
-    updatedAt
-    boardItemAttachmentsId
-    author
-    __typename
-  }
-}
-` as GeneratedQuery<
-  APITypes.GetAttachmentQueryVariables,
-  APITypes.GetAttachmentQuery
->;
-export const listAttachments = /* GraphQL */ `query ListAttachments(
-  $filter: ModelAttachmentFilterInput
-  $limit: Int
-  $nextToken: String
-) {
-  listAttachments(filter: $filter, limit: $limit, nextToken: $nextToken) {
-    items {
-      id
-      filename
-      filetype
-      path
-      createdAt
-      updatedAt
-      boardItemAttachmentsId
-      author
-      __typename
-    }
-    nextToken
-    __typename
-  }
-}
-` as GeneratedQuery<
-  APITypes.ListAttachmentsQueryVariables,
-  APITypes.ListAttachmentsQuery
->;
 export const getBoardItem = /* GraphQL */ `query GetBoardItem($id: ID!) {
   getBoardItem(id: $id) {
     id
@@ -1225,6 +1184,7 @@ export const getBoardItem = /* GraphQL */ `query GetBoardItem($id: ID!) {
         id
         filename
         filetype
+        fileSize
         path
         createdAt
         updatedAt
@@ -1424,6 +1384,7 @@ export const listBoardItems = /* GraphQL */ `query ListBoardItems(
           id
           filename
           filetype
+          fileSize
           path
           createdAt
           updatedAt
@@ -1606,6 +1567,7 @@ export const listBoardItemsByBoard = /* GraphQL */ `query ListBoardItemsByBoard(
           id
           filename
           filetype
+          fileSize
           path
           createdAt
           updatedAt
@@ -1660,6 +1622,50 @@ export const listBoardItemsByBoard = /* GraphQL */ `query ListBoardItemsByBoard(
 ` as GeneratedQuery<
   APITypes.ListBoardItemsByBoardQueryVariables,
   APITypes.ListBoardItemsByBoardQuery
+>;
+export const getAttachment = /* GraphQL */ `query GetAttachment($id: ID!) {
+  getAttachment(id: $id) {
+    id
+    filename
+    filetype
+    fileSize
+    path
+    createdAt
+    updatedAt
+    boardItemAttachmentsId
+    author
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.GetAttachmentQueryVariables,
+  APITypes.GetAttachmentQuery
+>;
+export const listAttachments = /* GraphQL */ `query ListAttachments(
+  $filter: ModelAttachmentFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listAttachments(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      filename
+      filetype
+      fileSize
+      path
+      createdAt
+      updatedAt
+      boardItemAttachmentsId
+      author
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListAttachmentsQueryVariables,
+  APITypes.ListAttachmentsQuery
 >;
 export const getBoardItemComment = /* GraphQL */ `query GetBoardItemComment($id: ID!) {
   getBoardItemComment(id: $id) {
@@ -1777,6 +1783,7 @@ export const getBoardItemComment = /* GraphQL */ `query GetBoardItemComment($id:
           id
           filename
           filetype
+          fileSize
           path
           createdAt
           updatedAt
@@ -1908,6 +1915,7 @@ export const listBoardItemComments = /* GraphQL */ `query ListBoardItemComments(
             id
             filename
             filetype
+            fileSize
             path
             createdAt
             updatedAt
@@ -2037,6 +2045,7 @@ export const listBoardItemCommentsByBoard = /* GraphQL */ `query ListBoardItemCo
             id
             filename
             filetype
+            fileSize
             path
             createdAt
             updatedAt
